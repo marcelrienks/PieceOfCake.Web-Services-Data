@@ -1,0 +1,65 @@
+# Scrummage #
+This is my Scrum Management Tools suite.  
+This is designed to help manage a development team using the Scrum framework.
+Tools include Administring users, teams and sprints, as well as Product Backlog planning, Sprint Backlog planning, Sprint Execution and review meetings.
+
+## Development ##
+* Test and decide on implementation of Async repository calls
+* Create Management of Members
+* Create Management of Teams
+* Create Management of Statuses
+* Create Management of Products
+* Create Management of Sprints
+* Create Authentication layer
+
+### ToDo: ###
+* Testing
+* update Members controller (link to Avatar controller)
+* create Unit tests for Members controller (link to Avatar controller)
+* this line in Membercontroller was auto generated, can it be used to link member to avatar
+* investigate creating unit tests for the repository, by creating a fake contaxt/dbset class, which can be dependancy injected in?
+
+## Resources ##
+### Roles: ###
+This allows administrators to have basic CRUDL functionality of user/member Roles
+
+### Members: ###
+This allows administrators to have basic CRUDL functionality of Members
+
+### Teams: ###
+This allows administrators and scrum masters to have basic CRUDL functionality of Teams
+
+### Statuses: ###
+This allows administrators to have basic CRUDL functionality of Statuses
+
+### Products: ###
+This allows administrators and product owners to have basic CRUDL functionality of Products
+
+### Sprints: ###
+This allows administrators and product owners to have basic CRUDL functionality of Sprints
+
+## Notes: ##
+### Migration ###
+The migration commands to run from the 'Package Manager Console'  
+
+**Enable-Migrations**  
+This will enable migrations to be used  
+
+**Add-Migration**  
+This will scaffold the next migration based on changes you have made to your model.  
+Or this will create the initial migration if run for the first time.  
+
+**Update-Database**  
+This will apply any pending changes to and or create the database.  
+
+## Errors: ##
+### cannot attach the file as database  ###
+Ensure the Data Connection is deleted in 'Server Explorer' in VS2012
+Ensure Database is deleted in all versions of localdb from 'SQL Server Object Explorer' in VS2012
+Ensure the database is not attached in SqlExpress
+
+If this does not solve the issue, open the "Developer Command Propmpt for VisualStudio" under your start/programs menu.
+Run the following commands:
+
+sqllocaldb.exe stop v11.0
+sqllocaldb.exe delete v11.0
