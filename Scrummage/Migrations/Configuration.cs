@@ -51,7 +51,7 @@ namespace Scrummage.Migrations {
 					ClearPassword = "E3mc2rd!",
 					Email = "marcelrienks@gmail.com",
 					Roles = context.Roles.Where(role => role.Title == "Administrator").ToList(),
-					Avatar = new Avatar() {
+					Avatar = new Avatar {
 						Image = File.ReadAllBytes(AppDomain.CurrentDomain.BaseDirectory.Replace(@"bin\", @"Images\default_avatar.jpg"))
 					}
 				}

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Scrummage.Models;
 
-namespace Scrummage.Tests.Factories {
+namespace Scrummage.Test.Factories {
 	public static class RoleFactory {
 
 		/// <summary>

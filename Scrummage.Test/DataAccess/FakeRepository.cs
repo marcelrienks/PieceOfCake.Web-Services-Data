@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Scrummage.Interfaces;
-using Scrummage.Libraries;
 using Scrummage.Models;
 
-namespace Scrummage.Tests.DataAccess {
+namespace Scrummage.Test.DataAccess {
 	public class FakeRepository<TModel> : IRepository<TModel> where TModel : class {
 
 		#region Properties
-		private bool Disposed;
+		private bool _disposed;
 
 		public List<TModel> ModelList { get; set; }
 		public TModel Model { get; set; }
@@ -46,7 +45,7 @@ namespace Scrummage.Tests.DataAccess {
 				return null;
 			}
 
-			var result = new object();
+			object result;
 			//Based on type of TEntity, convert to specified type and find entry using id (All this logic is required to use the Find() function with id field)
 			if (typeof(TModel) == typeof(Role)) {
 				result = ModelList.Cast<Role>().ToList().Find(role => role.RoleId == id);
@@ -87,12 +86,12 @@ namespace Scrummage.Tests.DataAccess {
 
 		#region IDisposable Members
 		protected virtual void Dispose(bool disposing) {
-			if (!Disposed) {
+			if (!_disposed) {
 				if (disposing) {
 					//There is nothing to dispose of in the fake repository
 				}
 			}
-			Disposed = true;
+			_disposed = true;
 		}
 
 		public void Dispose() {

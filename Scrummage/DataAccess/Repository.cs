@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using Scrummage.Interfaces;
 
 //todo: investigate creating unit tests for the repository, by creating a fake contaxt/dbset class, which can be dependancy injected in?
@@ -10,30 +9,30 @@ namespace Scrummage.DataAccess {
 	public class Repository<TModel> : IRepository<TModel> where TModel : class {
 
 		#region Properties
-		private readonly Context Context;
-		private bool Disposed;
+		private readonly Context _context;
+		private bool _disposed;
 		#endregion
 
 		public Repository(Context context) {
-			Context = context;
+			_context = context;
 		}
 
 		#region Members
 		/// <summary>
 		/// This Gets all entries of type TEntity.
 		/// </summary>
-		/// <returns>List<TEntity></returns>
+		/// <returns>List<TEntity/></returns>
 		public List<TModel> All() {
-			return Context.Set<TModel>().ToList();
+			return _context.Set<TModel>().ToList();
 		}
 
 		/// <summary>
 		/// This executes a where claus, based on a function passed in
 		/// </summary>
 		/// <param name="query"></param>
-		/// <returns>List<TEntity></returns>
+		/// <returns>List<TEntity/></returns>
 		public List<TModel> Where(Func<TModel, bool> query) {
-			return Context.Set<TModel>().Where(query).ToList();
+			return _context.Set<TModel>().Where(query).ToList();
 		}
 
 		/// <summary>
@@ -41,9 +40,9 @@ namespace Scrummage.DataAccess {
 		/// </summary>
 		/// <typeparam name="TKey"></typeparam>
 		/// <param name="orderBy"></param>
-		/// <returns>List<TEntity></returns>
+		/// <returns>List<TEntity/></returns>
 		public List<TModel> OrderBy<TKey>(Func<TModel, TKey> orderBy) {
-			return Context.Set<TModel>().OrderBy(orderBy).ToList();
+			return _context.Set<TModel>().OrderBy(orderBy).ToList();
 		}
 
 		/// <summary>
@@ -52,9 +51,9 @@ namespace Scrummage.DataAccess {
 		/// <typeparam name="TKey"></typeparam>
 		/// <param name="query"></param>
 		/// <param name="orderBy"></param>
-		/// <returns>List<TEntity></returns>
+		/// <returns>List<TEntity/></returns>
 		public List<TModel> WhereOrderBy<TKey>(Func<TModel, bool> query, Func<TModel, TKey> orderBy) {
-			return Context.Set<TModel>().Where(query).OrderBy(orderBy).ToList();
+			return _context.Set<TModel>().Where(query).OrderBy(orderBy).ToList();
 		}
 
 		/// <summary>
@@ -63,7 +62,7 @@ namespace Scrummage.DataAccess {
 		/// <param name="id"></param>
 		/// <returns>TEntity</returns>
 		public TModel Find(int id) {
-			return Context.Set<TModel>().Find(id);
+			return _context.Set<TModel>().Find(id);
 		}
 
 		/// <summary>
@@ -71,7 +70,7 @@ namespace Scrummage.DataAccess {
 		/// </summary>
 		/// <param name="entity"></param>
 		public void Create(TModel entity) {
-			Context.Set<TModel>().Add(entity);
+			_context.Set<TModel>().Add(entity);
 		}
 
 		/// <summary>
@@ -79,7 +78,7 @@ namespace Scrummage.DataAccess {
 		/// </summary>
 		/// <param name="entity"></param>
 		public void Update(TModel entity) {
-			Context.Entry(entity).State = EntityState.Modified;
+			_context.Entry(entity).State = EntityState.Modified;
 		}
 
 		/// <summary>
@@ -87,15 +86,15 @@ namespace Scrummage.DataAccess {
 		/// </summary>
 		/// <param name="id"></param>
 		public void Delete(int id) {
-			var entity = Context.Set<TModel>().Find(id);
-			Context.Set<TModel>().Remove(entity);
+			var entity = _context.Set<TModel>().Find(id);
+			_context.Set<TModel>().Remove(entity);
 		}
 
 		/// <summary>
 		/// This saves all changes made to an entry of type TEntity (created, updated, or deleted)
 		/// </summary>
 		public void Save() {
-			Context.SaveChanges();
+			_context.SaveChanges();
 		}
 
 		//Async Example
@@ -107,12 +106,12 @@ namespace Scrummage.DataAccess {
 
 		#region IDisposable Members
 		protected virtual void Dispose(bool disposing) {
-			if (!Disposed) {
+			if (!_disposed) {
 				if (disposing) {
-					Context.Dispose();
+					_context.Dispose();
 				}
 			}
-			Disposed = true;
+			_disposed = true;
 		}
 
 		public void Dispose() {

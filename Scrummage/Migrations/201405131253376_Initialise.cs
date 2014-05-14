@@ -1,7 +1,6 @@
-namespace Scrummage.Migrations {
-	using System;
-	using System.Data.Entity.Migrations;
+using System.Data.Entity.Migrations;
 
+namespace Scrummage.Migrations {
 	public partial class Initialise : DbMigration {
 		public override void Up() {
 		}

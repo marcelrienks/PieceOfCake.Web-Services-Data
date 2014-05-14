@@ -1,7 +1,7 @@
 ﻿using Scrummage.Interfaces;
 using Scrummage.Models;
 
-namespace Scrummage.Tests.DataAccess {
+namespace Scrummage.Test.DataAccess {
 	public class FakeUnitOfWork : IUnitOfWork {
 
 		#region Properties

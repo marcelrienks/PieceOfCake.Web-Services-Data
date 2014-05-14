@@ -4,16 +4,16 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Scrummage.Controllers;
 using Scrummage.Models;
-using Scrummage.Tests.DataAccess;
-using Scrummage.Tests.Factories;
+using Scrummage.Test.DataAccess;
+using Scrummage.Test.Factories;
 
-namespace Scrummage.Tests.Controllers {
+namespace Scrummage.Test.Controllers {
 
 	[TestClass]
 	public class RoleControllerTest {
 
 		#region Properties
-		private readonly FakeUnitOfWork FakeUnitOfWork = new FakeUnitOfWork();
+		private readonly FakeUnitOfWork _fakeUnitOfWork = new FakeUnitOfWork();
 		#endregion
 
 		#region Index tests
@@ -21,9 +21,9 @@ namespace Scrummage.Tests.Controllers {
 		public void TestSuccessfulIndexGet() {
 			var testRoles = RoleFactory.CreateDefaultRoleList();
 			//'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-			((FakeRepository<Role>)FakeUnitOfWork.RoleRepository).ModelList = testRoles;
+			((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = testRoles;
 
-			var controller = new RoleController(FakeUnitOfWork);
+			var controller = new RoleController(_fakeUnitOfWork);
 			var result = controller.Index() as ViewResult;
 			Assert.IsNotNull(result);
 
@@ -37,9 +37,9 @@ namespace Scrummage.Tests.Controllers {
 		[TestMethod]
 		public void TestFailedDetailsGet() {
 			var testRoles = RoleFactory.CreateDefaultRoleList();
-			((FakeRepository<Role>)FakeUnitOfWork.RoleRepository).ModelList = testRoles;
+			((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = testRoles;
 
-			var controller = new RoleController(FakeUnitOfWork);
+			var controller = new RoleController(_fakeUnitOfWork);
 			var result = controller.Details(9);
 			Assert.IsNotNull(result);
 			Assert.IsInstanceOfType(result, typeof(HttpNotFoundResult));
@@ -48,10 +48,10 @@ namespace Scrummage.Tests.Controllers {
 		[TestMethod]
 		public void TestSuccessfulDetailsGet() {
 			var testRoles = RoleFactory.CreateDefaultRoleList();
-			((FakeRepository<Role>)FakeUnitOfWork.RoleRepository).ModelList = testRoles;
+			((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = testRoles;
 
-			var controller = new RoleController(FakeUnitOfWork);
-			var result = controller.Details(0) as ViewResult;
+			var controller = new RoleController(_fakeUnitOfWork);
+			var result = controller.Details() as ViewResult;
 			Assert.IsNotNull(result);
 
 			var role = ((Role)result.Model);
@@ -62,7 +62,7 @@ namespace Scrummage.Tests.Controllers {
 		#region Create tests
 		[TestMethod]
 		public void TestSuccessfulCreateGet() {
-			var controller = new RoleController(FakeUnitOfWork);
+			var controller = new RoleController(_fakeUnitOfWork);
 			var result = controller.Create() as ViewResult;
 			Assert.IsNotNull(result);
 
@@ -74,7 +74,7 @@ namespace Scrummage.Tests.Controllers {
 		public void TestFailedCreatePost() {
 			var testRole = RoleFactory.CreateDefaultRole();
 
-			var controller = new RoleController(FakeUnitOfWork);
+			var controller = new RoleController(_fakeUnitOfWork);
 			controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
 			var result = controller.Create(testRole) as ViewResult;
 			Assert.IsNotNull(result);
@@ -87,13 +87,13 @@ namespace Scrummage.Tests.Controllers {
 		public void TestSuccessfulCreatePost() {
 			var testRole = RoleFactory.CreateDefaultRole();
 
-			var controller = new RoleController(FakeUnitOfWork);
+			var controller = new RoleController(_fakeUnitOfWork);
 			var result = controller.Create(testRole);
 			Assert.IsNotNull(result);
 			Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
 
-			Assert.IsTrue(((FakeRepository<Role>)FakeUnitOfWork.RoleRepository).IsCreated);
-			Assert.IsTrue(((FakeRepository<Role>)FakeUnitOfWork.RoleRepository).IsSaved);
+			Assert.IsTrue(((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).IsCreated);
+			Assert.IsTrue(((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).IsSaved);
 		}
 		#endregion
 
@@ -101,9 +101,9 @@ namespace Scrummage.Tests.Controllers {
 		[TestMethod]
 		public void TestFailedEditGet() {
 			var testRoles = RoleFactory.CreateDefaultRoleList();
-			((FakeRepository<Role>)FakeUnitOfWork.RoleRepository).ModelList = testRoles;
+			((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = testRoles;
 
-			var controller = new RoleController(FakeUnitOfWork);
+			var controller = new RoleController(_fakeUnitOfWork);
 			var result = controller.Edit(9);
 			Assert.IsNotNull(result);
 			Assert.IsInstanceOfType(result, typeof(HttpNotFoundResult));
@@ -112,10 +112,10 @@ namespace Scrummage.Tests.Controllers {
 		[TestMethod]
 		public void TestSuccessfulEditGet() {
 			var testRoles = RoleFactory.CreateDefaultRoleList();
-			((FakeRepository<Role>)FakeUnitOfWork.RoleRepository).ModelList = testRoles;
+			((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = testRoles;
 
-			var controller = new RoleController(FakeUnitOfWork);
-			var result = controller.Edit(0) as ViewResult;
+			var controller = new RoleController(_fakeUnitOfWork);
+			var result = controller.Edit() as ViewResult;
 			Assert.IsNotNull(result);
 
 			var role = ((Role)result.Model);
@@ -126,7 +126,7 @@ namespace Scrummage.Tests.Controllers {
 		public void TestFailedEditPost() {
 			var testRole = RoleFactory.CreateDefaultRole();
 
-			var controller = new RoleController(FakeUnitOfWork);
+			var controller = new RoleController(_fakeUnitOfWork);
 			controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
 			var result = controller.Edit(testRole) as ViewResult;
 			Assert.IsNotNull(result);
@@ -139,13 +139,13 @@ namespace Scrummage.Tests.Controllers {
 		public void TestSuccessfulEditPost() {
 			var testRole = RoleFactory.CreateDefaultRole();
 
-			var controller = new RoleController(FakeUnitOfWork);
+			var controller = new RoleController(_fakeUnitOfWork);
 			var result = controller.Edit(testRole);
 			Assert.IsNotNull(result);
 			Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
 
-			Assert.IsTrue(((FakeRepository<Role>)FakeUnitOfWork.RoleRepository).IsUpdated);
-			Assert.IsTrue(((FakeRepository<Role>)FakeUnitOfWork.RoleRepository).IsSaved);
+			Assert.IsTrue(((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).IsUpdated);
+			Assert.IsTrue(((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).IsSaved);
 		}
 		#endregion
 
@@ -153,9 +153,9 @@ namespace Scrummage.Tests.Controllers {
 		[TestMethod]
 		public void TestFailedDeleteGet() {
 			var testRoles = RoleFactory.CreateDefaultRoleList();
-			((FakeRepository<Role>)FakeUnitOfWork.RoleRepository).ModelList = testRoles;
+			((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = testRoles;
 
-			var controller = new RoleController(FakeUnitOfWork);
+			var controller = new RoleController(_fakeUnitOfWork);
 			var result = controller.Delete(9);
 			Assert.IsNotNull(result);
 			Assert.IsInstanceOfType(result, typeof(HttpNotFoundResult));
@@ -164,10 +164,10 @@ namespace Scrummage.Tests.Controllers {
 		[TestMethod]
 		public void TestSuccessfulDeleteGet() {
 			var testRoles = RoleFactory.CreateDefaultRoleList();
-			((FakeRepository<Role>)FakeUnitOfWork.RoleRepository).ModelList = testRoles;
+			((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = testRoles;
 
-			var controller = new RoleController(FakeUnitOfWork);
-			var result = controller.Delete(0) as ViewResult;
+			var controller = new RoleController(_fakeUnitOfWork);
+			var result = controller.Delete() as ViewResult;
 			Assert.IsNotNull(result);
 
 			var role = ((Role)result.Model);
@@ -176,13 +176,13 @@ namespace Scrummage.Tests.Controllers {
 
 		[TestMethod]
 		public void TestSuccessfulDeletePost() {
-			var controller = new RoleController(FakeUnitOfWork);
+			var controller = new RoleController(_fakeUnitOfWork);
 			var result = controller.DeleteConfirmed(0);
 			Assert.IsNotNull(result);
 			Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
 
-			Assert.IsTrue(((FakeRepository<Role>)FakeUnitOfWork.RoleRepository).IsDeleted);
-			Assert.IsTrue(((FakeRepository<Role>)FakeUnitOfWork.RoleRepository).IsSaved);
+			Assert.IsTrue(((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).IsDeleted);
+			Assert.IsTrue(((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).IsSaved);
 		}
 		#endregion
 	}

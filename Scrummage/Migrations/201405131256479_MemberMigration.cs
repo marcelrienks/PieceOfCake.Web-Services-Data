@@ -1,7 +1,6 @@
-namespace Scrummage.Migrations {
-	using System;
-	using System.Data.Entity.Migrations;
+using System.Data.Entity.Migrations;
 
+namespace Scrummage.Migrations {
 	public partial class MemberMigration : DbMigration {
 		public override void Up() {
 			CreateTable(

@@ -7,26 +7,26 @@ namespace Scrummage.Controllers {
 	public class RoleController : Controller {
 
 		#region Properties
-		private readonly IUnitOfWork UnitOfWork;
+		private readonly IUnitOfWork _unitOfWork;
 		#endregion
 
 		public RoleController() {
-			UnitOfWork = new UnitOfWork();
+			_unitOfWork = new UnitOfWork();
 		}
 
 		public RoleController(IUnitOfWork unitOfWork) {
-			UnitOfWork = unitOfWork;
+			_unitOfWork = unitOfWork;
 		}
 
 		#region Actions
 		// GET: /Role/
 		public ActionResult Index() {
-			return View(UnitOfWork.RoleRepository.All());
+			return View(_unitOfWork.RoleRepository.All());
 		}
 
 		// GET: /Role/Details/5
 		public ActionResult Details(int id = 0) {
-			var role = UnitOfWork.RoleRepository.Find(id);
+			var role = _unitOfWork.RoleRepository.Find(id);
 			if (role == null) {
 				return HttpNotFound();
 			}
@@ -43,8 +43,8 @@ namespace Scrummage.Controllers {
 		[ValidateAntiForgeryToken]
 		public ActionResult Create(Role role) {
 			if (ModelState.IsValid) {
-				UnitOfWork.RoleRepository.Create(role);
-				UnitOfWork.RoleRepository.Save();
+				_unitOfWork.RoleRepository.Create(role);
+				_unitOfWork.RoleRepository.Save();
 				return RedirectToAction("Index");
 			}
 
@@ -53,7 +53,7 @@ namespace Scrummage.Controllers {
 
 		// GET: /Role/Edit/5
 		public ActionResult Edit(int id = 0) {
-			var role = UnitOfWork.RoleRepository.Find(id);
+			var role = _unitOfWork.RoleRepository.Find(id);
 			if (role == null) {
 				return HttpNotFound();
 			}
@@ -65,8 +65,8 @@ namespace Scrummage.Controllers {
 		[ValidateAntiForgeryToken]
 		public ActionResult Edit(Role role) {
 			if (ModelState.IsValid) {
-				UnitOfWork.RoleRepository.Update(role);
-				UnitOfWork.RoleRepository.Save();
+				_unitOfWork.RoleRepository.Update(role);
+				_unitOfWork.RoleRepository.Save();
 				return RedirectToAction("Index");
 			}
 			return View(role);
@@ -74,7 +74,7 @@ namespace Scrummage.Controllers {
 
 		// GET: /Role/Delete/5
 		public ActionResult Delete(int id = 0) {
-			var role = UnitOfWork.RoleRepository.Find(id);
+			var role = _unitOfWork.RoleRepository.Find(id);
 			if (role == null) {
 				return HttpNotFound();
 			}
@@ -85,8 +85,8 @@ namespace Scrummage.Controllers {
 		[HttpPost, ActionName("Delete")]
 		[ValidateAntiForgeryToken]
 		public ActionResult DeleteConfirmed(int id) {
-			UnitOfWork.RoleRepository.Delete(id);
-			UnitOfWork.RoleRepository.Save();
+			_unitOfWork.RoleRepository.Delete(id);
+			_unitOfWork.RoleRepository.Save();
 			return RedirectToAction("Index");
 		}
 
@@ -102,7 +102,7 @@ namespace Scrummage.Controllers {
 		#endregion
 
 		protected override void Dispose(bool disposing) {
-			UnitOfWork.RoleRepository.Dispose();
+			_unitOfWork.RoleRepository.Dispose();
 			base.Dispose(disposing);
 		}
 	}

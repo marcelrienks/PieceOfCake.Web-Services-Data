@@ -1,8 +1,5 @@
-﻿using System;
-using System.IO;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
-using System.Web.WebPages;
 using Scrummage.DataAccess;
 using Scrummage.Interfaces;
 using Scrummage.Models;
@@ -13,26 +10,26 @@ namespace Scrummage.Controllers {
 	public class MemberController : Controller {
 
 		#region Properties
-		private readonly IUnitOfWork UnitOfWork;
+		private readonly IUnitOfWork _unitOfWork;
 		#endregion
 
 		public MemberController() {
-			UnitOfWork = new UnitOfWork();
+			_unitOfWork = new UnitOfWork();
 		}
 
 		public MemberController(IUnitOfWork unitOfWork) {
-			UnitOfWork = unitOfWork;
+			_unitOfWork = unitOfWork;
 		}
 
 		#region Actions
 		// GET: /Member/
 		public ActionResult Index() {
-			return View(UnitOfWork.MemberRepository.All());
+			return View(_unitOfWork.MemberRepository.All());
 		}
 
 		// GET: /Member/Details/5
 		public ActionResult Details(int id = 0) {
-			var member = UnitOfWork.MemberRepository.Find(id);
+			var member = _unitOfWork.MemberRepository.Find(id);
 			if (member == null) {
 				return HttpNotFound();
 			}
@@ -51,7 +48,7 @@ namespace Scrummage.Controllers {
 		[ValidateAntiForgeryToken]
 		public ActionResult Create(Member member, HttpPostedFileBase file) {
 			//If file was uploaded read bytes, else read bytes from default avatar
-			byte[] bytes = null;
+			byte[] bytes;
 			if (file != null && file.ContentLength > 0) {
 				bytes = new byte[file.ContentLength];
 				file.InputStream.Read(bytes, 0, file.ContentLength);
@@ -61,7 +58,7 @@ namespace Scrummage.Controllers {
 			}
 
 			//Create new Avatar model
-			member.Avatar = new Avatar() {
+			member.Avatar = new Avatar {
 				Image = bytes
 			};
 
@@ -72,8 +69,8 @@ namespace Scrummage.Controllers {
 
 			//create model
 			if (ModelState.IsValid) {
-				UnitOfWork.MemberRepository.Create(member);
-				UnitOfWork.MemberRepository.Save();
+				_unitOfWork.MemberRepository.Create(member);
+				_unitOfWork.MemberRepository.Save();
 				return RedirectToAction("Index");
 			}
 
@@ -82,7 +79,7 @@ namespace Scrummage.Controllers {
 
 		// GET: /Member/Edit/5
 		public ActionResult Edit(int id = 0) {
-			var member = UnitOfWork.MemberRepository.Find(id);
+			var member = _unitOfWork.MemberRepository.Find(id);
 			if (member == null) {
 				return HttpNotFound();
 			}
@@ -94,8 +91,8 @@ namespace Scrummage.Controllers {
 		[ValidateAntiForgeryToken]
 		public ActionResult Edit(Member member) {
 			if (ModelState.IsValid) {
-				UnitOfWork.MemberRepository.Update(member);
-				UnitOfWork.MemberRepository.Save();
+				_unitOfWork.MemberRepository.Update(member);
+				_unitOfWork.MemberRepository.Save();
 				return RedirectToAction("Index");
 			}
 			return View(member);
@@ -103,7 +100,7 @@ namespace Scrummage.Controllers {
 
 		// GET: /Member/Delete/5
 		public ActionResult Delete(int id = 0) {
-			var member = UnitOfWork.MemberRepository.Find(id);
+			var member = _unitOfWork.MemberRepository.Find(id);
 			if (member == null) {
 				return HttpNotFound();
 			}
@@ -114,14 +111,14 @@ namespace Scrummage.Controllers {
 		[HttpPost, ActionName("Delete")]
 		[ValidateAntiForgeryToken]
 		public ActionResult DeleteConfirmed(int id) {
-			UnitOfWork.MemberRepository.Delete(id);
-			UnitOfWork.MemberRepository.Save();
+			_unitOfWork.MemberRepository.Delete(id);
+			_unitOfWork.MemberRepository.Save();
 			return RedirectToAction("Index");
 		}
 		#endregion
 
 		protected override void Dispose(bool disposing) {
-			UnitOfWork.RoleRepository.Dispose();
+			_unitOfWork.RoleRepository.Dispose();
 			base.Dispose(disposing);
 		}
 	}

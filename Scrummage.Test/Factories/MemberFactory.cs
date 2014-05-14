@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Scrummage.Models;
 
-namespace Scrummage.Tests.Factories {
+namespace Scrummage.Test.Factories {
 	public static class MemberFactory {
 		
 		private static int memberId = 0;
@@ -17,7 +17,7 @@ namespace Scrummage.Tests.Factories {
 			ClearPassword = "password",
 			Email = "email@address.com",
 			Roles = RoleFactory.CreateDefaultRoleList(),
-			Avatar = new Avatar() {
+			Avatar = new Avatar {
 				MemberId = memberId,
 				Image = new byte[0]
 			}
