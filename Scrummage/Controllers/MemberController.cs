@@ -4,6 +4,7 @@ using Scrummage.DataAccess;
 using Scrummage.Interfaces;
 using Scrummage.Models;
 
+//todo: fix save, and delete methods in Member controller when called from views
 //todo: update Members controller (link to Avatar controller)
 //todo: create Unit tests for Members controller (link to Avatar controller)
 namespace Scrummage.Controllers {

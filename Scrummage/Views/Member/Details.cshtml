@@ -56,7 +56,9 @@
 
         <dd>
             @foreach (var role in Model.Roles) {
-                @Html.DisplayFor(roleItem => role.Title)
+                <div class="display-field">
+                    @Html.DisplayFor(roleItem => role.Title)
+                </div>
             }
         </dd>
 

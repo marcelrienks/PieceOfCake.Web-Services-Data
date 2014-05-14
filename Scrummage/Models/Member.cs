@@ -47,6 +47,7 @@ namespace Scrummage.Models {
 		#endregion
 
 		#region Navigation
+		//Todo: Role should be a required field in Member model
 		public virtual ICollection<Role> Roles { get; set; }
 		[Required]
 		public virtual Avatar Avatar { get; set; }

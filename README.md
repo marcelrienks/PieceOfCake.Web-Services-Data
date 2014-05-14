@@ -8,10 +8,13 @@ Tools include Administring users, teams and sprints, as well as Product Backlog 
 * Create Management of Teams
 * Create Management of Statuses
 * Create Management of Products
+* Apply a common Look and feel
 * Create Management of Sprints
 * Create Authentication layer
 
 ### ToDo: ###
+* fix save, and delete methods in Member controller when called from views
+* Role should be a required field in Member model
 * Implement roles select/dropdownlist in Member Create View
 * update Members controller (link to Avatar controller)
 * create Unit tests for Members controller (link to Avatar controller)
