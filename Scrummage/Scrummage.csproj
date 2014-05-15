@@ -135,9 +135,15 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MemberController.cs" />
-    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\HomeController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\MemberController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\RoleController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DataAccess\Context.cs" />
     <Compile Include="DataAccess\Repository.cs" />
     <Compile Include="DataAccess\UnitOfWork.cs" />
@@ -147,21 +153,9 @@
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Libraries\Encryption.cs" />
-    <Compile Include="Migrations\201405131253376_Initialise.cs" />
-    <Compile Include="Migrations\201405131253376_Initialise.Designer.cs">
-      <DependentUpon>201405131253376_Initialise.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201405131255260_RoleMigration.cs" />
-    <Compile Include="Migrations\201405131255260_RoleMigration.Designer.cs">
-      <DependentUpon>201405131255260_RoleMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201405131256479_MemberMigration.cs" />
-    <Compile Include="Migrations\201405131256479_MemberMigration.Designer.cs">
-      <DependentUpon>201405131256479_MemberMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201405131257309_AvatarMigration.cs" />
-    <Compile Include="Migrations\201405131257309_AvatarMigration.Designer.cs">
-      <DependentUpon>201405131257309_AvatarMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201405151317142_RoleMemberAvatarMigration.cs" />
+    <Compile Include="Migrations\201405151317142_RoleMemberAvatarMigration.Designer.cs">
+      <DependentUpon>201405151317142_RoleMemberAvatarMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Avatar.cs" />
@@ -197,17 +191,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201405131253376_Initialise.resx">
-      <DependentUpon>201405131253376_Initialise.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201405131255260_RoleMigration.resx">
-      <DependentUpon>201405131255260_RoleMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201405131256479_MemberMigration.resx">
-      <DependentUpon>201405131256479_MemberMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201405131257309_AvatarMigration.resx">
-      <DependentUpon>201405131257309_AvatarMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201405151317142_RoleMemberAvatarMigration.resx">
+      <DependentUpon>201405151317142_RoleMemberAvatarMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

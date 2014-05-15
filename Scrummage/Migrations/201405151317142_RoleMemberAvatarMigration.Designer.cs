@@ -7,13 +7,13 @@ namespace Scrummage.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class AvatarMigration : IMigrationMetadata
+    public sealed partial class RoleMemberAvatarMigration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AvatarMigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RoleMemberAvatarMigration));
         
         string IMigrationMetadata.Id
         {
-            get { return "201405131257309_AvatarMigration"; }
+            get { return "201405151317142_RoleMemberAvatarMigration"; }
         }
         
         string IMigrationMetadata.Source

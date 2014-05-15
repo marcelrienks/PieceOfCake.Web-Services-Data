@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Scrummage.Models {
 
@@ -10,8 +9,6 @@ namespace Scrummage.Models {
 
 		#region Properties
 		//RoleId
-		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int RoleId { get; set; }
 
 		//Title

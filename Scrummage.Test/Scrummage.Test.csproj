@@ -89,7 +89,9 @@
     <Compile Include="Controllers\RoleControllerTest.cs" />
     <Compile Include="DataAccess\FakeRepository.cs" />
     <Compile Include="DataAccess\FakeUnitOfWork.cs" />
-    <Compile Include="Factories\MemberFactory.cs" />
+    <Compile Include="Factories\MemberFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Factories\RoleFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestHarness.cs" />
@@ -104,6 +106,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

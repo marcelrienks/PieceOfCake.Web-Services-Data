@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
@@ -13,6 +14,10 @@ namespace Scrummage.Migrations {
 			AutomaticMigrationsEnabled = false;
 		}
 
+		/// <summary>
+		/// Overrides the Seed method with custom seeds
+		/// </summary>
+		/// <param name="context"></param>
 		protected override void Seed(Context context) {
 			SeedRoles(context);
 			SeedMembers(context);

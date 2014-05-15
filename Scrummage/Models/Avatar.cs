@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Scrummage.Models {
 
@@ -9,15 +8,14 @@ namespace Scrummage.Models {
 
 		#region Properties
 		//MemberId
-		[Key, ForeignKey("Member")]
 		public int MemberId { get; set; }
 
 		//Image
+		[Required]
 		public byte[] Image { get; set; }
 		#endregion
 
 		#region Navigation
-		[Required]
 		public virtual Member Member { get; set; }
 		#endregion
 	}
