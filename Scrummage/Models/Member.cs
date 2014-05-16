@@ -45,8 +45,10 @@ namespace Scrummage.Models {
 		#endregion
 
 		#region Navigation
+		[Required]
 		public virtual ICollection<Role> Roles { get; set; }
 
+		[Required]
 		public virtual Avatar Avatar { get; set; }
 		#endregion
 	}

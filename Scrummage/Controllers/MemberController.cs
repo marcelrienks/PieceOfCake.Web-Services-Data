@@ -63,8 +63,8 @@ namespace Scrummage.Controllers {
 				Image = bytes
 			};
 
-			//clear avatar model state error
-			if (ModelState["Avatar"].Errors.Count == 1 && ModelState["Avatar"].Errors[0].ErrorMessage == "The Avatar field is required.") {
+			//clear avatar model state error (as avatar was added above)
+			if (ModelState["Avatar"] != null && ModelState["Avatar"].Errors.Count == 1 && ModelState["Avatar"].Errors[0].ErrorMessage == "The Avatar field is required.") {
 				ModelState["Avatar"].Errors.Clear();
 			}
 

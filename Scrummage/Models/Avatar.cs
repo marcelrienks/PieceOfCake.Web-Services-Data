@@ -16,6 +16,7 @@ namespace Scrummage.Models {
 		#endregion
 
 		#region Navigation
+		[Required]
 		public virtual Member Member { get; set; }
 		#endregion
 	}
