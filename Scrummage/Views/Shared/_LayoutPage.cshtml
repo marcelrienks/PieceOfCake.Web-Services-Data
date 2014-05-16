@@ -9,6 +9,10 @@
     @Styles.Render("~/Content/css")
     @* Todo: check what this is, and if it's required *@
     @*@Scripts.Render("~/bundles/modernizr")*@
+
+    @if (IsSectionDefined("AdditionalStyles")) {
+        @RenderSection("AdditionalStyles")
+    }
 </head>
 <body>
     <header>
@@ -35,8 +39,10 @@
                         </li>
                     </ul>
                 </div>
-            </div><!-- /.container-fluid -->
-        </nav><!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+        <!-- /.navbar-collapse -->
     </header>
     <div>
         @RenderSection("featured", required: false)
@@ -53,5 +59,8 @@
     </footer>
 
     @Scripts.Render("~/bundles/jquery")
+    @if (IsSectionDefined("AdditionalScripts")) {
+        @RenderSection("AdditionalScripts")
+    }
 </body>
 </html>

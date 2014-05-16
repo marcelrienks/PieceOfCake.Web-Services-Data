@@ -1,4 +1,7 @@
-﻿using System.Web;
+﻿using System;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Web;
 using System.Web.Mvc;
 using Scrummage.DataAccess;
 using Scrummage.Interfaces;
@@ -39,16 +42,16 @@ namespace Scrummage.Controllers {
 
 		// GET: /Member/Create
 		public ActionResult Create() {
-			//todo: this line in Membercontroller was auto generated, can it be used to link member to avatar
-			//ViewBag.MemberId = new SelectList(db.Avatars, "AvatarId", "AvatarId");
+			ViewBag.Roles = _unitOfWork.RoleRepository.All();
 			return View();
 		}
 
 		// POST: /Member/Create
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Create(Member member, HttpPostedFileBase file) {
+		public ActionResult Create(Member member, HttpPostedFileBase file, FormCollection formCollection) {
 			//If file was uploaded read bytes, else read bytes from default avatar
+			#region Avatar
 			byte[] bytes;
 			if (file != null && file.ContentLength > 0) {
 				bytes = new byte[file.ContentLength];
@@ -67,6 +70,20 @@ namespace Scrummage.Controllers {
 			if (ModelState["Avatar"] != null && ModelState["Avatar"].Errors.Count == 1 && ModelState["Avatar"].Errors[0].ErrorMessage == "The Avatar field is required.") {
 				ModelState["Avatar"].Errors.Clear();
 			}
+			#endregion
+
+			#region Roles
+			//Todo: fix this code to 'find roles where in' to run through the repository
+			var rolesTitles = formCollection["roleSelect"].Split(',');
+
+			//var matches = from person in people 
+			//	where names.Contains(person.Firstname) 
+			//	select person;
+
+			var roles = (from role in new Context().Roles
+			             where rolesTitles.Contains(role.Title)
+			             select role).ToList();
+			#endregion
 
 			//create model
 			if (ModelState.IsValid) {
