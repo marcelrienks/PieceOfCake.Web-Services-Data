@@ -10,7 +10,7 @@ namespace Scrummage.Migrations {
 						Image = c.Binary(nullable: false),
 					})
 					.PrimaryKey(t => t.MemberId)
-					.ForeignKey("dbo.Members", t => t.MemberId)
+					.ForeignKey("dbo.Members", t => t.MemberId, cascadeDelete: true)
 					.Index(t => t.MemberId);
 
 			CreateTable(
@@ -45,6 +45,7 @@ namespace Scrummage.Migrations {
 					.ForeignKey("dbo.Roles", t => t.Role_RoleId, cascadeDelete: true)
 					.Index(t => t.Member_MemberId)
 					.Index(t => t.Role_RoleId);
+
 		}
 
 		public override void Down() {

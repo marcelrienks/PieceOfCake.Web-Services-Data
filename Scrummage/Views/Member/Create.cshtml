@@ -23,7 +23,7 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Create", "Member", FormMethod.Post, new { enctype = "multipart/form-data" })) {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
@@ -79,6 +79,7 @@
                         <option>@role.Title</option>
                     }
                 </select>
+                @Html.ValidationMessageFor(model => model.Roles)
             </div>
         </div>
 

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Security.Cryptography;
+﻿using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Scrummage.DataAccess;
 using Scrummage.Interfaces;
 using Scrummage.Models;
 
-//todo: fix save, and delete methods in Member controller when called from views
+//todo: add functionality to Member edit for Password and Avatar
 //todo: update Members controller (link to Avatar controller)
 //todo: create Unit tests for Members controller (link to Avatar controller)
 namespace Scrummage.Controllers {
@@ -42,6 +40,7 @@ namespace Scrummage.Controllers {
 
 		// GET: /Member/Create
 		public ActionResult Create() {
+			//add roles to viewbag to populate the roles dropdown select
 			ViewBag.Roles = _unitOfWork.RoleRepository.All();
 			return View();
 		}
@@ -50,8 +49,9 @@ namespace Scrummage.Controllers {
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public ActionResult Create(Member member, HttpPostedFileBase file, FormCollection formCollection) {
-			//If file was uploaded read bytes, else read bytes from default avatar
+			//Todo: investigate why file isn't coming through anymore
 			#region Avatar
+			//If file was uploaded read bytes, else read bytes from default avatar
 			byte[] bytes;
 			if (file != null && file.ContentLength > 0) {
 				bytes = new byte[file.ContentLength];
@@ -73,16 +73,16 @@ namespace Scrummage.Controllers {
 			#endregion
 
 			#region Roles
-			//Todo: fix this code to 'find roles where in' to run through the repository
-			var rolesTitles = formCollection["roleSelect"].Split(',');
+			if (formCollection["roleSelect"] != null) {
+				//Create new Avatar model
+				var rolesTitles = formCollection["roleSelect"].Split(',');
+				member.Roles = _unitOfWork.RoleRepository.Where(role => rolesTitles.Contains(role.Title));
 
-			//var matches = from person in people 
-			//	where names.Contains(person.Firstname) 
-			//	select person;
-
-			var roles = (from role in new Context().Roles
-			             where rolesTitles.Contains(role.Title)
-			             select role).ToList();
+				//clear roles model state error (as avatar was added above)
+				if (ModelState["Roles"] != null && ModelState["Roles"].Errors.Count == 1 && ModelState["Roles"].Errors[0].ErrorMessage == "The Roles field is required.") {
+					ModelState["Roles"].Errors.Clear();
+				}
+			}
 			#endregion
 
 			//create model
@@ -92,6 +92,8 @@ namespace Scrummage.Controllers {
 				return RedirectToAction("Index");
 			}
 
+			//add roles to viewbag to populate the roles dropdown select if model state is invalid
+			ViewBag.Roles = _unitOfWork.RoleRepository.All();
 			return View(member);
 		}
 

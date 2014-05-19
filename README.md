@@ -13,8 +13,7 @@ Tools include Administring users, teams and sprints, as well as Product Backlog 
 * Create Authentication layer
 
 ### ToDo: ###
-* fix this code to 'find roles where in' to run through the repository
-* fix save, and delete methods in Member controller when called from views
+* add functionality to Member edit for Password and Avatar
 * Implement roles select/dropdownlist in Member Create View
 * update Members controller (link to Avatar controller)
 * create Unit tests for Members controller (link to Avatar controller)

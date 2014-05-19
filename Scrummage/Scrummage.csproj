@@ -157,9 +157,9 @@
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Libraries\Encryption.cs" />
-    <Compile Include="Migrations\201405151317142_RoleMemberAvatarMigration.cs" />
-    <Compile Include="Migrations\201405151317142_RoleMemberAvatarMigration.Designer.cs">
-      <DependentUpon>201405151317142_RoleMemberAvatarMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201405170828598_RoleMemberAvatarMigration.cs" />
+    <Compile Include="Migrations\201405170828598_RoleMemberAvatarMigration.Designer.cs">
+      <DependentUpon>201405170828598_RoleMemberAvatarMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Avatar.cs" />
@@ -195,8 +195,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201405151317142_RoleMemberAvatarMigration.resx">
-      <DependentUpon>201405151317142_RoleMemberAvatarMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201405170828598_RoleMemberAvatarMigration.resx">
+      <DependentUpon>201405170828598_RoleMemberAvatarMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

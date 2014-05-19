@@ -82,7 +82,8 @@ namespace Scrummage.DataAccess {
 			//One to One relationship between Member and Avatar where both are required, and Member is the principle
 			modelBuilder.Entity<Member>()
 									.HasRequired(member => member.Avatar)
-									.WithRequiredPrincipal(avatar => avatar.Member);
+									.WithRequiredPrincipal(avatar => avatar.Member)
+									.WillCascadeOnDelete(true);
 		}
 
 		private void ConfigureAvatar(DbModelBuilder modelBuilder) {
