@@ -13,8 +13,9 @@ Tools include Administring users, teams and sprints, as well as Product Backlog 
 * Create Authentication layer
 
 ### ToDo: ###
+* investigate option of creating view model layer (this will clean up password field on Member for example)
 * verify of username, password on create of member without causing a post back
-* add functionality to Member edit for Password and Avatar
+* add functionality to Member edit for Password and Avatar (including validation)
 * Implement roles select/dropdownlist in Member Create View
 * update Members controller (link to Avatar controller)
 * create Unit tests for Members controller (link to Avatar controller)
