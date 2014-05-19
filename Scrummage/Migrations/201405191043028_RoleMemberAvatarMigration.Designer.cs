@@ -13,7 +13,7 @@ namespace Scrummage.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201405170828598_RoleMemberAvatarMigration"; }
+            get { return "201405191043028_RoleMemberAvatarMigration"; }
         }
         
         string IMigrationMetadata.Source

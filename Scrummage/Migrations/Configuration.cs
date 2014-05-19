@@ -48,12 +48,14 @@ namespace Scrummage.Migrations {
 		private void SeedMembers(Context context) {
 			if (context.Members.Any()) return;
 
+			var password = "E3mc2rd!";
 			var members = new List<Member> {
 				new Member {
 					Name = "Marcel Rienks",
 					ShortName = "mr",
 					Username = "marcelr",
-					ClearPassword = "E3mc2rd!",
+					ClearPassword = password,
+					ConfirmPassowrd = password,
 					Email = "marcelrienks@gmail.com",
 					Roles = context.Roles.Where(role => role.Title == "Administrator" || role.Title == "Scrum Master").ToList(),
 					Avatar = new Avatar {

@@ -1,6 +1,7 @@
-using System.Data.Entity.Migrations;
-
 namespace Scrummage.Migrations {
+	using System;
+	using System.Data.Entity.Migrations;
+
 	public partial class RoleMemberAvatarMigration : DbMigration {
 		public override void Up() {
 			CreateTable(
@@ -23,7 +24,8 @@ namespace Scrummage.Migrations {
 						Password = c.String(nullable: false),
 						Email = c.String(nullable: false),
 					})
-					.PrimaryKey(t => t.MemberId);
+					.PrimaryKey(t => t.MemberId)
+					.Index(t => t.Username, unique: true);
 
 			CreateTable(
 					"dbo.Roles",
@@ -54,6 +56,7 @@ namespace Scrummage.Migrations {
 			DropForeignKey("dbo.MemberRoles", "Member_MemberId", "dbo.Members");
 			DropIndex("dbo.MemberRoles", new[] { "Role_RoleId" });
 			DropIndex("dbo.MemberRoles", new[] { "Member_MemberId" });
+			DropIndex("dbo.Members", new[] { "Username" });
 			DropIndex("dbo.Avatars", new[] { "MemberId" });
 			DropTable("dbo.MemberRoles");
 			DropTable("dbo.Roles");

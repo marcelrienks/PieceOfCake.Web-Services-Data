@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using System.Data.Entity.Infrastructure;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Scrummage.DataAccess;
 using Scrummage.Interfaces;
 using Scrummage.Models;
 
+//todo: verify of username, password on create of member without causing a post back
 //todo: add functionality to Member edit for Password and Avatar
 //todo: update Members controller (link to Avatar controller)
 //todo: create Unit tests for Members controller (link to Avatar controller)
@@ -49,47 +51,54 @@ namespace Scrummage.Controllers {
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public ActionResult Create(Member member, HttpPostedFileBase file, FormCollection formCollection) {
-			//Todo: investigate why file isn't coming through anymore
-			#region Avatar
-			//If file was uploaded read bytes, else read bytes from default avatar
-			byte[] bytes;
-			if (file != null && file.ContentLength > 0) {
-				bytes = new byte[file.ContentLength];
-				file.InputStream.Read(bytes, 0, file.ContentLength);
-
-			} else {
-				bytes = System.IO.File.ReadAllBytes(ControllerContext.HttpContext.Server.MapPath(@"~\Images\default_avatar.jpg"));
-			}
-
-			//Create new Avatar model
-			member.Avatar = new Avatar {
-				Image = bytes
-			};
-
-			//clear avatar model state error (as avatar was added above)
-			if (ModelState["Avatar"] != null && ModelState["Avatar"].Errors.Count == 1 && ModelState["Avatar"].Errors[0].ErrorMessage == "The Avatar field is required.") {
+			//Clear Avatar and Role errors, these models will be manually created
+			if (ModelState["Avatar"] != null) {
 				ModelState["Avatar"].Errors.Clear();
 			}
-			#endregion
-
-			#region Roles
-			if (formCollection["roleSelect"] != null) {
-				//Create new Avatar model
-				var rolesTitles = formCollection["roleSelect"].Split(',');
-				member.Roles = _unitOfWork.RoleRepository.Where(role => rolesTitles.Contains(role.Title));
-
-				//clear roles model state error (as avatar was added above)
-				if (ModelState["Roles"] != null && ModelState["Roles"].Errors.Count == 1 && ModelState["Roles"].Errors[0].ErrorMessage == "The Roles field is required.") {
-					ModelState["Roles"].Errors.Clear();
-				}
+			if (ModelState["Roles"] != null) {
+				ModelState["Roles"].Errors.Clear();
 			}
-			#endregion
 
 			//create model
 			if (ModelState.IsValid) {
-				_unitOfWork.MemberRepository.Create(member);
-				_unitOfWork.MemberRepository.Save();
-				return RedirectToAction("Index");
+
+				#region Avatar
+				//If file was uploaded read bytes, else read bytes from default avatar
+				byte[] bytes;
+				if (file != null && file.ContentLength > 0) {
+					bytes = new byte[file.ContentLength];
+					file.InputStream.Read(bytes, 0, file.ContentLength);
+
+				} else {
+					bytes = System.IO.File.ReadAllBytes(ControllerContext.HttpContext.Server.MapPath(@"~\Images\default_avatar.jpg"));
+				}
+
+				//Create new Avatar model
+				member.Avatar = new Avatar {
+					Image = bytes
+				};
+				#endregion
+
+				#region Roles
+				//Create role models using comma delimited role string selected
+				if (formCollection["roleSelect"] != null) {
+					var rolesTitles = formCollection["roleSelect"].Split(',');
+					member.Roles = _unitOfWork.RoleRepository.Where(role => rolesTitles.Contains(role.Title));
+				}
+				#endregion
+
+				try {
+					_unitOfWork.MemberRepository.Create(member);
+					_unitOfWork.MemberRepository.Save();
+					return RedirectToAction("Index");
+
+				} catch (DbUpdateException ex) {
+					//Check if username unique index was violated, and return friendly message
+					if (ex.InnerException.InnerException.Message.Contains(
+						string.Format("Cannot insert duplicate key row in object 'dbo.Members' with unique index 'IX_Username'. The duplicate key value is ({0}).", member.Username))) {
+						ModelState["Username"].Errors.Add("Username is already in use.");
+					}
+				}
 			}
 
 			//add roles to viewbag to populate the roles dropdown select if model state is invalid

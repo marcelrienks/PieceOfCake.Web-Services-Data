@@ -13,6 +13,7 @@ Tools include Administring users, teams and sprints, as well as Product Backlog 
 * Create Authentication layer
 
 ### ToDo: ###
+* verify of username, password on create of member without causing a post back
 * add functionality to Member edit for Password and Avatar
 * Implement roles select/dropdownlist in Member Create View
 * update Members controller (link to Avatar controller)

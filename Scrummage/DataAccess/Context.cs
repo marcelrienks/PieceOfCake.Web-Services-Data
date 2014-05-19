@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure.Annotations;
 using Scrummage.Models;
 
 namespace Scrummage.DataAccess {
@@ -62,7 +63,8 @@ namespace Scrummage.DataAccess {
 			//UserName is Required
 			modelBuilder.Entity<Member>()
 									.Property(member => member.Username)
-									.IsRequired();
+									.IsRequired()
+									.HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute { IsUnique = true } ));
 
 			//Password is Required
 			modelBuilder.Entity<Member>()
