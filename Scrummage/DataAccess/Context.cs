@@ -13,6 +13,13 @@ namespace Scrummage.DataAccess {
 		public DbSet<Member> Members { get; set; }
 		public DbSet<Avatar> Avatars { get; set; }
 
+		//NOTE:
+		//Using Fluent API to configure tables in an attempt to keep poco model classes clean and un cluttered.
+
+		/// <summary>
+		/// On Model Create configure Table properties using Fluent API
+		/// </summary>
+		/// <param name="modelBuilder"></param>
 		protected override void OnModelCreating(DbModelBuilder modelBuilder) {
 			ConfigureRole(modelBuilder);
 			ConfigureMember(modelBuilder);
