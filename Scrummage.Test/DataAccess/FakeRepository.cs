@@ -4,6 +4,7 @@ using System.Linq;
 using Scrummage.Interfaces;
 using Scrummage.Models;
 
+//Todo: Investigate suing Mock DbSet instead of having a fake Repository
 namespace Scrummage.Test.DataAccess {
 	public class FakeRepository<TModel> : IRepository<TModel> where TModel : class {
 
