@@ -17,7 +17,7 @@ namespace Scrummage.DataAccess {
 			_context = context;
 		}
 
-		#region Members
+		#region Methods
 		/// <summary>
 		/// This Gets all entries of type TEntity.
 		/// </summary>
@@ -71,6 +71,7 @@ namespace Scrummage.DataAccess {
 		/// <param name="entity"></param>
 		public void Create(TModel entity) {
 			_context.Set<TModel>().Add(entity);
+			_context.SaveChanges();
 		}
 
 		/// <summary>
@@ -79,6 +80,7 @@ namespace Scrummage.DataAccess {
 		/// <param name="entity"></param>
 		public void Update(TModel entity) {
 			_context.Entry(entity).State = EntityState.Modified;
+			_context.SaveChanges();
 		}
 
 		/// <summary>
@@ -88,12 +90,6 @@ namespace Scrummage.DataAccess {
 		public void Delete(int id) {
 			var entity = _context.Set<TModel>().Find(id);
 			_context.Set<TModel>().Remove(entity);
-		}
-
-		/// <summary>
-		/// This saves all changes made to an entry of type TEntity (created, updated, or deleted)
-		/// </summary>
-		public void Save() {
 			_context.SaveChanges();
 		}
 
@@ -104,7 +100,7 @@ namespace Scrummage.DataAccess {
 		//}
 		#endregion
 
-		#region IDisposable Members
+		#region IDisposable Methods
 		protected virtual void Dispose(bool disposing) {
 			if (!_disposed) {
 				if (disposing) {

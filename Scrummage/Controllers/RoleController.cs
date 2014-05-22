@@ -44,7 +44,6 @@ namespace Scrummage.Controllers {
 		public ActionResult Create(Role role) {
 			if (ModelState.IsValid) {
 				_unitOfWork.RoleRepository.Create(role);
-				_unitOfWork.RoleRepository.Save();
 				return RedirectToAction("Index");
 			}
 
@@ -66,7 +65,6 @@ namespace Scrummage.Controllers {
 		public ActionResult Edit(Role role) {
 			if (ModelState.IsValid) {
 				_unitOfWork.RoleRepository.Update(role);
-				_unitOfWork.RoleRepository.Save();
 				return RedirectToAction("Index");
 			}
 			return View(role);
@@ -86,7 +84,6 @@ namespace Scrummage.Controllers {
 		[ValidateAntiForgeryToken]
 		public ActionResult DeleteConfirmed(int id) {
 			_unitOfWork.RoleRepository.Delete(id);
-			_unitOfWork.RoleRepository.Save();
 			return RedirectToAction("Index");
 		}
 

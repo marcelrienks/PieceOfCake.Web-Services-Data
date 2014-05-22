@@ -90,7 +90,6 @@ namespace Scrummage.Controllers {
 
 				try {
 					_unitOfWork.MemberRepository.Create(member);
-					_unitOfWork.MemberRepository.Save();
 					return RedirectToAction("Index");
 
 				} catch (DbUpdateException ex) {
@@ -122,7 +121,6 @@ namespace Scrummage.Controllers {
 		public ActionResult Edit(Member member) {
 			if (ModelState.IsValid) {
 				_unitOfWork.MemberRepository.Update(member);
-				_unitOfWork.MemberRepository.Save();
 				return RedirectToAction("Index");
 			}
 			return View(member);
@@ -142,7 +140,6 @@ namespace Scrummage.Controllers {
 		[ValidateAntiForgeryToken]
 		public ActionResult DeleteConfirmed(int id) {
 			_unitOfWork.MemberRepository.Delete(id);
-			_unitOfWork.MemberRepository.Save();
 			return RedirectToAction("Index");
 		}
 		#endregion

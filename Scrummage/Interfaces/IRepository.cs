@@ -11,7 +11,6 @@ namespace Scrummage.Interfaces {
 		void Create(TModel entity);
 		void Update(TModel entity);
 		void Delete(int id);
-		void Save();
 
 		//Async Example
 		//Async Method structure (See Role Repository and RoleController for following code)
