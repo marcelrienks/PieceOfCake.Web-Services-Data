@@ -3,8 +3,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Scrummage.DataAccess;
+using Scrummage.DataAccess.Models;
 using Scrummage.Interfaces;
-using Scrummage.Models;
 
 //todo: investigate option of creating view model layer (this will clean up password field on Member for example)
 //todo: verify of username, password on create of member without causing a post back

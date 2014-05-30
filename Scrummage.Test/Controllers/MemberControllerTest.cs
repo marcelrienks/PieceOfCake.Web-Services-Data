@@ -3,7 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Scrummage.Controllers;
-using Scrummage.Models;
+using Scrummage.DataAccess.Models;
 using Scrummage.Test.DataAccess;
 using Scrummage.Test.Factories;
 

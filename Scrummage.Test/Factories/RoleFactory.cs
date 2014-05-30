@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Scrummage.Models;
+using Scrummage.DataAccess.Models;
 
 namespace Scrummage.Test.Factories {
 	public static class RoleFactory {

@@ -20,7 +20,8 @@ Twitter Bootstrap has been used for presentation.
 * Create Authentication layer
 
 ### ToDo: ###
-* Investigate suing Mock DbSet instead of having a fake Repository
+* investigate if i can use a flag to determine one level deep of related model conversion (apply this to all explicit conversions)
+* Investigate using Mock DbSet instead of having a fake Repository
 * investigate option of creating view model layer (this will clean up password field on Member for example)
 * verify of username, password on create of member without causing a post back
 * add functionality to Member edit for Password and Avatar (including validation)

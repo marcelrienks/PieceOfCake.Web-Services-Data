@@ -1,5 +1,5 @@
-﻿using Scrummage.Interfaces;
-using Scrummage.Models;
+﻿using Scrummage.DataAccess.Models;
+using Scrummage.Interfaces;
 
 namespace Scrummage.DataAccess {
 	public class UnitOfWork : IUnitOfWork {

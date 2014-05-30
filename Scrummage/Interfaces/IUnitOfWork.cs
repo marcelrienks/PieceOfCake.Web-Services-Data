@@ -1,4 +1,4 @@
-﻿using Scrummage.Models;
+﻿using Scrummage.DataAccess.Models;
 
 namespace Scrummage.Interfaces {
 	public interface IUnitOfWork {

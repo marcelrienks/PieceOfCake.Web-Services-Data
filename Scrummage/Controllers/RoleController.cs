@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using Scrummage.DataAccess;
+using Scrummage.DataAccess.Models;
 using Scrummage.Interfaces;
-using Scrummage.Models;
 
 namespace Scrummage.Controllers {
 	public class RoleController : Controller {

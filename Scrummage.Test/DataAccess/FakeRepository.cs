@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Scrummage.DataAccess.Models;
 using Scrummage.Interfaces;
-using Scrummage.Models;
 
 //Todo: Investigate suing Mock DbSet instead of having a fake Repository
 namespace Scrummage.Test.DataAccess {

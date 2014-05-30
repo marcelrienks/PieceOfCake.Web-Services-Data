@@ -5,7 +5,7 @@ using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
 using Scrummage.DataAccess;
-using Scrummage.Models;
+using Scrummage.DataAccess.Models;
 
 namespace Scrummage.Migrations {
 
@@ -54,8 +54,7 @@ namespace Scrummage.Migrations {
 					Name = "Marcel Rienks",
 					ShortName = "mr",
 					Username = "marcelr",
-					ClearPassword = password,
-					ConfirmPassowrd = password,
+					Password = password,
 					Email = "marcelrienks@gmail.com",
 					Roles = context.Roles.Where(role => role.Title == "Administrator" || role.Title == "Scrum Master").ToList(),
 					Avatar = new Avatar {

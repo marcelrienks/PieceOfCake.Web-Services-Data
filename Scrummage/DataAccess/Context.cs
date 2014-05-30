@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Annotations;
-using Scrummage.Models;
+using Scrummage.DataAccess.Models;
 
 namespace Scrummage.DataAccess {
 	public class Context : DbContext {
@@ -36,10 +36,16 @@ namespace Scrummage.DataAccess {
 			            .Property(role => role.RoleId)
 			            .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-			//Title is Required
+			//Title is Required, and has a max length
 			modelBuilder.Entity<Role>()
 			            .Property(role => role.Title)
-									.IsRequired();
+									.IsRequired()
+									.HasMaxLength(30);
+
+			//Description has a max length
+			modelBuilder.Entity<Role>()
+									.Property(role => role.Title)
+									.HasMaxLength(180);
 
 			//Many to many relationship between Member and Roles
 			modelBuilder.Entity<Role>()
@@ -60,17 +66,20 @@ namespace Scrummage.DataAccess {
 			//Name is Required
 			modelBuilder.Entity<Member>()
 									.Property(member => member.Name)
-									.IsRequired();
+									.IsRequired()
+									.HasMaxLength(30);
 
 			//ShortName is Required
 			modelBuilder.Entity<Member>()
 									.Property(member => member.ShortName)
-									.IsRequired();
+									.IsRequired()
+									.HasMaxLength(3);
 
 			//UserName is Required
 			modelBuilder.Entity<Member>()
 									.Property(member => member.Username)
 									.IsRequired()
+									.HasMaxLength(30)
 									.HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute { IsUnique = true } ));
 
 			//Password is Required

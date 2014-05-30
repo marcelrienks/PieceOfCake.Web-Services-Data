@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Scrummage.Models;
+using Scrummage.DataAccess.Models;
 
 namespace Scrummage.Test.Factories {
 	public static class MemberFactory {
@@ -14,7 +14,7 @@ namespace Scrummage.Test.Factories {
 			Name = "Name",
 			ShortName = "sn",
 			Username = "Username",
-			ClearPassword = "password",
+			//ClearPassword = "password",
 			Email = "email@address.com",
 			Roles = RoleFactory.CreateDefaultRoleList(),
 			Avatar = new Avatar {
