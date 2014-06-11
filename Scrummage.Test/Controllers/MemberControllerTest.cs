@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Scrummage.Controllers;
@@ -72,28 +73,33 @@ namespace Scrummage.Test.Controllers {
 
 		[TestMethod]
 		public void TestFailedCreatePost() {
-			//var testMember = MemberFactory.CreateDefaultMember();
+			var testMember = MemberFactory.CreateDefaultMember();
 
-			//var controller = new MemberController(FakeUnitOfWork);
-			//controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
-			//var result = controller.Create(testMember) as ViewResult;
-			//Assert.IsNotNull(result);
+			var controller = new MemberController(_fakeUnitOfWork);
+			controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
+			var result = controller.Create(testMember, null, new FormCollection {
+				{"roleSelect", RoleFactory.CreateDefaultRole().Title}
+			}) as ViewResult;
+			Assert.IsNotNull(result);
 
-			//var member = ((Member)result.Model);
-			//Assert.AreSame(testMember, member);
+			var member = ((Member)result.Model);
+			Assert.AreSame(testMember, member);
 		}
 
 		[TestMethod]
 		public void TestSuccessfulCreatePost() {
-			//var testMember = MemberFactory.CreateDefaultMember();
+			var testMember = MemberFactory.CreateDefaultMember();
 
-			//var controller = new MemberController(FakeUnitOfWork);
-			//var result = controller.Create(testMember);
-			//Assert.IsNotNull(result);
-			//Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
+			var controller = new MemberController(_fakeUnitOfWork);
+			var result = controller.Create(testMember, null, new FormCollection {
+				{"roleSelect", RoleFactory.CreateDefaultRole().Title}
+			}) as ViewResult;
 
-			//Assert.IsTrue(((FakeRepository<Member>)FakeUnitOfWork.MemberRepository).IsCreated);
-			//Assert.IsTrue(((FakeRepository<Member>)FakeUnitOfWork.MemberRepository).IsSaved);
+			Assert.IsNotNull(result);
+			Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
+
+			Assert.IsTrue(((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).IsCreated);
+			Assert.IsTrue(((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).IsSaved);
 		}
 		#endregion
 

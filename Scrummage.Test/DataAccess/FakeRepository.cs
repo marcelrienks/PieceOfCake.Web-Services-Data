@@ -64,14 +64,17 @@ namespace Scrummage.Test.DataAccess {
 
 		public void Create(TModel entity) {
 			IsCreated = true;
+			IsSaved = true;
 		}
 
 		public void Update(TModel entity) {
 			IsUpdated = true;
+			IsSaved = true;
 		}
 
 		public void Delete(int id) {
 			IsDeleted = true;
+			IsSaved = true;
 		}
 
 		public void Save() {

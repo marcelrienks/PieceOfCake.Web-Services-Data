@@ -71,6 +71,8 @@ namespace Scrummage.Controllers {
 					file.InputStream.Read(bytes, 0, file.ContentLength);
 
 				} else {
+					//Todo: Fix read avatar file line which throws an exception when unit testing
+					//Either pass through an HttpPostedFileBase to prevent this from executing, or stub out MapPath funciton
 					bytes = System.IO.File.ReadAllBytes(ControllerContext.HttpContext.Server.MapPath(@"~\Images\default_avatar.jpg"));
 				}
 

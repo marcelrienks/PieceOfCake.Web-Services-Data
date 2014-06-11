@@ -20,6 +20,7 @@ Twitter Bootstrap has been used for presentation.
 * Create Authentication layer
 
 ### ToDo: ###
+* Fix read avatar file line which throws an exception when unit testing
 * Investigate suing Mock DbSet instead of having a fake Repository
 * investigate option of creating view model layer (this will clean up password field on Member for example)
 * verify of username, password on create of member without causing a post back
