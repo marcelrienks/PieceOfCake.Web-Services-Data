@@ -1,5 +1,5 @@
 # Scrummage #
-NOTE: Still in Development!  
+**NOTE: Still in Development!**  
 This is my Scrum Management Tools suite.  
 This is designed to help manage a development team using the Scrum framework.
 Tools include Administring users, projects and sprints, as well as Product Backlog planning, Sprint Backlog planning, Sprint Execution and review meetings.
