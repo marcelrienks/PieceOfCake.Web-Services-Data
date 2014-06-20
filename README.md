@@ -12,12 +12,16 @@ Twitter Bootstrap has been used for presentation.
 
 ## Development ##
 * Create Management of Members
-* Create Management of Teams
-* Create Management of Statuses
-* Create Management of Products
-* Apply a common Look and feel
-* Create Management of Sprints
 * Create Authentication layer
+* Look and Feel
+* Manage Projects
+* Manage Sprints
+* Manage Statuses
+* Manage Feature
+* Manage Projects
+* Manage Backlog Items
+* Manage Tasks
+* Manage Attachments
 
 ### ToDo: ###
 * Investigate using Mock DbSet instead of having a fake Repository
@@ -32,6 +36,7 @@ This allows administrators to have basic CRUDL functionality of user/member Role
 
 ### Members: ###
 This allows administrators to have basic CRUDL functionality of Members
+Including adding an Avatar to memnbers
 
 ## Notes: ##
 ### Migration ###
