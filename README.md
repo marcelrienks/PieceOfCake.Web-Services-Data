@@ -1,11 +1,12 @@
 # Scrummage #
+NOTE: Still in Development!
 This is my Scrum Management Tools suite.  
 This is designed to help manage a development team using the Scrum framework.
-Tools include Administring users, teams and sprints, as well as Product Backlog planning, Sprint Backlog planning, Sprint Execution and review meetings.
+Tools include Administring users, projects and sprints, as well as Product Backlog planning, Sprint Backlog planning, Sprint Execution and review meetings.
 
 ## Technologies and Patterns used ##
 Based on ScrummageV1, this version simply updates to the latest tech and libraries.
-This project was a test bed for implementing the Repository and Unit of Work Pattern for an MVC 5 project.
+This project is a test bed for implementing the Repository and Unit of Work Pattern for an MVC 5 project.
 It uses Code First approach through Entity Framework 6.
 There are aslo examples of how to use Async Awaits repository and Controller calls (not currently implemented).
 Twitter Bootstrap has been used for presentation.
