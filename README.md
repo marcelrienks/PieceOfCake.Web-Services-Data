@@ -20,14 +20,10 @@ Twitter Bootstrap has been used for presentation.
 * Create Authentication layer
 
 ### ToDo: ###
-* Fix read avatar file line which throws an exception when unit testing
-* Investigate suing Mock DbSet instead of having a fake Repository
-* investigate option of creating view model layer (this will clean up password field on Member for example)
+* Investigate using Mock DbSet instead of having a fake Repository
+* Investigate option of creating view model layer (this will clean up password field on Member for example)
 * verify of username, password on create of member without causing a post back
 * add functionality to Member edit for Password and Avatar (including validation)
-* Implement roles select/dropdownlist in Member Create View
-* update Members controller (link to Avatar controller)
-* create Unit tests for Members controller (link to Avatar controller)
 * investigate creating unit tests for the repository, by creating a fake contaxt/dbset class, which can be dependancy injected in?
 
 ## Resources ##
@@ -36,18 +32,6 @@ This allows administrators to have basic CRUDL functionality of user/member Role
 
 ### Members: ###
 This allows administrators to have basic CRUDL functionality of Members
-
-### Teams: ###
-This allows administrators and scrum masters to have basic CRUDL functionality of Teams
-
-### Statuses: ###
-This allows administrators to have basic CRUDL functionality of Statuses
-
-### Products: ###
-This allows administrators and product owners to have basic CRUDL functionality of Products
-
-### Sprints: ###
-This allows administrators and product owners to have basic CRUDL functionality of Sprints
 
 ## Notes: ##
 ### Migration ###

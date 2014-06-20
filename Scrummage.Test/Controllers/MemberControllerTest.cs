@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Scrummage.Controllers;
@@ -21,8 +21,7 @@ namespace Scrummage.Test.Controllers {
 		[TestMethod]
 		public void TestSuccessfulIndexGet() {
 			var testMembers = MemberFactory.CreateDefaultMemberList();
-			//'FakeUnitOfWork.MemberRepository' must be cast to 'FakeRepository<Member>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-			((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).ModelList = testMembers;
+			((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).ModelList = testMembers; //'FakeUnitOfWork.MemberRepository' must be cast to 'FakeRepository<Member>', as 'FakeRepository' exposes some properties that 'IRepository' does not
 
 			var controller = new MemberController(_fakeUnitOfWork);
 			var result = controller.Index() as ViewResult;
@@ -87,16 +86,22 @@ namespace Scrummage.Test.Controllers {
 		}
 
 		[TestMethod]
-		public void TestSuccessfulCreatePost() {
+		public void TestSuccessfulCreatePostWithAvatar() {
+			var testRoles = RoleFactory.CreateExtendedRoleList();
+			((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = testRoles; //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
+
 			var testMember = MemberFactory.CreateDefaultMember();
+			var customHttpPostedFileBase = HttpPostedFileBaseFactory.CreateCustomHttpPostedFileBase();
+
+			//Convert role titles to comma delimited string
+			var roleTitles = testRoles.Aggregate(String.Empty, (current, role) => current + role.Title + ", ");
 
 			var controller = new MemberController(_fakeUnitOfWork);
-			var result = controller.Create(testMember, null, new FormCollection {
-				{"roleSelect", RoleFactory.CreateDefaultRole().Title}
+			var result = controller.Create(testMember, customHttpPostedFileBase, new FormCollection {
+				{"roleSelect", roleTitles}
 			}) as ViewResult;
 
-			Assert.IsNotNull(result);
-			Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
+			Assert.IsNull(result);
 
 			Assert.IsTrue(((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).IsCreated);
 			Assert.IsTrue(((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).IsSaved);
