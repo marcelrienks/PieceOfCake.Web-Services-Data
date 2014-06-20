@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -20,8 +21,7 @@ namespace Scrummage.Test.Controllers {
 		[TestMethod]
 		public void TestSuccessfulIndexGet() {
 			var testMembers = MemberFactory.CreateDefaultMemberList();
-			//'FakeUnitOfWork.MemberRepository' must be cast to 'FakeRepository<Member>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-			((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).ModelList = testMembers;
+			((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).ModelList = testMembers; //'FakeUnitOfWork.MemberRepository' must be cast to 'FakeRepository<Member>', as 'FakeRepository' exposes some properties that 'IRepository' does not
 
 			var controller = new MemberController(_fakeUnitOfWork);
 			var result = controller.Index() as ViewResult;
@@ -72,28 +72,39 @@ namespace Scrummage.Test.Controllers {
 
 		[TestMethod]
 		public void TestFailedCreatePost() {
-			//var testMember = MemberFactory.CreateDefaultMember();
+			var testMember = MemberFactory.CreateDefaultMember();
 
-			//var controller = new MemberController(FakeUnitOfWork);
-			//controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
-			//var result = controller.Create(testMember) as ViewResult;
-			//Assert.IsNotNull(result);
+			var controller = new MemberController(_fakeUnitOfWork);
+			controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
+			var result = controller.Create(testMember, null, new FormCollection {
+				{"roleSelect", RoleFactory.CreateDefaultRole().Title}
+			}) as ViewResult;
+			Assert.IsNotNull(result);
 
-			//var member = ((Member)result.Model);
-			//Assert.AreSame(testMember, member);
+			var member = ((Member)result.Model);
+			Assert.AreSame(testMember, member);
 		}
 
 		[TestMethod]
-		public void TestSuccessfulCreatePost() {
-			//var testMember = MemberFactory.CreateDefaultMember();
+		public void TestSuccessfulCreatePostWithAvatar() {
+			var testRoles = RoleFactory.CreateExtendedRoleList();
+			((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = testRoles; //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
 
-			//var controller = new MemberController(FakeUnitOfWork);
-			//var result = controller.Create(testMember);
-			//Assert.IsNotNull(result);
-			//Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
+			var testMember = MemberFactory.CreateDefaultMember();
+			var customHttpPostedFileBase = HttpPostedFileBaseFactory.CreateCustomHttpPostedFileBase();
 
-			//Assert.IsTrue(((FakeRepository<Member>)FakeUnitOfWork.MemberRepository).IsCreated);
-			//Assert.IsTrue(((FakeRepository<Member>)FakeUnitOfWork.MemberRepository).IsSaved);
+			//Convert role titles to comma delimited string
+			var roleTitles = testRoles.Aggregate(String.Empty, (current, role) => current + role.Title + ", ");
+
+			var controller = new MemberController(_fakeUnitOfWork);
+			var result = controller.Create(testMember, customHttpPostedFileBase, new FormCollection {
+				{"roleSelect", roleTitles}
+			}) as ViewResult;
+
+			Assert.IsNull(result);
+
+			Assert.IsTrue(((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).IsCreated);
+			Assert.IsTrue(((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).IsSaved);
 		}
 		#endregion
 

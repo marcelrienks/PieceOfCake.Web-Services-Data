@@ -13,6 +13,12 @@ namespace Scrummage.Test.Factories {
 			Description = "Description"
 		};
 
+		private static readonly Role DefaultRole1 = new Role {
+			RoleId = 1,
+			Title = "Title1",
+			Description = "Description1"
+		};
+
 		/// <summary>
 		/// Returns a list containing one default Role model
 		/// </summary>
@@ -20,6 +26,13 @@ namespace Scrummage.Test.Factories {
 		public static List<Role> CreateDefaultRoleList() {
 			return new List<Role> {
 				DefaultRole
+			};
+		}
+
+		public static List<Role> CreateExtendedRoleList() {
+			return new List<Role> {
+				DefaultRole,
+				DefaultRole1
 			};
 		}
 

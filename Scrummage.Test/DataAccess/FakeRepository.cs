@@ -30,15 +30,15 @@ namespace Scrummage.Test.DataAccess {
 		}
 
 		public List<TModel> Where(Func<TModel, bool> query) {
-			throw new NotImplementedException();
+			return ModelList;
 		}
 
 		public List<TModel> OrderBy<TKey>(Func<TModel, TKey> orderBy) {
-			throw new NotImplementedException();
+			return ModelList;
 		}
 
 		public List<TModel> WhereOrderBy<TKey>(Func<TModel, bool> query, Func<TModel, TKey> orderBy) {
-			throw new NotImplementedException();
+			return ModelList;
 		}
 
 		public TModel Find(int id) {
@@ -64,14 +64,17 @@ namespace Scrummage.Test.DataAccess {
 
 		public void Create(TModel entity) {
 			IsCreated = true;
+			IsSaved = true;
 		}
 
 		public void Update(TModel entity) {
 			IsUpdated = true;
+			IsSaved = true;
 		}
 
 		public void Delete(int id) {
 			IsDeleted = true;
+			IsSaved = true;
 		}
 
 		public void Save() {

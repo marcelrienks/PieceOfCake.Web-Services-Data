@@ -9,8 +9,6 @@ using Scrummage.Interfaces;
 //todo: investigate option of creating view model layer (this will clean up password field on Member for example)
 //todo: verify of username, password on create of member without causing a post back
 //todo: add functionality to Member edit for Password and Avatar (including validation)
-//todo: update Members controller (link to Avatar controller)
-//todo: create Unit tests for Members controller (link to Avatar controller)
 namespace Scrummage.Controllers {
 	public class MemberController : Controller {
 
