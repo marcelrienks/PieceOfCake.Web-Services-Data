@@ -1,15 +1,13 @@
-﻿using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Scrummage.DataAccess;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Scrummage.Test {
-
-	[TestClass]
-	public class TestHarness {
-		
-		[TestMethod]
-		public void Test() {
-
-		}
-	}
+namespace Scrummage.Test
+{
+    [TestClass]
+    public class TestHarness
+    {
+        [TestMethod]
+        public void Test()
+        {
+        }
+    }
 }

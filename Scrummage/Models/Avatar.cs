@@ -1,23 +1,27 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Scrummage.Models {
+namespace Scrummage.Models
+{
+    [Serializable]
+    public class Avatar
+    {
+        #region Properties
 
-	[Serializable]
-	public class Avatar {
+        //MemberId
+        public int MemberId { get; set; }
 
-		#region Properties
-		//MemberId
-		public int MemberId { get; set; }
+        //Image
+        [Required]
+        public byte[] Image { get; set; }
 
-		//Image
-		[Required]
-		public byte[] Image { get; set; }
-		#endregion
+        #endregion
 
-		#region Navigation
-		[Required]
-		public virtual Member Member { get; set; }
-		#endregion
-	}
+        #region Navigation
+
+        [Required]
+        public virtual Member Member { get; set; }
+
+        #endregion
+    }
 }

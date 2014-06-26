@@ -1,6 +1,6 @@
 ﻿@using System.Web.Optimization
 @using Scrummage.Models
-@model Member
+@model Scrummage.Models.Member
 
 @section AdditionalStyles {
     @Styles.Render("~/Content/select")
@@ -11,7 +11,7 @@
 
     <!-- Initialize the plugin: -->
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('.selectpicker').selectpicker();
         });
     </script>
@@ -23,16 +23,17 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm("Create", "Member", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+@using (Html.BeginForm("Create", "Member", FormMethod.Post, new {enctype = "multipart/form-data"}))
+{
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Member</h4>
         <hr />
         @Html.ValidationSummary(true)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Name, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Name)
                 @Html.ValidationMessageFor(model => model.Name)
@@ -40,7 +41,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ShortName, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ShortName, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ShortName)
                 @Html.ValidationMessageFor(model => model.ShortName)
@@ -48,7 +49,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Username, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Username, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Username)
                 @Html.ValidationMessageFor(model => model.Username)
@@ -56,7 +57,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Password, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Password, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
                 @Html.PasswordFor(model => model.ClearPassword)
                 @Html.ValidationMessageFor(model => model.ClearPassword)
@@ -64,7 +65,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ConfirmPassowrd, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ConfirmPassowrd, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
                 @Html.PasswordFor(model => model.ConfirmPassowrd)
                 @Html.ValidationMessageFor(model => model.ConfirmPassowrd)
@@ -72,7 +73,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Email, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Email)
                 @Html.ValidationMessageFor(model => model.Email)
@@ -80,11 +81,13 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Roles, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Roles, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
                 <select id="roleSelect" name="roleSelect" class="selectpicker" multiple>
-                    @if (ViewBag.Roles != null) {
-                        foreach (var role in ViewBag.Roles as List<Role>) {
+                    @if (ViewBag.Roles != null)
+                    {
+                        foreach (var role in ViewBag.Roles as List<Role>)
+                        {
                             <option>@role.Title</option>
                         }
                     }
@@ -94,7 +97,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Avatar, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Avatar, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
                 <input type="file" name="file" id="file" style="width: 100%;" />
             </div>

@@ -5,103 +5,130 @@ using Scrummage.Interfaces;
 using Scrummage.Models;
 
 //Todo: Investigate suing Mock DbSet instead of having a fake Repository
-namespace Scrummage.Test.DataAccess {
-	public class FakeRepository<TModel> : IRepository<TModel> where TModel : class {
 
-		#region Properties
-		private bool _disposed;
+namespace Scrummage.Test.DataAccess
+{
+    public class FakeRepository<TModel> : IRepository<TModel> where TModel : class
+    {
+        #region Properties
 
-		public List<TModel> ModelList { get; set; }
-		public TModel Model { get; set; }
-		public bool IsCreated { get; private set; }
-		public bool IsUpdated { get; private set; }
-		public bool IsDeleted { get; private set; }
-		public bool IsSaved { get; private set; }
-		#endregion
+        private bool _disposed;
 
-		public FakeRepository() {
-			IsCreated = false;
-			IsSaved = false;
-		}
+        public List<TModel> ModelList { get; set; }
+        public TModel Model { get; set; }
+        public bool IsCreated { get; private set; }
+        public bool IsUpdated { get; private set; }
+        public bool IsDeleted { get; private set; }
+        public bool IsSaved { get; private set; }
 
-		#region Members
-		public List<TModel> All() {
-			return ModelList;
-		}
+        #endregion
 
-		public List<TModel> Where(Func<TModel, bool> query) {
-			return ModelList;
-		}
+        public FakeRepository()
+        {
+            IsCreated = false;
+            IsSaved = false;
+        }
 
-		public List<TModel> OrderBy<TKey>(Func<TModel, TKey> orderBy) {
-			return ModelList;
-		}
+        #region Members
 
-		public List<TModel> WhereOrderBy<TKey>(Func<TModel, bool> query, Func<TModel, TKey> orderBy) {
-			return ModelList;
-		}
+        public List<TModel> All()
+        {
+            return ModelList;
+        }
 
-		public TModel Find(int id) {
-			if (ModelList == null) {
-				return null;
-			}
+        public List<TModel> Where(Func<TModel, bool> query)
+        {
+            return ModelList;
+        }
 
-			object result;
-			//Based on type of TEntity, convert to specified type and find entry using id (All this logic is required to use the Find() function with id field)
-			if (typeof(TModel) == typeof(Role)) {
-				result = ModelList.Cast<Role>().ToList().Find(role => role.RoleId == id);
+        public List<TModel> OrderBy<TKey>(Func<TModel, TKey> orderBy)
+        {
+            return ModelList;
+        }
 
-			} else if (typeof(TModel) == typeof(Member)) {
-				result = ModelList.Cast<Member>().ToList().Find(member => member.MemberId == id);
+        public List<TModel> WhereOrderBy<TKey>(Func<TModel, bool> query, Func<TModel, TKey> orderBy)
+        {
+            return ModelList;
+        }
 
-			} else {
-				throw new NotImplementedException("Custom Exception: Convertion of type TEntity to model is not implemented. Extend conditional statement in FakeRepository => Find(int id)");
-			}
+        public TModel Find(int id)
+        {
+            if (ModelList == null)
+            {
+                return null;
+            }
 
-			//Convert back to TEntity and return
-			return (TModel)Convert.ChangeType(result, typeof(TModel));
-		}
+            object result;
+            //Based on type of TEntity, convert to specified type and find entry using id (All this logic is required to use the Find() function with id field)
+            if (typeof (TModel) == typeof (Role))
+            {
+                result = ModelList.Cast<Role>().ToList().Find(role => role.RoleId == id);
+            }
+            else if (typeof (TModel) == typeof (Member))
+            {
+                result = ModelList.Cast<Member>().ToList().Find(member => member.MemberId == id);
+            }
+            else
+            {
+                throw new NotImplementedException(
+                    "Custom Exception: Convertion of type TEntity to model is not implemented. Extend conditional statement in FakeRepository => Find(int id)");
+            }
 
-		public void Create(TModel entity) {
-			IsCreated = true;
-			IsSaved = true;
-		}
+            //Convert back to TEntity and return
+            return (TModel) Convert.ChangeType(result, typeof (TModel));
+        }
 
-		public void Update(TModel entity) {
-			IsUpdated = true;
-			IsSaved = true;
-		}
+        public void Create(TModel entity)
+        {
+            IsCreated = true;
+            IsSaved = true;
+        }
 
-		public void Delete(int id) {
-			IsDeleted = true;
-			IsSaved = true;
-		}
+        public void Update(TModel entity)
+        {
+            IsUpdated = true;
+            IsSaved = true;
+        }
 
-		public void Save() {
-			IsSaved = true;
-		}
+        public void Delete(int id)
+        {
+            IsDeleted = true;
+            IsSaved = true;
+        }
 
-		//Async Example
-		//Async Method, called from an Async Controller Method (See Role Repository and IRepository for following code)
-		//public System.Threading.Tasks.Task<TModel> FindAsync(int id) {
-		//	throw new NotImplementedException();
-		//}
-		#endregion
+        public void Save()
+        {
+            IsSaved = true;
+        }
 
-		#region IDisposable Members
-		protected virtual void Dispose(bool disposing) {
-			if (!_disposed) {
-				if (disposing) {
-					//There is nothing to dispose of in the fake repository
-				}
-			}
-			_disposed = true;
-		}
+        //Async Example
+        //Async Method, called from an Async Controller Method (See Role Repository and IRepository for following code)
+        //public System.Threading.Tasks.Task<TModel> FindAsync(int id) {
+        //	throw new NotImplementedException();
+        //}
 
-		public void Dispose() {
-			Dispose(true);
-			GC.SuppressFinalize(this);
-		}
-		#endregion
-	}
+        #endregion
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    //There is nothing to dispose of in the fake repository
+                }
+            }
+            _disposed = true;
+        }
+
+        #endregion
+    }
 }
