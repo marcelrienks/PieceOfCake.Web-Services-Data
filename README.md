@@ -24,6 +24,7 @@ Twitter Bootstrap has been used for presentation.
 * Manage Attachments
 
 ### Todo ###
+* Investigate examples of, or patterns for 'test data builder'
 * Investigate using Mock DbSet instead of having a fake Repository
 * Investigate option of creating view model layer (this will clean up password field on Member for example)
 * verify of username, password on create of member without causing a post back
