@@ -3,104 +3,125 @@ using Scrummage.DataAccess;
 using Scrummage.DataAccess.Models;
 using Scrummage.Interfaces;
 
-namespace Scrummage.Controllers {
-	public class RoleController : Controller {
+namespace Scrummage.Controllers
+{
+    public class RoleController : Controller
+    {
+        #region Properties
 
-		#region Properties
-		private readonly IUnitOfWork _unitOfWork;
-		#endregion
+        private readonly IUnitOfWork _unitOfWork;
 
-		public RoleController() {
-			_unitOfWork = new UnitOfWork();
-		}
+        #endregion
 
-		public RoleController(IUnitOfWork unitOfWork) {
-			_unitOfWork = unitOfWork;
-		}
+        public RoleController()
+        {
+            _unitOfWork = new UnitOfWork();
+        }
 
-		#region Actions
-		// GET: /Role/
-		public ActionResult Index() {
-			return View(_unitOfWork.RoleRepository.All());
-		}
+        public RoleController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
 
-		// GET: /Role/Details/5
-		public ActionResult Details(int id = 0) {
-			var role = _unitOfWork.RoleRepository.Find(id);
-			if (role == null) {
-				return HttpNotFound();
-			}
-			return View(role);
-		}
+        #region Actions
 
-		// GET: /Role/Create
-		public ActionResult Create() {
-			return View();
-		}
+        // GET: /Role/
+        public ActionResult Index()
+        {
+            return View(_unitOfWork.RoleRepository.All());
+        }
 
-		// POST: /Role/Create
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Create(Role role) {
-			if (ModelState.IsValid) {
-				_unitOfWork.RoleRepository.Create(role);
-				return RedirectToAction("Index");
-			}
+        // GET: /Role/Details/5
+        public ActionResult Details(int id = 0)
+        {
+            var role = _unitOfWork.RoleRepository.Find(id);
+            if (role == null)
+            {
+                return HttpNotFound();
+            }
+            return View(role);
+        }
 
-			return View(role);
-		}
+        // GET: /Role/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
 
-		// GET: /Role/Edit/5
-		public ActionResult Edit(int id = 0) {
-			var role = _unitOfWork.RoleRepository.Find(id);
-			if (role == null) {
-				return HttpNotFound();
-			}
-			return View(role);
-		}
+        // POST: /Role/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Role role)
+        {
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.RoleRepository.Create(role);
+                return RedirectToAction("Index");
+            }
 
-		// POST: /Role/Edit/5
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Edit(Role role) {
-			if (ModelState.IsValid) {
-				_unitOfWork.RoleRepository.Update(role);
-				return RedirectToAction("Index");
-			}
-			return View(role);
-		}
+            return View(role);
+        }
 
-		// GET: /Role/Delete/5
-		public ActionResult Delete(int id = 0) {
-			var role = _unitOfWork.RoleRepository.Find(id);
-			if (role == null) {
-				return HttpNotFound();
-			}
-			return View(role);
-		}
+        // GET: /Role/Edit/5
+        public ActionResult Edit(int id = 0)
+        {
+            var role = _unitOfWork.RoleRepository.Find(id);
+            if (role == null)
+            {
+                return HttpNotFound();
+            }
+            return View(role);
+        }
 
-		// POST: /Role/Delete/5
-		[HttpPost, ActionName("Delete")]
-		[ValidateAntiForgeryToken]
-		public ActionResult DeleteConfirmed(int id) {
-			_unitOfWork.RoleRepository.Delete(id);
-			return RedirectToAction("Index");
-		}
+        // POST: /Role/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Role role)
+        {
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.RoleRepository.Update(role);
+                return RedirectToAction("Index");
+            }
+            return View(role);
+        }
 
-		//Async Example
-		//Async Action Method, calling an Async Repository Method (See Repository and IRepository for following code)
-		//public async System.Threading.Tasks.Task<ActionResult> MethodAsync(int id = 0) {
-		//	var model = await UnitOfWork.ModelRepository.MethodAsync(id);
-		//	if (model == null) {
-		//		return HttpNotFound();
-		//	}
-		//	return View(model);
-		//}
-		#endregion
+        // GET: /Role/Delete/5
+        public ActionResult Delete(int id = 0)
+        {
+            var role = _unitOfWork.RoleRepository.Find(id);
+            if (role == null)
+            {
+                return HttpNotFound();
+            }
+            return View(role);
+        }
 
-		protected override void Dispose(bool disposing) {
-			_unitOfWork.RoleRepository.Dispose();
-			base.Dispose(disposing);
-		}
-	}
+        // POST: /Role/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            _unitOfWork.RoleRepository.Delete(id);
+            return RedirectToAction("Index");
+        }
+
+        //Async Example
+        //Async Action Method, calling an Async Repository Method (See Repository and IRepository for following code)
+        //public async System.Threading.Tasks.Task<ActionResult> MethodAsync(int id = 0) {
+        //	var model = await UnitOfWork.ModelRepository.MethodAsync(id);
+        //	if (model == null) {
+        //		return HttpNotFound();
+        //	}
+        //	return View(model);
+        //}
+
+        #endregion
+
+        protected override void Dispose(bool disposing)
+        {
+            _unitOfWork.RoleRepository.Dispose();
+            base.Dispose(disposing);
+        }
+    }
 }

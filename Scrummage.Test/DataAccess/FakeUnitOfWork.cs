@@ -1,19 +1,23 @@
 ﻿using Scrummage.DataAccess.Models;
 using Scrummage.Interfaces;
 
-namespace Scrummage.Test.DataAccess {
-	public class FakeUnitOfWork : IUnitOfWork {
+namespace Scrummage.Test.DataAccess
+{
+    public class FakeUnitOfWork : IUnitOfWork
+    {
+        #region Properties
 
-		#region Properties
-		public IRepository<Role> RoleRepository { get; private set; }
-		public IRepository<Member> MemberRepository { get; private set; }
-		public IRepository<Avatar> AvatarRepository { get; private set; }
-		#endregion
+        public IRepository<Role> RoleRepository { get; private set; }
+        public IRepository<Member> MemberRepository { get; private set; }
+        public IRepository<Avatar> AvatarRepository { get; private set; }
 
-		public FakeUnitOfWork() {
-			RoleRepository = new FakeRepository<Role>();
-			MemberRepository = new FakeRepository<Member>();
-			AvatarRepository = new FakeRepository<Avatar>();
-		}
-	}
+        #endregion
+
+        public FakeUnitOfWork()
+        {
+            RoleRepository = new FakeRepository<Role>();
+            MemberRepository = new FakeRepository<Member>();
+            AvatarRepository = new FakeRepository<Avatar>();
+        }
+    }
 }

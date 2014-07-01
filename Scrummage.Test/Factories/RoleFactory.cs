@@ -1,47 +1,62 @@
 ﻿using System.Collections.Generic;
 using Scrummage.DataAccess.Models;
 
-namespace Scrummage.Test.Factories {
-	public static class RoleFactory {
+namespace Scrummage.Test.Factories
+{
+    public class RoleFactory
+    {
+        private readonly Role _role;
+        private readonly List<Role> _roleList;
 
 		/// <summary>
-		/// Default Role model
+        ///     Create default Role and RoleList objects
 		/// </summary>
-		private static readonly Role DefaultRole = new Role {
+        public RoleFactory()
+        {
+            _role = new Role
+            {
 			RoleId = 0,
 			Title = "Title",
 			Description = "Description"
 		};
 
-		private static readonly Role DefaultRole1 = new Role {
-			RoleId = 1,
-			Title = "Title1",
-			Description = "Description1"
+            _roleList = new List<Role>
+            {
+                _role
 		};
+        }
 
 		/// <summary>
-		/// Returns a list containing one default Role model
+        ///     Return constructed Role
 		/// </summary>
-		/// <returns></returns>
-		public static List<Role> CreateDefaultRoleList() {
-			return new List<Role> {
-				DefaultRole
-			};
+        /// <returns>Role</returns>
+        public Role Build()
+        {
+            return _role;
 		}
 
-		public static List<Role> CreateExtendedRoleList() {
-			return new List<Role> {
-				DefaultRole,
-				DefaultRole1
-			};
+        /// <summary>
+        ///     Return constructed Role List
+        /// </summary>
+        /// <returns>List<Role></returns>
+        public List<Role> BuildList()
+        {
+            return _roleList;
 		}
 
 		/// <summary>
-		/// Returns a default Role model
+        ///     Create an Extended Role List with two items
 		/// </summary>
 		/// <returns></returns>
-		public static Role CreateDefaultRole() {
-			return DefaultRole;
+        public RoleFactory WithExtendedList()
+        {
+            _roleList.Add(new Role
+            {
+                RoleId = 1,
+                Title = "Title1",
+                Description = "Description1"
+            });
+            return this;
 		}
 	}
 }

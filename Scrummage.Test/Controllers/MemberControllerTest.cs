@@ -8,193 +8,224 @@ using Scrummage.DataAccess.Models;
 using Scrummage.Test.DataAccess;
 using Scrummage.Test.Factories;
 
-namespace Scrummage.Test.Controllers {
+namespace Scrummage.Test.Controllers
+{
+    [TestClass]
+    public class MemberControllerTest
+    {
+        #region Properties
 
-	[TestClass]
-	public class MemberControllerTest {
+        private readonly FakeUnitOfWork _fakeUnitOfWork = new FakeUnitOfWork();
 
-		#region Properties
-		private readonly FakeUnitOfWork _fakeUnitOfWork = new FakeUnitOfWork();
-		#endregion
+        #endregion
 
-		#region Index tests
-		[TestMethod]
-		public void TestSuccessfulIndexGet() {
-			var testMembers = MemberFactory.CreateDefaultMemberList();
-			((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).ModelList = testMembers; //'FakeUnitOfWork.MemberRepository' must be cast to 'FakeRepository<Member>', as 'FakeRepository' exposes some properties that 'IRepository' does not
+        #region Index tests
 
-			var controller = new MemberController(_fakeUnitOfWork);
-			var result = controller.Index() as ViewResult;
-			Assert.IsNotNull(result);
+        [TestMethod]
+        public void TestSuccessfulIndexGet()
+        {
+            var testMembers = new MemberFactory().BuildList();
+            //'FakeUnitOfWork.MemberRepository' must be cast to 'FakeRepository<Member>', as 'FakeRepository' exposes some properties that 'IRepository' does not
+            ((FakeRepository<Member>) _fakeUnitOfWork.MemberRepository).ModelList = testMembers;
 
-			var members = ((IEnumerable<Member>)result.Model).ToList();
-			Assert.AreEqual(1, members.Count);
-			Assert.AreEqual(testMembers[0], members[0]);
-		}
-		#endregion
+            var controller = new MemberController(_fakeUnitOfWork);
+            var result = controller.Index() as ViewResult;
+            Assert.IsNotNull(result);
 
-		#region Details tests
-		[TestMethod]
-		public void TestFailedDetailsGet() {
-			var testMembers = MemberFactory.CreateDefaultMemberList();
-			((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).ModelList = testMembers;
+            var members = ((IEnumerable<Member>) result.Model).ToList();
+            Assert.AreEqual(1, members.Count);
+            Assert.AreEqual(testMembers[0], members[0]);
+        }
 
-			var controller = new MemberController(_fakeUnitOfWork);
-			var result = controller.Details(9);
-			Assert.IsNotNull(result);
-			Assert.IsInstanceOfType(result, typeof(HttpNotFoundResult));
-		}
+        #endregion
 
-		[TestMethod]
-		public void TestSuccessfulDetailsGet() {
-			var testMembers = MemberFactory.CreateDefaultMemberList();
-			((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).ModelList = testMembers;
+        #region Details tests
 
-			var controller = new MemberController(_fakeUnitOfWork);
-			var result = controller.Details() as ViewResult;
-			Assert.IsNotNull(result);
+        [TestMethod]
+        public void TestFailedDetailsGet()
+        {
+            //'FakeUnitOfWork.MemberRepository' must be cast to 'FakeRepository<Member>', as 'FakeRepository' exposes some properties that 'IRepository' does not
+            ((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).ModelList = new MemberFactory().BuildList();
 
-			var member = ((Member)result.Model);
-			Assert.AreSame(testMembers[0], member);
-		}
-		#endregion
+            var controller = new MemberController(_fakeUnitOfWork);
+            var result = controller.Details(9);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof (HttpNotFoundResult));
+        }
 
-		#region Create tests
-		[TestMethod]
-		public void TestSuccessfulCreateGet() {
-			var controller = new MemberController(_fakeUnitOfWork);
-			var result = controller.Create() as ViewResult;
-			Assert.IsNotNull(result);
+        [TestMethod]
+        public void TestSuccessfulDetailsGet()
+        {
+            var testMembers = new MemberFactory().BuildList();
+            //'FakeUnitOfWork.MemberRepository' must be cast to 'FakeRepository<Member>', as 'FakeRepository' exposes some properties that 'IRepository' does not
+            ((FakeRepository<Member>) _fakeUnitOfWork.MemberRepository).ModelList = testMembers;
 
-			var role = ((Member)result.Model);
-			Assert.IsNull(role);
-		}
+            var controller = new MemberController(_fakeUnitOfWork);
+            var result = controller.Details() as ViewResult;
+            Assert.IsNotNull(result);
 
-		[TestMethod]
-		public void TestFailedCreatePost() {
-			var testMember = MemberFactory.CreateDefaultMember();
+            var member = ((Member) result.Model);
+            Assert.AreSame(testMembers[0], member);
+        }
 
-			var controller = new MemberController(_fakeUnitOfWork);
-			controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
-			var result = controller.Create(testMember, null, new FormCollection {
-				{"roleSelect", RoleFactory.CreateDefaultRole().Title}
-			}) as ViewResult;
-			Assert.IsNotNull(result);
+        #endregion
 
-			var member = ((Member)result.Model);
-			Assert.AreSame(testMember, member);
-		}
+        #region Create tests
 
-		[TestMethod]
-		public void TestSuccessfulCreatePostWithAvatar() {
-			var testRoles = RoleFactory.CreateExtendedRoleList();
-			((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = testRoles; //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
+        [TestMethod]
+        public void TestSuccessfulCreateGet()
+        {
+            var controller = new MemberController(_fakeUnitOfWork);
+            var result = controller.Create() as ViewResult;
+            Assert.IsNotNull(result);
 
-			var testMember = MemberFactory.CreateDefaultMember();
-			var customHttpPostedFileBase = HttpPostedFileBaseFactory.CreateCustomHttpPostedFileBase();
+            var role = ((Member) result.Model);
+            Assert.IsNull(role);
+        }
 
-			//Convert role titles to comma delimited string
-			var roleTitles = testRoles.Aggregate(String.Empty, (current, role) => current + role.Title + ", ");
+        [TestMethod]
+        public void TestFailedCreatePost()
+        {
+            var testMember = new MemberFactory().Build();
 
-			var controller = new MemberController(_fakeUnitOfWork);
-			var result = controller.Create(testMember, customHttpPostedFileBase, new FormCollection {
-				{"roleSelect", roleTitles}
-			}) as ViewResult;
+            var controller = new MemberController(_fakeUnitOfWork);
+            controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
+            var result = controller.Create(testMember, null, new FormCollection
+            {
+                {"roleSelect", new RoleFactory().Build().Title}
+            }) as ViewResult;
+            Assert.IsNotNull(result);
 
-			Assert.IsNull(result);
+            var member = ((Member) result.Model);
+            Assert.AreSame(testMember, member);
+        }
 
-			Assert.IsTrue(((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).IsCreated);
-			Assert.IsTrue(((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).IsSaved);
-		}
-		#endregion
+        [TestMethod]
+        public void TestSuccessfulCreatePostWithAvatar()
+        {
+            var testRoles = new RoleFactory().BuildList();
+            //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
+            ((FakeRepository<Role>) _fakeUnitOfWork.RoleRepository).ModelList = testRoles;
 
-		#region Edit tests
-		[TestMethod]
-		public void TestFailedEditGet() {
-			var testMember = MemberFactory.CreateDefaultMemberList();
-			((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).ModelList = testMember;
+            var customHttpPostedFileBase = HttpPostedFileBaseFactory.CreateCustomHttpPostedFileBase();
 
-			var controller = new MemberController(_fakeUnitOfWork);
-			var result = controller.Edit(9);
-			Assert.IsNotNull(result);
-			Assert.IsInstanceOfType(result, typeof(HttpNotFoundResult));
-		}
+            //Convert role titles to comma delimited string
+            var roleTitles = testRoles.Aggregate(String.Empty, (current, role) => current + role.Title + ", ");
 
-		[TestMethod]
-		public void TestSuccessfulEditGet() {
-			var testMembers = MemberFactory.CreateDefaultMemberList();
-			((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).ModelList = testMembers;
+            var controller = new MemberController(_fakeUnitOfWork);
+            var result = controller.Create(new MemberFactory().Build(), customHttpPostedFileBase, new FormCollection
+            {
+                {"roleSelect", roleTitles}
+            }) as ViewResult;
 
-			var controller = new MemberController(_fakeUnitOfWork);
-			var result = controller.Edit() as ViewResult;
-			Assert.IsNotNull(result);
+            Assert.IsNull(result);
 
-			var member = ((Member)result.Model);
-			Assert.AreSame(testMembers[0], member);
-		}
+            Assert.IsTrue(((FakeRepository<Member>) _fakeUnitOfWork.MemberRepository).IsCreated);
+            Assert.IsTrue(((FakeRepository<Member>) _fakeUnitOfWork.MemberRepository).IsSaved);
+        }
 
-		[TestMethod]
-		public void TestFailedEditPost() {
-			var testMember = MemberFactory.CreateDefaultMember();
+        #endregion
 
-			var controller = new MemberController(_fakeUnitOfWork);
-			controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
-			var result = controller.Edit(testMember) as ViewResult;
-			Assert.IsNotNull(result);
+        #region Edit tests
 
-			var member = ((Member)result.Model);
-			Assert.AreSame(testMember, member);
-		}
+        [TestMethod]
+        public void TestFailedEditGet()
+        {
+            //'FakeUnitOfWork.MemberRepository' must be cast to 'FakeRepository<Member>', as 'FakeRepository' exposes some properties that 'IRepository' does not
+            ((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).ModelList = new MemberFactory().BuildList();
 
-		[TestMethod]
-		public void TestSuccessfulEditPost() {
-			var testMember = MemberFactory.CreateDefaultMember();
+            var controller = new MemberController(_fakeUnitOfWork);
+            var result = controller.Edit(9);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof (HttpNotFoundResult));
+        }
 
-			var controller = new MemberController(_fakeUnitOfWork);
-			var result = controller.Edit(testMember);
-			Assert.IsNotNull(result);
-			Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
+        [TestMethod]
+        public void TestSuccessfulEditGet()
+        {
+            var testMembers = new MemberFactory().BuildList();
+            //'FakeUnitOfWork.MemberRepository' must be cast to 'FakeRepository<Member>', as 'FakeRepository' exposes some properties that 'IRepository' does not
+            ((FakeRepository<Member>) _fakeUnitOfWork.MemberRepository).ModelList = testMembers;
 
-			Assert.IsTrue(((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).IsUpdated);
-			Assert.IsTrue(((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).IsSaved);
-		}
-		#endregion
+            var controller = new MemberController(_fakeUnitOfWork);
+            var result = controller.Edit() as ViewResult;
+            Assert.IsNotNull(result);
 
-		#region Delete tests
-		[TestMethod]
-		public void TestFailedDeleteGet() {
-			var testMember = MemberFactory.CreateDefaultMemberList();
-			((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).ModelList = testMember;
+            var member = ((Member) result.Model);
+            Assert.AreSame(testMembers[0], member);
+        }
 
-			var controller = new MemberController(_fakeUnitOfWork);
-			var result = controller.Delete(9);
-			Assert.IsNotNull(result);
-			Assert.IsInstanceOfType(result, typeof(HttpNotFoundResult));
-		}
+        [TestMethod]
+        public void TestFailedEditPost()
+        {
+            var testMember = new MemberFactory().Build();
 
-		[TestMethod]
-		public void TestSuccessfulDeleteGet() {
-			var testMember = MemberFactory.CreateDefaultMemberList();
-			((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).ModelList = testMember;
+            var controller = new MemberController(_fakeUnitOfWork);
+            controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
+            var result = controller.Edit(testMember) as ViewResult;
+            Assert.IsNotNull(result);
 
-			var controller = new MemberController(_fakeUnitOfWork);
-			var result = controller.Delete() as ViewResult;
-			Assert.IsNotNull(result);
+            var member = ((Member) result.Model);
+            Assert.AreSame(testMember, member);
+        }
 
-			var member = ((Member)result.Model);
-			Assert.AreSame(testMember[0], member);
-		}
+        [TestMethod]
+        public void TestSuccessfulEditPost()
+        {
+            var testMember = new MemberFactory().Build();
 
-		[TestMethod]
-		public void TestSuccessfulDeletePost() {
-			var controller = new MemberController(_fakeUnitOfWork);
-			var result = controller.DeleteConfirmed(0);
-			Assert.IsNotNull(result);
-			Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
+            var controller = new MemberController(_fakeUnitOfWork);
+            var result = controller.Edit(testMember);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof (RedirectToRouteResult));
 
-			Assert.IsTrue(((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).IsDeleted);
-			Assert.IsTrue(((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).IsSaved);
-		}
-		#endregion
-	}
+            Assert.IsTrue(((FakeRepository<Member>) _fakeUnitOfWork.MemberRepository).IsUpdated);
+            Assert.IsTrue(((FakeRepository<Member>) _fakeUnitOfWork.MemberRepository).IsSaved);
+        }
+
+        #endregion
+
+        #region Delete tests
+
+        [TestMethod]
+        public void TestFailedDeleteGet()
+        {
+            //'FakeUnitOfWork.MemberRepository' must be cast to 'FakeRepository<Member>', as 'FakeRepository' exposes some properties that 'IRepository' does not
+            ((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).ModelList = new MemberFactory().BuildList();
+
+            var controller = new MemberController(_fakeUnitOfWork);
+            var result = controller.Delete(9);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof (HttpNotFoundResult));
+        }
+
+        [TestMethod]
+        public void TestSuccessfulDeleteGet()
+        {
+            var testMember = new MemberFactory().BuildList();
+            //'FakeUnitOfWork.MemberRepository' must be cast to 'FakeRepository<Member>', as 'FakeRepository' exposes some properties that 'IRepository' does not
+            ((FakeRepository<Member>) _fakeUnitOfWork.MemberRepository).ModelList = testMember;
+
+            var controller = new MemberController(_fakeUnitOfWork);
+            var result = controller.Delete() as ViewResult;
+            Assert.IsNotNull(result);
+
+            var member = ((Member) result.Model);
+            Assert.AreSame(testMember[0], member);
+        }
+
+        [TestMethod]
+        public void TestSuccessfulDeletePost()
+        {
+            var controller = new MemberController(_fakeUnitOfWork);
+            var result = controller.DeleteConfirmed(0);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof (RedirectToRouteResult));
+
+            Assert.IsTrue(((FakeRepository<Member>) _fakeUnitOfWork.MemberRepository).IsDeleted);
+            Assert.IsTrue(((FakeRepository<Member>) _fakeUnitOfWork.MemberRepository).IsSaved);
+        }
+
+        #endregion
+    }
 }

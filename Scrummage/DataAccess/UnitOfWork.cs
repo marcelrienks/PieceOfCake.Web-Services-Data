@@ -1,20 +1,24 @@
 ﻿using Scrummage.DataAccess.Models;
 using Scrummage.Interfaces;
 
-namespace Scrummage.DataAccess {
-	public class UnitOfWork : IUnitOfWork {
+namespace Scrummage.DataAccess
+{
+    public class UnitOfWork : IUnitOfWork
+    {
+        #region Properties
 
-		#region Properties
-		public IRepository<Role> RoleRepository { get; private set; }
-		public IRepository<Member> MemberRepository { get; private set; }
-		public IRepository<Avatar> AvatarRepository { get; private set; }
-		#endregion
+        public IRepository<Role> RoleRepository { get; private set; }
+        public IRepository<Member> MemberRepository { get; private set; }
+        public IRepository<Avatar> AvatarRepository { get; private set; }
 
-		public UnitOfWork() {
-			var context = new Context();
-			RoleRepository = new Repository<Role>(context);
-			MemberRepository = new Repository<Member>(context);
-			AvatarRepository = new Repository<Avatar>(context);
-		}
-	}
+        #endregion
+
+        public UnitOfWork()
+        {
+            var context = new Context();
+            RoleRepository = new Repository<Role>(context);
+            MemberRepository = new Repository<Member>(context);
+            AvatarRepository = new Repository<Avatar>(context);
+        }
+    }
 }

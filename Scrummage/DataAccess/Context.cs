@@ -3,10 +3,13 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Annotations;
 using Scrummage.DataAccess.Models;
 
-namespace Scrummage.DataAccess {
-	public class Context : DbContext {
+namespace Scrummage.DataAccess
+{
+    public class Context : DbContext
+    {
 		public Context()
-			: base("ScrummageDB") {
+            : base("ScrummageDB")
+        {
 		}
 
 		public DbSet<Role> Roles { get; set; }
@@ -17,16 +20,18 @@ namespace Scrummage.DataAccess {
 		//Using Fluent API to configure tables in an attempt to keep poco model classes clean and un cluttered.
 
 		/// <summary>
-		/// On Model Create configure Table properties using Fluent API
+        ///     On Model Create configure Table properties using Fluent API
 		/// </summary>
 		/// <param name="modelBuilder"></param>
-		protected override void OnModelCreating(DbModelBuilder modelBuilder) {
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
 			ConfigureRole(modelBuilder);
 			ConfigureMember(modelBuilder);
 			ConfigureAvatar(modelBuilder);
 		}
 
-		private void ConfigureRole(DbModelBuilder modelBuilder) {
+        private void ConfigureRole(DbModelBuilder modelBuilder)
+        {
 			//RoleId is Primary Key
 			modelBuilder.Entity<Role>()
 			            .HasKey(role => role.RoleId);
@@ -44,7 +49,7 @@ namespace Scrummage.DataAccess {
 
 			//Description has a max length
 			modelBuilder.Entity<Role>()
-									.Property(role => role.Title)
+			            .Property(role => role.Title)
 									.HasMaxLength(180);
 
 			//Many to many relationship between Member and Roles
@@ -53,7 +58,8 @@ namespace Scrummage.DataAccess {
 									.WithMany(member => member.Roles);
 		}
 
-		private void ConfigureMember(DbModelBuilder modelBuilder) {
+        private void ConfigureMember(DbModelBuilder modelBuilder)
+        {
 			//MemberId is Primary Key
 			modelBuilder.Entity<Member>()
 									.HasKey(member => member.MemberId);
@@ -104,7 +110,8 @@ namespace Scrummage.DataAccess {
 									.WillCascadeOnDelete(true);
 		}
 
-		private void ConfigureAvatar(DbModelBuilder modelBuilder) {
+        private void ConfigureAvatar(DbModelBuilder modelBuilder)
+        {
 			//MemberId is Primary Key
 			modelBuilder.Entity<Avatar>()
 									.HasKey(avatar => avatar.MemberId);
