@@ -3,48 +3,72 @@ using Scrummage.Models;
 
 namespace Scrummage.Test.Factories
 {
-    public static class MemberFactory
+    public class MemberFactory
     {
-        private static int memberId = 0;
+        private Member _member;
+        private List<Member> _memberList;
 
         /// <summary>
-        ///     Default Member model
+        ///     Create default Member and MemberList objects
         /// </summary>
-        private static readonly Member DefaultMember = new Member
+        public MemberFactory()
         {
-            MemberId = memberId,
-            Name = "Name",
-            ShortName = "sn",
-            Username = "Username",
-            ClearPassword = "password",
-            Email = "email@address.com",
-            Roles = RoleFactory.CreateDefaultRoleList(),
-            Avatar = new Avatar
+            CreateDefaultMemberAndMemberList(0);
+        }
+
+        /// <summary>
+        ///     Create default Member and MemberList objects with given Member Id
+        /// </summary>
+        /// <param name="memberId"></param>
+        public MemberFactory(int memberId)
+        {
+            CreateDefaultMemberAndMemberList(memberId);
+        }
+
+        /// <summary>
+        ///     Create default Member and MemberList objects with given Member Id
+        /// </summary>
+        /// <param name="memberId"></param>
+        private void CreateDefaultMemberAndMemberList(int memberId)
+        {
+            _member = new Member
             {
                 MemberId = memberId,
-                Image = new byte[0]
-            }
-        };
+                Name = "Name",
+                ShortName = "sn",
+                Username = "Username",
+                ClearPassword = "password",
+                Email = "email@address.com",
+                Roles = new RoleFactory().BuildList(),
+                Avatar = new Avatar
+                {
+                    MemberId = memberId,
+                    Image = new byte[0]
+                }
+            };
 
-        /// <summary>
-        ///     Returns a list containing one default Member model
-        /// </summary>
-        /// <returns></returns>
-        public static List<Member> CreateDefaultMemberList()
-        {
-            return new List<Member>
+            _memberList = new List<Member>
             {
-                DefaultMember
+                _member
             };
         }
 
         /// <summary>
-        ///     Returns a default Member model
+        ///     Return constructed Role
         /// </summary>
-        /// <returns></returns>
-        public static Member CreateDefaultMember()
+        /// <returns>Role</returns>
+        public Member Build()
         {
-            return DefaultMember;
+            return _member;
+        }
+
+        /// <summary>
+        ///     Return constructed Role List
+        /// </summary>
+        /// <returns>List<Member></returns>
+        public List<Member> BuildList()
+        {
+            return _memberList;
         }
     }
 }

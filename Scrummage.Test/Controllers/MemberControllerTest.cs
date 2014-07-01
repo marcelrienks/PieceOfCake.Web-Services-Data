@@ -24,9 +24,9 @@ namespace Scrummage.Test.Controllers
         [TestMethod]
         public void TestSuccessfulIndexGet()
         {
-            var testMembers = MemberFactory.CreateDefaultMemberList();
+            var testMembers = new MemberFactory().BuildList();
+            //'FakeUnitOfWork.MemberRepository' must be cast to 'FakeRepository<Member>', as 'FakeRepository' exposes some properties that 'IRepository' does not
             ((FakeRepository<Member>) _fakeUnitOfWork.MemberRepository).ModelList = testMembers;
-                //'FakeUnitOfWork.MemberRepository' must be cast to 'FakeRepository<Member>', as 'FakeRepository' exposes some properties that 'IRepository' does not
 
             var controller = new MemberController(_fakeUnitOfWork);
             var result = controller.Index() as ViewResult;
@@ -44,8 +44,8 @@ namespace Scrummage.Test.Controllers
         [TestMethod]
         public void TestFailedDetailsGet()
         {
-            var testMembers = MemberFactory.CreateDefaultMemberList();
-            ((FakeRepository<Member>) _fakeUnitOfWork.MemberRepository).ModelList = testMembers;
+            //'FakeUnitOfWork.MemberRepository' must be cast to 'FakeRepository<Member>', as 'FakeRepository' exposes some properties that 'IRepository' does not
+            ((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).ModelList = new MemberFactory().BuildList();
 
             var controller = new MemberController(_fakeUnitOfWork);
             var result = controller.Details(9);
@@ -56,7 +56,8 @@ namespace Scrummage.Test.Controllers
         [TestMethod]
         public void TestSuccessfulDetailsGet()
         {
-            var testMembers = MemberFactory.CreateDefaultMemberList();
+            var testMembers = new MemberFactory().BuildList();
+            //'FakeUnitOfWork.MemberRepository' must be cast to 'FakeRepository<Member>', as 'FakeRepository' exposes some properties that 'IRepository' does not
             ((FakeRepository<Member>) _fakeUnitOfWork.MemberRepository).ModelList = testMembers;
 
             var controller = new MemberController(_fakeUnitOfWork);
@@ -85,13 +86,13 @@ namespace Scrummage.Test.Controllers
         [TestMethod]
         public void TestFailedCreatePost()
         {
-            var testMember = MemberFactory.CreateDefaultMember();
+            var testMember = new MemberFactory().Build();
 
             var controller = new MemberController(_fakeUnitOfWork);
             controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
             var result = controller.Create(testMember, null, new FormCollection
             {
-                {"roleSelect", RoleFactory.CreateDefaultRole().Title}
+                {"roleSelect", new RoleFactory().Build().Title}
             }) as ViewResult;
             Assert.IsNotNull(result);
 
@@ -102,18 +103,17 @@ namespace Scrummage.Test.Controllers
         [TestMethod]
         public void TestSuccessfulCreatePostWithAvatar()
         {
-            var testRoles = RoleFactory.CreateExtendedRoleList();
+            var testRoles = new RoleFactory().BuildList();
+            //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
             ((FakeRepository<Role>) _fakeUnitOfWork.RoleRepository).ModelList = testRoles;
-                //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
 
-            var testMember = MemberFactory.CreateDefaultMember();
             var customHttpPostedFileBase = HttpPostedFileBaseFactory.CreateCustomHttpPostedFileBase();
 
             //Convert role titles to comma delimited string
             var roleTitles = testRoles.Aggregate(String.Empty, (current, role) => current + role.Title + ", ");
 
             var controller = new MemberController(_fakeUnitOfWork);
-            var result = controller.Create(testMember, customHttpPostedFileBase, new FormCollection
+            var result = controller.Create(new MemberFactory().Build(), customHttpPostedFileBase, new FormCollection
             {
                 {"roleSelect", roleTitles}
             }) as ViewResult;
@@ -131,8 +131,8 @@ namespace Scrummage.Test.Controllers
         [TestMethod]
         public void TestFailedEditGet()
         {
-            var testMember = MemberFactory.CreateDefaultMemberList();
-            ((FakeRepository<Member>) _fakeUnitOfWork.MemberRepository).ModelList = testMember;
+            //'FakeUnitOfWork.MemberRepository' must be cast to 'FakeRepository<Member>', as 'FakeRepository' exposes some properties that 'IRepository' does not
+            ((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).ModelList = new MemberFactory().BuildList();
 
             var controller = new MemberController(_fakeUnitOfWork);
             var result = controller.Edit(9);
@@ -143,7 +143,8 @@ namespace Scrummage.Test.Controllers
         [TestMethod]
         public void TestSuccessfulEditGet()
         {
-            var testMembers = MemberFactory.CreateDefaultMemberList();
+            var testMembers = new MemberFactory().BuildList();
+            //'FakeUnitOfWork.MemberRepository' must be cast to 'FakeRepository<Member>', as 'FakeRepository' exposes some properties that 'IRepository' does not
             ((FakeRepository<Member>) _fakeUnitOfWork.MemberRepository).ModelList = testMembers;
 
             var controller = new MemberController(_fakeUnitOfWork);
@@ -157,7 +158,7 @@ namespace Scrummage.Test.Controllers
         [TestMethod]
         public void TestFailedEditPost()
         {
-            var testMember = MemberFactory.CreateDefaultMember();
+            var testMember = new MemberFactory().Build();
 
             var controller = new MemberController(_fakeUnitOfWork);
             controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
@@ -171,7 +172,7 @@ namespace Scrummage.Test.Controllers
         [TestMethod]
         public void TestSuccessfulEditPost()
         {
-            var testMember = MemberFactory.CreateDefaultMember();
+            var testMember = new MemberFactory().Build();
 
             var controller = new MemberController(_fakeUnitOfWork);
             var result = controller.Edit(testMember);
@@ -189,8 +190,8 @@ namespace Scrummage.Test.Controllers
         [TestMethod]
         public void TestFailedDeleteGet()
         {
-            var testMember = MemberFactory.CreateDefaultMemberList();
-            ((FakeRepository<Member>) _fakeUnitOfWork.MemberRepository).ModelList = testMember;
+            //'FakeUnitOfWork.MemberRepository' must be cast to 'FakeRepository<Member>', as 'FakeRepository' exposes some properties that 'IRepository' does not
+            ((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).ModelList = new MemberFactory().BuildList();
 
             var controller = new MemberController(_fakeUnitOfWork);
             var result = controller.Delete(9);
@@ -201,7 +202,8 @@ namespace Scrummage.Test.Controllers
         [TestMethod]
         public void TestSuccessfulDeleteGet()
         {
-            var testMember = MemberFactory.CreateDefaultMemberList();
+            var testMember = new MemberFactory().BuildList();
+            //'FakeUnitOfWork.MemberRepository' must be cast to 'FakeRepository<Member>', as 'FakeRepository' exposes some properties that 'IRepository' does not
             ((FakeRepository<Member>) _fakeUnitOfWork.MemberRepository).ModelList = testMember;
 
             var controller = new MemberController(_fakeUnitOfWork);

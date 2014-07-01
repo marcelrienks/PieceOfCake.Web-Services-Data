@@ -1,55 +1,62 @@
-﻿using System.Collections.Generic;
-using Scrummage.Models;
-//Todo: Investigate examples of, or patterns for 'test data builder'
+﻿using Scrummage.Models;
+using System.Collections.Generic;
+
 namespace Scrummage.Test.Factories
 {
-    public static class RoleFactory
+    public class RoleFactory
     {
-        /// <summary>
-        ///     Default Role model
-        /// </summary>
-        private static readonly Role DefaultRole = new Role
-        {
-            RoleId = 0,
-            Title = "Title",
-            Description = "Description"
-        };
-
-        private static readonly Role DefaultRole1 = new Role
-        {
-            RoleId = 1,
-            Title = "Title1",
-            Description = "Description1"
-        };
+        private readonly Role _role;
+        private readonly List<Role> _roleList;
 
         /// <summary>
-        ///     Returns a list containing one default Role model
+        ///     Create default Role and RoleList objects
         /// </summary>
-        /// <returns></returns>
-        public static List<Role> CreateDefaultRoleList()
+        public RoleFactory()
         {
-            return new List<Role>
+            _role = new Role
             {
-                DefaultRole
+                RoleId = 0,
+                Title = "Title",
+                Description = "Description"
             };
-        }
 
-        public static List<Role> CreateExtendedRoleList()
-        {
-            return new List<Role>
+            _roleList = new List<Role>
             {
-                DefaultRole,
-                DefaultRole1
+                _role
             };
         }
 
         /// <summary>
-        ///     Returns a default Role model
+        ///     Return constructed Role
+        /// </summary>
+        /// <returns>Role</returns>
+        public Role Build()
+        {
+            return _role;
+        }
+
+        /// <summary>
+        ///     Return constructed Role List
+        /// </summary>
+        /// <returns>List<Role></returns>
+        public List<Role> BuildList()
+        {
+            return _roleList;
+        }
+
+        /// <summary>
+        ///     Create an Extended Role List with two items
         /// </summary>
         /// <returns></returns>
-        public static Role CreateDefaultRole()
+        public RoleFactory WithExtendedList()
         {
-            return DefaultRole;
+            _roleList.Add(new Role
+            {
+                RoleId = 1,
+                Title = "Title1",
+                Description = "Description1"
+            });
+            return this;
         }
     }
 }
