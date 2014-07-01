@@ -36,6 +36,7 @@ namespace Scrummage.Test.Controllers
             Assert.AreSame(testRoles[0], roles[0]);
         }
 
+        [TestMethod]
         public void TestSuccessfulExtendedIndexGet()
         {
             var testRoles = new RoleFactory().WithExtendedList().BuildList();
