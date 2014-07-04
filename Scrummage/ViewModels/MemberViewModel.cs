@@ -65,17 +65,5 @@ namespace Scrummage.ViewModels {
 		[Required]
 		public virtual AvatarViewModel AvatarModelView { get; set; }
 		#endregion
-
-		#region Model Mapping
-		public static explicit operator MemberViewModel(Member member)
-		{
-		    return null;
-		}
-
-		public static explicit operator Member(MemberViewModel memberModelView)
-		{
-		    return null;
-		}
-		#endregion
 	}
 }

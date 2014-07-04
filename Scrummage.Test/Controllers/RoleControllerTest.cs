@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Scrummage.Controllers;
 using Scrummage.DataAccess.Models;
@@ -14,10 +15,14 @@ namespace Scrummage.Test.Controllers
     public class RoleControllerTest
     {
         #region Properties
-
-        private readonly FakeUnitOfWork _fakeUnitOfWork = new FakeUnitOfWork();
-
+        private readonly FakeUnitOfWork _fakeUnitOfWork;
         #endregion
+
+        public RoleControllerTest()
+        {
+            _fakeUnitOfWork = new FakeUnitOfWork();
+            AutoMapperConfig.ConfigureMappings();
+        }
 
         #region Index tests
 
@@ -113,7 +118,8 @@ namespace Scrummage.Test.Controllers
         [TestMethod]
         public void TestFailedCreatePost()
         {
-            var testRoleViewModel = (RoleViewModel)new RoleFactory().Build();
+            var testRole = new RoleFactory().Build();
+            var testRoleViewModel = Mapper.Map(testRole, new RoleViewModel());
 
             var controller = new RoleController(_fakeUnitOfWork);
             controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
@@ -127,8 +133,11 @@ namespace Scrummage.Test.Controllers
         [TestMethod]
         public void TestSuccessfulCreatePost()
         {
+            var testRole = new RoleFactory().Build();
+            var testRoleViewModel = Mapper.Map(testRole, new RoleViewModel());
+
             var controller = new RoleController(_fakeUnitOfWork);
-            var result = controller.Create((RoleViewModel)new RoleFactory().Build());
+            var result = controller.Create(testRoleViewModel);
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
 
@@ -172,7 +181,8 @@ namespace Scrummage.Test.Controllers
         [TestMethod]
         public void TestFailedEditPost()
         {
-            var testRoleViewModel = (RoleViewModel)new RoleFactory().Build();
+            var testRole = new RoleFactory().Build();
+            var testRoleViewModel = Mapper.Map(testRole, new RoleViewModel());
 
             var controller = new RoleController(_fakeUnitOfWork);
             controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
@@ -186,8 +196,11 @@ namespace Scrummage.Test.Controllers
         [TestMethod]
         public void TestSuccessfulEditPost()
         {
+            var testRole = new RoleFactory().Build();
+            var testRoleViewModel = Mapper.Map(testRole, new RoleViewModel());
+
             var controller = new RoleController(_fakeUnitOfWork);
-            var result = controller.Edit((RoleViewModel)new RoleFactory().Build());
+            var result = controller.Edit(testRoleViewModel);
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
 

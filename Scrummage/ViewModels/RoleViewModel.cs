@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Scrummage.DataAccess.Models;
+﻿using Scrummage.DataAccess.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace Scrummage.ViewModels
@@ -23,42 +22,6 @@ namespace Scrummage.ViewModels
         //Description
         [StringLength(180, MinimumLength = 3, ErrorMessage = "The {0} must be between {2} and {1} characters long.")]
         public string Description { get; set; }
-        #endregion
-
-        #region Model Mapping
-        /// <summary>
-        ///     Explicitly converts a Role to a RoleModelView
-        /// </summary>
-        /// <param name="role"></param>
-        /// <returns>RoleViewModel</returns>
-        public static explicit operator RoleViewModel(Role role)
-        {
-            return role != null
-                ? new RoleViewModel()
-                {
-                    RoleId = role.RoleId,
-                    Description = role.Description,
-                    Title = role.Title
-                }
-                : null;
-        }
-
-        /// <summary>
-        ///     Explicitly converts a RoleModelView to a Role
-        /// </summary>
-        /// <param name="roleModelView"></param>
-        /// <returns>Role</returns>
-        public static explicit operator Role(RoleViewModel roleModelView)
-        {
-            return roleModelView != null
-                ? new Role()
-                {
-                    RoleId = roleModelView.RoleId,
-                    Description = roleModelView.Description,
-                    Title = roleModelView.Title
-                }
-                : null;
-        }
         #endregion
     }
 }

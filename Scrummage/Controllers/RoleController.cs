@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using Scrummage.DataAccess;
 using Scrummage.DataAccess.Models;
 using Scrummage.Interfaces;
@@ -32,18 +33,19 @@ namespace Scrummage.Controllers
         public ActionResult Index()
         {
             var roles = _unitOfWork.RoleRepository.All();
-            var roleViewModels = roles.Select(role => (RoleViewModel)role).ToList();
+            var roleViewModels = AutoMapper.Mapper.Map(roles, new List<RoleViewModel>());
             return View(roleViewModels);
         }
 
         // GET: /Role/Details/5
         public ActionResult Details(int id = 0)
         {
-            var roleViewModel = (RoleViewModel)_unitOfWork.RoleRepository.Find(id);
-            if (roleViewModel == null)
+            var role = _unitOfWork.RoleRepository.Find(id);
+            if (role == null)
             {
                 return HttpNotFound();
             }
+            var roleViewModel = AutoMapper.Mapper.Map(role, new RoleViewModel());
             return View(roleViewModel);
         }
 
@@ -60,7 +62,8 @@ namespace Scrummage.Controllers
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.RoleRepository.Create((Role)roleViewModel);
+                var role = AutoMapper.Mapper.Map(roleViewModel, new Role());
+                _unitOfWork.RoleRepository.Create(role);
                 return RedirectToAction("Index");
             }
 
@@ -70,11 +73,12 @@ namespace Scrummage.Controllers
         // GET: /Role/Edit/5
         public ActionResult Edit(int id = 0)
         {
-            var roleViewModel = (RoleViewModel)_unitOfWork.RoleRepository.Find(id);
-            if (roleViewModel == null)
+            var role = _unitOfWork.RoleRepository.Find(id);
+            if (role == null)
             {
                 return HttpNotFound();
             }
+            var roleViewModel = AutoMapper.Mapper.Map(role, new RoleViewModel());
             return View(roleViewModel);
         }
 
@@ -85,7 +89,8 @@ namespace Scrummage.Controllers
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.RoleRepository.Update((Role)roleViewModel);
+                var role = Mapper.Map(roleViewModel, new Role());
+                _unitOfWork.RoleRepository.Update(role);
                 return RedirectToAction("Index");
             }
             return View(roleViewModel);
@@ -94,11 +99,12 @@ namespace Scrummage.Controllers
         // GET: /Role/Delete/5
         public ActionResult Delete(int id = 0)
         {
-            var roleViewModel = (RoleViewModel)_unitOfWork.RoleRepository.Find(id);
-            if (roleViewModel == null)
+            var role = _unitOfWork.RoleRepository.Find(id);
+            if (role == null)
             {
                 return HttpNotFound();
             }
+            var roleViewModel = AutoMapper.Mapper.Map(role, new RoleViewModel());
             return View(roleViewModel);
         }
 
