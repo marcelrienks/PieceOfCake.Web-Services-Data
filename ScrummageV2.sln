@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrummage", "Scrummage\Scrummage.csproj", "{AFB6CC32-0C3B-48E6-914D-30059791D2B9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrummage.Test", "Scrummage.Test\Scrummage.Test.csproj", "{7FD34E51-6A67-4A55-83FA-B5630FC4190E}"

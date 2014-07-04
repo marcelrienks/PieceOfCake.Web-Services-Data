@@ -9,7 +9,8 @@ namespace Scrummage.Test
     {
 		[TestMethod]
         public void Test()
-        {
+		{
+
 		}
 	}
 }

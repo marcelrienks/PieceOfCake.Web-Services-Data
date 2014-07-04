@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Scrummage.ViewModels {
-	public class AvatarModelView {
+	public class AvatarViewModel {
 
 		//Note:
 		//Using View Models in an attempt to keep poco model classes clean and un cluttered.
@@ -18,7 +18,7 @@ namespace Scrummage.ViewModels {
 
 		#region Navigation
 		[Required]
-		public virtual MemberModelView MemberModelView { get; set; }
+		public virtual MemberViewModel MemberModelView { get; set; }
 		#endregion
 	}
 }
