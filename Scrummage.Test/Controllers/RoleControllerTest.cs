@@ -39,9 +39,7 @@ namespace Scrummage.Test.Controllers
 
             var roleViewModels = ((IEnumerable<RoleViewModel>)result.Model).ToList();
             Assert.AreEqual(1, roleViewModels.Count);
-            Assert.AreEqual(testRoles.First().RoleId, roleViewModels.First().RoleId);
-            Assert.AreEqual(testRoles.First().Title, roleViewModels.First().Title);
-            Assert.AreEqual(testRoles.First().Description, roleViewModels.First().Description);
+            PerformCommonAsserts(testRoles.First(), roleViewModels.First());
         }
 
         [TestMethod]
@@ -61,9 +59,7 @@ namespace Scrummage.Test.Controllers
             foreach (var testRole in testRoles)
             {
                 var roleViewModel = roleViewModels.First(rvm => rvm.RoleId == testRole.RoleId);
-                Assert.AreEqual(testRole.RoleId, roleViewModel.RoleId);
-                Assert.AreEqual(testRole.Title, roleViewModel.Title);
-                Assert.AreEqual(testRole.Description, roleViewModel.Description);
+                PerformCommonAsserts(testRole, roleViewModel);
             }
         }
 
@@ -95,9 +91,7 @@ namespace Scrummage.Test.Controllers
             Assert.IsNotNull(result);
 
             var roleViewModel = (RoleViewModel)result.Model;
-            Assert.AreEqual(testRoles.First().RoleId, roleViewModel.RoleId);
-            Assert.AreEqual(testRoles.First().Title, roleViewModel.Title);
-            Assert.AreEqual(testRoles.First().Description, roleViewModel.Description);
+            PerformCommonAsserts(testRoles.First(), roleViewModel);
         }
 
         #endregion
@@ -110,9 +104,7 @@ namespace Scrummage.Test.Controllers
             var controller = new RoleController(_fakeUnitOfWork);
             var result = controller.Create() as ViewResult;
             Assert.IsNotNull(result);
-
-            var role = result.Model;
-            Assert.IsNull(role);
+            Assert.IsNull(result.Model);
         }
 
         [TestMethod]
@@ -173,9 +165,7 @@ namespace Scrummage.Test.Controllers
             Assert.IsNotNull(result);
 
             var roleViewModel = (RoleViewModel)result.Model;
-            Assert.AreEqual(testRoles.First().RoleId, roleViewModel.RoleId);
-            Assert.AreEqual(testRoles.First().Title, roleViewModel.Title);
-            Assert.AreEqual(testRoles.First().Description, roleViewModel.Description);
+            PerformCommonAsserts(testRoles.First(), roleViewModel);
         }
 
         [TestMethod]
@@ -236,9 +226,7 @@ namespace Scrummage.Test.Controllers
             Assert.IsNotNull(result);
 
             var roleViewModel = (RoleViewModel)result.Model;
-            Assert.AreEqual(testRoles.First().RoleId, roleViewModel.RoleId);
-            Assert.AreEqual(testRoles.First().Title, roleViewModel.Title);
-            Assert.AreEqual(testRoles.First().Description, roleViewModel.Description);
+            PerformCommonAsserts(testRoles.First(), roleViewModel);
         }
 
         [TestMethod]
@@ -251,6 +239,17 @@ namespace Scrummage.Test.Controllers
 
             Assert.IsTrue(((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).IsDeleted);
             Assert.IsTrue(((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).IsSaved);
+        }
+
+        #endregion
+
+        #region Common Asserts
+
+        private static void PerformCommonAsserts(Role role, RoleViewModel roleViewModel)
+        {
+            Assert.AreEqual(role.RoleId, roleViewModel.RoleId);
+            Assert.AreEqual(role.Title, roleViewModel.Title);
+            Assert.AreEqual(role.Description, roleViewModel.Description);
         }
 
         #endregion

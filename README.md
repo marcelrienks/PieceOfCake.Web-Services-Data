@@ -24,6 +24,7 @@ Twitter Bootstrap has been used for presentation.
 * Manage Attachments
 
 ### Todo ###
+* investigate then if Avatar and Roles should be required on the viewModel
 * investigate if i can use a flag to determine one level deep of related model conversion (apply this to all explicit conversions)
 * Investigate using Mock DbSet instead of having a fake Repository
 * investigate option of creating view model layer (this will clean up password field on Member for example)

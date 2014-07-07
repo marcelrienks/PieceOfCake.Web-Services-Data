@@ -1,4 +1,5 @@
-﻿using Scrummage.DataAccess.Models;
+﻿using System.Collections.Generic;
+using Scrummage.DataAccess.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace Scrummage.ViewModels
@@ -22,6 +23,11 @@ namespace Scrummage.ViewModels
         //Description
         [StringLength(180, MinimumLength = 3, ErrorMessage = "The {0} must be between {2} and {1} characters long.")]
         public string Description { get; set; }
+        #endregion
+
+        #region Navigation
+        [Required]
+        public virtual ICollection<MemberViewModel> MemberViewModels { get; set; }
         #endregion
     }
 }

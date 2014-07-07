@@ -8,17 +8,17 @@ namespace Scrummage.Test.Factories
         private readonly Role _role;
         private readonly List<Role> _roleList;
 
-		/// <summary>
+        /// <summary>
         ///     Create default Role and RoleList objects
-		/// </summary>
+        /// </summary>
         public RoleFactory()
         {
             _role = new Role
             {
-			RoleId = 0,
-			Title = "Title",
-			Description = "Description"
-		};
+                RoleId = 0,
+                Title = "Title",
+                Description = "Description"
+            };
 
             _roleList = new List<Role>
             {
@@ -26,14 +26,14 @@ namespace Scrummage.Test.Factories
 		};
         }
 
-		/// <summary>
+        /// <summary>
         ///     Return constructed Role
-		/// </summary>
+        /// </summary>
         /// <returns>Role</returns>
         public Role Build()
         {
             return _role;
-		}
+        }
 
         /// <summary>
         ///     Return constructed Role List
@@ -42,12 +42,12 @@ namespace Scrummage.Test.Factories
         public List<Role> BuildList()
         {
             return _roleList;
-		}
+        }
 
-		/// <summary>
+        /// <summary>
         ///     Create an Extended Role List with two items
-		/// </summary>
-		/// <returns></returns>
+        /// </summary>
+        /// <returns></returns>
         public RoleFactory WithExtendedList()
         {
             _roleList.Add(new Role
@@ -57,6 +57,6 @@ namespace Scrummage.Test.Factories
                 Description = "Description1"
             });
             return this;
-		}
-	}
+        }
+    }
 }

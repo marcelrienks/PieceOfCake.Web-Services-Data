@@ -6,9 +6,11 @@ using Scrummage.DataAccess;
 using Scrummage.DataAccess.Models;
 using Scrummage.Interfaces;
 
-//todo: investigate option of creating view model layer (this will clean up password field on Member for example)
 //todo: verify of username, password on create of member without causing a post back
 //todo: add functionality to Member edit for Password and Avatar (including validation)
+using Scrummage.ViewModels;
+using System.Collections.Generic;
+using AutoMapper;
 
 namespace Scrummage.Controllers
 {
@@ -35,7 +37,9 @@ namespace Scrummage.Controllers
         // GET: /Member/
         public ActionResult Index()
         {
-            return View(_unitOfWork.MemberRepository.All());
+            var members = _unitOfWork.MemberRepository.All();
+            var memberViewModels = Mapper.Map(members, new List<MemberViewModel>());
+            return View(memberViewModels);
         }
 
         // GET: /Member/Details/5
@@ -46,23 +50,27 @@ namespace Scrummage.Controllers
             {
                 return HttpNotFound();
             }
-            return View(member);
+            var memberViewModel = Mapper.Map(member, new MemberViewModel());
+            return View(memberViewModel);
         }
 
         // GET: /Member/Create
         public ActionResult Create()
         {
             //add roles to viewbag to populate the roles dropdown select
-            ViewBag.Roles = _unitOfWork.RoleRepository.All();
+            var roles = _unitOfWork.RoleRepository.All();
+            ViewBag.Roles = Mapper.Map(roles, new List<RoleViewModel>());
             return View();
         }
 
         // POST: /Member/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Member member, HttpPostedFileBase file, FormCollection formCollection)
+        public ActionResult Create(MemberViewModel memberViewModel, HttpPostedFileBase file, FormCollection formCollection)
         {
-            //Clear Avatar and Role errors, these models will be manually created
+
+            #region Clear Errors
+            //Clear Avatar and Role errors, these models will be manually created from params passed
             if (ModelState["Avatar"] != null)
             {
                 ModelState["Avatar"].Errors.Clear();
@@ -70,11 +78,14 @@ namespace Scrummage.Controllers
             if (ModelState["Roles"] != null)
             {
                 ModelState["Roles"].Errors.Clear();
-            }
+            } 
+            #endregion
 
             //create model
             if (ModelState.IsValid)
             {
+                var member = Mapper.Map(memberViewModel, new Member());
+
                 #region Avatar
 
                 //If file was uploaded read bytes, else read bytes from default avatar
@@ -86,13 +97,11 @@ namespace Scrummage.Controllers
                 }
                 else
                 {
-                    bytes =
-                        System.IO.File.ReadAllBytes(
-                            ControllerContext.HttpContext.Server.MapPath(@"~\Images\default_avatar.jpg"));
+                    bytes = System.IO.File.ReadAllBytes(ControllerContext.HttpContext.Server.MapPath(@"~\Images\default_avatar.jpg"));
                 }
 
                 //Create new Avatar model
-                member.Avatar = new Avatar
+                member.Avatar = new Avatar()
                 {
                     Image = bytes
                 };
@@ -101,11 +110,12 @@ namespace Scrummage.Controllers
 
                 #region Roles
 
-                //Create role models using comma delimited role string selected
+                //Create roleViewModels using comma delimited role string selected
                 if (formCollection["roleSelect"] != null)
                 {
                     var rolesTitles = formCollection["roleSelect"].Split(',');
-                    member.Roles = _unitOfWork.RoleRepository.Where(role => rolesTitles.Contains(role.Title));
+                    var roles = _unitOfWork.RoleRepository.Where(role => rolesTitles.Contains(role.Title));
+                    member.Roles = roles;
                 }
 
                 #endregion
@@ -117,20 +127,22 @@ namespace Scrummage.Controllers
                 }
                 catch (DbUpdateException ex)
                 {
+                    #region Username Unique
                     //Check if username unique index was violated, and return friendly message
                     if (ex.InnerException.InnerException.Message.Contains(
                         string.Format(
                             "Cannot insert duplicate key row in object 'dbo.Members' with unique index 'IX_Username'. The duplicate key value is ({0}).",
-                            member.Username)))
+                            memberViewModel.Username)))
                     {
                         ModelState["Username"].Errors.Add("Username is already in use.");
-                    }
+                    } 
+                    #endregion
                 }
             }
 
             //add roles to viewbag to populate the roles dropdown select if model state is invalid
             ViewBag.Roles = _unitOfWork.RoleRepository.All();
-            return View(member);
+            return View(memberViewModel);
         }
 
         // GET: /Member/Edit/5
@@ -141,20 +153,22 @@ namespace Scrummage.Controllers
             {
                 return HttpNotFound();
             }
-            return View(member);
+            var memberViewModel = Mapper.Map(member, new MemberViewModel());
+            return View(memberViewModel);
         }
 
         // POST: /Member/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Member member)
+        public ActionResult Edit(MemberViewModel memberViewModel)
         {
             if (ModelState.IsValid)
             {
+                var member = Mapper.Map(memberViewModel, new Member());
                 _unitOfWork.MemberRepository.Update(member);
                 return RedirectToAction("Index");
             }
-            return View(member);
+            return View(memberViewModel);
         }
 
         // GET: /Member/Delete/5
@@ -165,7 +179,8 @@ namespace Scrummage.Controllers
             {
                 return HttpNotFound();
             }
-            return View(member);
+            var memberViewModel = Mapper.Map(member, new MemberViewModel());
+            return View(memberViewModel);
         }
 
         // POST: /Member/Delete/5

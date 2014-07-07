@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using Scrummage.DataAccess;
 using Scrummage.DataAccess.Models;
 using Scrummage.Interfaces;
 using Scrummage.ViewModels;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace Scrummage.Controllers
 {
@@ -33,7 +32,7 @@ namespace Scrummage.Controllers
         public ActionResult Index()
         {
             var roles = _unitOfWork.RoleRepository.All();
-            var roleViewModels = AutoMapper.Mapper.Map(roles, new List<RoleViewModel>());
+            var roleViewModels = Mapper.Map(roles, new List<RoleViewModel>());
             return View(roleViewModels);
         }
 
@@ -45,7 +44,7 @@ namespace Scrummage.Controllers
             {
                 return HttpNotFound();
             }
-            var roleViewModel = AutoMapper.Mapper.Map(role, new RoleViewModel());
+            var roleViewModel = Mapper.Map(role, new RoleViewModel());
             return View(roleViewModel);
         }
 
@@ -62,7 +61,7 @@ namespace Scrummage.Controllers
         {
             if (ModelState.IsValid)
             {
-                var role = AutoMapper.Mapper.Map(roleViewModel, new Role());
+                var role = Mapper.Map(roleViewModel, new Role());
                 _unitOfWork.RoleRepository.Create(role);
                 return RedirectToAction("Index");
             }
@@ -78,7 +77,7 @@ namespace Scrummage.Controllers
             {
                 return HttpNotFound();
             }
-            var roleViewModel = AutoMapper.Mapper.Map(role, new RoleViewModel());
+            var roleViewModel = Mapper.Map(role, new RoleViewModel());
             return View(roleViewModel);
         }
 
@@ -104,7 +103,7 @@ namespace Scrummage.Controllers
             {
                 return HttpNotFound();
             }
-            var roleViewModel = AutoMapper.Mapper.Map(role, new RoleViewModel());
+            var roleViewModel = Mapper.Map(role, new RoleViewModel());
             return View(roleViewModel);
         }
 
