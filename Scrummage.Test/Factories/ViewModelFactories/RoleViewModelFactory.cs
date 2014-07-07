@@ -16,8 +16,8 @@ namespace Scrummage.Test.Factories.ViewModelFactories
             _roleViewModel = new RoleViewModel
             {
                 RoleId = 0,
-                Title = null,
-                Description = null
+                Title = "Title",
+                Description = "Description"
             };
 
             _roleViewModels = new List<RoleViewModel>
@@ -45,13 +45,23 @@ namespace Scrummage.Test.Factories.ViewModelFactories
         }
 
         /// <summary>
-        ///     Creates an Invalid Role with empty Title and Description
+        ///     Creates an Invalid Role view model with null fields
         /// </summary>
         /// <returns></returns>
-        public RoleViewModelFactory WithInvalidTitleDescription()
+        public RoleViewModelFactory WithNullRequiredFields()
         {
-            _roleViewModel.Title = "";
-            _roleViewModel.Description = "";
+            _roleViewModel.Title = null;
+            return this;
+        }
+
+        /// <summary>
+        ///     Creates an Invalid Role view model
+        /// </summary>
+        /// <returns></returns>
+        public RoleViewModelFactory WithInvalidFields()
+        {
+            _roleViewModel.Title = "a";
+            _roleViewModel.Description = "a";
             return this;
         }
     }

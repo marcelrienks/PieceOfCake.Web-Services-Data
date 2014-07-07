@@ -96,9 +96,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Factories\ModelFactories\RoleFactory.cs" />
+    <Compile Include="Factories\ViewModelFactories\MemberViewModelFactory.cs" />
     <Compile Include="Factories\ViewModelFactories\RoleViewModelFactory.cs" />
+    <Compile Include="Validation\MemberViewModelTest.cs" />
     <Compile Include="Validation\RoleViewModelTest.cs" />
-    <Compile Include="Validation\ModelStateTestController.cs" />
+    <Compile Include="Validation\TestModelStateController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestHarness.cs" />
   </ItemGroup>

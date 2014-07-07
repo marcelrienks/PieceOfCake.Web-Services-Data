@@ -7,7 +7,7 @@ namespace Scrummage.Test.Factories.ModelFactories
     {
         private Member _member;
         private List<Member> _members;
-		
+
         /// <summary>
         ///     Create default Member and MemberList objects
         /// </summary>
@@ -16,9 +16,9 @@ namespace Scrummage.Test.Factories.ModelFactories
             CreateDefaultMemberAndMemberList(0);
         }
 
-		/// <summary>
+        /// <summary>
         ///     Create default Member and MemberList objects with given Member Id
-		/// </summary>
+        /// </summary>
         /// <param name="memberId"></param>
         public MemberFactory(int memberId)
         {
@@ -33,19 +33,18 @@ namespace Scrummage.Test.Factories.ModelFactories
         {
             _member = new Member
             {
-			MemberId = memberId,
-			Name = "Name",
-			ShortName = "sn",
-			Username = "Username",
-			//ClearPassword = "password",
-			Email = "email@address.com",
+                MemberId = memberId,
+                Name = "Name",
+                ShortName = "sn",
+                Username = "Username",
+                Email = "email@address.com",
                 Roles = new RoleFactory().BuildList(),
                 Avatar = new Avatar
                 {
-				MemberId = memberId,
-				Image = new byte[0]
-			}
-		};
+                    MemberId = memberId,
+                    Image = new byte[0]
+                }
+            };
 
             _members = new List<Member>
             {
@@ -53,22 +52,22 @@ namespace Scrummage.Test.Factories.ModelFactories
             };
         }
 
-		/// <summary>
+        /// <summary>
         ///     Return constructed Role
-		/// </summary>
+        /// </summary>
         /// <returns>Role</returns>
         public Member Build()
         {
             return _member;
-		}
+        }
 
-		/// <summary>
+        /// <summary>
         ///     Return constructed Role List
-		/// </summary>
+        /// </summary>
         /// <returns>List<Member></returns>
         public List<Member> BuildList()
         {
             return _members;
-		}
-	}
+        }
+    }
 }
