@@ -26,7 +26,6 @@ namespace Scrummage.ViewModels
         #endregion
 
         #region Navigation
-        [Required]
         public virtual ICollection<MemberViewModel> MemberViewModels { get; set; }
         #endregion
     }

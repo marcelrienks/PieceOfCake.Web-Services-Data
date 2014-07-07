@@ -7,6 +7,7 @@ using Scrummage.Controllers;
 using Scrummage.DataAccess.Models;
 using Scrummage.Test.DataAccess;
 using Scrummage.Test.Factories;
+using Scrummage.Test.Factories.ModelFactories;
 using Scrummage.ViewModels;
 
 namespace Scrummage.Test.Controllers

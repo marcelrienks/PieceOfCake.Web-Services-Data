@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using Scrummage.DataAccess.Models;
 
-namespace Scrummage.Test.Factories
+namespace Scrummage.Test.Factories.ModelFactories
 {
     public class RoleFactory
     {
         private readonly Role _role;
-        private readonly List<Role> _roleList;
+        private readonly List<Role> _roles;
 
         /// <summary>
         ///     Create default Role and RoleList objects
@@ -20,10 +20,10 @@ namespace Scrummage.Test.Factories
                 Description = "Description"
             };
 
-            _roleList = new List<Role>
+            _roles = new List<Role>
             {
                 _role
-		};
+		    };
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Scrummage.Test.Factories
         /// <returns>List<Role></returns>
         public List<Role> BuildList()
         {
-            return _roleList;
+            return _roles;
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Scrummage.Test.Factories
         /// <returns></returns>
         public RoleFactory WithExtendedList()
         {
-            _roleList.Add(new Role
+            _roles.Add(new Role
             {
                 RoleId = 1,
                 Title = "Title1",

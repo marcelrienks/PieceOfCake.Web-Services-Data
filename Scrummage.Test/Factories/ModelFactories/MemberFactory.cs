@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using Scrummage.DataAccess.Models;
 
-namespace Scrummage.Test.Factories
+namespace Scrummage.Test.Factories.ModelFactories
 {
     public class MemberFactory
     {
         private Member _member;
-        private List<Member> _memberList;
+        private List<Member> _members;
 		
         /// <summary>
         ///     Create default Member and MemberList objects
@@ -47,7 +47,7 @@ namespace Scrummage.Test.Factories
 			}
 		};
 
-            _memberList = new List<Member>
+            _members = new List<Member>
             {
                 _member
             };
@@ -68,7 +68,7 @@ namespace Scrummage.Test.Factories
         /// <returns>List<Member></returns>
         public List<Member> BuildList()
         {
-            return _memberList;
+            return _members;
 		}
 	}
 }
