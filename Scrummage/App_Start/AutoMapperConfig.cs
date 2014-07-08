@@ -21,13 +21,13 @@ namespace Scrummage
         /// </summary>
         private static void ConfigureRoleModelMappings()
         {
-            //Maps Role => RoleViewModel
+            //Role => RoleViewModel
             Mapper.CreateMap<Role, RoleViewModel>()
                 //Maps Role.Member => RoleViewModel.MemberViewModels
                 .ForMember(roleViewModel => roleViewModel.MemberViewModels,
                     options => options.MapFrom(role => role.Members));
 
-            //Maps RoleViewModel => Role
+            //RoleViewModel => Role
             Mapper.CreateMap<RoleViewModel, Role>()
                 //Maps RoleViewModel.MemberViewModels => Role.Member
                 .ForMember(role => role.Members,
@@ -46,7 +46,10 @@ namespace Scrummage
                     options => options.MapFrom(member => member.Roles))
                 //Maps Member.Avatar => MemberViewModel.AvatarViewModel
                 .ForMember(memberViewModel => memberViewModel.AvatarViewModel,
-                    options => options.MapFrom(member => member.Avatar));
+                    options => options.MapFrom(member => member.Avatar))
+                //Maps Member.Password => MemberViewModel.ConfirmPassword
+                .ForMember(memberViewModel => memberViewModel.ConfirmPassword,
+                    options => options.MapFrom(member => member.Password));
 
             //MemberViewModel => Member
             Mapper.CreateMap<MemberViewModel, Member>()
@@ -63,13 +66,13 @@ namespace Scrummage
         /// </summary>
         private static void ConfigureAvatarModelMappings()
         {
-            //Maps Avatar => AvatarViewModel
+            //Avatar => AvatarViewModel
             Mapper.CreateMap<Avatar, AvatarViewModel>()
                 //Maps Avatar.Member => AvatarViewModel.AvatarViewModel
                 .ForMember(avatarViewModel => avatarViewModel.MemberModelView,
                     options => options.MapFrom(avater => avater.Member));
 
-            //Maps AvatarViewModel => Avatar
+            //AvatarViewModel => Avatar
             Mapper.CreateMap<AvatarViewModel, Avatar>()
                 //Maps AvatarViewModel.AvatarViewModel => Avatar.Member
                 .ForMember(avater => avater.Member,

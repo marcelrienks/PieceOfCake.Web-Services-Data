@@ -6,15 +6,15 @@
         <link rel="stylesheet" href="~/Content/bootstrap-theme.css">
         <meta name="viewport" content="width=device-width" />
         <title>@ViewBag.Title</title>
+
         @Styles.Render("~/Content/css")
-        @* Todo: check what this is, and if it's required *@
-        @*@Scripts.Render("~/bundles/modernizr")*@
 
         @if (IsSectionDefined("AdditionalStyles"))
         {
             @RenderSection("AdditionalStyles")
         }
     </head>
+
     <body>
         <header>
             <nav class="navbar navbar-default" role="navigation">
@@ -45,12 +45,14 @@
             </nav>
             <!-- /.navbar-collapse -->
         </header>
+        
         <div>
             @RenderSection("featured", false)
             <section class="content-wrapper main-content clear-fix">
                 @RenderBody()
             </section>
         </div>
+
         <footer>
             <div class="content-wrapper">
                 <div class="float-left">
@@ -64,5 +66,6 @@
         {
             @RenderSection("AdditionalScripts")
         }
+        
     </body>
 </html>

@@ -1,6 +1,6 @@
 ﻿@using System.Web.Optimization
-@using Scrummage.DataAccess.Models
-@model Scrummage.ViewModels.MemberViewModel
+@using Scrummage.ViewModels
+@model MemberViewModel
 
 @section AdditionalStyles {
     @Styles.Render("~/Content/select")
@@ -9,9 +9,9 @@
 @section AdditionalScripts {
     @Scripts.Render("~/bundles/select")
 
-    <!-- Initialize the plugin: -->
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
+            //Initialise select picker
             $('.selectpicker').selectpicker();
         });
     </script>
@@ -59,16 +59,16 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Password, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.PasswordFor(model => model.ClearPassword)
-                @Html.ValidationMessageFor(model => model.ClearPassword)
+                @Html.PasswordFor(model => model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ConfirmPassowrd, new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.ConfirmPassword, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.PasswordFor(model => model.ConfirmPassowrd)
-                @Html.ValidationMessageFor(model => model.ConfirmPassowrd)
+                @Html.PasswordFor(model => model.ConfirmPassword)
+                @Html.ValidationMessageFor(model => model.ConfirmPassword)
             </div>
         </div>
 
@@ -81,23 +81,23 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Roles, new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.RoleViewModels, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
                 <select id="roleSelect" name="roleSelect" class="selectpicker" multiple>
-                    @if (ViewBag.Roles != null)
+                    @if (ViewBag.RoleViewModels != null)
                     {
-                        foreach (var role in ViewBag.Roles as List<Role>)
+                        foreach (var roleViewModel in ViewBag.RoleViewModels as List<RoleViewModel>)
                         {
-                            <option>@role.Title</option>
+                            <option>@roleViewModel.Title</option>
                         }
                     }
                 </select>
-                @Html.ValidationMessageFor(model => model.Roles)
+                @Html.ValidationMessageFor(model => model.RoleViewModels)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Avatar, new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.AvatarViewModel, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
                 <input type="file" name="file" id="file" style="width: 100%;" />
             </div>

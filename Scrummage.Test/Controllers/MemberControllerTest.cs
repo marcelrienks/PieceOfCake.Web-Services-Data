@@ -121,7 +121,7 @@ namespace Scrummage.Test.Controllers
             var testMemberViewModel = Mapper.Map(testMember, new MemberViewModel());
 
             //Convert role titles to comma delimited string
-            var roleTitles = testRoles.Aggregate(String.Empty, (current, role) => current + role.Title + ", ");
+            var roleTitles = testRoles.Aggregate(String.Empty, (current, role) => current + role.Title + ", ").TrimEnd(", ".ToCharArray());
 
             var controller = new MemberController(_fakeUnitOfWork);
             var result = controller.Create(testMemberViewModel, customHttpPostedFileBase, new FormCollection

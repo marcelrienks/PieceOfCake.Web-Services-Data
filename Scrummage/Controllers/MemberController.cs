@@ -59,7 +59,7 @@ namespace Scrummage.Controllers
         {
             //add roles to viewbag to populate the roles dropdown select
             var roles = _unitOfWork.RoleRepository.All();
-            ViewBag.Roles = Mapper.Map(roles, new List<RoleViewModel>());
+            ViewBag.RoleViewModels = Mapper.Map(roles, new List<RoleViewModel>());
             return View();
         }
 
@@ -71,13 +71,13 @@ namespace Scrummage.Controllers
 
             #region Clear Errors
             //Clear Avatar and Role errors, these models will be manually created from params passed
-            if (ModelState["Avatar"] != null)
+            if (ModelState["AvatarViewModel"] != null)
             {
-                ModelState["Avatar"].Errors.Clear();
+                ModelState["AvatarViewModel"].Errors.Clear();
             }
-            if (ModelState["Roles"] != null)
+            if (ModelState["RoleViewModels"] != null)
             {
-                ModelState["Roles"].Errors.Clear();
+                ModelState["RoleViewModels"].Errors.Clear();
             } 
             #endregion
 
@@ -114,8 +114,8 @@ namespace Scrummage.Controllers
                 if (formCollection["roleSelect"] != null)
                 {
                     var rolesTitles = formCollection["roleSelect"].Split(',');
-                    var roles = _unitOfWork.RoleRepository.Where(role => rolesTitles.Contains(role.Title));
-                    member.Roles = roles;
+                    var selectRoles = _unitOfWork.RoleRepository.Where(role => rolesTitles.Contains(role.Title));
+                    member.Roles = selectRoles;
                 }
 
                 #endregion
@@ -141,33 +141,110 @@ namespace Scrummage.Controllers
             }
 
             //add roles to viewbag to populate the roles dropdown select if model state is invalid
-            ViewBag.Roles = _unitOfWork.RoleRepository.All();
+            var roles = _unitOfWork.RoleRepository.All();
+            ViewBag.RoleViewModels = Mapper.Map(roles, new List<RoleViewModel>());
             return View(memberViewModel);
         }
 
         // GET: /Member/Edit/5
         public ActionResult Edit(int id = 0)
         {
+            //find the member specified
             var member = _unitOfWork.MemberRepository.Find(id);
             if (member == null)
             {
                 return HttpNotFound();
             }
+
+            //map member to memberViewModel and return
             var memberViewModel = Mapper.Map(member, new MemberViewModel());
+
+            //add roles to viewbag to populate the roles dropdown select
+            var roles = _unitOfWork.RoleRepository.All();
+            ViewBag.RoleViewModels = Mapper.Map(roles, new List<RoleViewModel>());
+
             return View(memberViewModel);
         }
 
         // POST: /Member/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(MemberViewModel memberViewModel)
+        public ActionResult Edit(MemberViewModel memberViewModel, HttpPostedFileBase file, FormCollection formCollection)
         {
+            #region Clear Errors
+            //Clear Avatar and Role errors, these models will be manually created from params passed
+            if (ModelState["AvatarViewModel"] != null)
+            {
+                ModelState["AvatarViewModel"].Errors.Clear();
+            }
+            if (ModelState["RoleViewModels"] != null)
+            {
+                ModelState["RoleViewModels"].Errors.Clear();
+            }
+            #endregion
+
             if (ModelState.IsValid)
             {
                 var member = Mapper.Map(memberViewModel, new Member());
-                _unitOfWork.MemberRepository.Update(member);
-                return RedirectToAction("Index");
+
+                #region Avatar
+
+                //If file was uploaded read bytes, else read bytes from default avatar
+                byte[] bytes;
+                if (file != null && file.ContentLength > 0)
+                {
+                    bytes = new byte[file.ContentLength];
+                    file.InputStream.Read(bytes, 0, file.ContentLength);
+                }
+                else
+                {
+                    bytes = System.IO.File.ReadAllBytes(ControllerContext.HttpContext.Server.MapPath(@"~\Images\default_avatar.jpg"));
+                }
+
+                //Create new Avatar model
+                member.Avatar = new Avatar()
+                {
+                    Image = bytes
+                };
+
+                #endregion
+
+                #region Roles
+
+                //Create roleViewModels using comma delimited role string selected
+                if (formCollection["roleSelect"] != null)
+                {
+                    var rolesTitles = formCollection["roleSelect"].Split(',');
+                    var selectRoles = _unitOfWork.RoleRepository.Where(role => rolesTitles.Contains(role.Title));
+                    member.Roles = selectRoles;
+                }
+
+                #endregion
+
+                try
+                {
+                    //Todo: Continue testing/completing Member Edit functionality
+                    _unitOfWork.MemberRepository.Update(member);
+                    return RedirectToAction("Index");
+                }
+                catch (DbUpdateException ex)
+                {
+                    #region Username Unique
+                    //Check if username unique index was violated, and return friendly message
+                    if (ex.InnerException.InnerException.Message.Contains(
+                        string.Format(
+                            "Cannot insert duplicate key row in object 'dbo.Members' with unique index 'IX_Username'. The duplicate key value is ({0}).",
+                            memberViewModel.Username)))
+                    {
+                        ModelState["Username"].Errors.Add("Username is already in use.");
+                    }
+                    #endregion
+                }
             }
+
+            //add roles to viewbag to populate the roles dropdown select if model state is invalid
+            var roles = _unitOfWork.RoleRepository.All();
+            ViewBag.RoleViewModels = Mapper.Map(roles, new List<RoleViewModel>());
             return View(memberViewModel);
         }
 

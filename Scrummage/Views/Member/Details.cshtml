@@ -11,11 +11,11 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Avatar)
+            @Html.DisplayNameFor(model => model.AvatarViewModel)
         </dt>
 
         <dd>
-            <img src="@String.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.Avatar.Image))" />
+            <img src="@String.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.AvatarViewModel.Image))" />
         </dd>
 
         <dt>
@@ -51,11 +51,11 @@
         </dd>
         
         <dt>
-            @Html.DisplayNameFor(model => model.Roles)
+            @Html.DisplayNameFor(model => model.RoleViewModels)
         </dt>
 
         <dd>
-            @foreach (var role in Model.Roles)
+            @foreach (var role in Model.RoleViewModels)
             {
                 <div class="display-field">
                     @Html.DisplayFor(roleItem => role.Title)
