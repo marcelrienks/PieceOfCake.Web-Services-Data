@@ -5,10 +5,10 @@ This is designed to help manage a development team using the Scrum framework.
 Tools include Administring users, projects and sprints, as well as Product Backlog planning, Sprint Backlog planning, Sprint Execution and review meetings.
 
 ## TECHNOLOGIES AND PATTERNS: ##
-Based on ScrummageV1, this version simply updates to the latest tech and libraries.  
+Based on ScrummageV1, this version simply updates to the latest tech and libraries.
   
 This project is a test bed for implementing the Repository and Unit of Work Pattern for an MVC 5 project.
-It uses Code First approach through Entity Framework 6.  
+It uses Code First approach through Entity Framework 6.
   
 There are aslo examples of how to use Async Awaits repository and Controller calls (not currently implemented).
 Twitter Bootstrap has been used for presentation.
@@ -30,6 +30,7 @@ Used to update the entire graph tree of a context model, including relations
 * Manage Attachments
 
 ### Todo ###
+* Refactor code into seperate projects (Possibly Data, Service and Presentation)
 * Add validation to prevent role from being deleted if it's assigned to a member
 * Investigate using Mock DbSet instead of having a fake Repository
 * verify of username, password on create of member without causing a post back
@@ -42,7 +43,7 @@ This allows administrators to have basic CRUDL functionality of user/member Role
 
 ### Members ###
 This allows administrators to have basic CRUDL functionality of Members
-Including adding an Avatar to memnbers
+Including adding an Avatar to memnbers  
 
 ## DOMAIN ##
 ### Roles ###
