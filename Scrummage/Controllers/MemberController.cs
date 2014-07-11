@@ -1,17 +1,16 @@
-﻿using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using AutoMapper;
+using RefactorThis.GraphDiff;
 using Scrummage.DataAccess;
 using Scrummage.DataAccess.Models;
 using Scrummage.Interfaces;
-
-//todo: verify of username, password on create of member without causing a post back
-//todo: add functionality to Member edit for Password and Avatar (including validation)
 using Scrummage.ViewModels;
 using System.Collections.Generic;
-using AutoMapper;
-
+using System.Data.Entity.Infrastructure;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+//Todo: verify of username, password on create of member without causing a post back
+//Todo: add functionality to Member edit for Password and Avatar (including validation)
 namespace Scrummage.Controllers
 {
     public class MemberController : Controller
@@ -198,7 +197,7 @@ namespace Scrummage.Controllers
                 }
                 else
                 {
-                    bytes = System.IO.File.ReadAllBytes(ControllerContext.HttpContext.Server.MapPath(@"~\Images\default_avatar.jpg"));
+                    bytes = _unitOfWork.AvatarRepository.Find(member.MemberId).Image;
                 }
 
                 //Create new Avatar model
@@ -223,7 +222,6 @@ namespace Scrummage.Controllers
 
                 try
                 {
-                    //Todo: Continue testing/completing Member Edit functionality
                     _unitOfWork.MemberRepository.Update(member);
                     return RedirectToAction("Index");
                 }

@@ -24,9 +24,8 @@ Twitter Bootstrap has been used for presentation.
 * Manage Attachments
 
 ### Todo ###
-* Continue testing/completing Member Edit functionality
+* Add validation to prevent role from being deleted if it's assigned to a member
 * Investigate using Mock DbSet instead of having a fake Repository
-* investigate option of creating view model layer (this will clean up password field on Member for example)
 * verify of username, password on create of member without causing a post back
 * add functionality to Member edit for Password and Avatar (including validation)
 * investigate creating unit tests for the repository, by creating a fake contaxt/dbset class, which can be dependancy injected in?

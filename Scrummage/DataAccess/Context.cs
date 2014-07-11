@@ -9,7 +9,8 @@ namespace Scrummage.DataAccess
     {
 		public Context()
             : base("ScrummageDB")
-        {
+		{
+		    //Configuration.ProxyCreationEnabled = false;
 		}
 
 		public DbSet<Role> Roles { get; set; }

@@ -112,6 +112,7 @@ namespace Scrummage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            //Todo: Add validation to prevent role from being deleted if it's assigned to a member
             _unitOfWork.RoleRepository.Delete(id);
             return RedirectToAction("Index");
         }

@@ -166,35 +166,35 @@ namespace Scrummage.Test.Controllers
             PerformCommonAsserts(testMembers.First(), memberViewModel);
         }
 
-        [TestMethod]
-        public void TestFailedEditPost()
-        {
-            var testMember = new MemberFactory().Build();
-            var testMemberViewModel = Mapper.Map(testMember, new MemberViewModel());
+        //[TestMethod]
+        //public void TestFailedEditPost()
+        //{
+        //    var testMember = new MemberFactory().Build();
+        //    var testMemberViewModel = Mapper.Map(testMember, new MemberViewModel());
 
-            var controller = new MemberController(_fakeUnitOfWork);
-            controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
-            var result = controller.Edit(testMemberViewModel) as ViewResult;
-            Assert.IsNotNull(result);
+        //    var controller = new MemberController(_fakeUnitOfWork);
+        //    controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
+        //    var result = controller.Edit(testMemberViewModel) as ViewResult;
+        //    Assert.IsNotNull(result);
 
-            var memberViewModel = (MemberViewModel)result.Model;
-            Assert.AreSame(testMemberViewModel, memberViewModel);
-        }
+        //    var memberViewModel = (MemberViewModel)result.Model;
+        //    Assert.AreSame(testMemberViewModel, memberViewModel);
+        //}
 
-        [TestMethod]
-        public void TestSuccessfulEditPost()
-        {
-            var testMember = new MemberFactory().Build();
-            var testMemberViewModel = Mapper.Map(testMember, new MemberViewModel());
+        //[TestMethod]
+        //public void TestSuccessfulEditPost()
+        //{
+        //    var testMember = new MemberFactory().Build();
+        //    var testMemberViewModel = Mapper.Map(testMember, new MemberViewModel());
 
-            var controller = new MemberController(_fakeUnitOfWork);
-            var result = controller.Edit(testMemberViewModel);
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
+        //    var controller = new MemberController(_fakeUnitOfWork);
+        //    var result = controller.Edit(testMemberViewModel);
+        //    Assert.IsNotNull(result);
+        //    Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
 
-            Assert.IsTrue(((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).IsUpdated);
-            Assert.IsTrue(((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).IsSaved);
-        }
+        //    Assert.IsTrue(((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).IsUpdated);
+        //    Assert.IsTrue(((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).IsSaved);
+        //}
 
         #endregion
 
