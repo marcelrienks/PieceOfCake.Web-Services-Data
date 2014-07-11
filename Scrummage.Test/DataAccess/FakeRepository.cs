@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Scrummage.DataAccess.Models;
 using Scrummage.Interfaces;
-using Scrummage.Models;
 
-//Todo: Investigate suing Mock DbSet instead of having a fake Repository
+//Todo: Investigate using Mock DbSet instead of having a fake Repository
 
 namespace Scrummage.Test.DataAccess
 {
@@ -58,13 +58,13 @@ namespace Scrummage.Test.DataAccess
                 return null;
             }
 
-            object result;
             //Based on type of TEntity, convert to specified type and find entry using id (All this logic is required to use the Find() function with id field)
-            if (typeof (TModel) == typeof (Role))
+            object result;
+            if (typeof(TModel) == typeof(Role))
             {
                 result = ModelList.Cast<Role>().ToList().Find(role => role.RoleId == id);
             }
-            else if (typeof (TModel) == typeof (Member))
+            else if (typeof(TModel) == typeof(Member))
             {
                 result = ModelList.Cast<Member>().ToList().Find(member => member.MemberId == id);
             }
@@ -75,7 +75,7 @@ namespace Scrummage.Test.DataAccess
             }
 
             //Convert back to TEntity and return
-            return (TModel) Convert.ChangeType(result, typeof (TModel));
+            return (TModel)Convert.ChangeType(result, typeof(TModel));
         }
 
         public void Create(TModel entity)

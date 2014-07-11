@@ -6,10 +6,16 @@ Tools include Administring users, projects and sprints, as well as Product Backl
 
 ## TECHNOLOGIES AND PATTERNS: ##
 Based on ScrummageV1, this version simply updates to the latest tech and libraries.
+  
 This project is a test bed for implementing the Repository and Unit of Work Pattern for an MVC 5 project.
 It uses Code First approach through Entity Framework 6.
+  
 There are aslo examples of how to use Async Awaits repository and Controller calls (not currently implemented).
 Twitter Bootstrap has been used for presentation.
+
+### 3rd Party Libraries ###
+* GraphDiff  
+Used to update the entire graph tree of a context model, including relations
 
 ## DEVELOPMENT: ##
 * Create Management of Members
@@ -25,8 +31,8 @@ Twitter Bootstrap has been used for presentation.
 
 ### Todo ###
 * Refactor code into seperate projects (Possibly Data, Service and Presentation)
+* Add validation to prevent role from being deleted if it's assigned to a member
 * Investigate using Mock DbSet instead of having a fake Repository
-* Investigate option of creating view model layer (this will clean up password field on Member for example)
 * verify of username, password on create of member without causing a post back
 * add functionality to Member edit for Password and Avatar (including validation)
 * investigate creating unit tests for the repository, by creating a fake contaxt/dbset class, which can be dependancy injected in?

@@ -1,7 +1,10 @@
-﻿using System.Web.Mvc;
+﻿using AutoMapper;
 using Scrummage.DataAccess;
+using Scrummage.DataAccess.Models;
 using Scrummage.Interfaces;
-using Scrummage.Models;
+using Scrummage.ViewModels;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace Scrummage.Controllers
 {
@@ -28,7 +31,9 @@ namespace Scrummage.Controllers
         // GET: /Role/
         public ActionResult Index()
         {
-            return View(_unitOfWork.RoleRepository.All());
+            var roles = _unitOfWork.RoleRepository.All();
+            var roleViewModels = Mapper.Map(roles, new List<RoleViewModel>());
+            return View(roleViewModels);
         }
 
         // GET: /Role/Details/5
@@ -39,7 +44,8 @@ namespace Scrummage.Controllers
             {
                 return HttpNotFound();
             }
-            return View(role);
+            var roleViewModel = Mapper.Map(role, new RoleViewModel());
+            return View(roleViewModel);
         }
 
         // GET: /Role/Create
@@ -51,15 +57,16 @@ namespace Scrummage.Controllers
         // POST: /Role/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Role role)
+        public ActionResult Create(RoleViewModel roleViewModel)
         {
             if (ModelState.IsValid)
             {
+                var role = Mapper.Map(roleViewModel, new Role());
                 _unitOfWork.RoleRepository.Create(role);
                 return RedirectToAction("Index");
             }
 
-            return View(role);
+            return View(roleViewModel);
         }
 
         // GET: /Role/Edit/5
@@ -70,20 +77,22 @@ namespace Scrummage.Controllers
             {
                 return HttpNotFound();
             }
-            return View(role);
+            var roleViewModel = Mapper.Map(role, new RoleViewModel());
+            return View(roleViewModel);
         }
 
         // POST: /Role/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Role role)
+        public ActionResult Edit(RoleViewModel roleViewModel)
         {
             if (ModelState.IsValid)
             {
+                var role = Mapper.Map(roleViewModel, new Role());
                 _unitOfWork.RoleRepository.Update(role);
                 return RedirectToAction("Index");
             }
-            return View(role);
+            return View(roleViewModel);
         }
 
         // GET: /Role/Delete/5
@@ -94,7 +103,8 @@ namespace Scrummage.Controllers
             {
                 return HttpNotFound();
             }
-            return View(role);
+            var roleViewModel = Mapper.Map(role, new RoleViewModel());
+            return View(roleViewModel);
         }
 
         // POST: /Role/Delete/5
@@ -102,6 +112,7 @@ namespace Scrummage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            //Todo: Add validation to prevent role from being deleted if it's assigned to a member
             _unitOfWork.RoleRepository.Delete(id);
             return RedirectToAction("Index");
         }
@@ -109,7 +120,7 @@ namespace Scrummage.Controllers
         //Async Example
         //Async Action Method, calling an Async Repository Method (See Repository and IRepository for following code)
         //public async System.Threading.Tasks.Task<ActionResult> MethodAsync(int id = 0) {
-        //	var model = await UnitOfWork.ModelRepository.MethodAsync(id);
+        //	var model = await _unitOfWork.ModelRepository.MethodAsync(id);
         //	if (model == null) {
         //		return HttpNotFound();
         //	}

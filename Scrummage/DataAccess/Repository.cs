@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
+﻿using RefactorThis.GraphDiff;
+using Scrummage.DataAccess.Models;
 using Scrummage.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
-//todo: investigate creating unit tests for the repository, by creating a fake contaxt/dbset class, which can be dependancy injected in?
+//Todo: investigate creating unit tests for the repository, by creating a fake contaxt/dbset class, which can be dependancy injected in?
 
 namespace Scrummage.DataAccess
 {
@@ -87,12 +88,25 @@ namespace Scrummage.DataAccess
         }
 
         /// <summary>
-        ///     This updates the specified entry of type TEntity.
+        ///     This updates the specified entry of type TEntity, and all it's relations.
         /// </summary>
         /// <param name="entity"></param>
         public void Update(TModel entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            if (entity is Member)
+            {
+                _context.UpdateGraph(entity as Member, map => map
+                    .AssociatedCollection<Member, Role>(member => member.Roles)
+                    .OwnedEntity<Member, Avatar>(member => member.Avatar));
+            }
+            else if (entity is Role)
+            {
+                _context.UpdateGraph(entity as Role);
+            }
+            else if (entity is Avatar)
+            {
+                
+            }
             _context.SaveChanges();
         }
 

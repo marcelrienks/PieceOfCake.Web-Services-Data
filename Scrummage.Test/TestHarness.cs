@@ -1,13 +1,16 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Scrummage.DataAccess.Models;
+using Scrummage.ViewModels;
 
 namespace Scrummage.Test
 {
-    [TestClass]
+	[TestClass]
     public class TestHarness
     {
-        [TestMethod]
+		[TestMethod]
         public void Test()
-        {
-        }
-    }
+		{
+
+		}
+	}
 }
