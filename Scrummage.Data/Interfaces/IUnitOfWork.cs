@@ -1,6 +1,6 @@
-﻿using Scrummage.DataAccess.Models;
+﻿using Scrummage.Data.Models;
 
-namespace Scrummage.Interfaces
+namespace Scrummage.Data.Interfaces
 {
     public interface IUnitOfWork
     {

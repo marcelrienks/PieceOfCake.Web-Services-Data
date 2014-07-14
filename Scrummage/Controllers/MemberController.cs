@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using RefactorThis.GraphDiff;
-using Scrummage.DataAccess;
-using Scrummage.DataAccess.Models;
-using Scrummage.Interfaces;
+using Scrummage.Data;
+using Scrummage.Data.Interfaces;
+using Scrummage.Data.Models;
 using Scrummage.ViewModels;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
@@ -100,7 +99,7 @@ namespace Scrummage.Controllers
                 }
 
                 //Create new Avatar model
-                member.Avatar = new Avatar()
+                member.Avatar = new Avatar
                 {
                     Image = bytes
                 };
@@ -201,7 +200,7 @@ namespace Scrummage.Controllers
                 }
 
                 //Create new Avatar model
-                member.Avatar = new Avatar()
+                member.Avatar = new Avatar
                 {
                     Image = bytes
                 };

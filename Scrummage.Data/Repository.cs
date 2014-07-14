@@ -1,13 +1,11 @@
 ﻿using RefactorThis.GraphDiff;
-using Scrummage.DataAccess.Models;
-using Scrummage.Interfaces;
+using Scrummage.Data.Interfaces;
+using Scrummage.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 //Todo: investigate creating unit tests for the repository, by creating a fake contaxt/dbset class, which can be dependancy injected in?
-
-namespace Scrummage.DataAccess
+namespace Scrummage.Data
 {
     public class Repository<TModel> : IRepository<TModel> where TModel : class
     {

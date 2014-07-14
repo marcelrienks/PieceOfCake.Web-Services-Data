@@ -1,5 +1,5 @@
-﻿using Scrummage.DataAccess.Models;
-using Scrummage.Interfaces;
+﻿using Scrummage.Data.Interfaces;
+using Scrummage.Data.Models;
 
 namespace Scrummage.Test.DataAccess
 {

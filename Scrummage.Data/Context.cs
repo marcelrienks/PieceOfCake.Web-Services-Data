@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Annotations;
-using Scrummage.DataAccess.Models;
+using Scrummage.Data.Models;
 
-namespace Scrummage.DataAccess
+namespace Scrummage.Data
 {
     public class Context : DbContext
     {

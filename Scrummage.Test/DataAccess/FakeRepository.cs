@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Scrummage.Data.Interfaces;
+using Scrummage.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Scrummage.DataAccess.Models;
-using Scrummage.Interfaces;
 
 //Todo: Investigate using Mock DbSet instead of having a fake Repository
 

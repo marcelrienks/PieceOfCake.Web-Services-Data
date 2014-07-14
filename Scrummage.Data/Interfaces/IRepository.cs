@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Scrummage.Interfaces
+namespace Scrummage.Data.Interfaces
 {
     public interface IRepository<TModel> : IDisposable where TModel : class
     {

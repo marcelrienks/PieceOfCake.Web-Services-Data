@@ -1,6 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Scrummage.DataAccess.Models;
-using Scrummage.ViewModels;
 
 namespace Scrummage.Test
 {

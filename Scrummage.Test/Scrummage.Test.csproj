@@ -105,6 +105,10 @@
     <Compile Include="TestHarness.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Scrummage.Data\Scrummage.Data.csproj">
+      <Project>{e52dc8ad-f09e-48fd-9473-c04e7d2c471b}</Project>
+      <Name>Scrummage.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Scrummage\Scrummage.csproj">
       <Project>{b20fdb38-2b3d-4f76-a3a9-3f4c7c7d63b2}</Project>
       <Name>Scrummage</Name>

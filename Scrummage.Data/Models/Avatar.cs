@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Scrummage.DataAccess.Models {
+﻿namespace Scrummage.Data.Models {
 	public class Avatar {
 
 		#region Properties

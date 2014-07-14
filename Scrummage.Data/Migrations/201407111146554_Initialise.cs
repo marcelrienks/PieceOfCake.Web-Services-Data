@@ -1,8 +1,7 @@
-namespace Scrummage.Migrations
+using System.Data.Entity.Migrations;
+
+namespace Scrummage.Data.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class Initialise : DbMigration
     {
         public override void Up()
@@ -17,7 +16,7 @@ namespace Scrummage.Migrations
                 .PrimaryKey(t => t.MemberId)
                 .ForeignKey("dbo.Members", t => t.MemberId, cascadeDelete: true)
                 .Index(t => t.MemberId);
-            
+
             CreateTable(
                 "dbo.Members",
                 c => new
@@ -31,7 +30,7 @@ namespace Scrummage.Migrations
                     })
                 .PrimaryKey(t => t.MemberId)
                 .Index(t => t.Username, unique: true);
-            
+
             CreateTable(
                 "dbo.Roles",
                 c => new
@@ -41,7 +40,7 @@ namespace Scrummage.Migrations
                         Description = c.String(),
                     })
                 .PrimaryKey(t => t.RoleId);
-            
+
             CreateTable(
                 "dbo.MemberRoles",
                 c => new
@@ -54,9 +53,9 @@ namespace Scrummage.Migrations
                 .ForeignKey("dbo.Roles", t => t.Role_RoleId, cascadeDelete: true)
                 .Index(t => t.Member_MemberId)
                 .Index(t => t.Role_RoleId);
-            
+
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.Avatars", "MemberId", "dbo.Members");

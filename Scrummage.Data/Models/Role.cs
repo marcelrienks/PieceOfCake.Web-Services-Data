@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
-namespace Scrummage.DataAccess.Models {
+namespace Scrummage.Data.Models {
 	public class Role {
 
 		#region Properties

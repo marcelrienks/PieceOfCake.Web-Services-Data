@@ -1,37 +1,36 @@
+using System.IO;
+using Scrummage.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
-using System.IO;
 using System.Linq;
-using Scrummage.DataAccess;
-using Scrummage.DataAccess.Models;
 
-namespace Scrummage.Migrations
+namespace Scrummage.Data.Migrations
 {
     internal sealed class Configuration : DbMigrationsConfiguration<Context>
     {
         public Configuration()
         {
-			AutomaticMigrationsEnabled = false;
-		}
+            AutomaticMigrationsEnabled = false;
+        }
 
-		/// <summary>
+        /// <summary>
         ///     Overrides the Seed method with custom seeds
-		/// </summary>
-		/// <param name="context"></param>
+        /// </summary>
+        /// <param name="context"></param>
         protected override void Seed(Context context)
         {
-			SeedRoles(context);
-			SeedMembers(context);
-		}
+            SeedRoles(context);
+            SeedMembers(context);
+        }
 
-		/// <summary>
+        /// <summary>
         ///     This method seeds the database with Roles
-		/// </summary>
-		/// <param name="context"></param>
+        /// </summary>
+        /// <param name="context"></param>
         private void SeedRoles(Context context)
         {
-			if (context.Roles.Any()) return;
+            if (context.Roles.Any()) return;
 
             var roles = new List<Role>
             {
@@ -56,19 +55,18 @@ namespace Scrummage.Migrations
                 },
 			};
 
-			roles.ForEach(role => context.Roles.AddOrUpdate(roleType => roleType.RoleId, role));
-			context.SaveChanges();
-		}
+            roles.ForEach(role => context.Roles.AddOrUpdate(roleType => roleType.RoleId, role));
+            context.SaveChanges();
+        }
 
-		/// <summary>
+        /// <summary>
         ///     This method seeds the database with Members
-		/// </summary>
-		/// <param name="context"></param>
+        /// </summary>
+        /// <param name="context"></param>
         private void SeedMembers(Context context)
         {
-			if (context.Members.Any()) return;
+            if (context.Members.Any()) return;
 
-			var password = "E3mc2rd!";
             var members = new List<Member>
             {
                 new Member
@@ -76,22 +74,18 @@ namespace Scrummage.Migrations
 					Name = "Marcel Rienks",
 					ShortName = "mr",
 					Username = "marcelr",
-					Password = password,
+					Password = "E3mc2rd!",
 					Email = "marcelrienks@gmail.com",
-                    Roles =
-                        context.Roles.Where(role => role.Title == "Administrator" || role.Title == "Scrum Master")
-                            .ToList(),
+                    Roles = context.Roles.Where(role => role.Title == "Administrator" || role.Title == "Scrum Master").ToList(),
                     Avatar = new Avatar
                     {
-                        Image =
-                            File.ReadAllBytes(AppDomain.CurrentDomain.BaseDirectory.Replace(@"bin\",
-                                @"Images\default_avatar.jpg"))
+                        Image = File.ReadAllBytes(AppDomain.CurrentDomain.BaseDirectory.Replace(@"bin\Debug\", @"Migrations\default_avatar.jpg"))
 					}
 				}
 			};
 
-			members.ForEach(member => context.Members.AddOrUpdate(memberType => memberType.MemberId, member));
-			context.SaveChanges();
-		}
-	}
+            members.ForEach(member => context.Members.AddOrUpdate(memberType => memberType.MemberId, member));
+            context.SaveChanges();
+        }
+    }
 }

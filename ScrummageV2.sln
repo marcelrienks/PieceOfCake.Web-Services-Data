@@ -19,6 +19,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{6E
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrummage.Data", "Scrummage.Data\Scrummage.Data.csproj", "{E52DC8AD-F09E-48FD-9473-C04E7D2C471B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrummage.Services", "Scrummage.Services\Scrummage.Services.csproj", "{5D521B52-F1D4-4F3A-A3FF-09087F372347}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{7FD34E51-6A67-4A55-83FA-B5630FC4190E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FD34E51-6A67-4A55-83FA-B5630FC4190E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FD34E51-6A67-4A55-83FA-B5630FC4190E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E52DC8AD-F09E-48FD-9473-C04E7D2C471B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E52DC8AD-F09E-48FD-9473-C04E7D2C471B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E52DC8AD-F09E-48FD-9473-C04E7D2C471B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E52DC8AD-F09E-48FD-9473-C04E7D2C471B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D521B52-F1D4-4F3A-A3FF-09087F372347}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D521B52-F1D4-4F3A-A3FF-09087F372347}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D521B52-F1D4-4F3A-A3FF-09087F372347}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D521B52-F1D4-4F3A-A3FF-09087F372347}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

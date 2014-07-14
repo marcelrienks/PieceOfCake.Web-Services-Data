@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Scrummage.DataAccess.Models;
+using Scrummage.Data.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace Scrummage.ViewModels

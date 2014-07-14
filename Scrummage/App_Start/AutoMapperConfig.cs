@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Scrummage.DataAccess.Models;
+using Scrummage.Data.Models;
 using Scrummage.ViewModels;
 
 namespace Scrummage

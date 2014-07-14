@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Scrummage.DataAccess;
-using Scrummage.DataAccess.Models;
-using Scrummage.Interfaces;
+using Scrummage.Data;
+using Scrummage.Data.Interfaces;
+using Scrummage.Data.Models;
 using Scrummage.ViewModels;
 using System.Collections.Generic;
 using System.Web.Mvc;

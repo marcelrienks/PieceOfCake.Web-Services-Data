@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Scrummage.DataAccess.Models {
+namespace Scrummage.Data.Models {
 	public class Member {
 
 		#region Properties
