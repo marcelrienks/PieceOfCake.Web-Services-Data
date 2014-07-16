@@ -1,15 +1,16 @@
 ﻿using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Scrummage.Controllers;
 using Scrummage.Data.Models;
 using Scrummage.Test.DataAccess;
 using Scrummage.Test.Factories;
 using Scrummage.Test.Factories.ModelFactories;
-using Scrummage.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Scrummage.Web;
+using Scrummage.Web.Controllers;
+using Scrummage.Web.ViewModels;
 
 namespace Scrummage.Test.Controllers
 {
@@ -84,6 +85,10 @@ namespace Scrummage.Test.Controllers
         [TestMethod]
         public void TestSuccessfulCreateGet()
         {
+            var testRoles = new RoleFactory().BuildList();
+            //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
+            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = testRoles;
+
             var controller = new MemberController(_fakeUnitOfWork);
             var result = controller.Create() as ViewResult;
             Assert.IsNotNull(result);
@@ -93,6 +98,10 @@ namespace Scrummage.Test.Controllers
         [TestMethod]
         public void TestFailedCreatePost()
         {
+            var testRoles = new RoleFactory().BuildList();
+            //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
+            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = testRoles;
+
             var testMember = new MemberFactory().Build();
             var testMemberViewModel = Mapper.Map(testMember, new MemberViewModel());
 
@@ -154,6 +163,10 @@ namespace Scrummage.Test.Controllers
         [TestMethod]
         public void TestSuccessfulEditGet()
         {
+            var testRoles = new RoleFactory().BuildList();
+            //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
+            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = testRoles;
+
             var testMembers = new MemberFactory().BuildList();
             //'FakeUnitOfWork.MemberRepository' must be cast to 'FakeRepository<Member>', as 'FakeRepository' exposes some properties that 'IRepository' does not
             ((FakeRepository<Member>)_fakeUnitOfWork.MemberRepository).ModelList = testMembers;

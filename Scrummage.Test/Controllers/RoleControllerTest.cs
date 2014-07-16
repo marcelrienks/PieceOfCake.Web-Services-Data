@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Scrummage.Controllers;
 using Scrummage.Data.Models;
 using Scrummage.Test.DataAccess;
 using Scrummage.Test.Factories.ModelFactories;
-using Scrummage.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Scrummage.Web;
+using Scrummage.Web.Controllers;
+using Scrummage.Web.ViewModels;
 
 namespace Scrummage.Test.Controllers
 {

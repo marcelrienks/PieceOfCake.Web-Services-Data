@@ -27,42 +27,9 @@ namespace Scrummage.Data
         ///     This Gets all entries of type TEntity.
         /// </summary>
         /// <returns>List<TEntity /></returns>
-        public List<TModel> All()
+        public IQueryable<TModel> All()
         {
-            return _context.Set<TModel>().ToList();
-        }
-
-        /// <summary>
-        ///     This executes a where claus, based on a function passed in
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns>List<TEntity /></returns>
-        public List<TModel> Where(Func<TModel, bool> query)
-        {
-            return _context.Set<TModel>().Where(query).ToList();
-        }
-
-        /// <summary>
-        ///     This applies an Order By clause, based on the function passed in
-        /// </summary>
-        /// <typeparam name="TKey"></typeparam>
-        /// <param name="orderBy"></param>
-        /// <returns>List<TEntity /></returns>
-        public List<TModel> OrderBy<TKey>(Func<TModel, TKey> orderBy)
-        {
-            return _context.Set<TModel>().OrderBy(orderBy).ToList();
-        }
-
-        /// <summary>
-        ///     This executes a where claus and applies an Order By clause, based on a functions passed in
-        /// </summary>
-        /// <typeparam name="TKey"></typeparam>
-        /// <param name="query"></param>
-        /// <param name="orderBy"></param>
-        /// <returns>List<TEntity /></returns>
-        public List<TModel> WhereOrderBy<TKey>(Func<TModel, bool> query, Func<TModel, TKey> orderBy)
-        {
-            return _context.Set<TModel>().Where(query).OrderBy(orderBy).ToList();
+            return _context.Set<TModel>();
         }
 
         /// <summary>
@@ -73,6 +40,39 @@ namespace Scrummage.Data
         public TModel Find(int id)
         {
             return _context.Set<TModel>().Find(id);
+        }
+
+        /// <summary>
+        ///     This executes a where claus, based on a function passed in
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns>List<TEntity /></returns>
+        public IEnumerable<TModel> Where(Func<TModel, bool> query)
+        {
+            return _context.Set<TModel>().Where(query);
+        }
+
+        /// <summary>
+        ///     This applies an Order By clause, based on the function passed in
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="orderBy"></param>
+        /// <returns>List<TEntity /></returns>
+        public IOrderedEnumerable<TModel> OrderBy<TKey>(Func<TModel, TKey> orderBy)
+        {
+            return _context.Set<TModel>().OrderBy(orderBy);
+        }
+
+        /// <summary>
+        ///     This executes a where claus and applies an Order By clause, based on a functions passed in
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="orderBy"></param>
+        /// <returns>List<TEntity /></returns>
+        public IOrderedEnumerable<TModel> WhereOrderBy<TKey>(Func<TModel, bool> query, Func<TModel, TKey> orderBy)
+        {
+            return _context.Set<TModel>().Where(query).OrderBy(orderBy);
         }
 
         /// <summary>
@@ -111,12 +111,36 @@ namespace Scrummage.Data
         /// <summary>
         ///     This deletes a specific entry of type TEntity, by id.
         /// </summary>
-        /// <param name="id"></param>
-        public void Delete(int id)
+        /// <param name="entity"></param>
+        public void Delete(TModel entity)
         {
-            var entity = _context.Set<TModel>().Find(id);
             _context.Set<TModel>().Remove(entity);
             _context.SaveChanges();
+        }
+
+        /// <summary>
+        ///     Checks if entity with specified id exists
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>bool</returns>
+        public bool Exists(int id)
+        {
+            if (typeof(TModel) == typeof(Member))
+            {
+                return _context.Set<Member>().Any(entity => entity.MemberId == id);
+            }
+
+            if (typeof(TModel) == typeof(Role))
+            {
+                return _context.Set<Role>().Any(entity => entity.RoleId == id);
+            }
+
+            if (typeof(TModel) == typeof(Avatar))
+            {
+                return _context.Set<Avatar>().Any(entity => entity.MemberId == id);
+            }
+
+            return false;
         }
 
         //Async Example

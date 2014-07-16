@@ -14,7 +14,7 @@ namespace Scrummage.Test.DataAccess
 
         private bool _disposed;
 
-        public List<TModel> ModelList { get; set; }
+        public IEnumerable<TModel> ModelList { get; set; }
         public TModel Model { get; set; }
         public bool IsCreated { get; private set; }
         public bool IsUpdated { get; private set; }
@@ -31,24 +31,9 @@ namespace Scrummage.Test.DataAccess
 
         #region Members
 
-        public List<TModel> All()
+        public IQueryable<TModel> All()
         {
-            return ModelList;
-        }
-
-        public List<TModel> Where(Func<TModel, bool> query)
-        {
-            return ModelList;
-        }
-
-        public List<TModel> OrderBy<TKey>(Func<TModel, TKey> orderBy)
-        {
-            return ModelList;
-        }
-
-        public List<TModel> WhereOrderBy<TKey>(Func<TModel, bool> query, Func<TModel, TKey> orderBy)
-        {
-            return ModelList;
+            return ModelList.AsQueryable();
         }
 
         public TModel Find(int id)
@@ -78,6 +63,21 @@ namespace Scrummage.Test.DataAccess
             return (TModel)Convert.ChangeType(result, typeof(TModel));
         }
 
+        public IEnumerable<TModel> Where(Func<TModel, bool> query)
+        {
+            return ModelList;
+        }
+
+        public IOrderedEnumerable<TModel> OrderBy<TKey>(Func<TModel, TKey> orderBy)
+        {
+            return ModelList.OrderBy(orderBy);
+        }
+
+        public IOrderedEnumerable<TModel> WhereOrderBy<TKey>(Func<TModel, bool> query, Func<TModel, TKey> orderBy)
+        {
+            return ModelList.Where(query).OrderBy(orderBy);
+        }
+
         public void Create(TModel entity)
         {
             IsCreated = true;
@@ -90,7 +90,7 @@ namespace Scrummage.Test.DataAccess
             IsSaved = true;
         }
 
-        public void Delete(int id)
+        public void Delete(TModel entity)
         {
             IsDeleted = true;
             IsSaved = true;
@@ -99,6 +99,29 @@ namespace Scrummage.Test.DataAccess
         public void Save()
         {
             IsSaved = true;
+        }
+
+        public bool Exists(int id)
+        {
+            if (typeof(TModel) == typeof(Member))
+            {
+                var members = ModelList as IEnumerable<Member>;
+                return members.Count(entity => entity.MemberId == id) > 0;
+            }
+
+            if (typeof(TModel) == typeof(Role))
+            {
+                var roles = ModelList as IEnumerable<Role>;
+                return roles.Count(entity => entity.RoleId == id) > 0;
+            }
+
+            if (typeof(TModel) == typeof(Avatar))
+            {
+                var avatars = ModelList as IEnumerable<Avatar>;
+                return avatars.Count(entity => entity.MemberId == id) > 0;
+            }
+
+            return false;
         }
 
         //Async Example

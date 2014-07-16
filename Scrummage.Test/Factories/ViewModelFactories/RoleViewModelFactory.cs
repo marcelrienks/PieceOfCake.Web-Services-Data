@@ -1,5 +1,5 @@
-﻿using Scrummage.ViewModels;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Scrummage.Web.ViewModels;
 
 namespace Scrummage.Test.Factories.ViewModelFactories
 {

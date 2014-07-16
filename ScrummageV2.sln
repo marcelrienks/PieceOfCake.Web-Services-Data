@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrummage", "Scrummage\Scrummage.csproj", "{AFB6CC32-0C3B-48E6-914D-30059791D2B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrummage.Web", "Scrummage.Web\Scrummage.Web.csproj", "{AFB6CC32-0C3B-48E6-914D-30059791D2B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrummage.Test", "Scrummage.Test\Scrummage.Test.csproj", "{7FD34E51-6A67-4A55-83FA-B5630FC4190E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrummage.Web.Test", "Scrummage.Test\Scrummage.Web.Test.csproj", "{7FD34E51-6A67-4A55-83FA-B5630FC4190E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{350FF787-95D8-46FA-89ED-BAA021B68873}"
 	ProjectSection(SolutionItems) = preProject
@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{6E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrummage.Data", "Scrummage.Data\Scrummage.Data.csproj", "{E52DC8AD-F09E-48FD-9473-C04E7D2C471B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrummage.Services", "Scrummage.Services\Scrummage.Services.csproj", "{5D521B52-F1D4-4F3A-A3FF-09087F372347}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrummage.Services", "Scrummage.Services\Scrummage.Services.csproj", "{598BE999-2442-410B-B3CE-AB79E467F130}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{E52DC8AD-F09E-48FD-9473-C04E7D2C471B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E52DC8AD-F09E-48FD-9473-C04E7D2C471B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E52DC8AD-F09E-48FD-9473-C04E7D2C471B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5D521B52-F1D4-4F3A-A3FF-09087F372347}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5D521B52-F1D4-4F3A-A3FF-09087F372347}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5D521B52-F1D4-4F3A-A3FF-09087F372347}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5D521B52-F1D4-4F3A-A3FF-09087F372347}.Release|Any CPU.Build.0 = Release|Any CPU
+		{598BE999-2442-410B-B3CE-AB79E467F130}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{598BE999-2442-410B-B3CE-AB79E467F130}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{598BE999-2442-410B-B3CE-AB79E467F130}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{598BE999-2442-410B-B3CE-AB79E467F130}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
