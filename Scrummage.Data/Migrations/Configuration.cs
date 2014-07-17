@@ -55,7 +55,7 @@ namespace Scrummage.Data.Migrations
                 },
 			};
 
-            roles.ForEach(role => context.Roles.AddOrUpdate(roleType => roleType.RoleId, role));
+            roles.ForEach(role => context.Roles.AddOrUpdate(roleType => roleType.Id, role));
             context.SaveChanges();
         }
 
@@ -84,7 +84,7 @@ namespace Scrummage.Data.Migrations
 				}
 			};
 
-            members.ForEach(member => context.Members.AddOrUpdate(memberType => memberType.MemberId, member));
+            members.ForEach(member => context.Members.AddOrUpdate(memberType => memberType.Id, member));
             context.SaveChanges();
         }
     }

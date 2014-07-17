@@ -9,7 +9,7 @@ namespace Scrummage.Web.ViewModels {
 
 		#region Properties
 		//MemberId
-		public int MemberId { get; set; }
+        public int Id { get; set; }
 
 		//Image
 		[Required]

@@ -59,7 +59,7 @@ namespace Scrummage.Test.Controllers
 
             foreach (var testRole in testRoles)
             {
-                var roleViewModel = roleViewModels.First(rvm => rvm.RoleId == testRole.RoleId);
+                var roleViewModel = roleViewModels.First(rvm => rvm.Id == testRole.Id);
                 PerformCommonAsserts(testRole, roleViewModel);
             }
         }
@@ -248,7 +248,7 @@ namespace Scrummage.Test.Controllers
 
         private static void PerformCommonAsserts(Role role, RoleViewModel roleViewModel)
         {
-            Assert.AreEqual(role.RoleId, roleViewModel.RoleId);
+            Assert.AreEqual(role.Id, roleViewModel.Id);
             Assert.AreEqual(role.Title, roleViewModel.Title);
             Assert.AreEqual(role.Description, roleViewModel.Description);
         }

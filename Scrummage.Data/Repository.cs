@@ -127,17 +127,17 @@ namespace Scrummage.Data
         {
             if (typeof(TModel) == typeof(Member))
             {
-                return _context.Set<Member>().Any(entity => entity.MemberId == id);
+                return _context.Set<Member>().Any(entity => entity.Id == id);
             }
 
             if (typeof(TModel) == typeof(Role))
             {
-                return _context.Set<Role>().Any(entity => entity.RoleId == id);
+                return _context.Set<Role>().Any(entity => entity.Id == id);
             }
 
             if (typeof(TModel) == typeof(Avatar))
             {
-                return _context.Set<Avatar>().Any(entity => entity.MemberId == id);
+                return _context.Set<Avatar>().Any(entity => entity.Id == id);
             }
 
             return false;

@@ -33,7 +33,7 @@ namespace Scrummage.Test.Factories.ModelFactories
         {
             _member = new Member
             {
-                MemberId = memberId,
+                Id = memberId,
                 Name = "Name",
                 ShortName = "sn",
                 Username = "Username",
@@ -41,7 +41,7 @@ namespace Scrummage.Test.Factories.ModelFactories
                 Roles = new RoleFactory().BuildList(),
                 Avatar = new Avatar
                 {
-                    MemberId = memberId,
+                    Id = memberId,
                     Image = new byte[0]
                 }
             };

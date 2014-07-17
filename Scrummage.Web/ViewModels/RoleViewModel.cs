@@ -12,7 +12,7 @@ namespace Scrummage.Web.ViewModels
 
         #region Properties
         //RoleId
-        public int RoleId { get; set; }
+        public int Id { get; set; }
 
         //Title
         [Required]

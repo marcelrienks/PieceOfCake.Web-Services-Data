@@ -15,7 +15,7 @@ namespace Scrummage.Test.Factories.ViewModelFactories
         {
             _memberViewModel = new MemberViewModel
             {
-                MemberId = 0,
+                Id = 0,
                 Name = "Name",
                 ShortName = "sn",
                 Username = "Username",
@@ -25,7 +25,7 @@ namespace Scrummage.Test.Factories.ViewModelFactories
                 RoleViewModels = new RoleViewModelFactory().BuildList(),
                 AvatarViewModel = new AvatarViewModel
                 {
-                    MemberId = 0,
+                    Id = 0,
                     Image = new byte[0]
                 }
             };

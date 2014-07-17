@@ -259,15 +259,15 @@ namespace Scrummage.Test.Controllers
         private static void PerformCommonAsserts(Member member, MemberViewModel memberViewModel)
         {
             Assert.AreEqual(member.Email, memberViewModel.Email);
-            Assert.AreEqual(member.MemberId, memberViewModel.MemberId);
+            Assert.AreEqual(member.Id, memberViewModel.Id);
             Assert.AreEqual(member.Name, memberViewModel.Name);
             Assert.AreEqual(member.Password, memberViewModel.Password);
             Assert.AreEqual(member.ShortName, memberViewModel.ShortName);
             Assert.AreEqual(member.Username, memberViewModel.Username);
-            Assert.AreEqual(member.Avatar.MemberId, memberViewModel.AvatarViewModel.MemberId);
+            Assert.AreEqual(member.Avatar.Id, memberViewModel.AvatarViewModel.Id);
             Assert.AreEqual(member.Avatar.Image, memberViewModel.AvatarViewModel.Image);
             Assert.AreEqual(member.Roles.Count, memberViewModel.RoleViewModels.Count);
-            Assert.AreEqual(member.Roles.First().RoleId, memberViewModel.RoleViewModels.First().RoleId);
+            Assert.AreEqual(member.Roles.First().Id, memberViewModel.RoleViewModels.First().Id);
             Assert.AreEqual(member.Roles.First().Title, memberViewModel.RoleViewModels.First().Title);
         }
 

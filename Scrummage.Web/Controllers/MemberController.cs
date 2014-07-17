@@ -198,7 +198,7 @@ namespace Scrummage.Web.Controllers
                 }
                 else
                 {
-                    bytes = _unitOfWork.AvatarRepository.Find(member.MemberId).Image;
+                    bytes = _unitOfWork.AvatarRepository.Find(member.Id).Image;
                 }
 
                 //Create new Avatar model

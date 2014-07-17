@@ -15,7 +15,7 @@ namespace Scrummage.Test.Factories.ViewModelFactories
         {
             _roleViewModel = new RoleViewModel
             {
-                RoleId = 0,
+                Id = 0,
                 Title = "Title",
                 Description = "Description"
             };

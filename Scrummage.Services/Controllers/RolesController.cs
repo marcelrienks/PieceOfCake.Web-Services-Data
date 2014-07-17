@@ -52,7 +52,7 @@ namespace Scrummage.Services.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult PutRole(int id, Role role)
         {
-            if (id != role.RoleId)
+            if (id != role.Id)
             {
                 return BadRequest();
             }
@@ -90,7 +90,7 @@ namespace Scrummage.Services.Controllers
 
             _unitOfWork.RoleRepository.Create(role);
 
-            return CreatedAtRoute("DefaultApi", new { id = role.RoleId }, role);
+            return CreatedAtRoute("DefaultApi", new { id = role.Id }, role);
         }
 
         // DELETE: api/Roles/5

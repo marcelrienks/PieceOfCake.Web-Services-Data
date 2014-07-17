@@ -47,11 +47,11 @@ namespace Scrummage.Test.DataAccess
             object result;
             if (typeof(TModel) == typeof(Role))
             {
-                result = ModelList.Cast<Role>().ToList().Find(role => role.RoleId == id);
+                result = ModelList.Cast<Role>().ToList().Find(role => role.Id == id);
             }
             else if (typeof(TModel) == typeof(Member))
             {
-                result = ModelList.Cast<Member>().ToList().Find(member => member.MemberId == id);
+                result = ModelList.Cast<Member>().ToList().Find(member => member.Id == id);
             }
             else
             {
@@ -106,19 +106,19 @@ namespace Scrummage.Test.DataAccess
             if (typeof(TModel) == typeof(Member))
             {
                 var members = ModelList as IEnumerable<Member>;
-                return members.Count(entity => entity.MemberId == id) > 0;
+                return members.Count(entity => entity.Id == id) > 0;
             }
 
             if (typeof(TModel) == typeof(Role))
             {
                 var roles = ModelList as IEnumerable<Role>;
-                return roles.Count(entity => entity.RoleId == id) > 0;
+                return roles.Count(entity => entity.Id == id) > 0;
             }
 
             if (typeof(TModel) == typeof(Avatar))
             {
                 var avatars = ModelList as IEnumerable<Avatar>;
-                return avatars.Count(entity => entity.MemberId == id) > 0;
+                return avatars.Count(entity => entity.Id == id) > 0;
             }
 
             return false;

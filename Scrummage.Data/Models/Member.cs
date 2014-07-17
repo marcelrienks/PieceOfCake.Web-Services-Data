@@ -5,7 +5,7 @@ namespace Scrummage.Data.Models {
 
 		#region Properties
 
-		public int MemberId { get; set; }
+		public int Id { get; set; }
 		public string Name { get; set; }
         public string ShortName { get; set; }
         public string Username { get; set; }

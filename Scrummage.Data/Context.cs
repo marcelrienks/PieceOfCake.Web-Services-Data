@@ -35,11 +35,11 @@ namespace Scrummage.Data
         {
 			//RoleId is Primary Key
 			modelBuilder.Entity<Role>()
-			            .HasKey(role => role.RoleId);
+			            .HasKey(role => role.Id);
 
 			//RoleId is Identity
 			modelBuilder.Entity<Role>()
-			            .Property(role => role.RoleId)
+                        .Property(role => role.Id)
 			            .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
 			//Title is Required, and has a max length
@@ -63,11 +63,11 @@ namespace Scrummage.Data
         {
 			//MemberId is Primary Key
 			modelBuilder.Entity<Member>()
-									.HasKey(member => member.MemberId);
+                                    .HasKey(member => member.Id);
 
 			//MemberId is Identity
 			modelBuilder.Entity<Member>()
-									.Property(member => member.MemberId)
+                                    .Property(member => member.Id)
 									.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
 			//Name is Required
@@ -115,7 +115,7 @@ namespace Scrummage.Data
         {
 			//MemberId is Primary Key
 			modelBuilder.Entity<Avatar>()
-									.HasKey(avatar => avatar.MemberId);
+                                    .HasKey(avatar => avatar.Id);
 
 			//One to One relationship between Member and Avatar where both are required, and Avatar is the dependent
 			modelBuilder.Entity<Avatar>()

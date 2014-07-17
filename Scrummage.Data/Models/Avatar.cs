@@ -4,7 +4,7 @@ namespace Scrummage.Data.Models {
 
 		#region Properties
 
-		public int MemberId { get; set; }
+		public int Id { get; set; }
 		public byte[] Image { get; set; }
 		
         #endregion

@@ -15,7 +15,7 @@ namespace Scrummage.Test.Factories.ModelFactories
         {
             _role = new Role
             {
-                RoleId = 0,
+                Id = 0,
                 Title = "Title",
                 Description = "Description"
             };
@@ -52,7 +52,7 @@ namespace Scrummage.Test.Factories.ModelFactories
         {
             _roles.Add(new Role
             {
-                RoleId = 1,
+                Id = 1,
                 Title = "Title1",
                 Description = "Description1"
             });

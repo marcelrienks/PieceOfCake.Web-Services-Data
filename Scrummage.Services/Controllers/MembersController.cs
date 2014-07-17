@@ -58,7 +58,7 @@ namespace Scrummage.Services.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != member.MemberId)
+            if (id != member.Id)
             {
                 return BadRequest();
             }
@@ -91,7 +91,7 @@ namespace Scrummage.Services.Controllers
 
             _unitOfWork.MemberRepository.Create(member);
 
-            return CreatedAtRoute("DefaultApi", new { id = member.MemberId }, member);
+            return CreatedAtRoute("DefaultApi", new { id = member.Id }, member);
         }
 
         // DELETE: api/Members/5
