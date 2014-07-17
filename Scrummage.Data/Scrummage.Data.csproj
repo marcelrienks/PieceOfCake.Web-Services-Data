@@ -51,9 +51,9 @@
     <Compile Include="Context.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
-    <Compile Include="Migrations\201407111146554_Initialise.cs" />
-    <Compile Include="Migrations\201407111146554_Initialise.Designer.cs">
-      <DependentUpon>201407111146554_Initialise.cs</DependentUpon>
+    <Compile Include="Migrations\201407170929253_Initialise.cs" />
+    <Compile Include="Migrations\201407170929253_Initialise.Designer.cs">
+      <DependentUpon>201407170929253_Initialise.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Avatar.cs" />
@@ -68,12 +68,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201407111146554_Initialise.resx">
-      <DependentUpon>201407111146554_Initialise.cs</DependentUpon>
-    </EmbeddedResource>
+    <Content Include="Migrations\default_avatar.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Migrations\default_avatar.jpg" />
+    <EmbeddedResource Include="Migrations\201407170929253_Initialise.resx">
+      <DependentUpon>201407170929253_Initialise.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
