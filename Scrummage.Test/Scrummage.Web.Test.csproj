@@ -154,4 +154,10 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <TestResultsFolderPath>..\TestResults</TestResultsFolderPath>
+  </PropertyGroup>
+  <Target Name="AfterClean">
+    <RemoveDir Directories="$(TestResultsFolderPath)" Condition="Exists('$(TestResultsFolderPath)')" />
+  </Target>
 </Project>
