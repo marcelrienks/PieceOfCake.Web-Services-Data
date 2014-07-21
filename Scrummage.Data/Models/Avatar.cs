@@ -11,7 +11,7 @@ namespace Scrummage.Data.Models {
 
 		#region Navigation
         
-		public virtual Member Member { get; set; }
+		public virtual User User { get; set; }
 		
         #endregion
 	}

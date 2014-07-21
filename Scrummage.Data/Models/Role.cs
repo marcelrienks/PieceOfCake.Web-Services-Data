@@ -14,7 +14,7 @@ namespace Scrummage.Data.Models {
 
 		#region Navigation
 
-		public virtual ICollection<Member> Members { get; set; }
+		public virtual ICollection<User> Users { get; set; }
 		
         #endregion
 	}

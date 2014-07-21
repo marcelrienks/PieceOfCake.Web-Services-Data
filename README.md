@@ -18,7 +18,7 @@ Twitter Bootstrap has been used for presentation.
 Used to update the entire graph tree of a context model, including relations
 
 ## DEVELOPMENT: ##
-* Create Management of Members
+* Create Management of Users
 * Create Authentication layer
 * Look and Feel
 * Manage Projects
@@ -30,32 +30,33 @@ Used to update the entire graph tree of a context model, including relations
 * Manage Attachments
 
 ### Todo ###
+* Fix issue with Avatar not re uploading on post after validation failure
 * Refactor code into seperate projects (Possibly Data, Service and Presentation)
-* Add validation to prevent role from being deleted if it's assigned to a member
+* Add validation to prevent role from being deleted if it's assigned to a User
 * Investigate using Mock DbSet instead of having a fake Repository
-* verify of username, password on create of member without causing a post back
-* add functionality to Member edit for Password and Avatar (including validation)
+* verify of username, password on create of User without causing a post back
+* add functionality to User edit for Password and Avatar (including validation)
 * investigate creating unit tests for the repository, by creating a fake contaxt/dbset class, which can be dependancy injected in?
 
 ## RESOURCES: ##
 ### Roles ###
-This allows administrators to have basic CRUDL functionality of user/member Roles
+This allows administrators to have basic CRUDL functionality of user Roles
 
-### Members ###
-This allows administrators to have basic CRUDL functionality of Members
+### Users ###
+This allows administrators to have basic CRUDL functionality of Users
 Including adding an Avatar to memnbers  
 
 ## DOMAIN ##
 ### Roles ###
-Members (n)  
-int RoleId (PK, Identity)  
+Users (n)  
+int Id (PK, Identity)  
 string Title (Required, Max=30)  
 string Description (Max=180)  
 
-### Members ###
+### Users ###
 Roles (n)  
 Avatar (1)  
-int MemberId (PK, Identity)  
+int Id (PK, Identity)  
 string Name (Required, Max=30)  
 string ShortName (Required, Max=3)  
 string Username (Required, Max=30, Unique)  
@@ -63,8 +64,8 @@ string Password (Required, Max=30)
 string Email (Required)  
 
 ### Avatar ###
-Member (1)  
-int MemberId (PK)  
+User (1)  
+int Id (PK)  
 byte[] Image (Required)  
 
 ### Project ###
@@ -100,10 +101,10 @@ Project (1)
 Feature (0.1)  
 Sprint (0.1)  
 Tasks (n)  
-Members (n)  
-CreatedByMember (1)  
-ChangedByMember (0.1)  
-ClosedByMember (1)  
+Users (n)  
+CreatedByUser (1)  
+ChangedByUser (0.1)  
+ClosedByUser (1)  
 Status (1)  
 Attachments (n)  
 int BacklogItemId (PK, Identity)  
@@ -121,7 +122,7 @@ int HoursLogged
 
 ### Task ###
 Backlog Item (1)  
-Members (n)  
+Users (n)  
 Status (1)  
 Attachments (n)  
 int TaskId (PK, Identity)  

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Scrummage.Web.ViewModels.MemberViewModel>
+﻿@model IEnumerable<Scrummage.Web.ViewModels.UserViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -36,9 +36,9 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {id = item.MemberId}) |
-                @Html.ActionLink("Details", "Details", new {id = item.MemberId}) |
-                @Html.ActionLink("Delete", "Delete", new {id = item.MemberId})
+                @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+                @Html.ActionLink("Details", "Details", new {id = item.Id}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.Id})
             </td>
         </tr>
     }

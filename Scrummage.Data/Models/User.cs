@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace Scrummage.Data.Models {
-	public class Member {
+	public class User {
 
 		#region Properties
 

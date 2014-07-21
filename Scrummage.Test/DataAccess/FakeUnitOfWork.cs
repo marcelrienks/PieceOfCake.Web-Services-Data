@@ -8,7 +8,7 @@ namespace Scrummage.Test.DataAccess
         #region Properties
 
         public IRepository<Role> RoleRepository { get; private set; }
-        public IRepository<Member> MemberRepository { get; private set; }
+        public IRepository<User> UserRepository { get; private set; }
         public IRepository<Avatar> AvatarRepository { get; private set; }
 
         #endregion
@@ -16,7 +16,7 @@ namespace Scrummage.Test.DataAccess
         public FakeUnitOfWork()
         {
             RoleRepository = new FakeRepository<Role>();
-            MemberRepository = new FakeRepository<Member>();
+            UserRepository = new FakeRepository<User>();
             AvatarRepository = new FakeRepository<Avatar>();
         }
     }

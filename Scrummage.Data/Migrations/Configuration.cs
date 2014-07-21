@@ -21,7 +21,7 @@ namespace Scrummage.Data.Migrations
         protected override void Seed(Context context)
         {
             SeedRoles(context);
-            SeedMembers(context);
+            SeedUsers(context);
         }
 
         /// <summary>
@@ -60,16 +60,16 @@ namespace Scrummage.Data.Migrations
         }
 
         /// <summary>
-        ///     This method seeds the database with Members
+        ///     This method seeds the database with Users
         /// </summary>
         /// <param name="context"></param>
-        private void SeedMembers(Context context)
+        private void SeedUsers(Context context)
         {
-            if (context.Members.Any()) return;
+            if (context.Users.Any()) return;
 
-            var members = new List<Member>
+            var users = new List<User>
             {
-                new Member
+                new User
                 {
 					Name = "Marcel Rienks",
 					ShortName = "mr",
@@ -84,7 +84,7 @@ namespace Scrummage.Data.Migrations
 				}
 			};
 
-            members.ForEach(member => context.Members.AddOrUpdate(memberType => memberType.Id, member));
+            users.ForEach(user => context.Users.AddOrUpdate(userType => userType.Id, user));
             context.SaveChanges();
         }
     }

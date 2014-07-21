@@ -8,7 +8,7 @@ namespace Scrummage.Data
         #region Properties
 
         public IRepository<Role> RoleRepository { get; private set; }
-        public IRepository<Member> MemberRepository { get; private set; }
+        public IRepository<User> UserRepository { get; private set; }
         public IRepository<Avatar> AvatarRepository { get; private set; }
 
         #endregion
@@ -17,7 +17,7 @@ namespace Scrummage.Data
         {
             var context = new Context();
             RoleRepository = new Repository<Role>(context);
-            MemberRepository = new Repository<Member>(context);
+            UserRepository = new Repository<User>(context);
             AvatarRepository = new Repository<Avatar>(context);
         }
     }

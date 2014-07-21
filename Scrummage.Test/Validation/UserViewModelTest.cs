@@ -4,7 +4,7 @@ using Scrummage.Test.Factories.ViewModelFactories;
 namespace Scrummage.Test.Validation
 {
     [TestClass]
-    public class MemberViewModelTest
+    public class UserViewModelTest
     {
         #region Properties
 
@@ -12,7 +12,7 @@ namespace Scrummage.Test.Validation
         
         #endregion
 
-        public MemberViewModelTest()
+        public UserViewModelTest()
         {
             _testController = new TestModelStateController();
         }
@@ -20,8 +20,8 @@ namespace Scrummage.Test.Validation
         [TestMethod]
         public void TestRequiredFields()
         {
-            var member = new MemberViewModelFactory().WithNullRequiredFields().Build();
-            var result = _testController.TestTryValidateModel(member);
+            var User = new UserViewModelFactory().WithNullRequiredFields().Build();
+            var result = _testController.TestTryValidateModel(User);
 
             var modelState = _testController.ModelState;
 
@@ -56,8 +56,8 @@ namespace Scrummage.Test.Validation
         [TestMethod]
         public void TestInvalidFields()
         {
-            var member = new MemberViewModelFactory().WithInvalidFields().Build();
-            var result = _testController.TestTryValidateModel(member);
+            var User = new UserViewModelFactory().WithInvalidFields().Build();
+            var result = _testController.TestTryValidateModel(User);
 
             var modelState = _testController.ModelState;
 
@@ -86,10 +86,10 @@ namespace Scrummage.Test.Validation
         }
 
         [TestMethod]
-        public void TestValidMember()
+        public void TestValidUser()
         {
-            var member = new MemberViewModelFactory().Build();
-            var result = _testController.TestTryValidateModel(member);
+            var User = new UserViewModelFactory().Build();
+            var result = _testController.TestTryValidateModel(User);
 
             var modelState = _testController.ModelState;
 

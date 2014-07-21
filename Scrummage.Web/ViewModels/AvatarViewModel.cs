@@ -8,17 +8,15 @@ namespace Scrummage.Web.ViewModels {
 		//This prevents the poco classes from requiring 'NotMapped' attributes on additional properties required by the views atc.
 
 		#region Properties
-		//MemberId
         public int Id { get; set; }
 
-		//Image
 		[Required]
 		public byte[] Image { get; set; }
 		#endregion
 
 		#region Navigation
 		[Required]
-		public virtual MemberViewModel MemberModelView { get; set; }
+        public virtual UserViewModel UserModelView { get; set; }
 		#endregion
 	}
 }

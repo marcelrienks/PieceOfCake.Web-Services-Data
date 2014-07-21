@@ -14,11 +14,11 @@ namespace Scrummage.Data.Migrations
                         Image = c.Binary(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Members", t => t.Id, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.Id, cascadeDelete: true)
                 .Index(t => t.Id);
 
             CreateTable(
-                "dbo.Members",
+                "dbo.Users",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -42,32 +42,32 @@ namespace Scrummage.Data.Migrations
                 .PrimaryKey(t => t.Id);
 
             CreateTable(
-                "dbo.MemberRoles",
+                "dbo.RoleUsers",
                 c => new
                     {
-                        Member_Id = c.Int(nullable: false),
                         Role_Id = c.Int(nullable: false),
+                        User_Id = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.Member_Id, t.Role_Id })
-                .ForeignKey("dbo.Members", t => t.Member_Id, cascadeDelete: true)
+                .PrimaryKey(t => new { t.Role_Id, t.User_Id })
                 .ForeignKey("dbo.Roles", t => t.Role_Id, cascadeDelete: true)
-                .Index(t => t.Member_Id)
-                .Index(t => t.Role_Id);
+                .ForeignKey("dbo.Users", t => t.User_Id, cascadeDelete: true)
+                .Index(t => t.Role_Id)
+                .Index(t => t.User_Id);
 
         }
 
         public override void Down()
         {
-            DropForeignKey("dbo.Avatars", "Id", "dbo.Members");
-            DropForeignKey("dbo.MemberRoles", "Role_Id", "dbo.Roles");
-            DropForeignKey("dbo.MemberRoles", "Member_Id", "dbo.Members");
-            DropIndex("dbo.MemberRoles", new[] { "Role_Id" });
-            DropIndex("dbo.MemberRoles", new[] { "Member_Id" });
-            DropIndex("dbo.Members", new[] { "Username" });
+            DropForeignKey("dbo.Avatars", "Id", "dbo.Users");
+            DropForeignKey("dbo.RoleUsers", "User_Id", "dbo.Users");
+            DropForeignKey("dbo.RoleUsers", "Role_Id", "dbo.Roles");
+            DropIndex("dbo.RoleUsers", new[] { "User_Id" });
+            DropIndex("dbo.RoleUsers", new[] { "Role_Id" });
+            DropIndex("dbo.Users", new[] { "Username" });
             DropIndex("dbo.Avatars", new[] { "Id" });
-            DropTable("dbo.MemberRoles");
+            DropTable("dbo.RoleUsers");
             DropTable("dbo.Roles");
-            DropTable("dbo.Members");
+            DropTable("dbo.Users");
             DropTable("dbo.Avatars");
         }
     }

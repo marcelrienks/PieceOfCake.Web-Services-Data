@@ -88,18 +88,18 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Controllers\MemberControllerTest.cs" />
+    <Compile Include="Controllers\UserControllerTest.cs" />
     <Compile Include="Controllers\RoleControllerTest.cs" />
     <Compile Include="DataAccess\FakeRepository.cs" />
     <Compile Include="DataAccess\FakeUnitOfWork.cs" />
     <Compile Include="Factories\HttpPostedFileBaseFactory.cs" />
-    <Compile Include="Factories\ModelFactories\MemberFactory.cs">
+    <Compile Include="Factories\ModelFactories\UserFactory.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Factories\ModelFactories\RoleFactory.cs" />
-    <Compile Include="Factories\ViewModelFactories\MemberViewModelFactory.cs" />
+    <Compile Include="Factories\ViewModelFactories\UserViewModelFactory.cs" />
     <Compile Include="Factories\ViewModelFactories\RoleViewModelFactory.cs" />
-    <Compile Include="Validation\MemberViewModelTest.cs" />
+    <Compile Include="Validation\UserViewModelTest.cs" />
     <Compile Include="Validation\RoleViewModelTest.cs" />
     <Compile Include="Validation\TestModelStateController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

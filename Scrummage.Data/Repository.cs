@@ -91,11 +91,11 @@ namespace Scrummage.Data
         /// <param name="entity"></param>
         public void Update(TModel entity)
         {
-            if (entity is Member)
+            if (entity is User)
             {
-                _context.UpdateGraph(entity as Member, map => map
-                    .AssociatedCollection<Member, Role>(member => member.Roles)
-                    .OwnedEntity<Member, Avatar>(member => member.Avatar));
+                _context.UpdateGraph(entity as User, map => map
+                    .AssociatedCollection<User, Role>(user => user.Roles)
+                    .OwnedEntity<User, Avatar>(user => user.Avatar));
             }
             else if (entity is Role)
             {
@@ -125,9 +125,9 @@ namespace Scrummage.Data
         /// <returns>bool</returns>
         public bool Exists(int id)
         {
-            if (typeof(TModel) == typeof(Member))
+            if (typeof(TModel) == typeof(User))
             {
-                return _context.Set<Member>().Any(entity => entity.Id == id);
+                return _context.Set<User>().Any(entity => entity.Id == id);
             }
 
             if (typeof(TModel) == typeof(Role))

@@ -5,7 +5,7 @@ namespace Scrummage.Data.Interfaces
     public interface IUnitOfWork
     {
         IRepository<Role> RoleRepository { get; }
-        IRepository<Member> MemberRepository { get; }
+        IRepository<User> UserRepository { get; }
         IRepository<Avatar> AvatarRepository { get; }
     }
 }

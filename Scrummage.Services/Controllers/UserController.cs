@@ -1,7 +1,6 @@
 ﻿using Scrummage.Data;
 using Scrummage.Data.Interfaces;
 using Scrummage.Data.Models;
-using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
@@ -10,7 +9,7 @@ using System.Web.Http.Description;
 
 namespace Scrummage.Services.Controllers
 {
-    public class MembersController : ApiController
+    public class UserController : ApiController
     {
         #region Properties
 
@@ -18,58 +17,58 @@ namespace Scrummage.Services.Controllers
 
         #endregion
 
-        public MembersController()
+        public UserController()
         {
             _unitOfWork = new UnitOfWork();
         }
 
-        public MembersController(IUnitOfWork unitOfWork)
+        public UserController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
         #region Actions
 
-        // GET: api/Members
-        public IQueryable<Member> GetMembers()
+        // GET: api/Users
+        public IQueryable<User> GetUsers()
         {
-            return _unitOfWork.MemberRepository.All();
+            return _unitOfWork.UserRepository.All();
         }
 
-        // GET: api/Members/5
-        [ResponseType(typeof(Member))]
-        public IHttpActionResult GetMember(int id)
+        // GET: api/Users/5
+        [ResponseType(typeof(User))]
+        public IHttpActionResult GetUser(int id)
         {
-            var member = _unitOfWork.MemberRepository.Find(id);
-            if (member == null)
+            var user = _unitOfWork.UserRepository.Find(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return Ok(member);
+            return Ok(user);
         }
 
-        // PUT: api/Members/5
+        // PUT: api/Users/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutMember(int id, Member member)
+        public IHttpActionResult PutUser(int id, User user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != member.Id)
+            if (id != user.Id)
             {
                 return BadRequest();
             }
 
             try
             {
-                _unitOfWork.MemberRepository.Update(member);
+                _unitOfWork.UserRepository.Update(user);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_unitOfWork.MemberRepository.Exists(id))
+                if (!_unitOfWork.UserRepository.Exists(id))
                 {
                     return NotFound();
                 }
@@ -80,33 +79,33 @@ namespace Scrummage.Services.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Members
-        [ResponseType(typeof(Member))]
-        public IHttpActionResult PostMember(Member member)
+        // POST: api/Users
+        [ResponseType(typeof(User))]
+        public IHttpActionResult PostUser(User user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _unitOfWork.MemberRepository.Create(member);
+            _unitOfWork.UserRepository.Create(user);
 
-            return CreatedAtRoute("DefaultApi", new { id = member.Id }, member);
+            return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
         }
 
-        // DELETE: api/Members/5
-        [ResponseType(typeof(Member))]
-        public IHttpActionResult DeleteMember(int id)
+        // DELETE: api/Users/5
+        [ResponseType(typeof(User))]
+        public IHttpActionResult DeleteUser(int id)
         {
-            var member = _unitOfWork.MemberRepository.Find(id);
-            if (member == null)
+            var user = _unitOfWork.UserRepository.Find(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            _unitOfWork.MemberRepository.Delete(member);
+            _unitOfWork.UserRepository.Delete(user);
 
-            return Ok(member);
+            return Ok(user);
         }
 
         #endregion
@@ -115,7 +114,7 @@ namespace Scrummage.Services.Controllers
         {
             if (disposing)
             {
-                _unitOfWork.MemberRepository.Dispose();
+                _unitOfWork.UserRepository.Dispose();
             }
             base.Dispose(disposing);
         }

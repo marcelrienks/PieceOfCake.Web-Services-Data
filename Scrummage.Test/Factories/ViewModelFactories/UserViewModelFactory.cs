@@ -3,17 +3,17 @@ using Scrummage.Web.ViewModels;
 
 namespace Scrummage.Test.Factories.ViewModelFactories
 {
-    public class MemberViewModelFactory
+    public class UserViewModelFactory
     {
-        private readonly MemberViewModel _memberViewModel;
-        private readonly List<MemberViewModel> _memberViewModels;
+        private readonly UserViewModel _UserViewModel;
+        private readonly List<UserViewModel> _UserViewModels;
 
         /// <summary>
         ///     Create default RoleViewModel and RoleViewModel list objects
         /// </summary>
-        public MemberViewModelFactory()
+        public UserViewModelFactory()
         {
-            _memberViewModel = new MemberViewModel
+            _UserViewModel = new UserViewModel
             {
                 Id = 0,
                 Name = "Name",
@@ -30,9 +30,9 @@ namespace Scrummage.Test.Factories.ViewModelFactories
                 }
             };
 
-            _memberViewModels = new List<MemberViewModel>
+            _UserViewModels = new List<UserViewModel>
             {
-                _memberViewModel
+                _UserViewModel
 		    };
         }
 
@@ -40,47 +40,47 @@ namespace Scrummage.Test.Factories.ViewModelFactories
         ///     Return constructed RoleViewModel
         /// </summary>
         /// <returns>Role</returns>
-        public MemberViewModel Build()
+        public UserViewModel Build()
         {
-            return _memberViewModel;
+            return _UserViewModel;
         }
 
         /// <summary>
         ///     Return constructed RoleViewModel List
         /// </summary>
         /// <returns>List<Role></returns>
-        public List<MemberViewModel> BuildList()
+        public List<UserViewModel> BuildList()
         {
-            return _memberViewModels;
+            return _UserViewModels;
         }
 
         /// <summary>
-        ///     Creates an Invalid Member view model with null fields
+        ///     Creates an Invalid User view model with null fields
         /// </summary>
         /// <returns></returns>
-        public MemberViewModelFactory WithNullRequiredFields()
+        public UserViewModelFactory WithNullRequiredFields()
         {
-            _memberViewModel.Name = null;
-            _memberViewModel.ShortName = null;
-            _memberViewModel.Username = null;
-            _memberViewModel.Email = null;
-            _memberViewModel.Password = null;
-            _memberViewModel.ConfirmPassword = null;
+            _UserViewModel.Name = null;
+            _UserViewModel.ShortName = null;
+            _UserViewModel.Username = null;
+            _UserViewModel.Email = null;
+            _UserViewModel.Password = null;
+            _UserViewModel.ConfirmPassword = null;
             return this;
         }
 
         /// <summary>
-        ///     Creates an Invalid Member view model
+        ///     Creates an Invalid User view model
         /// </summary>
         /// <returns></returns>
-        public MemberViewModelFactory WithInvalidFields()
+        public UserViewModelFactory WithInvalidFields()
         {
-            _memberViewModel.Name = "a";
-            _memberViewModel.ShortName = "a";
-            _memberViewModel.Username = "a";
-            _memberViewModel.Email = "a";
-            _memberViewModel.Password = "a";
-            _memberViewModel.ConfirmPassword = "b";
+            _UserViewModel.Name = "a";
+            _UserViewModel.ShortName = "a";
+            _UserViewModel.Username = "a";
+            _UserViewModel.Email = "a";
+            _UserViewModel.Password = "a";
+            _UserViewModel.ConfirmPassword = "b";
             return this;
         }
     }

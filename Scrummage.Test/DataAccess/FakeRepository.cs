@@ -49,9 +49,9 @@ namespace Scrummage.Test.DataAccess
             {
                 result = ModelList.Cast<Role>().ToList().Find(role => role.Id == id);
             }
-            else if (typeof(TModel) == typeof(Member))
+            else if (typeof(TModel) == typeof(User))
             {
-                result = ModelList.Cast<Member>().ToList().Find(member => member.Id == id);
+                result = ModelList.Cast<User>().ToList().Find(user => user.Id == id);
             }
             else
             {
@@ -103,10 +103,10 @@ namespace Scrummage.Test.DataAccess
 
         public bool Exists(int id)
         {
-            if (typeof(TModel) == typeof(Member))
+            if (typeof(TModel) == typeof(User))
             {
-                var members = ModelList as IEnumerable<Member>;
-                return members.Count(entity => entity.Id == id) > 0;
+                var users = ModelList as IEnumerable<User>;
+                return users.Count(entity => entity.Id == id) > 0;
             }
 
             if (typeof(TModel) == typeof(Role))

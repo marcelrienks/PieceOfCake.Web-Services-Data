@@ -14,7 +14,7 @@ namespace Scrummage.Data
 		}
 
 		public DbSet<Role> Roles { get; set; }
-		public DbSet<Member> Members { get; set; }
+		public DbSet<User> Users { get; set; }
 		public DbSet<Avatar> Avatars { get; set; }
 
 		//NOTE:
@@ -27,17 +27,17 @@ namespace Scrummage.Data
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 			ConfigureRole(modelBuilder);
-			ConfigureMember(modelBuilder);
+            ConfigureUser(modelBuilder);
 			ConfigureAvatar(modelBuilder);
 		}
 
         private void ConfigureRole(DbModelBuilder modelBuilder)
         {
-			//RoleId is Primary Key
+			//Id is Primary Key
 			modelBuilder.Entity<Role>()
 			            .HasKey(role => role.Id);
 
-			//RoleId is Identity
+			//Id is Identity
 			modelBuilder.Entity<Role>()
                         .Property(role => role.Id)
 			            .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
@@ -53,74 +53,74 @@ namespace Scrummage.Data
 			            .Property(role => role.Title)
 									.HasMaxLength(180);
 
-			//Many to many relationship between Member and Roles
+			//Many to many relationship between User and Roles
 			modelBuilder.Entity<Role>()
-									.HasMany(role => role.Members)
-									.WithMany(member => member.Roles);
+									.HasMany(role => role.Users)
+									.WithMany(user => user.Roles);
 		}
 
-        private void ConfigureMember(DbModelBuilder modelBuilder)
+        private void ConfigureUser(DbModelBuilder modelBuilder)
         {
-			//MemberId is Primary Key
-			modelBuilder.Entity<Member>()
-                                    .HasKey(member => member.Id);
+			//Id is Primary Key
+			modelBuilder.Entity<User>()
+                                    .HasKey(user => user.Id);
 
-			//MemberId is Identity
-			modelBuilder.Entity<Member>()
-                                    .Property(member => member.Id)
+			//Id is Identity
+			modelBuilder.Entity<User>()
+                                    .Property(user => user.Id)
 									.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
 			//Name is Required
-			modelBuilder.Entity<Member>()
-									.Property(member => member.Name)
+			modelBuilder.Entity<User>()
+                                    .Property(user => user.Name)
 									.IsRequired()
 									.HasMaxLength(30);
 
 			//ShortName is Required
-			modelBuilder.Entity<Member>()
-									.Property(member => member.ShortName)
+			modelBuilder.Entity<User>()
+                                    .Property(user => user.ShortName)
 									.IsRequired()
 									.HasMaxLength(3);
 
 			//UserName is Required
-			modelBuilder.Entity<Member>()
-									.Property(member => member.Username)
+			modelBuilder.Entity<User>()
+                                    .Property(user => user.Username)
 									.IsRequired()
 									.HasMaxLength(30)
 									.HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute { IsUnique = true } ));
 
 			//Password is Required
-			modelBuilder.Entity<Member>()
-									.Property(member => member.Password)
+			modelBuilder.Entity<User>()
+                                    .Property(user => user.Password)
 									.IsRequired();
 
 			//Email is Required
-			modelBuilder.Entity<Member>()
-									.Property(member => member.Email)
+			modelBuilder.Entity<User>()
+                                    .Property(user => user.Email)
 									.IsRequired();
 
-			//Many to many relationship between Member and Roles
-			modelBuilder.Entity<Member>()
-									.HasMany(member => member.Roles)
-									.WithMany(role => role.Members);
+			//Many to many relationship between User and Roles
+			modelBuilder.Entity<User>()
+                                    .HasMany(user => user.Roles)
+									.WithMany(role => role.Users);
 
-			//One to One relationship between Member and Avatar where both are required, and Member is the principle
-			modelBuilder.Entity<Member>()
-									.HasRequired(member => member.Avatar)
-									.WithRequiredPrincipal(avatar => avatar.Member)
+			//One to One relationship between User and Avatar where both are required, and Member is the principle
+			modelBuilder.Entity<User>()
+                                    .HasRequired(user => user.Avatar)
+									.WithRequiredPrincipal(avatar => avatar.User)
 									.WillCascadeOnDelete(true);
 		}
 
         private void ConfigureAvatar(DbModelBuilder modelBuilder)
         {
-			//MemberId is Primary Key
+			//Id is Primary Key
 			modelBuilder.Entity<Avatar>()
                                     .HasKey(avatar => avatar.Id);
 
-			//One to One relationship between Member and Avatar where both are required, and Avatar is the dependent
+			//One to One relationship between User and Avatar where both are required, and Avatar is the dependent
 			modelBuilder.Entity<Avatar>()
-									.HasRequired(avatar => avatar.Member)
-									.WithRequiredDependent(member => member.Avatar);
+									.HasRequired(avatar => avatar.User)
+									.WithRequiredDependent(user => user.Avatar);
 		}
 	}
 }
