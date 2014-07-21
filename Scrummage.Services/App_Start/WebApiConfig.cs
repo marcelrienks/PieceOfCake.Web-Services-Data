@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System.Web.Http;
+﻿using System.Web.Http;
+using Newtonsoft.Json;
 
 namespace Scrummage.Services
 {
@@ -11,9 +11,9 @@ namespace Scrummage.Services
 
             //Prevent endless loops when serialising models with link back to original model through relations
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            
+
             //Format JSON indented
-            config.Formatters.JsonFormatter.SerializerSettings.Formatting = Formatting.Indented; 
+            config.Formatters.JsonFormatter.SerializerSettings.Formatting = Formatting.Indented;
 
             #endregion
 
@@ -21,12 +21,9 @@ namespace Scrummage.Services
 
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
-            
+            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new { id = RouteParameter.Optional }
+                );
+
             #endregion
         }
     }

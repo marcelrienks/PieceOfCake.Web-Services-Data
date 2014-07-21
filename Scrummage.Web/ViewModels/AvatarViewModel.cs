@@ -1,22 +1,27 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Scrummage.Web.ViewModels {
-	public class AvatarViewModel {
+namespace Scrummage.Web.ViewModels
+{
+    public class AvatarViewModel
+    {
+        //Note:
+        //Using View Models in an attempt to keep poco model classes clean and un cluttered.
+        //This prevents the poco classes from requiring 'NotMapped' attributes on additional properties required by the views atc.
 
-		//Note:
-		//Using View Models in an attempt to keep poco model classes clean and un cluttered.
-		//This prevents the poco classes from requiring 'NotMapped' attributes on additional properties required by the views atc.
+        #region Properties
 
-		#region Properties
         public int Id { get; set; }
 
-		[Required]
-		public byte[] Image { get; set; }
-		#endregion
+        [Required]
+        public byte[] Image { get; set; }
 
-		#region Navigation
-		[Required]
+        #endregion
+
+        #region Navigation
+
+        [Required]
         public virtual UserViewModel UserModelView { get; set; }
-		#endregion
-	}
+
+        #endregion
+    }
 }

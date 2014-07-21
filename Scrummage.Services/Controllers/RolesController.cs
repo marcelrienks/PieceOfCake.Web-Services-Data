@@ -1,11 +1,11 @@
-﻿using Scrummage.Data;
-using Scrummage.Data.Interfaces;
-using Scrummage.Data.Models;
-using System.Data.Entity.Infrastructure;
+﻿using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Scrummage.Data;
+using Scrummage.Data.Interfaces;
+using Scrummage.Data.Models;
 
 namespace Scrummage.Services.Controllers
 {
@@ -36,7 +36,7 @@ namespace Scrummage.Services.Controllers
         }
 
         // GET: api/Roles/5
-        [ResponseType(typeof(Role))]
+        [ResponseType(typeof (Role))]
         public IHttpActionResult GetRole(int id)
         {
             var role = _unitOfWork.RoleRepository.Find(id);
@@ -49,7 +49,7 @@ namespace Scrummage.Services.Controllers
         }
 
         // PUT: api/Roles/5
-        [ResponseType(typeof(void))]
+        [ResponseType(typeof (void))]
         public IHttpActionResult PutRole(int id, Role role)
         {
             if (id != role.Id)
@@ -80,7 +80,7 @@ namespace Scrummage.Services.Controllers
         }
 
         // POST: api/Roles
-        [ResponseType(typeof(Role))]
+        [ResponseType(typeof (Role))]
         public IHttpActionResult PostRole(Role role)
         {
             if (!ModelState.IsValid)
@@ -90,11 +90,11 @@ namespace Scrummage.Services.Controllers
 
             _unitOfWork.RoleRepository.Create(role);
 
-            return CreatedAtRoute("DefaultApi", new { id = role.Id }, role);
+            return CreatedAtRoute("DefaultApi", new {id = role.Id}, role);
         }
 
         // DELETE: api/Roles/5
-        [ResponseType(typeof(Role))]
+        [ResponseType(typeof (Role))]
         public IHttpActionResult DeleteRole(int id)
         {
             var role = _unitOfWork.RoleRepository.Find(id);

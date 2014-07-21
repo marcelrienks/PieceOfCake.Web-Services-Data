@@ -1,10 +1,12 @@
-﻿using RefactorThis.GraphDiff;
-using Scrummage.Data.Interfaces;
-using Scrummage.Data.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using RefactorThis.GraphDiff;
+using Scrummage.Data.Interfaces;
+using Scrummage.Data.Models;
+
 //Todo: investigate creating unit tests for the repository, by creating a fake contaxt/dbset class, which can be dependancy injected in?
+
 namespace Scrummage.Data
 {
     public class Repository<TModel> : IRepository<TModel> where TModel : class
@@ -103,7 +105,6 @@ namespace Scrummage.Data
             }
             else if (entity is Avatar)
             {
-                
             }
             _context.SaveChanges();
         }

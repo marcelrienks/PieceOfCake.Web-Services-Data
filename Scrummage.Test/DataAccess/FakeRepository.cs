@@ -1,8 +1,8 @@
-﻿using Scrummage.Data.Interfaces;
-using Scrummage.Data.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Scrummage.Data.Interfaces;
+using Scrummage.Data.Models;
 
 //Todo: Investigate using Mock DbSet instead of having a fake Repository
 
@@ -45,11 +45,11 @@ namespace Scrummage.Test.DataAccess
 
             //Based on type of TEntity, convert to specified type and find entry using id (All this logic is required to use the Find() function with id field)
             object result;
-            if (typeof(TModel) == typeof(Role))
+            if (typeof (TModel) == typeof (Role))
             {
                 result = ModelList.Cast<Role>().ToList().Find(role => role.Id == id);
             }
-            else if (typeof(TModel) == typeof(User))
+            else if (typeof (TModel) == typeof (User))
             {
                 result = ModelList.Cast<User>().ToList().Find(user => user.Id == id);
             }
@@ -60,7 +60,7 @@ namespace Scrummage.Test.DataAccess
             }
 
             //Convert back to TEntity and return
-            return (TModel)Convert.ChangeType(result, typeof(TModel));
+            return (TModel) Convert.ChangeType(result, typeof (TModel));
         }
 
         public IEnumerable<TModel> Where(Func<TModel, bool> query)
@@ -96,32 +96,32 @@ namespace Scrummage.Test.DataAccess
             IsSaved = true;
         }
 
-        public void Save()
-        {
-            IsSaved = true;
-        }
-
         public bool Exists(int id)
         {
-            if (typeof(TModel) == typeof(User))
+            if (typeof (TModel) == typeof (User))
             {
                 var users = ModelList as IEnumerable<User>;
                 return users.Count(entity => entity.Id == id) > 0;
             }
 
-            if (typeof(TModel) == typeof(Role))
+            if (typeof (TModel) == typeof (Role))
             {
                 var roles = ModelList as IEnumerable<Role>;
                 return roles.Count(entity => entity.Id == id) > 0;
             }
 
-            if (typeof(TModel) == typeof(Avatar))
+            if (typeof (TModel) == typeof (Avatar))
             {
                 var avatars = ModelList as IEnumerable<Avatar>;
                 return avatars.Count(entity => entity.Id == id) > 0;
             }
 
             return false;
+        }
+
+        public void Save()
+        {
+            IsSaved = true;
         }
 
         //Async Example

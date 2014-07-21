@@ -2,13 +2,12 @@
 
 namespace Scrummage.Test
 {
-	[TestClass]
+    [TestClass]
     public class TestHarness
     {
-		[TestMethod]
+        [TestMethod]
         public void Test()
-		{
-
-		}
-	}
+        {
+        }
+    }
 }

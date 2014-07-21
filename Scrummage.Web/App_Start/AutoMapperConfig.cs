@@ -42,7 +42,7 @@ namespace Scrummage.Web
             //User => UserViewModel
             Mapper.CreateMap<User, UserViewModel>()
                 //Maps User.Role => UserViewModel.RoleViewModel
-                .ForMember(userViewModel =>userViewModel.RoleViewModels,
+                .ForMember(userViewModel => userViewModel.RoleViewModels,
                     options => options.MapFrom(user => user.Roles))
                 //Maps User.Avatar => UserViewModel.AvatarViewModel
                 .ForMember(userViewModel => userViewModel.AvatarViewModel,

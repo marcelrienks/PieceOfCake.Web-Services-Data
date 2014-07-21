@@ -3,7 +3,8 @@ using System;
 namespace Scrummage.Services.Areas.HelpPage
 {
     /// <summary>
-    /// This represents a preformatted text sample on the help page. There's a display template named TextSample associated with this class.
+    ///     This represents a preformatted text sample on the help page. There's a display template named TextSample associated
+    ///     with this class.
     /// </summary>
     public class TextSample
     {
@@ -20,7 +21,7 @@ namespace Scrummage.Services.Areas.HelpPage
 
         public override bool Equals(object obj)
         {
-            TextSample other = obj as TextSample;
+            var other = obj as TextSample;
             return other != null && Text == other.Text;
         }
 

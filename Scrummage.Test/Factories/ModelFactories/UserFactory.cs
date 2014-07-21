@@ -1,5 +1,5 @@
-﻿using Scrummage.Data.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Scrummage.Data.Models;
 
 namespace Scrummage.Test.Factories.ModelFactories
 {

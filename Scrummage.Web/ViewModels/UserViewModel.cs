@@ -5,12 +5,12 @@ namespace Scrummage.Web.ViewModels
 {
     public class UserViewModel
     {
-
         //Note:
         //Using View Models in an attempt to keep poco model classes clean and un cluttered.
         //This prevents the poco classes from requiring 'NotMapped' attributes on additional properties required by the views atc.
 
         #region Properties
+
         public int Id { get; set; }
 
         [Required]
@@ -41,14 +41,17 @@ namespace Scrummage.Web.ViewModels
         [Compare("Password", ErrorMessage = "The passwords do not match.")]
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
+
         #endregion
 
         #region Navigation
+
         [Required]
         public virtual ICollection<RoleViewModel> RoleViewModels { get; set; }
 
         [Required]
         public virtual AvatarViewModel AvatarViewModel { get; set; }
+
         #endregion
     }
 }

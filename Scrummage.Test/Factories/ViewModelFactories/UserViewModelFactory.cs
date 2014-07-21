@@ -33,7 +33,7 @@ namespace Scrummage.Test.Factories.ViewModelFactories
             _UserViewModels = new List<UserViewModel>
             {
                 _UserViewModel
-		    };
+            };
         }
 
         /// <summary>

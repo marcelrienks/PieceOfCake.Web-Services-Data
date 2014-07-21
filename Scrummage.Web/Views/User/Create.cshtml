@@ -1,6 +1,6 @@
 ﻿@using System.Web.Optimization
 @using Scrummage.Web.ViewModels
-@model UserViewModel
+@model Scrummage.Web.ViewModels.UserViewModel
 
 @section AdditionalStyles {
     @Styles.Render("~/Content/select")
@@ -10,7 +10,7 @@
     @Scripts.Render("~/bundles/select")
 
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function() {
             //Initialise select picker
             $('.selectpicker').selectpicker();
         });
@@ -23,10 +23,10 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm("Create", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Create", "User", FormMethod.Post, new {enctype = "multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>User</h4>
         <hr />

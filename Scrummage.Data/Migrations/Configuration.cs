@@ -1,9 +1,9 @@
-using System.IO;
-using Scrummage.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.IO;
 using System.Linq;
+using Scrummage.Data.Models;
 
 namespace Scrummage.Data.Migrations
 {
@@ -53,7 +53,7 @@ namespace Scrummage.Data.Migrations
                     Description =
                         "Person responsible for converting requirements into functional software, Access to Backlog Items and Tasks"
                 },
-			};
+            };
 
             roles.ForEach(role => context.Roles.AddOrUpdate(roleType => roleType.Id, role));
             context.SaveChanges();
@@ -71,18 +71,22 @@ namespace Scrummage.Data.Migrations
             {
                 new User
                 {
-					Name = "Marcel Rienks",
-					ShortName = "mr",
-					Username = "marcelr",
-					Password = "E3mc2rd!",
-					Email = "marcelrienks@gmail.com",
-                    Roles = context.Roles.Where(role => role.Title == "Administrator" || role.Title == "Scrum Master").ToList(),
+                    Name = "Marcel Rienks",
+                    ShortName = "mr",
+                    Username = "marcelr",
+                    Password = "E3mc2rd!",
+                    Email = "marcelrienks@gmail.com",
+                    Roles =
+                        context.Roles.Where(role => role.Title == "Administrator" || role.Title == "Scrum Master")
+                            .ToList(),
                     Avatar = new Avatar
                     {
-                        Image = File.ReadAllBytes(AppDomain.CurrentDomain.BaseDirectory.Replace(@"bin\Debug\", @"Migrations\default_avatar.jpg"))
-					}
-				}
-			};
+                        Image =
+                            File.ReadAllBytes(AppDomain.CurrentDomain.BaseDirectory.Replace(@"bin\Debug\",
+                                @"Migrations\default_avatar.jpg"))
+                    }
+                }
+            };
 
             users.ForEach(user => context.Users.AddOrUpdate(userType => userType.Id, user));
             context.SaveChanges();

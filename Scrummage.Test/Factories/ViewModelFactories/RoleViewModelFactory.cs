@@ -3,7 +3,7 @@ using Scrummage.Web.ViewModels;
 
 namespace Scrummage.Test.Factories.ViewModelFactories
 {
-    class RoleViewModelFactory
+    internal class RoleViewModelFactory
     {
         private readonly RoleViewModel _roleViewModel;
         private readonly List<RoleViewModel> _roleViewModels;
@@ -23,7 +23,7 @@ namespace Scrummage.Test.Factories.ViewModelFactories
             _roleViewModels = new List<RoleViewModel>
             {
                 _roleViewModel
-		    };
+            };
         }
 
         /// <summary>

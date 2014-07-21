@@ -1,13 +1,13 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Scrummage.Data.Models;
 using Scrummage.Test.DataAccess;
 using Scrummage.Test.Factories;
 using Scrummage.Test.Factories.ModelFactories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
 using Scrummage.Web;
 using Scrummage.Web.Controllers;
 using Scrummage.Web.ViewModels;
@@ -36,13 +36,13 @@ namespace Scrummage.Test.Controllers
         {
             var testUsers = new UserFactory().BuildList();
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = testUsers;
+            ((FakeRepository<User>) _fakeUnitOfWork.UserRepository).ModelList = testUsers;
 
             var controller = new UserController(_fakeUnitOfWork);
             var result = controller.Index() as ViewResult;
             Assert.IsNotNull(result);
 
-            var UserViewModels = ((IEnumerable<UserViewModel>)result.Model).ToList();
+            var UserViewModels = ((IEnumerable<UserViewModel>) result.Model).ToList();
             Assert.AreEqual(1, UserViewModels.Count);
             PerformCommonAsserts(testUsers.First(), UserViewModels.First());
         }
@@ -55,12 +55,12 @@ namespace Scrummage.Test.Controllers
         public void TestFailedDetailsGet()
         {
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = new UserFactory().BuildList();
+            ((FakeRepository<User>) _fakeUnitOfWork.UserRepository).ModelList = new UserFactory().BuildList();
 
             var controller = new UserController(_fakeUnitOfWork);
             var result = controller.Details(9);
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(HttpNotFoundResult));
+            Assert.IsInstanceOfType(result, typeof (HttpNotFoundResult));
         }
 
         [TestMethod]
@@ -68,13 +68,13 @@ namespace Scrummage.Test.Controllers
         {
             var testUsers = new UserFactory().BuildList();
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = testUsers;
+            ((FakeRepository<User>) _fakeUnitOfWork.UserRepository).ModelList = testUsers;
 
             var controller = new UserController(_fakeUnitOfWork);
             var result = controller.Details() as ViewResult;
             Assert.IsNotNull(result);
 
-            var UserViewModel = (UserViewModel)result.Model;
+            var UserViewModel = (UserViewModel) result.Model;
             PerformCommonAsserts(testUsers.First(), UserViewModel);
         }
 
@@ -87,7 +87,7 @@ namespace Scrummage.Test.Controllers
         {
             var testRoles = new RoleFactory().BuildList();
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = testRoles;
+            ((FakeRepository<Role>) _fakeUnitOfWork.RoleRepository).ModelList = testRoles;
 
             var controller = new UserController(_fakeUnitOfWork);
             var result = controller.Create() as ViewResult;
@@ -100,20 +100,22 @@ namespace Scrummage.Test.Controllers
         {
             var testRoles = new RoleFactory().BuildList();
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = testRoles;
+            ((FakeRepository<Role>) _fakeUnitOfWork.RoleRepository).ModelList = testRoles;
+
+            var customHttpPostedFileBase = HttpPostedFileBaseFactory.CreateCustomHttpPostedFileBase();
 
             var testUser = new UserFactory().Build();
             var testUserViewModel = Mapper.Map(testUser, new UserViewModel());
 
             var controller = new UserController(_fakeUnitOfWork);
             controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
-            var result = controller.Create(testUserViewModel, null, new FormCollection
+            var result = controller.Create(testUserViewModel, customHttpPostedFileBase, new FormCollection
             {
                 {"roleSelect", new RoleFactory().Build().Title}
             }) as ViewResult;
             Assert.IsNotNull(result);
 
-            var UserViewModel = (UserViewModel)result.Model;
+            var UserViewModel = (UserViewModel) result.Model;
             PerformCommonAsserts(testUser, UserViewModel);
         }
 
@@ -122,7 +124,7 @@ namespace Scrummage.Test.Controllers
         {
             var testRoles = new RoleFactory().BuildList();
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = testRoles;
+            ((FakeRepository<Role>) _fakeUnitOfWork.RoleRepository).ModelList = testRoles;
 
             var customHttpPostedFileBase = HttpPostedFileBaseFactory.CreateCustomHttpPostedFileBase();
 
@@ -130,7 +132,9 @@ namespace Scrummage.Test.Controllers
             var testUserViewModel = Mapper.Map(testUser, new UserViewModel());
 
             //Convert role titles to comma delimited string
-            var roleTitles = testRoles.Aggregate(String.Empty, (current, role) => current + role.Title + ", ").TrimEnd(", ".ToCharArray());
+            var roleTitles =
+                testRoles.Aggregate(String.Empty, (current, role) => current + role.Title + ", ")
+                    .TrimEnd(", ".ToCharArray());
 
             var controller = new UserController(_fakeUnitOfWork);
             var result = controller.Create(testUserViewModel, customHttpPostedFileBase, new FormCollection
@@ -140,8 +144,8 @@ namespace Scrummage.Test.Controllers
 
             Assert.IsNull(result);
 
-            Assert.IsTrue(((FakeRepository<User>)_fakeUnitOfWork.UserRepository).IsCreated);
-            Assert.IsTrue(((FakeRepository<User>)_fakeUnitOfWork.UserRepository).IsSaved);
+            Assert.IsTrue(((FakeRepository<User>) _fakeUnitOfWork.UserRepository).IsCreated);
+            Assert.IsTrue(((FakeRepository<User>) _fakeUnitOfWork.UserRepository).IsSaved);
         }
 
         #endregion
@@ -152,12 +156,12 @@ namespace Scrummage.Test.Controllers
         public void TestFailedEditGet()
         {
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = new UserFactory().BuildList();
+            ((FakeRepository<User>) _fakeUnitOfWork.UserRepository).ModelList = new UserFactory().BuildList();
 
             var controller = new UserController(_fakeUnitOfWork);
             var result = controller.Edit(9);
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(HttpNotFoundResult));
+            Assert.IsInstanceOfType(result, typeof (HttpNotFoundResult));
         }
 
         [TestMethod]
@@ -165,17 +169,17 @@ namespace Scrummage.Test.Controllers
         {
             var testRoles = new RoleFactory().BuildList();
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = testRoles;
+            ((FakeRepository<Role>) _fakeUnitOfWork.RoleRepository).ModelList = testRoles;
 
             var testUsers = new UserFactory().BuildList();
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = testUsers;
+            ((FakeRepository<User>) _fakeUnitOfWork.UserRepository).ModelList = testUsers;
 
             var controller = new UserController(_fakeUnitOfWork);
             var result = controller.Edit() as ViewResult;
             Assert.IsNotNull(result);
 
-            var UserViewModel = (UserViewModel)result.Model;
+            var UserViewModel = (UserViewModel) result.Model;
             PerformCommonAsserts(testUsers.First(), UserViewModel);
         }
 
@@ -217,12 +221,12 @@ namespace Scrummage.Test.Controllers
         public void TestFailedDeleteGet()
         {
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = new UserFactory().BuildList();
+            ((FakeRepository<User>) _fakeUnitOfWork.UserRepository).ModelList = new UserFactory().BuildList();
 
             var controller = new UserController(_fakeUnitOfWork);
             var result = controller.Delete(9);
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(HttpNotFoundResult));
+            Assert.IsInstanceOfType(result, typeof (HttpNotFoundResult));
         }
 
         [TestMethod]
@@ -230,13 +234,13 @@ namespace Scrummage.Test.Controllers
         {
             var testUsers = new UserFactory().BuildList();
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = testUsers;
+            ((FakeRepository<User>) _fakeUnitOfWork.UserRepository).ModelList = testUsers;
 
             var controller = new UserController(_fakeUnitOfWork);
             var result = controller.Delete() as ViewResult;
             Assert.IsNotNull(result);
 
-            var UserViewModel = (UserViewModel)result.Model;
+            var UserViewModel = (UserViewModel) result.Model;
             PerformCommonAsserts(testUsers.First(), UserViewModel);
         }
 
@@ -246,10 +250,10 @@ namespace Scrummage.Test.Controllers
             var controller = new UserController(_fakeUnitOfWork);
             var result = controller.DeleteConfirmed(0);
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
+            Assert.IsInstanceOfType(result, typeof (RedirectToRouteResult));
 
-            Assert.IsTrue(((FakeRepository<User>)_fakeUnitOfWork.UserRepository).IsDeleted);
-            Assert.IsTrue(((FakeRepository<User>)_fakeUnitOfWork.UserRepository).IsSaved);
+            Assert.IsTrue(((FakeRepository<User>) _fakeUnitOfWork.UserRepository).IsDeleted);
+            Assert.IsTrue(((FakeRepository<User>) _fakeUnitOfWork.UserRepository).IsSaved);
         }
 
         #endregion

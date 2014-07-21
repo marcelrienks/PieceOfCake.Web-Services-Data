@@ -7,11 +7,10 @@ using AutoMapper;
 using Scrummage.Data;
 using Scrummage.Data.Interfaces;
 using Scrummage.Data.Models;
+using Scrummage.Web.ViewModels;
 
 //Todo: verify of username, password on create of User without causing a post back
 //Todo: add functionality to User edit for Password and Avatar (including validation)
-using Scrummage.Web.ViewModels;
-
 namespace Scrummage.Web.Controllers
 {
     public class UserController : Controller
@@ -66,7 +65,7 @@ namespace Scrummage.Web.Controllers
         // POST: /User/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(UserViewModel UserViewModel, HttpPostedFileBase file, FormCollection formCollection)
+        public ActionResult Create(UserViewModel userViewModel, HttpPostedFileBase file, FormCollection formCollection)
         {
             //Todo: Fix issue with Avatar not re uploading on post after validation failure
 
@@ -77,7 +76,7 @@ namespace Scrummage.Web.Controllers
             {
                 var rolesTitles = formCollection["roleSelect"].Split(',');
                 var selectRoles = _unitOfWork.RoleRepository.Where(role => rolesTitles.Contains(role.Title));
-                UserViewModel.RoleViewModels = Mapper.Map(selectRoles.ToList(), new List<RoleViewModel>());
+                userViewModel.RoleViewModels = Mapper.Map(selectRoles.ToList(), new List<RoleViewModel>());
             }
 
             #endregion
@@ -93,11 +92,13 @@ namespace Scrummage.Web.Controllers
             }
             else
             {
-                bytes = System.IO.File.ReadAllBytes(ControllerContext.HttpContext.Server.MapPath(@"~\Images\default_avatar.jpg"));
+                bytes =
+                    System.IO.File.ReadAllBytes(
+                        ControllerContext.HttpContext.Server.MapPath(@"~\Images\default_avatar.jpg"));
             }
 
             //Create new Avatar model
-            UserViewModel.AvatarViewModel = new AvatarViewModel
+            userViewModel.AvatarViewModel = new AvatarViewModel
             {
                 Image = bytes
             };
@@ -107,7 +108,7 @@ namespace Scrummage.Web.Controllers
             //create model
             if (ModelState.IsValid)
             {
-                var user = Mapper.Map(UserViewModel, new User());
+                var user = Mapper.Map(userViewModel, new User());
 
                 try
                 {
@@ -117,14 +118,16 @@ namespace Scrummage.Web.Controllers
                 catch (DbUpdateException ex)
                 {
                     #region Username Unique
+
                     //Check if username unique index was violated, and return friendly message
                     if (ex.InnerException.InnerException.Message.Contains(
                         string.Format(
                             "Cannot insert duplicate key row in object 'dbo.Users' with unique index 'IX_Username'. The duplicate key value is ({0}).",
-                            UserViewModel.Username)))
+                            userViewModel.Username)))
                     {
                         ModelState["Username"].Errors.Add("Username is already in use.");
-                    } 
+                    }
+
                     #endregion
                 }
             }
@@ -132,7 +135,7 @@ namespace Scrummage.Web.Controllers
             //add roles to viewbag to populate the roles dropdown select if model state is invalid
             var roles = _unitOfWork.RoleRepository.All();
             ViewBag.RoleViewModels = Mapper.Map(roles, new List<RoleViewModel>());
-            return View(UserViewModel);
+            return View(userViewModel);
         }
 
         // GET: /User/Edit/5
@@ -146,19 +149,19 @@ namespace Scrummage.Web.Controllers
             }
 
             //map User to UserViewModel and return
-            var UserViewModel = Mapper.Map(user, new UserViewModel());
+            var userViewModel = Mapper.Map(user, new UserViewModel());
 
             //add roles to viewbag to populate the roles dropdown select
             var roles = _unitOfWork.RoleRepository.All();
             ViewBag.RoleViewModels = Mapper.Map(roles, new List<RoleViewModel>());
 
-            return View(UserViewModel);
+            return View(userViewModel);
         }
 
         // POST: /User/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(UserViewModel UserViewModel, HttpPostedFileBase file, FormCollection formCollection)
+        public ActionResult Edit(UserViewModel userViewModel, HttpPostedFileBase file, FormCollection formCollection)
         {
             //Todo: Fix issue with Avatar not re uploading on post after validation failure
 
@@ -169,7 +172,7 @@ namespace Scrummage.Web.Controllers
             {
                 var rolesTitles = formCollection["roleSelect"].Split(',');
                 var selectRoles = _unitOfWork.RoleRepository.Where(role => rolesTitles.Contains(role.Title));
-                UserViewModel.RoleViewModels = Mapper.Map(selectRoles.ToList(), new List<RoleViewModel>());
+                userViewModel.RoleViewModels = Mapper.Map(selectRoles.ToList(), new List<RoleViewModel>());
             }
 
             #endregion
@@ -185,11 +188,11 @@ namespace Scrummage.Web.Controllers
             }
             else
             {
-                bytes = _unitOfWork.AvatarRepository.Find(UserViewModel.Id).Image;
+                bytes = _unitOfWork.AvatarRepository.Find(userViewModel.Id).Image;
             }
 
             //Create new Avatar model
-            UserViewModel.AvatarViewModel = new AvatarViewModel()
+            userViewModel.AvatarViewModel = new AvatarViewModel
             {
                 Image = bytes
             };
@@ -198,11 +201,11 @@ namespace Scrummage.Web.Controllers
 
             //Clear model state and try validate after populating Roles and avatars
             ModelState.Clear();
-            TryValidateModel(UserViewModel);
+            TryValidateModel(userViewModel);
 
             if (ModelState.IsValid)
             {
-                var user = Mapper.Map(UserViewModel, new User());
+                var user = Mapper.Map(userViewModel, new User());
 
                 try
                 {
@@ -212,14 +215,16 @@ namespace Scrummage.Web.Controllers
                 catch (DbUpdateException ex)
                 {
                     #region Username Unique
+
                     //Check if username unique index was violated, and return friendly message
                     if (ex.InnerException.InnerException.Message.Contains(
                         string.Format(
                             "Cannot insert duplicate key row in object 'dbo.Users' with unique index 'IX_Username'. The duplicate key value is ({0}).",
-                            UserViewModel.Username)))
+                            userViewModel.Username)))
                     {
                         ModelState["Username"].Errors.Add("Username is already in use.");
                     }
+
                     #endregion
                 }
             }
@@ -227,7 +232,7 @@ namespace Scrummage.Web.Controllers
             //add roles to viewbag to populate the roles dropdown select if model state is invalid
             var roles = _unitOfWork.RoleRepository.All();
             ViewBag.RoleViewModels = Mapper.Map(roles, new List<RoleViewModel>());
-            return View(UserViewModel);
+            return View(userViewModel);
         }
 
         // GET: /User/Delete/5
@@ -238,8 +243,8 @@ namespace Scrummage.Web.Controllers
             {
                 return HttpNotFound();
             }
-            var UserViewModel = Mapper.Map(user, new UserViewModel());
-            return View(UserViewModel);
+            var userViewModel = Mapper.Map(user, new UserViewModel());
+            return View(userViewModel);
         }
 
         // POST: /User/Delete/5

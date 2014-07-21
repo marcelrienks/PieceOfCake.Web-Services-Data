@@ -8,8 +8,8 @@ namespace Scrummage.Test.Validation
     {
         #region Properties
 
-        private readonly TestModelStateController _testController; 
-        
+        private readonly TestModelStateController _testController;
+
         #endregion
 
         public UserViewModelTest()
@@ -50,7 +50,8 @@ namespace Scrummage.Test.Validation
 
             Assert.IsTrue(modelState.Keys.Contains("ConfirmPassword"));
             Assert.IsTrue(modelState["ConfirmPassword"].Errors.Count == 1);
-            Assert.AreEqual("The Confirm Password field is required.", modelState["ConfirmPassword"].Errors[0].ErrorMessage);
+            Assert.AreEqual("The Confirm Password field is required.",
+                modelState["ConfirmPassword"].Errors[0].ErrorMessage);
         }
 
         [TestMethod]
@@ -66,15 +67,18 @@ namespace Scrummage.Test.Validation
 
             Assert.IsTrue(modelState.Keys.Contains("Name"));
             Assert.IsTrue(modelState["Name"].Errors.Count == 1);
-            Assert.AreEqual("The Name must be between 3 and 30 characters long.", modelState["Name"].Errors[0].ErrorMessage);
+            Assert.AreEqual("The Name must be between 3 and 30 characters long.",
+                modelState["Name"].Errors[0].ErrorMessage);
 
             Assert.IsTrue(modelState.Keys.Contains("ShortName"));
             Assert.IsTrue(modelState["ShortName"].Errors.Count == 1);
-            Assert.AreEqual("The Short Name must be between 2 and 3 characters long.", modelState["ShortName"].Errors[0].ErrorMessage);
+            Assert.AreEqual("The Short Name must be between 2 and 3 characters long.",
+                modelState["ShortName"].Errors[0].ErrorMessage);
 
             Assert.IsTrue(modelState.Keys.Contains("Username"));
             Assert.IsTrue(modelState["Username"].Errors.Count == 1);
-            Assert.AreEqual("The User Name must be between 3 and 30 characters long.", modelState["Username"].Errors[0].ErrorMessage);
+            Assert.AreEqual("The User Name must be between 3 and 30 characters long.",
+                modelState["Username"].Errors[0].ErrorMessage);
 
             Assert.IsTrue(modelState.Keys.Contains("Email"));
             Assert.IsTrue(modelState["Email"].Errors.Count == 1);

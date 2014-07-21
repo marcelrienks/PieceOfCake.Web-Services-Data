@@ -5,7 +5,7 @@ namespace Scrummage.Test.Validation
     /// <summary>
     ///     This allows for the testing of expected errors from ModelState
     /// </summary>
-    class TestModelStateController : Controller
+    internal class TestModelStateController : Controller
     {
         /// <summary>
         ///     Instantiate a new Controller Context

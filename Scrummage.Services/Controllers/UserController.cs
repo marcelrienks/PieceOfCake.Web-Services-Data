@@ -1,11 +1,11 @@
-﻿using Scrummage.Data;
-using Scrummage.Data.Interfaces;
-using Scrummage.Data.Models;
-using System.Data.Entity.Infrastructure;
+﻿using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Scrummage.Data;
+using Scrummage.Data.Interfaces;
+using Scrummage.Data.Models;
 
 namespace Scrummage.Services.Controllers
 {
@@ -36,7 +36,7 @@ namespace Scrummage.Services.Controllers
         }
 
         // GET: api/Users/5
-        [ResponseType(typeof(User))]
+        [ResponseType(typeof (User))]
         public IHttpActionResult GetUser(int id)
         {
             var user = _unitOfWork.UserRepository.Find(id);
@@ -49,7 +49,7 @@ namespace Scrummage.Services.Controllers
         }
 
         // PUT: api/Users/5
-        [ResponseType(typeof(void))]
+        [ResponseType(typeof (void))]
         public IHttpActionResult PutUser(int id, User user)
         {
             if (!ModelState.IsValid)
@@ -80,7 +80,7 @@ namespace Scrummage.Services.Controllers
         }
 
         // POST: api/Users
-        [ResponseType(typeof(User))]
+        [ResponseType(typeof (User))]
         public IHttpActionResult PostUser(User user)
         {
             if (!ModelState.IsValid)
@@ -90,11 +90,11 @@ namespace Scrummage.Services.Controllers
 
             _unitOfWork.UserRepository.Create(user);
 
-            return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
+            return CreatedAtRoute("DefaultApi", new {id = user.Id}, user);
         }
 
         // DELETE: api/Users/5
-        [ResponseType(typeof(User))]
+        [ResponseType(typeof (User))]
         public IHttpActionResult DeleteUser(int id)
         {
             var user = _unitOfWork.UserRepository.Find(id);

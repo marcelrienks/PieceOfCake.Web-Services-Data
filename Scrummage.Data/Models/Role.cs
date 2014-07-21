@@ -1,21 +1,21 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
 
-namespace Scrummage.Data.Models {
-	public class Role {
+namespace Scrummage.Data.Models
+{
+    public class Role
+    {
+        #region Properties
 
-		#region Properties
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
 
-		public int Id { get; set; }
-		public string Title { get; set; }
-		public string Description { get; set; }
-		
         #endregion
 
-		#region Navigation
+        #region Navigation
 
-		public virtual ICollection<User> Users { get; set; }
-		
+        public virtual ICollection<User> Users { get; set; }
+
         #endregion
-	}
+    }
 }
