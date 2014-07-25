@@ -1,15 +1,16 @@
-﻿using System.Data.Entity.Infrastructure;
-using System.Linq;
+﻿using Scrummage.Data;
+using Scrummage.Data.Interfaces;
+using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Scrummage.Data;
-using Scrummage.Data.Interfaces;
-using Scrummage.Data.Models;
+using DbUser = Scrummage.Data.Models.User;
+using VmUser = Scrummage.Services.ViewModels.User;
 
 namespace Scrummage.Services.Controllers
 {
-    public class UserController : ApiController
+    public class UsersController : ApiController
     {
         #region Properties
 
@@ -17,12 +18,12 @@ namespace Scrummage.Services.Controllers
 
         #endregion
 
-        public UserController()
+        public UsersController()
         {
             _unitOfWork = new UnitOfWork();
         }
 
-        public UserController(IUnitOfWork unitOfWork)
+        public UsersController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -30,40 +31,44 @@ namespace Scrummage.Services.Controllers
         #region Actions
 
         // GET: api/Users
-        public IQueryable<User> GetUsers()
+        public IEnumerable<VmUser> GetUsers()
         {
-            return _unitOfWork.UserRepository.All();
+            var dbUser = _unitOfWork.UserRepository.All();
+            var user = AutoMapper.Mapper.Map(dbUser, new List<VmUser>());
+            return user;
         }
 
         // GET: api/Users/5
-        [ResponseType(typeof (User))]
+        [ResponseType(typeof(VmUser))]
         public IHttpActionResult GetUser(int id)
         {
-            var user = _unitOfWork.UserRepository.Find(id);
-            if (user == null)
+            var dbUser = _unitOfWork.UserRepository.Find(id);
+            if (dbUser == null)
             {
                 return NotFound();
             }
 
+            var user = AutoMapper.Mapper.Map(dbUser, new VmUser());
             return Ok(user);
         }
 
         // PUT: api/Users/5
-        [ResponseType(typeof (void))]
-        public IHttpActionResult PutUser(int id, User user)
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutUser(int id, VmUser userViewModel)
         {
+            if (id != userViewModel.Id)
+            {
+                return BadRequest();
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != user.Id)
-            {
-                return BadRequest();
-            }
-
             try
             {
+                var user = AutoMapper.Mapper.Map(userViewModel, new DbUser());
                 _unitOfWork.UserRepository.Update(user);
             }
             catch (DbUpdateConcurrencyException)
@@ -80,31 +85,33 @@ namespace Scrummage.Services.Controllers
         }
 
         // POST: api/Users
-        [ResponseType(typeof (User))]
-        public IHttpActionResult PostUser(User user)
+        [ResponseType(typeof(VmUser))]
+        public IHttpActionResult PostUser(VmUser userViewModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            var user = AutoMapper.Mapper.Map(userViewModel, new DbUser());
             _unitOfWork.UserRepository.Create(user);
 
-            return CreatedAtRoute("DefaultApi", new {id = user.Id}, user);
+            return CreatedAtRoute("DefaultApi", new { id = userViewModel.Id }, userViewModel);
         }
 
         // DELETE: api/Users/5
-        [ResponseType(typeof (User))]
+        [ResponseType(typeof(VmUser))]
         public IHttpActionResult DeleteUser(int id)
         {
-            var user = _unitOfWork.UserRepository.Find(id);
-            if (user == null)
+            var dbUser = _unitOfWork.UserRepository.Find(id);
+            if (dbUser == null)
             {
                 return NotFound();
             }
 
-            _unitOfWork.UserRepository.Delete(user);
+            _unitOfWork.UserRepository.Delete(dbUser);
 
+            var user = AutoMapper.Mapper.Map(dbUser, new VmUser());
             return Ok(user);
         }
 

@@ -68,15 +68,15 @@ namespace Scrummage.Web
         {
             //Avatar => AvatarViewModel
             Mapper.CreateMap<Avatar, AvatarViewModel>()
-                //Maps Avatar.User => AvatarViewModel.AvatarViewModel
-                .ForMember(avatarViewModel => avatarViewModel.UserModelView,
+                //Maps Avatar.User => AvatarViewModel.UserViewModel
+                .ForMember(avatarViewModel => avatarViewModel.UserViewModel,
                     options => options.MapFrom(avater => avater.User));
 
             //AvatarViewModel => Avatar
             Mapper.CreateMap<AvatarViewModel, Avatar>()
-                //Maps AvatarViewModel.AvatarViewModel => Avatar.User
+                //Maps AvatarViewModel.UserViewModel => Avatar.User
                 .ForMember(avater => avater.User,
-                    options => options.MapFrom(avatarViewModel => avatarViewModel.UserModelView));
+                    options => options.MapFrom(avatarViewModel => avatarViewModel.UserViewModel));
         }
     }
 }

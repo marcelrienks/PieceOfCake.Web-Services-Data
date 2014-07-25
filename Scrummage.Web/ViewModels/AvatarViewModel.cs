@@ -20,7 +20,7 @@ namespace Scrummage.Web.ViewModels
         #region Navigation
 
         [Required]
-        public virtual UserViewModel UserModelView { get; set; }
+        public virtual UserViewModel UserViewModel { get; set; }
 
         #endregion
     }

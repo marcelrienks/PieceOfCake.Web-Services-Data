@@ -17,9 +17,6 @@ namespace Scrummage.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Avatar> Avatars { get; set; }
 
-        //NOTE:
-        //Using Fluent API to configure tables in an attempt to keep poco model classes clean and un cluttered.
-
         /// <summary>
         ///     On Model Create configure Table properties using Fluent API
         /// </summary>
@@ -31,6 +28,10 @@ namespace Scrummage.Data
             ConfigureAvatar(modelBuilder);
         }
 
+        /// <summary>
+        ///     Table spicific configurations for Role model
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         private void ConfigureRole(DbModelBuilder modelBuilder)
         {
             //Id is Primary Key
@@ -50,7 +51,7 @@ namespace Scrummage.Data
 
             //Description has a max length
             modelBuilder.Entity<Role>()
-                .Property(role => role.Title)
+                .Property(role => role.Description)
                 .HasMaxLength(180);
 
             //Many to many relationship between User and Roles
@@ -59,6 +60,10 @@ namespace Scrummage.Data
                 .WithMany(user => user.Roles);
         }
 
+        /// <summary>
+        ///     Table spicific configurations for User model
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         private void ConfigureUser(DbModelBuilder modelBuilder)
         {
             //Id is Primary Key
@@ -111,11 +116,20 @@ namespace Scrummage.Data
                 .WillCascadeOnDelete(true);
         }
 
+        /// <summary>
+        ///     Table spicific configurations for Avatar model
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         private void ConfigureAvatar(DbModelBuilder modelBuilder)
         {
             //Id is Primary Key
             modelBuilder.Entity<Avatar>()
                 .HasKey(avatar => avatar.Id);
+
+            //Image is Required
+            modelBuilder.Entity<Avatar>()
+                .Property(avatar => avatar.Image)
+                .IsRequired();
 
             //One to One relationship between User and Avatar where both are required, and Avatar is the dependent
             modelBuilder.Entity<Avatar>()

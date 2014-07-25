@@ -33,7 +33,7 @@ intellisense.annotate(jQuery, {
     /// </signature>
   },
   'boxModel': function() {
-    /// <summary>Deprecated in jQuery 1.3 (see jQuery.support). States if the current page, in the user's browser, is being rendered using the W3C CSS Box Model.</summary>
+    /// <summary>Deprecated in jQuery 1.3 (see jQuery.support). States if the current page, in the UserViewModel's browser, is being rendered using the W3C CSS Box Model.</summary>
     /// <returns type="Boolean" />
   },
   'browser': function() {
@@ -41,7 +41,7 @@ intellisense.annotate(jQuery, {
     /// <returns type="PlainObject" />
   },
   'browser.version': function() {
-    /// <summary>The version number of the rendering engine for the user's browser. This property was removed in jQuery 1.9 and is available only through the jQuery.migrate plugin.</summary>
+    /// <summary>The version number of the rendering engine for the UserViewModel's browser. This property was removed in jQuery 1.9 and is available only through the jQuery.migrate plugin.</summary>
     /// <returns type="String" />
   },
   'Callbacks': function() {

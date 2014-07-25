@@ -21,7 +21,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrummage.Data", "Scrummage
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrummage.Services", "Scrummage.Services\Scrummage.Services.csproj", "{598BE999-2442-410B-B3CE-AB79E467F130}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrummage.Web.Test", "Scrummage.Web.Test\Scrummage.Web.Test.csproj", "{7FD34E51-6A67-4A55-83FA-B5630FC4190E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrummage.Services.Test", "Scrummage.Service.Test\Scrummage.Services.Test.csproj", "{7FD34E51-6A67-4A55-83FA-B5630FC4190E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrummage.Web.Test", "Scrummage.Web.Test\Scrummage.Web.Test.csproj", "{62D693D1-2E33-4924-B73B-9CDAFDC3766F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{7FD34E51-6A67-4A55-83FA-B5630FC4190E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FD34E51-6A67-4A55-83FA-B5630FC4190E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FD34E51-6A67-4A55-83FA-B5630FC4190E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62D693D1-2E33-4924-B73B-9CDAFDC3766F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62D693D1-2E33-4924-B73B-9CDAFDC3766F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62D693D1-2E33-4924-B73B-9CDAFDC3766F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62D693D1-2E33-4924-B73B-9CDAFDC3766F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
