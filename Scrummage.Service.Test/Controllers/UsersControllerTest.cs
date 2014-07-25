@@ -213,8 +213,17 @@ namespace Scrummage.Services.Test.Controllers
 
         private static void PerformCommonAsserts(User expected, User actual)
         {
+            Assert.AreEqual(expected.Email, actual.Email);
             Assert.AreEqual(expected.Id, actual.Id);
-            //Todo: complete assertion
+            Assert.AreEqual(expected.Name, actual.Name);
+            Assert.AreEqual(expected.Password, actual.Password);
+            Assert.AreEqual(expected.ShortName, actual.ShortName);
+            Assert.AreEqual(expected.Username, actual.Username);
+            Assert.AreEqual(expected.Avatar.Id, actual.Avatar.Id);
+            Assert.AreEqual(expected.Avatar.Image, actual.Avatar.Image);
+            Assert.AreEqual(expected.Roles.Count, actual.Roles.Count);
+            Assert.AreEqual(expected.Roles.First().Id, actual.Roles.First().Id);
+            Assert.AreEqual(expected.Roles.First().Title, actual.Roles.First().Title);
         }
 
         #endregion
