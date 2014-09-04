@@ -30,6 +30,7 @@ Used to update the entire graph tree of a context model, including relations
 * Manage Attachments
 
 ### Todo ###
+* Busy testing all users functions, when updating, if avatar and role are not supplied, they are removed from user, but if the role is supplied with changes, changes are not applied
 * Fix issue with Avatar not re uploading on post after validation failure
 * Refactor code into seperate projects (Possibly Data, Service and Presentation)
 * Add validation to prevent role from being deleted if it's assigned to a User

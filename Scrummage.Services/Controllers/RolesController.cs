@@ -58,7 +58,7 @@ namespace Scrummage.Services.Controllers
         {
             if (id != role.Id)
             {
-                return BadRequest();
+                return BadRequest("The Role Id passed in the URL and Body, do not match.");
             }
 
             if (!ModelState.IsValid)
@@ -95,6 +95,7 @@ namespace Scrummage.Services.Controllers
 
             var dbRole = AutoMapper.Mapper.Map(role, new DbRole());
             _unitOfWork.RoleRepository.Create(dbRole);
+            AutoMapper.Mapper.Map(dbRole, role);
 
             return CreatedAtRoute("DefaultApi", new { id = role.Id }, role);
         }

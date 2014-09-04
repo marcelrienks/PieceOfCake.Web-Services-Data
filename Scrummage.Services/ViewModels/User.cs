@@ -20,17 +20,17 @@ namespace Scrummage.Services.ViewModels
         
         [Required]
         [StringLength(30, MinimumLength = 3, ErrorMessage = "The {0} must be between {2} and {1} characters long.")]
-        [Display(Name = "UserViewModel Name")]
+        [Display(Name = "User Name")]
         public string Username { get; set; }
         
         [Required]
         [DataType(DataType.EmailAddress)]
         [EmailAddress(ErrorMessage = "The email address is invalid.")]
-        public string Password { get; set; }
+        public string Email { get; set; }
         
         [Required]
         [DataType(DataType.Password)]
-        public string Email { get; set; }
+        public string Password { get; set; }
 
         #endregion
 
