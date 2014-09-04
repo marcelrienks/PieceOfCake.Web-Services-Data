@@ -144,8 +144,8 @@ namespace Scrummage.Services.Test.Controllers
         [TestMethod]
         public void PostRole_ShouldReturn_InvalidModel()
         {
-            var key = "key";
-            var errorMessage = "model is invalid";
+            const string key = "key";
+            const string errorMessage = "model is invalid";
             var testRole = new RoleFactory().Build();
 
             var controller = new RolesController(_fakeUnitOfWork);

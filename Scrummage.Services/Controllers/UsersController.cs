@@ -54,9 +54,9 @@ namespace Scrummage.Services.Controllers
 
         // PUT: api/Users/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutUser(int id, VmUser userViewModel)
+        public IHttpActionResult PutUser(int id, VmUser user)
         {
-            if (id != userViewModel.Id)
+            if (id != user.Id)
             {
                 return BadRequest();
             }
@@ -68,8 +68,8 @@ namespace Scrummage.Services.Controllers
 
             try
             {
-                var user = AutoMapper.Mapper.Map(userViewModel, new DbUser());
-                _unitOfWork.UserRepository.Update(user);
+                var dbUser = AutoMapper.Mapper.Map(user, new DbUser());
+                _unitOfWork.UserRepository.Update(dbUser);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -86,17 +86,17 @@ namespace Scrummage.Services.Controllers
 
         // POST: api/Users
         [ResponseType(typeof(VmUser))]
-        public IHttpActionResult PostUser(VmUser userViewModel)
+        public IHttpActionResult PostUser(VmUser user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = AutoMapper.Mapper.Map(userViewModel, new DbUser());
-            _unitOfWork.UserRepository.Create(user);
+            var dbUser = AutoMapper.Mapper.Map(user, new DbUser());
+            _unitOfWork.UserRepository.Create(dbUser);
 
-            return CreatedAtRoute("DefaultApi", new { id = userViewModel.Id }, userViewModel);
+            return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
         }
 
         // DELETE: api/Users/5

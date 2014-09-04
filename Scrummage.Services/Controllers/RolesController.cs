@@ -33,8 +33,8 @@ namespace Scrummage.Services.Controllers
         // GET: api/Roles
         public IEnumerable<VmRole> GetRoles()
         {
-            var dbRole = _unitOfWork.RoleRepository.All();
-            var roles = AutoMapper.Mapper.Map(dbRole, new List<VmRole>());
+            var dbRoles = _unitOfWork.RoleRepository.All();
+            var roles = AutoMapper.Mapper.Map(dbRoles, new List<VmRole>());
             return roles;
         }
 
