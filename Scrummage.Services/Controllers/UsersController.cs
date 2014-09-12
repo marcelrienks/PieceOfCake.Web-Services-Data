@@ -7,7 +7,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DbUser = Scrummage.Data.Models.User;
 using VmUser = Scrummage.Services.ViewModels.User;
-//Todo: Busy testing all users functions, when updating, if avatar and role are not supplied, they are removed from user, but if the role is supplied with changes, changes are not applied
+
 namespace Scrummage.Services.Controllers
 {
     public class UsersController : ApiController

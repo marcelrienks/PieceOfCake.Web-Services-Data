@@ -103,7 +103,7 @@ namespace Scrummage.Services.Test.Controllers
             var result = controller.PutRole(9, testRole);
 
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+            Assert.IsInstanceOfType(result, typeof(BadRequestErrorMessageResult));
         }
 
         [TestMethod]

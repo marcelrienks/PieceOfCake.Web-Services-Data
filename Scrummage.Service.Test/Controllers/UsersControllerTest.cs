@@ -104,7 +104,7 @@ namespace Scrummage.Services.Test.Controllers
             var result = controller.PutUser(9, testUser);
 
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+            Assert.IsInstanceOfType(result, typeof(BadRequestErrorMessageResult));
         }
 
         [TestMethod]

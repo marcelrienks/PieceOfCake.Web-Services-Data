@@ -4,6 +4,7 @@ using System.Linq;
 using RefactorThis.GraphDiff;
 using Scrummage.Data.Interfaces;
 using Scrummage.Data.Models;
+using System.Data.Entity;
 
 //Todo: investigate creating unit tests for the repository, by creating a fake contaxt/dbset class, which can be dependancy injected in?
 
@@ -93,19 +94,10 @@ namespace Scrummage.Data
         /// <param name="entity"></param>
         public void Update(TModel entity)
         {
-            if (entity is User)
-            {
-                _context.UpdateGraph(entity as User, map => map
-                    .AssociatedCollection<User, Role>(user => user.Roles)
-                    .OwnedEntity<User, Avatar>(user => user.Avatar));
-            }
-            else if (entity is Role)
-            {
-                _context.UpdateGraph(entity as Role);
-            }
-            else if (entity is Avatar)
-            {
-            }
+            //Todo: determine weather or not updating a model and it's relations should be done, or rather have multiple API calls be made, or use hypermedia
+            _context.Entry(entity).State = EntityState.Modified;
+            //UpdateEntityGraph(entity);
+
             _context.SaveChanges();
         }
 
@@ -142,6 +134,23 @@ namespace Scrummage.Data
             }
 
             return false;
+        }
+
+        private void UpdateEntityGraph(TModel entity)
+        {
+            if (entity is User)
+            {
+                _context.UpdateGraph(entity as User, map => map
+                    .AssociatedCollection<User, Role>(user => user.Roles)
+                    .OwnedEntity<User, Avatar>(user => user.Avatar));
+            }
+            else if (entity is Role)
+            {
+                _context.UpdateGraph(entity as Role);
+            }
+            else if (entity is Avatar)
+            {
+            }
         }
 
         //Async Example
