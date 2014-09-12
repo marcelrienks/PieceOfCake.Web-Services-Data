@@ -100,10 +100,12 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Controllers\AvatarsControllerTest.cs" />
     <Compile Include="Controllers\UsersControllerTest.cs" />
     <Compile Include="Controllers\RolesControllerTest.cs" />
     <Compile Include="DataAccess\FakeRepository.cs" />
     <Compile Include="DataAccess\FakeUnitOfWork.cs" />
+    <Compile Include="Factories\AvatarFactory.cs" />
     <Compile Include="Factories\UserFactory.cs">
       <SubType>Code</SubType>
     </Compile>

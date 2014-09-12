@@ -53,6 +53,10 @@ namespace Scrummage.Services.Test.DataAccess
             {
                 result = ModelList.Cast<User>().ToList().Find(user => user.Id == id);
             }
+            else if (typeof(TModel) == typeof(Avatar))
+            {
+                result = ModelList.Cast<Avatar>().ToList().Find(user => user.Id == id);
+            }
             else
             {
                 throw new NotImplementedException(
