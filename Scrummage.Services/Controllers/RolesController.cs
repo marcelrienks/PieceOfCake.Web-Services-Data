@@ -7,7 +7,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DbRole = Scrummage.Data.Models.Role;
 using VmRole = Scrummage.Services.ViewModels.Role;
-
+//Todo; Investigate using auto code generation to create api's and api tests based on this controller as template
 namespace Scrummage.Services.Controllers
 {
     public class RolesController : ApiController
