@@ -1,0 +1,71 @@
+﻿@model Scrummage.Web.ViewModels.UserViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AvatarViewModel)
+        </dt>
+
+        <dd>
+            <img src="@String.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.AvatarViewModel.Image))" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShortName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShortName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.RoleViewModels)
+        </dt>
+
+        <dd>
+            @foreach (var role in Model.RoleViewModels)
+            {
+                <div class="display-field">
+                    @Html.DisplayFor(roleItem => role.Title)
+                </div>
+            }
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new {id = Model.Id}) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
