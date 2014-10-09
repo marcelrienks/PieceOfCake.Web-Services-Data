@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
 using Scrummage.Web.ViewModels;
 
-namespace Scrummage.Test.Factories.ViewModelFactories
+namespace Scrummage.Web.Test.Factories.ViewModelFactories
 {
     public class UserViewModelFactory
     {
-        private readonly UserViewModel _UserViewModel;
-        private readonly List<UserViewModel> _UserViewModels;
+        private readonly UserViewModel _userViewModel;
+        private readonly List<UserViewModel> _userViewModels;
 
         /// <summary>
         ///     Create default RoleViewModel and RoleViewModel list objects
         /// </summary>
         public UserViewModelFactory()
         {
-            _UserViewModel = new UserViewModel
+            _userViewModel = new UserViewModel
             {
                 Id = 0,
                 Name = "Name",
@@ -30,9 +30,9 @@ namespace Scrummage.Test.Factories.ViewModelFactories
                 }
             };
 
-            _UserViewModels = new List<UserViewModel>
+            _userViewModels = new List<UserViewModel>
             {
-                _UserViewModel
+                _userViewModel
             };
         }
 
@@ -42,7 +42,7 @@ namespace Scrummage.Test.Factories.ViewModelFactories
         /// <returns>Role</returns>
         public UserViewModel Build()
         {
-            return _UserViewModel;
+            return _userViewModel;
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Scrummage.Test.Factories.ViewModelFactories
         /// <returns>List<Role></returns>
         public List<UserViewModel> BuildList()
         {
-            return _UserViewModels;
+            return _userViewModels;
         }
 
         /// <summary>
@@ -60,12 +60,12 @@ namespace Scrummage.Test.Factories.ViewModelFactories
         /// <returns></returns>
         public UserViewModelFactory WithNullRequiredFields()
         {
-            _UserViewModel.Name = null;
-            _UserViewModel.ShortName = null;
-            _UserViewModel.Username = null;
-            _UserViewModel.Email = null;
-            _UserViewModel.Password = null;
-            _UserViewModel.ConfirmPassword = null;
+            _userViewModel.Name = null;
+            _userViewModel.ShortName = null;
+            _userViewModel.Username = null;
+            _userViewModel.Email = null;
+            _userViewModel.Password = null;
+            _userViewModel.ConfirmPassword = null;
             return this;
         }
 
@@ -75,12 +75,12 @@ namespace Scrummage.Test.Factories.ViewModelFactories
         /// <returns></returns>
         public UserViewModelFactory WithInvalidFields()
         {
-            _UserViewModel.Name = "a";
-            _UserViewModel.ShortName = "a";
-            _UserViewModel.Username = "a";
-            _UserViewModel.Email = "a";
-            _UserViewModel.Password = "a";
-            _UserViewModel.ConfirmPassword = "b";
+            _userViewModel.Name = "a";
+            _userViewModel.ShortName = "a";
+            _userViewModel.Username = "a";
+            _userViewModel.Email = "a";
+            _userViewModel.Password = "a";
+            _userViewModel.ConfirmPassword = "b";
             return this;
         }
     }

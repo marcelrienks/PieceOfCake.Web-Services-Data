@@ -1,7 +1,7 @@
 ﻿using Scrummage.Data.Interfaces;
 using Scrummage.Data.Models;
 
-namespace Scrummage.Test.DataAccess
+namespace Scrummage.Web.Test.DataAccess
 {
     public class FakeUnitOfWork : IUnitOfWork
     {

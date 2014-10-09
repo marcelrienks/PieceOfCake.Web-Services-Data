@@ -1,16 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Scrummage.Data.Models;
-using Scrummage.Test.DataAccess;
-using Scrummage.Test.Factories.ModelFactories;
-using Scrummage.Web;
 using Scrummage.Web.Controllers;
+using Scrummage.Web.Test.DataAccess;
+using Scrummage.Web.Test.Factories.ModelFactories;
 using Scrummage.Web.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
-namespace Scrummage.Test.Controllers
+namespace Scrummage.Web.Test.Controllers
 {
     //[TestClass]
     public class RoleControllerTest

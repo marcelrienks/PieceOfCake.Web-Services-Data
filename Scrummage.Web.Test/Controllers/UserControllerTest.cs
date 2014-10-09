@@ -1,18 +1,17 @@
-﻿using System;
+﻿using AutoMapper;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Scrummage.Data.Models;
+using Scrummage.Web.Controllers;
+using Scrummage.Web.Test.DataAccess;
+using Scrummage.Web.Test.Factories;
+using Scrummage.Web.Test.Factories.ModelFactories;
+using Scrummage.Web.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using AutoMapper;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Scrummage.Data.Models;
-using Scrummage.Test.DataAccess;
-using Scrummage.Test.Factories;
-using Scrummage.Test.Factories.ModelFactories;
-using Scrummage.Web;
-using Scrummage.Web.Controllers;
-using Scrummage.Web.ViewModels;
 
-namespace Scrummage.Test.Controllers
+namespace Scrummage.Web.Test.Controllers
 {
     //[TestClass]
     public class UserControllerTest
@@ -42,9 +41,9 @@ namespace Scrummage.Test.Controllers
             var result = controller.Index() as ViewResult;
             Assert.IsNotNull(result);
 
-            var UserViewModels = ((IEnumerable<UserViewModel>)result.Model).ToList();
-            Assert.AreEqual(1, UserViewModels.Count);
-            PerformCommonAsserts(testUsers.First(), UserViewModels.First());
+            var userViewModels = ((IEnumerable<UserViewModel>)result.Model).ToList();
+            Assert.AreEqual(1, userViewModels.Count);
+            PerformCommonAsserts(testUsers.First(), userViewModels.First());
         }
 
         #endregion
@@ -74,8 +73,8 @@ namespace Scrummage.Test.Controllers
             var result = controller.Details() as ViewResult;
             Assert.IsNotNull(result);
 
-            var UserViewModel = (UserViewModel)result.Model;
-            PerformCommonAsserts(testUsers.First(), UserViewModel);
+            var userViewModel = (UserViewModel)result.Model;
+            PerformCommonAsserts(testUsers.First(), userViewModel);
         }
 
         #endregion
@@ -179,8 +178,8 @@ namespace Scrummage.Test.Controllers
             var result = controller.Edit() as ViewResult;
             Assert.IsNotNull(result);
 
-            var UserViewModel = (UserViewModel)result.Model;
-            PerformCommonAsserts(testUsers.First(), UserViewModel);
+            var userViewModel = (UserViewModel)result.Model;
+            PerformCommonAsserts(testUsers.First(), userViewModel);
         }
 
         //[TestMethod]
@@ -240,8 +239,8 @@ namespace Scrummage.Test.Controllers
             var result = controller.Delete() as ViewResult;
             Assert.IsNotNull(result);
 
-            var UserViewModel = (UserViewModel)result.Model;
-            PerformCommonAsserts(testUsers.First(), UserViewModel);
+            var userViewModel = (UserViewModel)result.Model;
+            PerformCommonAsserts(testUsers.First(), userViewModel);
         }
 
         [TestMethod]

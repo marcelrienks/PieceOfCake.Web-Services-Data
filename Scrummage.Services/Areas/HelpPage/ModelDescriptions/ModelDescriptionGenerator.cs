@@ -14,59 +14,48 @@ using Newtonsoft.Json;
 namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
-    ///     Generates model descriptions for given types.
+    /// Generates model descriptions for given types.
     /// </summary>
     public class ModelDescriptionGenerator
     {
         // Modify this to support more data annotation attributes.
-        private readonly IDictionary<Type, Func<object, string>> AnnotationTextGenerator = new Dictionary
-            <Type, Func<object, string>>
+        private readonly IDictionary<Type, Func<object, string>> AnnotationTextGenerator = new Dictionary<Type, Func<object, string>>
         {
-            {typeof (RequiredAttribute), a => "Required"},
-            {
-                typeof (RangeAttribute), a =>
+            { typeof(RequiredAttribute), a => "Required" },
+            { typeof(RangeAttribute), a =>
                 {
-                    var range = (RangeAttribute) a;
-                    return String.Format(CultureInfo.CurrentCulture, "Range: inclusive between {0} and {1}",
-                        range.Minimum, range.Maximum);
+                    RangeAttribute range = (RangeAttribute)a;
+                    return String.Format(CultureInfo.CurrentCulture, "Range: inclusive between {0} and {1}", range.Minimum, range.Maximum);
                 }
             },
-            {
-                typeof (MaxLengthAttribute), a =>
+            { typeof(MaxLengthAttribute), a =>
                 {
-                    var maxLength = (MaxLengthAttribute) a;
+                    MaxLengthAttribute maxLength = (MaxLengthAttribute)a;
                     return String.Format(CultureInfo.CurrentCulture, "Max length: {0}", maxLength.Length);
                 }
             },
-            {
-                typeof (MinLengthAttribute), a =>
+            { typeof(MinLengthAttribute), a =>
                 {
-                    var minLength = (MinLengthAttribute) a;
+                    MinLengthAttribute minLength = (MinLengthAttribute)a;
                     return String.Format(CultureInfo.CurrentCulture, "Min length: {0}", minLength.Length);
                 }
             },
-            {
-                typeof (StringLengthAttribute), a =>
+            { typeof(StringLengthAttribute), a =>
                 {
-                    var strLength = (StringLengthAttribute) a;
-                    return String.Format(CultureInfo.CurrentCulture, "String length: inclusive between {0} and {1}",
-                        strLength.MinimumLength, strLength.MaximumLength);
+                    StringLengthAttribute strLength = (StringLengthAttribute)a;
+                    return String.Format(CultureInfo.CurrentCulture, "String length: inclusive between {0} and {1}", strLength.MinimumLength, strLength.MaximumLength);
                 }
             },
-            {
-                typeof (DataTypeAttribute), a =>
+            { typeof(DataTypeAttribute), a =>
                 {
-                    var dataType = (DataTypeAttribute) a;
-                    return String.Format(CultureInfo.CurrentCulture, "Data type: {0}",
-                        dataType.CustomDataType ?? dataType.DataType.ToString());
+                    DataTypeAttribute dataType = (DataTypeAttribute)a;
+                    return String.Format(CultureInfo.CurrentCulture, "Data type: {0}", dataType.CustomDataType ?? dataType.DataType.ToString());
                 }
             },
-            {
-                typeof (RegularExpressionAttribute), a =>
+            { typeof(RegularExpressionAttribute), a =>
                 {
-                    var regularExpression = (RegularExpressionAttribute) a;
-                    return String.Format(CultureInfo.CurrentCulture, "Matching regular expression pattern: {0}",
-                        regularExpression.Pattern);
+                    RegularExpressionAttribute regularExpression = (RegularExpressionAttribute)a;
+                    return String.Format(CultureInfo.CurrentCulture, "Matching regular expression pattern: {0}", regularExpression.Pattern);
                 }
             },
         };
@@ -74,28 +63,28 @@ namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
         // Modify this to add more default documentations.
         private readonly IDictionary<Type, string> DefaultTypeDocumentation = new Dictionary<Type, string>
         {
-            {typeof (Int16), "integer"},
-            {typeof (Int32), "integer"},
-            {typeof (Int64), "integer"},
-            {typeof (UInt16), "unsigned integer"},
-            {typeof (UInt32), "unsigned integer"},
-            {typeof (UInt64), "unsigned integer"},
-            {typeof (Byte), "byte"},
-            {typeof (Char), "character"},
-            {typeof (SByte), "signed byte"},
-            {typeof (Uri), "URI"},
-            {typeof (Single), "decimal number"},
-            {typeof (Double), "decimal number"},
-            {typeof (Decimal), "decimal number"},
-            {typeof (String), "string"},
-            {typeof (Guid), "globally unique identifier"},
-            {typeof (TimeSpan), "time interval"},
-            {typeof (DateTime), "date"},
-            {typeof (DateTimeOffset), "date"},
-            {typeof (Boolean), "boolean"},
+            { typeof(Int16), "integer" },
+            { typeof(Int32), "integer" },
+            { typeof(Int64), "integer" },
+            { typeof(UInt16), "unsigned integer" },
+            { typeof(UInt32), "unsigned integer" },
+            { typeof(UInt64), "unsigned integer" },
+            { typeof(Byte), "byte" },
+            { typeof(Char), "character" },
+            { typeof(SByte), "signed byte" },
+            { typeof(Uri), "URI" },
+            { typeof(Single), "decimal number" },
+            { typeof(Double), "decimal number" },
+            { typeof(Decimal), "decimal number" },
+            { typeof(String), "string" },
+            { typeof(Guid), "globally unique identifier" },
+            { typeof(TimeSpan), "time interval" },
+            { typeof(DateTime), "date" },
+            { typeof(DateTimeOffset), "date" },
+            { typeof(Boolean), "boolean" },
         };
 
-        private readonly Lazy<IModelDocumentationProvider> _documentationProvider;
+        private Lazy<IModelDocumentationProvider> _documentationProvider;
 
         public ModelDescriptionGenerator(HttpConfiguration config)
         {
@@ -104,9 +93,7 @@ namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
                 throw new ArgumentNullException("config");
             }
 
-            _documentationProvider =
-                new Lazy<IModelDocumentationProvider>(
-                    () => config.Services.GetDocumentationProvider() as IModelDocumentationProvider);
+            _documentationProvider = new Lazy<IModelDocumentationProvider>(() => config.Services.GetDocumentationProvider() as IModelDocumentationProvider);
             GeneratedModels = new Dictionary<string, ModelDescription>(StringComparer.OrdinalIgnoreCase);
         }
 
@@ -114,7 +101,10 @@ namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
 
         private IModelDocumentationProvider DocumentationProvider
         {
-            get { return _documentationProvider.Value; }
+            get
+            {
+                return _documentationProvider.Value;
+            }
         }
 
         public ModelDescription GetOrCreateModelDescription(Type modelType)
@@ -165,7 +155,7 @@ namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
 
                 if (genericArguments.Length == 1)
                 {
-                    Type enumerableType = typeof (IEnumerable<>).MakeGenericType(genericArguments);
+                    Type enumerableType = typeof(IEnumerable<>).MakeGenericType(genericArguments);
                     if (enumerableType.IsAssignableFrom(modelType))
                     {
                         return GenerateCollectionModelDescription(modelType, genericArguments[0]);
@@ -173,13 +163,13 @@ namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
                 }
                 if (genericArguments.Length == 2)
                 {
-                    Type dictionaryType = typeof (IDictionary<,>).MakeGenericType(genericArguments);
+                    Type dictionaryType = typeof(IDictionary<,>).MakeGenericType(genericArguments);
                     if (dictionaryType.IsAssignableFrom(modelType))
                     {
                         return GenerateDictionaryModelDescription(modelType, genericArguments[0], genericArguments[1]);
                     }
 
-                    Type keyValuePairType = typeof (KeyValuePair<,>).MakeGenericType(genericArguments);
+                    Type keyValuePairType = typeof(KeyValuePair<,>).MakeGenericType(genericArguments);
                     if (keyValuePairType.IsAssignableFrom(modelType))
                     {
                         return GenerateKeyValuePairModelDescription(modelType, genericArguments[0], genericArguments[1]);
@@ -193,19 +183,19 @@ namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
                 return GenerateCollectionModelDescription(modelType, elementType);
             }
 
-            if (modelType == typeof (NameValueCollection))
+            if (modelType == typeof(NameValueCollection))
             {
-                return GenerateDictionaryModelDescription(modelType, typeof (string), typeof (string));
+                return GenerateDictionaryModelDescription(modelType, typeof(string), typeof(string));
             }
 
-            if (typeof (IDictionary).IsAssignableFrom(modelType))
+            if (typeof(IDictionary).IsAssignableFrom(modelType))
             {
-                return GenerateDictionaryModelDescription(modelType, typeof (object), typeof (object));
+                return GenerateDictionaryModelDescription(modelType, typeof(object), typeof(object));
             }
 
-            if (typeof (IEnumerable).IsAssignableFrom(modelType))
+            if (typeof(IEnumerable).IsAssignableFrom(modelType))
             {
-                return GenerateCollectionModelDescription(modelType, typeof (object));
+                return GenerateCollectionModelDescription(modelType, typeof(object));
             }
 
             return GenerateComplexTypeModelDescription(modelType);
@@ -214,7 +204,7 @@ namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
         // Change this to provide different name for the member.
         private static string GetMemberName(MemberInfo member, bool hasDataContractAttribute)
         {
-            var jsonProperty = member.GetCustomAttribute<JsonPropertyAttribute>();
+            JsonPropertyAttribute jsonProperty = member.GetCustomAttribute<JsonPropertyAttribute>();
             if (jsonProperty != null && !String.IsNullOrEmpty(jsonProperty.PropertyName))
             {
                 return jsonProperty.PropertyName;
@@ -222,7 +212,7 @@ namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
 
             if (hasDataContractAttribute)
             {
-                var dataMember = member.GetCustomAttribute<DataMemberAttribute>();
+                DataMemberAttribute dataMember = member.GetCustomAttribute<DataMemberAttribute>();
                 if (dataMember != null && !String.IsNullOrEmpty(dataMember.Name))
                 {
                     return dataMember.Name;
@@ -234,15 +224,15 @@ namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
 
         private static bool ShouldDisplayMember(MemberInfo member, bool hasDataContractAttribute)
         {
-            var jsonIgnore = member.GetCustomAttribute<JsonIgnoreAttribute>();
-            var xmlIgnore = member.GetCustomAttribute<XmlIgnoreAttribute>();
-            var ignoreDataMember = member.GetCustomAttribute<IgnoreDataMemberAttribute>();
-            var nonSerialized = member.GetCustomAttribute<NonSerializedAttribute>();
-            var apiExplorerSetting = member.GetCustomAttribute<ApiExplorerSettingsAttribute>();
+            JsonIgnoreAttribute jsonIgnore = member.GetCustomAttribute<JsonIgnoreAttribute>();
+            XmlIgnoreAttribute xmlIgnore = member.GetCustomAttribute<XmlIgnoreAttribute>();
+            IgnoreDataMemberAttribute ignoreDataMember = member.GetCustomAttribute<IgnoreDataMemberAttribute>();
+            NonSerializedAttribute nonSerialized = member.GetCustomAttribute<NonSerializedAttribute>();
+            ApiExplorerSettingsAttribute apiExplorerSetting = member.GetCustomAttribute<ApiExplorerSettingsAttribute>();
 
-            bool hasMemberAttribute = member.DeclaringType.IsEnum
-                ? member.GetCustomAttribute<EnumMemberAttribute>() != null
-                : member.GetCustomAttribute<DataMemberAttribute>() != null;
+            bool hasMemberAttribute = member.DeclaringType.IsEnum ?
+                member.GetCustomAttribute<EnumMemberAttribute>() != null :
+                member.GetCustomAttribute<DataMemberAttribute>() != null;
 
             // Display member only if all the followings are true:
             // no JsonIgnoreAttribute
@@ -252,11 +242,11 @@ namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
             // no ApiExplorerSettingsAttribute with IgnoreApi set to true
             // no DataContractAttribute without DataMemberAttribute or EnumMemberAttribute
             return jsonIgnore == null &&
-                   xmlIgnore == null &&
-                   ignoreDataMember == null &&
-                   nonSerialized == null &&
-                   (apiExplorerSetting == null || !apiExplorerSetting.IgnoreApi) &&
-                   (!hasDataContractAttribute || hasMemberAttribute);
+                xmlIgnore == null &&
+                ignoreDataMember == null &&
+                nonSerialized == null &&
+                (apiExplorerSetting == null || !apiExplorerSetting.IgnoreApi) &&
+                (!hasDataContractAttribute || hasMemberAttribute);
         }
 
         private string CreateDefaultDocumentation(Type type)
@@ -276,10 +266,10 @@ namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
 
         private void GenerateAnnotations(MemberInfo property, ParameterDescription propertyModel)
         {
-            var annotations = new List<ParameterAnnotation>();
+            List<ParameterAnnotation> annotations = new List<ParameterAnnotation>();
 
             IEnumerable<Attribute> attributes = property.GetCustomAttributes();
-            foreach (var attribute in attributes)
+            foreach (Attribute attribute in attributes)
             {
                 Func<object, string> textGenerator;
                 if (AnnotationTextGenerator.TryGetValue(attribute.GetType(), out textGenerator))
@@ -310,7 +300,7 @@ namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
                 return String.Compare(x.Documentation, y.Documentation, StringComparison.OrdinalIgnoreCase);
             });
 
-            foreach (var annotation in annotations)
+            foreach (ParameterAnnotation annotation in annotations)
             {
                 propertyModel.Annotations.Add(annotation);
             }
@@ -334,7 +324,7 @@ namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
 
         private ModelDescription GenerateComplexTypeModelDescription(Type modelType)
         {
-            var complexModelDescription = new ComplexTypeModelDescription
+            ComplexTypeModelDescription complexModelDescription = new ComplexTypeModelDescription
             {
                 Name = ModelNameHelper.GetModelName(modelType),
                 ModelType = modelType,
@@ -344,11 +334,11 @@ namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
             GeneratedModels.Add(complexModelDescription.Name, complexModelDescription);
             bool hasDataContractAttribute = modelType.GetCustomAttribute<DataContractAttribute>() != null;
             PropertyInfo[] properties = modelType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            foreach (var property in properties)
+            foreach (PropertyInfo property in properties)
             {
                 if (ShouldDisplayMember(property, hasDataContractAttribute))
                 {
-                    var propertyModel = new ParameterDescription
+                    ParameterDescription propertyModel = new ParameterDescription
                     {
                         Name = GetMemberName(property, hasDataContractAttribute)
                     };
@@ -365,11 +355,11 @@ namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
             }
 
             FieldInfo[] fields = modelType.GetFields(BindingFlags.Public | BindingFlags.Instance);
-            foreach (var field in fields)
+            foreach (FieldInfo field in fields)
             {
                 if (ShouldDisplayMember(field, hasDataContractAttribute))
                 {
-                    var propertyModel = new ParameterDescription
+                    ParameterDescription propertyModel = new ParameterDescription
                     {
                         Name = GetMemberName(field, hasDataContractAttribute)
                     };
@@ -387,8 +377,7 @@ namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
             return complexModelDescription;
         }
 
-        private DictionaryModelDescription GenerateDictionaryModelDescription(Type modelType, Type keyType,
-            Type valueType)
+        private DictionaryModelDescription GenerateDictionaryModelDescription(Type modelType, Type keyType, Type valueType)
         {
             ModelDescription keyModelDescription = GetOrCreateModelDescription(keyType);
             ModelDescription valueModelDescription = GetOrCreateModelDescription(valueType);
@@ -404,18 +393,18 @@ namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
 
         private EnumTypeModelDescription GenerateEnumTypeModelDescription(Type modelType)
         {
-            var enumDescription = new EnumTypeModelDescription
+            EnumTypeModelDescription enumDescription = new EnumTypeModelDescription
             {
                 Name = ModelNameHelper.GetModelName(modelType),
                 ModelType = modelType,
                 Documentation = CreateDefaultDocumentation(modelType)
             };
             bool hasDataContractAttribute = modelType.GetCustomAttribute<DataContractAttribute>() != null;
-            foreach (var field in modelType.GetFields(BindingFlags.Public | BindingFlags.Static))
+            foreach (FieldInfo field in modelType.GetFields(BindingFlags.Public | BindingFlags.Static))
             {
                 if (ShouldDisplayMember(field, hasDataContractAttribute))
                 {
-                    var enumValue = new EnumValueDescription
+                    EnumValueDescription enumValue = new EnumValueDescription
                     {
                         Name = field.Name,
                         Value = field.GetRawConstantValue().ToString()
@@ -432,8 +421,7 @@ namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
             return enumDescription;
         }
 
-        private KeyValuePairModelDescription GenerateKeyValuePairModelDescription(Type modelType, Type keyType,
-            Type valueType)
+        private KeyValuePairModelDescription GenerateKeyValuePairModelDescription(Type modelType, Type keyType, Type valueType)
         {
             ModelDescription keyModelDescription = GetOrCreateModelDescription(keyType);
             ModelDescription valueModelDescription = GetOrCreateModelDescription(valueType);
@@ -449,7 +437,7 @@ namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
 
         private ModelDescription GenerateSimpleTypeModelDescription(Type modelType)
         {
-            var simpleModelDescription = new SimpleTypeModelDescription
+            SimpleTypeModelDescription simpleModelDescription = new SimpleTypeModelDescription
             {
                 Name = ModelNameHelper.GetModelName(modelType),
                 ModelType = modelType,

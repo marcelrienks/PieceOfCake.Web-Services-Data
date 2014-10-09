@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using Scrummage.Data.Models;
 
-namespace Scrummage.Test.Factories.ModelFactories
+namespace Scrummage.Web.Test.Factories.ModelFactories
 {
     public class UserFactory
     {
-        private User _User;
-        private List<User> _Users;
+        private User _user;
+        private List<User> _users;
 
         /// <summary>
         ///     Create default User and UserList objects
@@ -19,21 +19,21 @@ namespace Scrummage.Test.Factories.ModelFactories
         /// <summary>
         ///     Create default User and UserList objects with given User Id
         /// </summary>
-        /// <param name="UserId"></param>
-        public UserFactory(int UserId)
+        /// <param name="userId"></param>
+        public UserFactory(int userId)
         {
-            CreateDefaultUserAndUserList(UserId);
+            CreateDefaultUserAndUserList(userId);
         }
 
         /// <summary>
         ///     Create default User and UserList objects with given User Id
         /// </summary>
-        /// <param name="UserId"></param>
-        private void CreateDefaultUserAndUserList(int UserId)
+        /// <param name="userId"></param>
+        private void CreateDefaultUserAndUserList(int userId)
         {
-            _User = new User
+            _user = new User
             {
-                Id = UserId,
+                Id = userId,
                 Name = "Name",
                 ShortName = "sn",
                 Username = "Username",
@@ -41,14 +41,14 @@ namespace Scrummage.Test.Factories.ModelFactories
                 Roles = new RoleFactory().BuildList(),
                 Avatar = new Avatar
                 {
-                    Id = UserId,
+                    Id = userId,
                     Image = new byte[0]
                 }
             };
 
-            _Users = new List<User>
+            _users = new List<User>
             {
-                _User
+                _user
             };
         }
 
@@ -58,7 +58,7 @@ namespace Scrummage.Test.Factories.ModelFactories
         /// <returns>Role</returns>
         public User Build()
         {
-            return _User;
+            return _user;
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Scrummage.Test.Factories.ModelFactories
         /// <returns>List<User></returns>
         public List<User> BuildList()
         {
-            return _Users;
+            return _users;
         }
     }
 }

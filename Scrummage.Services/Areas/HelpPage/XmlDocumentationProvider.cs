@@ -10,19 +10,19 @@ using Scrummage.Services.Areas.HelpPage.ModelDescriptions;
 namespace Scrummage.Services.Areas.HelpPage
 {
     /// <summary>
-    ///     A custom <see cref="IDocumentationProvider" /> that reads the API documentation from an XML documentation file.
+    /// A custom <see cref="IDocumentationProvider"/> that reads the API documentation from an XML documentation file.
     /// </summary>
     public class XmlDocumentationProvider : IDocumentationProvider, IModelDocumentationProvider
     {
+        private XPathNavigator _documentNavigator;
         private const string TypeExpression = "/doc/members/member[@name='T:{0}']";
         private const string MethodExpression = "/doc/members/member[@name='M:{0}']";
         private const string PropertyExpression = "/doc/members/member[@name='P:{0}']";
         private const string FieldExpression = "/doc/members/member[@name='F:{0}']";
         private const string ParameterExpression = "param[@name='{0}']";
-        private readonly XPathNavigator _documentNavigator;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="XmlDocumentationProvider" /> class.
+        /// Initializes a new instance of the <see cref="XmlDocumentationProvider"/> class.
         /// </summary>
         /// <param name="documentPath">The physical path to XML document.</param>
         public XmlDocumentationProvider(string documentPath)
@@ -31,7 +31,7 @@ namespace Scrummage.Services.Areas.HelpPage
             {
                 throw new ArgumentNullException("documentPath");
             }
-            var xpath = new XPathDocument(documentPath);
+            XPathDocument xpath = new XPathDocument(documentPath);
             _documentNavigator = xpath.CreateNavigator();
         }
 
@@ -49,16 +49,14 @@ namespace Scrummage.Services.Areas.HelpPage
 
         public virtual string GetDocumentation(HttpParameterDescriptor parameterDescriptor)
         {
-            var reflectedParameterDescriptor = parameterDescriptor as ReflectedHttpParameterDescriptor;
+            ReflectedHttpParameterDescriptor reflectedParameterDescriptor = parameterDescriptor as ReflectedHttpParameterDescriptor;
             if (reflectedParameterDescriptor != null)
             {
                 XPathNavigator methodNode = GetMethodNode(reflectedParameterDescriptor.ActionDescriptor);
                 if (methodNode != null)
                 {
                     string parameterName = reflectedParameterDescriptor.ParameterInfo.Name;
-                    XPathNavigator parameterNode =
-                        methodNode.SelectSingleNode(String.Format(CultureInfo.InvariantCulture, ParameterExpression,
-                            parameterName));
+                    XPathNavigator parameterNode = methodNode.SelectSingleNode(String.Format(CultureInfo.InvariantCulture, ParameterExpression, parameterName));
                     if (parameterNode != null)
                     {
                         return parameterNode.Value.Trim();
@@ -77,8 +75,7 @@ namespace Scrummage.Services.Areas.HelpPage
 
         public string GetDocumentation(MemberInfo member)
         {
-            string memberName = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", GetTypeName(member.DeclaringType),
-                member.Name);
+            string memberName = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", GetTypeName(member.DeclaringType), member.Name);
             string expression = member.MemberType == MemberTypes.Field ? FieldExpression : PropertyExpression;
             string selectExpression = String.Format(CultureInfo.InvariantCulture, expression, memberName);
             XPathNavigator propertyNode = _documentNavigator.SelectSingleNode(selectExpression);
@@ -93,11 +90,10 @@ namespace Scrummage.Services.Areas.HelpPage
 
         private XPathNavigator GetMethodNode(HttpActionDescriptor actionDescriptor)
         {
-            var reflectedActionDescriptor = actionDescriptor as ReflectedHttpActionDescriptor;
+            ReflectedHttpActionDescriptor reflectedActionDescriptor = actionDescriptor as ReflectedHttpActionDescriptor;
             if (reflectedActionDescriptor != null)
             {
-                string selectExpression = String.Format(CultureInfo.InvariantCulture, MethodExpression,
-                    GetMemberName(reflectedActionDescriptor.MethodInfo));
+                string selectExpression = String.Format(CultureInfo.InvariantCulture, MethodExpression, GetMemberName(reflectedActionDescriptor.MethodInfo));
                 return _documentNavigator.SelectSingleNode(selectExpression);
             }
 
@@ -106,8 +102,7 @@ namespace Scrummage.Services.Areas.HelpPage
 
         private static string GetMemberName(MethodInfo method)
         {
-            string name = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", GetTypeName(method.DeclaringType),
-                method.Name);
+            string name = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", GetTypeName(method.DeclaringType), method.Name);
             ParameterInfo[] parameters = method.GetParameters();
             if (parameters.Length != 0)
             {
@@ -152,8 +147,7 @@ namespace Scrummage.Services.Areas.HelpPage
                 // Trim the generic parameter counts from the name
                 genericTypeName = genericTypeName.Substring(0, genericTypeName.IndexOf('`'));
                 string[] argumentTypeNames = genericArguments.Select(t => GetTypeName(t)).ToArray();
-                name = String.Format(CultureInfo.InvariantCulture, "{0}{{{1}}}", genericTypeName,
-                    String.Join(",", argumentTypeNames));
+                name = String.Format(CultureInfo.InvariantCulture, "{0}{{{1}}}", genericTypeName, String.Join(",", argumentTypeNames));
             }
             if (type.IsNested)
             {
