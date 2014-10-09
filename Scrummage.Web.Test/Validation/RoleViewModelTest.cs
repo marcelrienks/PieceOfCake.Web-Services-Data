@@ -8,8 +8,8 @@ namespace Scrummage.Test.Validation
     {
         #region Properties
 
-        private readonly TestModelStateController _testController;
-
+        private readonly TestModelStateController _testController; 
+        
         #endregion
 
         public RoleViewModelTest()

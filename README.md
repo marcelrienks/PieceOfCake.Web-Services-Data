@@ -1,4 +1,4 @@
-# Scrummage #
+# Scrummage [![Build status](https://ci.appveyor.com/api/projects/status/m1jtv84a3blb2yo1/branch/master)](https://ci.appveyor.com/project/celemar/scrummagev2/branch/master)
 **NOTE: Still in Development!**  
 This is my Scrum Management Tools suite.  
 This is designed to help manage a development team using the Scrum framework.
