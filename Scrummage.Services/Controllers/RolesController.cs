@@ -5,8 +5,8 @@ using System.Data.Entity.Infrastructure;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
-using DbRole = Scrummage.Data.Models.Role;
-using VmRole = Scrummage.Services.ViewModels.Role;
+using Scrummage.Data.Models;
+using Scrummage.Services.Representors;
 //Todo; Investigate using auto code generation to create api's and api tests based on this controller as template
 namespace Scrummage.Services.Controllers
 {
@@ -31,15 +31,15 @@ namespace Scrummage.Services.Controllers
         #region Actions
 
         // GET: api/Roles
-        public IEnumerable<VmRole> GetRoles()
+        public IEnumerable<RoleRepresentor> GetRoles()
         {
             var dbRoles = _unitOfWork.RoleRepository.All();
-            var roles = AutoMapper.Mapper.Map(dbRoles, new List<VmRole>());
+            var roles = AutoMapper.Mapper.Map(dbRoles, new List<RoleRepresentor>());
             return roles;
         }
 
         // GET: api/Roles/5
-        [ResponseType(typeof(VmRole))]
+        [ResponseType(typeof(RoleRepresentor))]
         public IHttpActionResult GetRole(int id)
         {
             var dbRole = _unitOfWork.RoleRepository.Find(id);
@@ -48,13 +48,13 @@ namespace Scrummage.Services.Controllers
                 return NotFound();
             }
 
-            var role = AutoMapper.Mapper.Map(dbRole, new VmRole());
+            var role = AutoMapper.Mapper.Map(dbRole, new RoleRepresentor());
             return Ok(role);
         }
 
         // PUT: api/Roles/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutRole(int id, VmRole role)
+        public IHttpActionResult PutRole(int id, RoleRepresentor role)
         {
             if (id != role.Id)
             {
@@ -68,7 +68,7 @@ namespace Scrummage.Services.Controllers
 
             try
             {
-                var dbRole = AutoMapper.Mapper.Map(role, new DbRole());
+                var dbRole = AutoMapper.Mapper.Map(role, new Role());
                 _unitOfWork.RoleRepository.Update(dbRole);
             }
             catch (DbUpdateConcurrencyException)
@@ -85,15 +85,15 @@ namespace Scrummage.Services.Controllers
         }
 
         // POST: api/Roles
-        [ResponseType(typeof(VmRole))]
-        public IHttpActionResult PostRole(VmRole role)
+        [ResponseType(typeof(RoleRepresentor))]
+        public IHttpActionResult PostRole(RoleRepresentor role)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var dbRole = AutoMapper.Mapper.Map(role, new DbRole());
+            var dbRole = AutoMapper.Mapper.Map(role, new Role());
             _unitOfWork.RoleRepository.Create(dbRole);
             AutoMapper.Mapper.Map(dbRole, role);
 
@@ -101,7 +101,7 @@ namespace Scrummage.Services.Controllers
         }
 
         // DELETE: api/Roles/5
-        [ResponseType(typeof(VmRole))]
+        [ResponseType(typeof(RoleRepresentor))]
         public IHttpActionResult DeleteRole(int id)
         {
             var dbRole = _unitOfWork.RoleRepository.Find(id);
@@ -112,7 +112,7 @@ namespace Scrummage.Services.Controllers
 
             _unitOfWork.RoleRepository.Delete(dbRole);
 
-            var role = AutoMapper.Mapper.Map(dbRole, new VmRole());
+            var role = AutoMapper.Mapper.Map(dbRole, new RoleRepresentor());
             return Ok(role);
         }
 

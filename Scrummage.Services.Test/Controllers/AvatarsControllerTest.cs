@@ -2,11 +2,12 @@
 using System.Web.Http.Results;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Scrummage.Services.Controllers;
+using Scrummage.Services.Representors;
 using Scrummage.Services.Test.DataAccess;
 using Scrummage.Services.Test.Factories;
 using System.Collections.Generic;
 using System.Linq;
-using Scrummage.Services.ViewModels;
+
 //Todo: Update Post tests for Avatar
 namespace Scrummage.Services.Test.Controllers
 {
@@ -82,7 +83,7 @@ namespace Scrummage.Services.Test.Controllers
             ((FakeRepository<Data.Models.Avatar>)_fakeUnitOfWork.AvatarRepository).ModelList = AutoMapper.Mapper.Map(testAvatars, new List<Data.Models.Avatar>());
 
             var controller = new AvatarsController(_fakeUnitOfWork);
-            var result = controller.GetAvatar(testAvatars.First().Id) as OkNegotiatedContentResult<Avatar>;
+            var result = controller.GetAvatar(testAvatars.First().Id) as OkNegotiatedContentResult<AvatarRepresentor>;
 
             Assert.IsNotNull(result);
             PerformCommonAsserts(testAvatars.First(), result.Content);
@@ -198,7 +199,7 @@ namespace Scrummage.Services.Test.Controllers
             var testAvatar = new AvatarFactory(id).Build();
 
             var controller = new AvatarsController(_fakeUnitOfWork);
-            var result = controller.PostAvatar(testAvatar) as CreatedAtRouteNegotiatedContentResult<Avatar>;
+            var result = controller.PostAvatar(testAvatar) as CreatedAtRouteNegotiatedContentResult<AvatarRepresentor>;
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.RouteValues.ContainsKey("Id"));
@@ -236,7 +237,7 @@ namespace Scrummage.Services.Test.Controllers
             var result = controller.DeleteAvatar(testAvatars.First().Id);
             
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(OkNegotiatedContentResult<Avatar>));
+            Assert.IsInstanceOfType(result, typeof(OkNegotiatedContentResult<AvatarRepresentor>));
             Assert.IsTrue(((FakeRepository<Data.Models.Avatar>)_fakeUnitOfWork.AvatarRepository).IsDeleted);
             Assert.IsTrue(((FakeRepository<Data.Models.Avatar>)_fakeUnitOfWork.AvatarRepository).IsSaved);
         }
@@ -245,7 +246,7 @@ namespace Scrummage.Services.Test.Controllers
 
         #region Common Asserts
 
-        private static void PerformCommonAsserts(Avatar expected, Avatar actual)
+        private static void PerformCommonAsserts(AvatarRepresentor expected, AvatarRepresentor actual)
         {
             Assert.AreEqual(expected.Id, actual.Id);
             Assert.AreEqual(expected.Image, actual.Image);

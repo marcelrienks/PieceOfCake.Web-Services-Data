@@ -5,8 +5,8 @@ using System.Data.Entity.Infrastructure;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
-using DbUser = Scrummage.Data.Models.User;
-using VmUser = Scrummage.Services.ViewModels.User;
+using Scrummage.Data.Models;
+using Scrummage.Services.Representors;
 
 namespace Scrummage.Services.Controllers
 {
@@ -31,15 +31,15 @@ namespace Scrummage.Services.Controllers
         #region Actions
 
         // GET: api/Users
-        public IEnumerable<VmUser> GetUsers()
+        public IEnumerable<UserRepresentor> GetUsers()
         {
             var dbUser = _unitOfWork.UserRepository.All();
-            var user = AutoMapper.Mapper.Map(dbUser, new List<VmUser>());
+            var user = AutoMapper.Mapper.Map(dbUser, new List<UserRepresentor>());
             return user;
         }
 
         // GET: api/Users/5
-        [ResponseType(typeof(VmUser))]
+        [ResponseType(typeof(UserRepresentor))]
         public IHttpActionResult GetUser(int id)
         {
             var dbUser = _unitOfWork.UserRepository.Find(id);
@@ -48,13 +48,13 @@ namespace Scrummage.Services.Controllers
                 return NotFound();
             }
 
-            var user = AutoMapper.Mapper.Map(dbUser, new VmUser());
+            var user = AutoMapper.Mapper.Map(dbUser, new UserRepresentor());
             return Ok(user);
         }
 
         // PUT: api/Users/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutUser(int id, VmUser user)
+        public IHttpActionResult PutUser(int id, UserRepresentor user)
         {
             if (id != user.Id)
             {
@@ -68,7 +68,7 @@ namespace Scrummage.Services.Controllers
 
             try
             {
-                var dbUser = AutoMapper.Mapper.Map(user, new DbUser());
+                var dbUser = AutoMapper.Mapper.Map(user, new User());
                 _unitOfWork.UserRepository.Update(dbUser);
             }
             catch (DbUpdateConcurrencyException)
@@ -85,15 +85,15 @@ namespace Scrummage.Services.Controllers
         }
 
         // POST: api/Users
-        [ResponseType(typeof(VmUser))]
-        public IHttpActionResult PostUser(VmUser user)
+        [ResponseType(typeof(UserRepresentor))]
+        public IHttpActionResult PostUser(UserRepresentor user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var dbUser = AutoMapper.Mapper.Map(user, new DbUser());
+            var dbUser = AutoMapper.Mapper.Map(user, new User());
             _unitOfWork.UserRepository.Create(dbUser);
             AutoMapper.Mapper.Map(dbUser, user);
 
@@ -101,7 +101,7 @@ namespace Scrummage.Services.Controllers
         }
 
         // DELETE: api/Users/5
-        [ResponseType(typeof(VmUser))]
+        [ResponseType(typeof(UserRepresentor))]
         public IHttpActionResult DeleteUser(int id)
         {
             var dbUser = _unitOfWork.UserRepository.Find(id);
@@ -112,7 +112,7 @@ namespace Scrummage.Services.Controllers
 
             _unitOfWork.UserRepository.Delete(dbUser);
 
-            var user = AutoMapper.Mapper.Map(dbUser, new VmUser());
+            var user = AutoMapper.Mapper.Map(dbUser, new UserRepresentor());
             return Ok(user);
         }
 

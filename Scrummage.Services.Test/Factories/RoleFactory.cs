@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using VmRole = Scrummage.Services.ViewModels.Role;
+using VmRole = Scrummage.Services.Representors.RoleRepresentor;
 
 namespace Scrummage.Services.Test.Factories
 {

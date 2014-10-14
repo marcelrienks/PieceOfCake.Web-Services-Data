@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Scrummage.Services.ViewModels
+namespace Scrummage.Services.Representors
 {
-    public class Avatar
+    public class AvatarRepresentor
     {
         #region Properties
 
@@ -16,7 +16,7 @@ namespace Scrummage.Services.ViewModels
 
         #region Navigation
 
-        public virtual User User { get; set; }
+        public virtual UserRepresentor User { get; set; }
 
         #endregion
     }

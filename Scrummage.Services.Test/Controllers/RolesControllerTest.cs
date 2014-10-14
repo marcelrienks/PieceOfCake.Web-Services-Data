@@ -2,9 +2,9 @@
 using System.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Scrummage.Services.Controllers;
+using Scrummage.Services.Representors;
 using Scrummage.Services.Test.DataAccess;
 using Scrummage.Services.Test.Factories;
-using Scrummage.Services.ViewModels;
 using System.Linq;
 using System.Web.Http.Results;
 
@@ -82,7 +82,7 @@ namespace Scrummage.Services.Test.Controllers
             ((FakeRepository<Data.Models.Role>)_fakeUnitOfWork.RoleRepository).ModelList = AutoMapper.Mapper.Map(testRoles, new List<Data.Models.Role>());
 
             var controller = new RolesController(_fakeUnitOfWork);
-            var result = controller.GetRole(testRoles.First().Id) as OkNegotiatedContentResult<Role>;
+            var result = controller.GetRole(testRoles.First().Id) as OkNegotiatedContentResult<RoleRepresentor>;
 
             Assert.IsNotNull(result);
             PerformCommonAsserts(testRoles.First(), result.Content);
@@ -165,7 +165,7 @@ namespace Scrummage.Services.Test.Controllers
             var testRole = new RoleFactory().Build();
 
             var controller = new RolesController(_fakeUnitOfWork);
-            var result = controller.PostRole(testRole) as CreatedAtRouteNegotiatedContentResult<Role>;
+            var result = controller.PostRole(testRole) as CreatedAtRouteNegotiatedContentResult<RoleRepresentor>;
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.RouteValues.ContainsKey("Id"));
@@ -203,7 +203,7 @@ namespace Scrummage.Services.Test.Controllers
             var result = controller.DeleteRole(testRoles.First().Id);
             
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(OkNegotiatedContentResult<Role>));
+            Assert.IsInstanceOfType(result, typeof(OkNegotiatedContentResult<RoleRepresentor>));
             Assert.IsTrue(((FakeRepository<Data.Models.Role>)_fakeUnitOfWork.RoleRepository).IsDeleted);
             Assert.IsTrue(((FakeRepository<Data.Models.Role>)_fakeUnitOfWork.RoleRepository).IsSaved);
         }
@@ -212,7 +212,7 @@ namespace Scrummage.Services.Test.Controllers
 
         #region Common Asserts
 
-        private static void PerformCommonAsserts(Role expected, Role actual)
+        private static void PerformCommonAsserts(RoleRepresentor expected, RoleRepresentor actual)
         {
             Assert.AreEqual(expected.Id, actual.Id);
             Assert.AreEqual(expected.Title, actual.Title);

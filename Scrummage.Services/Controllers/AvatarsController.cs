@@ -5,8 +5,8 @@ using System.Data.Entity.Infrastructure;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
-using DbAvatar = Scrummage.Data.Models.Avatar;
-using VmAvatar = Scrummage.Services.ViewModels.Avatar;
+using Scrummage.Data.Models;
+using Scrummage.Services.Representors;
 
 namespace Scrummage.Services.Controllers
 {
@@ -31,15 +31,15 @@ namespace Scrummage.Services.Controllers
         #region Actions
 
         // GET: api/Avatars
-        public IEnumerable<VmAvatar> GetAvatars()
+        public IEnumerable<AvatarRepresentor> GetAvatars()
         {
             var dbAvatars = _unitOfWork.AvatarRepository.All();
-            var avatars = AutoMapper.Mapper.Map(dbAvatars, new List<VmAvatar>());
+            var avatars = AutoMapper.Mapper.Map(dbAvatars, new List<AvatarRepresentor>());
             return avatars;
         }
 
         // GET: api/Avatars/5
-        [ResponseType(typeof(VmAvatar))]
+        [ResponseType(typeof(AvatarRepresentor))]
         public IHttpActionResult GetAvatar(int id)
         {
             var dbAvatar = _unitOfWork.AvatarRepository.Find(id);
@@ -48,13 +48,13 @@ namespace Scrummage.Services.Controllers
                 return NotFound();
             }
 
-            var avatar = AutoMapper.Mapper.Map(dbAvatar, new VmAvatar());
+            var avatar = AutoMapper.Mapper.Map(dbAvatar, new AvatarRepresentor());
             return Ok(avatar);
         }
 
         // PUT: api/Avatars/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutAvatar(int id, VmAvatar avatar)
+        public IHttpActionResult PutAvatar(int id, AvatarRepresentor avatar)
         {
             if (id != avatar.Id)
             {
@@ -68,7 +68,7 @@ namespace Scrummage.Services.Controllers
 
             try
             {
-                var dbAvatar = AutoMapper.Mapper.Map(avatar, new DbAvatar());
+                var dbAvatar = AutoMapper.Mapper.Map(avatar, new Avatar());
                 _unitOfWork.AvatarRepository.Update(dbAvatar);
             }
             catch (DbUpdateConcurrencyException)
@@ -85,8 +85,8 @@ namespace Scrummage.Services.Controllers
         }
 
         // POST: api/Avatars
-        [ResponseType(typeof(VmAvatar))]
-        public IHttpActionResult PostAvatar(VmAvatar avatar)
+        [ResponseType(typeof(AvatarRepresentor))]
+        public IHttpActionResult PostAvatar(AvatarRepresentor avatar)
         {
             if (!ModelState.IsValid)
             {
@@ -105,7 +105,7 @@ namespace Scrummage.Services.Controllers
                 return BadRequest(string.Format("A User with Id: {0} does not exist. First create a user with Id: {0}, or supply another Id.", avatar.Id));
             }
 
-            var dbAvatar = AutoMapper.Mapper.Map(avatar, new DbAvatar());
+            var dbAvatar = AutoMapper.Mapper.Map(avatar, new Avatar());
             _unitOfWork.AvatarRepository.Create(dbAvatar);
             AutoMapper.Mapper.Map(dbAvatar, avatar);
 
@@ -113,7 +113,7 @@ namespace Scrummage.Services.Controllers
         }
 
         // DELETE: api/Avatars/5
-        [ResponseType(typeof(VmAvatar))]
+        [ResponseType(typeof(AvatarRepresentor))]
         public IHttpActionResult DeleteAvatar(int id)
         {
             var dbAvatar = _unitOfWork.AvatarRepository.Find(id);
@@ -124,7 +124,7 @@ namespace Scrummage.Services.Controllers
 
             _unitOfWork.AvatarRepository.Delete(dbAvatar);
 
-            var avatar = AutoMapper.Mapper.Map(dbAvatar, new VmAvatar());
+            var avatar = AutoMapper.Mapper.Map(dbAvatar, new AvatarRepresentor());
             return Ok(avatar);
         }
 

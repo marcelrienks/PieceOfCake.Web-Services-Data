@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using Scrummage.Services.ViewModels;
+using Scrummage.Services.Representors;
 
 namespace Scrummage.Services.Test.Factories
 {
     public class UserFactory
     {
-        private User _user;
-        private List<User> _users;
+        private UserRepresentor _user;
+        private List<UserRepresentor> _users;
 
         /// <summary>
         ///     Create default UserViewModel and UserList objects
@@ -31,7 +31,7 @@ namespace Scrummage.Services.Test.Factories
         /// <param name="userId"></param>
         private void CreateDefaultUserAndUserList(int userId)
         {
-            _user = new User
+            _user = new UserRepresentor
             {
                 Id = userId,
                 Name = "Name",
@@ -39,14 +39,14 @@ namespace Scrummage.Services.Test.Factories
                 Username = "Username",
                 Email = "email@address.com",
                 Roles = new RoleFactory().BuildList(),
-                Avatar = new Avatar
+                Avatar = new AvatarRepresentor
                 {
                     Id = userId,
                     Image = new byte[0]
                 }
             };
 
-            _users = new List<User>
+            _users = new List<UserRepresentor>
             {
                 _user
             };
@@ -56,7 +56,7 @@ namespace Scrummage.Services.Test.Factories
         ///     Return constructed Role
         /// </summary>
         /// <returns>Role</returns>
-        public User Build()
+        public UserRepresentor Build()
         {
             return _user;
         }
@@ -65,7 +65,7 @@ namespace Scrummage.Services.Test.Factories
         ///     Return constructed Role List
         /// </summary>
         /// <returns>List<UserViewModel></returns>
-        public List<User> BuildList()
+        public List<UserRepresentor> BuildList()
         {
             return _users;
         }
@@ -76,7 +76,7 @@ namespace Scrummage.Services.Test.Factories
         /// <returns></returns>
         public UserFactory WithExtendedList(int userId)
         {
-            _users.Add(new User
+            _users.Add(new UserRepresentor
             {
                 Id = userId,
                 Name = "Name2",
@@ -84,7 +84,7 @@ namespace Scrummage.Services.Test.Factories
                 Username = "Username2",
                 Email = "email2@address.com",
                 Roles = new RoleFactory().BuildList(),
-                Avatar = new Avatar
+                Avatar = new AvatarRepresentor
                 {
                     Id = userId,
                     Image = new byte[0]

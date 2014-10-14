@@ -2,9 +2,9 @@
 using DmAvatar = Scrummage.Data.Models.Avatar;
 using DmRole = Scrummage.Data.Models.Role;
 using DmUser = Scrummage.Data.Models.User;
-using VmAvatar = Scrummage.Services.ViewModels.Avatar;
-using VmRole = Scrummage.Services.ViewModels.Role;
-using VmUser = Scrummage.Services.ViewModels.User;
+using VmAvatar = Scrummage.Services.Representors.AvatarRepresentor;
+using VmRole = Scrummage.Services.Representors.RoleRepresentor;
+using VmUser = Scrummage.Services.Representors.UserRepresentor;
 
 namespace Scrummage.Services
 {

@@ -1,11 +1,11 @@
 ﻿using System.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Scrummage.Services.Controllers;
+using Scrummage.Services.Representors;
 using Scrummage.Services.Test.DataAccess;
 using Scrummage.Services.Test.Factories;
 using System.Collections.Generic;
 using System.Linq;
-using Scrummage.Services.ViewModels;
 using System.Web.Http.Results;
 
 namespace Scrummage.Services.Test.Controllers
@@ -83,7 +83,7 @@ namespace Scrummage.Services.Test.Controllers
             ((FakeRepository<Data.Models.User>)_fakeUnitOfWork.UserRepository).ModelList = AutoMapper.Mapper.Map(testUsers, new List<Data.Models.User>());
 
             var controller = new UsersController(_fakeUnitOfWork);
-            var result = controller.GetUser(testUsers.First().Id) as OkNegotiatedContentResult<User>;
+            var result = controller.GetUser(testUsers.First().Id) as OkNegotiatedContentResult<UserRepresentor>;
 
             Assert.IsNotNull(result);
             PerformCommonAsserts(testUsers.First(), result.Content);
@@ -166,7 +166,7 @@ namespace Scrummage.Services.Test.Controllers
             var testUser = new UserFactory().Build();
 
             var controller = new UsersController(_fakeUnitOfWork);
-            var result = controller.PostUser(testUser) as CreatedAtRouteNegotiatedContentResult<User>;
+            var result = controller.PostUser(testUser) as CreatedAtRouteNegotiatedContentResult<UserRepresentor>;
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.RouteValues.ContainsKey("Id"));
@@ -203,7 +203,7 @@ namespace Scrummage.Services.Test.Controllers
             var result = controller.DeleteUser(testUsers.First().Id);
 
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(OkNegotiatedContentResult<User>));
+            Assert.IsInstanceOfType(result, typeof(OkNegotiatedContentResult<UserRepresentor>));
             Assert.IsTrue(((FakeRepository<Data.Models.User>)_fakeUnitOfWork.UserRepository).IsDeleted);
             Assert.IsTrue(((FakeRepository<Data.Models.User>)_fakeUnitOfWork.UserRepository).IsSaved);
         }
@@ -212,7 +212,7 @@ namespace Scrummage.Services.Test.Controllers
 
         #region Common Asserts
 
-        private static void PerformCommonAsserts(User expected, User actual)
+        private static void PerformCommonAsserts(UserRepresentor expected, UserRepresentor actual)
         {
             Assert.AreEqual(expected.Email, actual.Email);
             Assert.AreEqual(expected.Id, actual.Id);

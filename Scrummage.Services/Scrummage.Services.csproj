@@ -176,9 +176,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Avatar.cs" />
-    <Compile Include="ViewModels\Role.cs" />
-    <Compile Include="ViewModels\User.cs" />
+    <Compile Include="Representors\AvatarRepresentor.cs" />
+    <Compile Include="Representors\RoleRepresentor.cs" />
+    <Compile Include="Representors\UserRepresentor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

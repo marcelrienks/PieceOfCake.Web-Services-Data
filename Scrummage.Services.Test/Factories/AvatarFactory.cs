@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using VmAvatar = Scrummage.Services.ViewModels.Avatar;
+using VmAvatar = Scrummage.Services.Representors.AvatarRepresentor;
 
 namespace Scrummage.Services.Test.Factories
 {

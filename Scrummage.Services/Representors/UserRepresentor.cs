@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Scrummage.Services.ViewModels
+namespace Scrummage.Services.Representors
 {
-    public class User
+    public class UserRepresentor
     {
         #region Properties
 
@@ -36,8 +36,8 @@ namespace Scrummage.Services.ViewModels
 
         #region Navigation
 
-        public virtual ICollection<Role> Roles { get; set; }
-        public virtual Avatar Avatar { get; set; }
+        public virtual ICollection<RoleRepresentor> Roles { get; set; }
+        public virtual AvatarRepresentor Avatar { get; set; }
 
         #endregion
     }
