@@ -7,7 +7,7 @@ using Scrummage.Services.Test.Factories;
 using System.Collections.Generic;
 using System.Linq;
 using Scrummage.Services.ViewModels;
-
+//Todo: Update Post tests for Avatar
 namespace Scrummage.Services.Test.Controllers
 {
     [TestClass]
@@ -100,10 +100,11 @@ namespace Scrummage.Services.Test.Controllers
             ((FakeRepository<Data.Models.Avatar>)_fakeUnitOfWork.AvatarRepository).Model = AutoMapper.Mapper.Map(testAvatar, new Data.Models.Avatar());
 
             var controller = new AvatarsController(_fakeUnitOfWork);
-            var result = controller.PutAvatar(9, testAvatar);
+            var result = controller.PutAvatar(9, testAvatar) as BadRequestErrorMessageResult;
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(BadRequestErrorMessageResult));
+            Assert.AreEqual(result.Message, "The Avatar Id passed in the URL and Body, do not match.");
         }
 
         [TestMethod]
@@ -159,9 +160,42 @@ namespace Scrummage.Services.Test.Controllers
         }
 
         [TestMethod]
-        public void PostAvatar_ShouldReturn_CreatedAtRouteNegotiatedContentResult()
+        public void PostAvatar_ShouldReturn_AvatarExistsError()
+        {
+            var testAvatars = new AvatarFactory().BuildList();
+            //'FakeUnitOfWork.AvatarRepository' must be cast to 'FakeRepository<Avatar>', as 'FakeRepository' exposes some properties that 'IRepository' does not
+            ((FakeRepository<Data.Models.Avatar>)_fakeUnitOfWork.AvatarRepository).ModelList = AutoMapper.Mapper.Map(testAvatars, new List<Data.Models.Avatar>());
+
+            var controller = new AvatarsController(_fakeUnitOfWork);
+            var result = controller.PostAvatar(testAvatars[0]) as BadRequestErrorMessageResult;
+
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(BadRequestErrorMessageResult));
+            Assert.AreEqual(result.Message, string.Format("An Avatar with Id: {0} already exists.", testAvatars[0].Id));
+        }
+
+        [TestMethod]
+        public void PostAvatar_ShouldReturn_UserDoesNotExistError()
         {
             var testAvatar = new AvatarFactory().Build();
+
+            var controller = new AvatarsController(_fakeUnitOfWork);
+            var result = controller.PostAvatar(testAvatar) as BadRequestErrorMessageResult;
+
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(BadRequestErrorMessageResult));
+            Assert.AreEqual(result.Message, string.Format("A User with Id: {0} does not exist. First create a user with Id: {0}, or supply another Id.", testAvatar.Id));
+        }
+
+        [TestMethod]
+        public void PostAvatar_ShouldReturn_CreatedAtRouteNegotiatedContentResult()
+        {
+            var id = 0;
+            var testUsers = new UserFactory(id).BuildList();
+            //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
+            ((FakeRepository<Data.Models.User>)_fakeUnitOfWork.UserRepository).ModelList = AutoMapper.Mapper.Map(testUsers, new List<Data.Models.User>());
+
+            var testAvatar = new AvatarFactory(id).Build();
 
             var controller = new AvatarsController(_fakeUnitOfWork);
             var result = controller.PostAvatar(testAvatar) as CreatedAtRouteNegotiatedContentResult<Avatar>;

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Scrummage.Web.ViewModels;
 
-namespace Scrummage.Test.Factories.ViewModelFactories
+namespace Scrummage.Web.Test.Factories.ViewModelFactories
 {
     internal class RoleViewModelFactory
     {

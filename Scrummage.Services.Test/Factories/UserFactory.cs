@@ -19,10 +19,10 @@ namespace Scrummage.Services.Test.Factories
         /// <summary>
         ///     Create default UserViewModel and UserList objects with given UserViewModel Id
         /// </summary>
-        /// <param name="UserId"></param>
-        public UserFactory(int UserId)
+        /// <param name="userId"></param>
+        public UserFactory(int userId)
         {
-            CreateDefaultUserAndUserList(UserId);
+            CreateDefaultUserAndUserList(userId);
         }
 
         /// <summary>

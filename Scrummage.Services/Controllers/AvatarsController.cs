@@ -1,6 +1,5 @@
 ﻿using Scrummage.Data;
 using Scrummage.Data.Interfaces;
-using Scrummage.Data.Models;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Net;
@@ -92,6 +91,18 @@ namespace Scrummage.Services.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }
+
+            //Validate that an Avatar with supplied Id does not already exist, this is because Avatar does not have an auto increment Identity
+            if (_unitOfWork.AvatarRepository.Exists(avatar.Id))
+            {
+                return BadRequest(string.Format("An Avatar with Id: {0} already exists.", avatar.Id));
+            }
+
+            //Validate that a user with an id matching the supplied Avatar Id exists, this is because there is a one to one relationship between User and Avatar
+            if (!_unitOfWork.UserRepository.Exists(avatar.Id))
+            {
+                return BadRequest(string.Format("A User with Id: {0} does not exist. First create a user with Id: {0}, or supply another Id.", avatar.Id));
             }
 
             var dbAvatar = AutoMapper.Mapper.Map(avatar, new DbAvatar());

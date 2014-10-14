@@ -5,17 +5,35 @@ namespace Scrummage.Services.Test.Factories
 {
     public class AvatarFactory
     {
-        private readonly VmAvatar _avatar;
-        private readonly List<VmAvatar> _avatars;
+        private VmAvatar _avatar;
+        private List<VmAvatar> _avatars;
 
         /// <summary>
         ///     Create default Avatar and AvatarList objects
         /// </summary>
         public AvatarFactory()
         {
+            CreateDefaultUserAndUserList(0);
+        }
+
+        /// <summary>
+        ///     Create default Avatar and AvatarList objects with given UserViewModel Id
+        /// </summary>
+        /// <param name="avatarId"></param>
+        public AvatarFactory(int avatarId)
+        {
+            CreateDefaultUserAndUserList(avatarId);
+        }
+
+        /// <summary>
+        ///     Create default Avatar and AvatarList objects with given UserViewModel Id
+        /// </summary>
+        /// <param name="avatarId"></param>
+        private void CreateDefaultUserAndUserList(int avatarId)
+        {
             _avatar = new VmAvatar
             {
-                Id = 0,
+                Id = avatarId,
                 Image = new byte[0]
             };
 

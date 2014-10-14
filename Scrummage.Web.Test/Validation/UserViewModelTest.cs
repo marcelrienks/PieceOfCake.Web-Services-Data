@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Scrummage.Test.Factories.ViewModelFactories;
+using Scrummage.Web.Test.Factories.ViewModelFactories;
 
-namespace Scrummage.Test.Validation
+namespace Scrummage.Web.Test.Validation
 {
     [TestClass]
     public class UserViewModelTest
@@ -20,8 +20,8 @@ namespace Scrummage.Test.Validation
         [TestMethod]
         public void TestRequiredFields()
         {
-            var User = new UserViewModelFactory().WithNullRequiredFields().Build();
-            var result = _testController.TestTryValidateModel(User);
+            var user = new UserViewModelFactory().WithNullRequiredFields().Build();
+            var result = _testController.TestTryValidateModel(user);
 
             var modelState = _testController.ModelState;
 
@@ -57,8 +57,8 @@ namespace Scrummage.Test.Validation
         [TestMethod]
         public void TestInvalidFields()
         {
-            var User = new UserViewModelFactory().WithInvalidFields().Build();
-            var result = _testController.TestTryValidateModel(User);
+            var user = new UserViewModelFactory().WithInvalidFields().Build();
+            var result = _testController.TestTryValidateModel(user);
 
             var modelState = _testController.ModelState;
 
@@ -92,8 +92,8 @@ namespace Scrummage.Test.Validation
         [TestMethod]
         public void TestValidUser()
         {
-            var User = new UserViewModelFactory().Build();
-            var result = _testController.TestTryValidateModel(User);
+            var user = new UserViewModelFactory().Build();
+            var result = _testController.TestTryValidateModel(user);
 
             var modelState = _testController.ModelState;
 

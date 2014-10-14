@@ -100,10 +100,11 @@ namespace Scrummage.Services.Test.Controllers
             ((FakeRepository<Data.Models.Role>)_fakeUnitOfWork.RoleRepository).Model = AutoMapper.Mapper.Map(testRole, new Data.Models.Role());
 
             var controller = new RolesController(_fakeUnitOfWork);
-            var result = controller.PutRole(9, testRole);
+            var result = controller.PutRole(9, testRole) as BadRequestErrorMessageResult;
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(BadRequestErrorMessageResult));
+            Assert.AreEqual(result.Message, "The Role Id passed in the URL and Body, do not match.");
         }
 
         [TestMethod]

@@ -3,7 +3,7 @@ using System;
 namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
-    ///     Describes a type model.
+    /// Describes a type model.
     /// </summary>
     public abstract class ModelDescription
     {
