@@ -100,24 +100,25 @@ namespace Scrummage.Services.Test.DataAccess
             IsSaved = true;
         }
 
+        //Todo: Fix possible n ull refarence
         public bool Exists(int id)
         {
             if (typeof (TModel) == typeof (User))
             {
                 var users = ModelList as IEnumerable<User>;
-                return users.Count(entity => entity.Id == id) > 0;
+                return users != null && users.Count(entity => entity.Id == id) > 0;
             }
 
             if (typeof (TModel) == typeof (Role))
             {
                 var roles = ModelList as IEnumerable<Role>;
-                return roles.Count(entity => entity.Id == id) > 0;
+                return roles != null && roles.Count(entity => entity.Id == id) > 0;
             }
 
             if (typeof (TModel) == typeof (Avatar))
             {
                 var avatars = ModelList as IEnumerable<Avatar>;
-                return avatars.Count(entity => entity.Id == id) > 0;
+                return avatars != null && avatars.Count(entity => entity.Id == id) > 0;
             }
 
             return false;

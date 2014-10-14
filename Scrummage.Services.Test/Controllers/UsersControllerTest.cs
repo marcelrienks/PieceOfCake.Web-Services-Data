@@ -101,10 +101,11 @@ namespace Scrummage.Services.Test.Controllers
             ((FakeRepository<Data.Models.User>)_fakeUnitOfWork.UserRepository).Model = AutoMapper.Mapper.Map(testUser, new Data.Models.User());
 
             var controller = new UsersController(_fakeUnitOfWork);
-            var result = controller.PutUser(9, testUser);
+            var result = controller.PutUser(9, testUser) as BadRequestErrorMessageResult;
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(BadRequestErrorMessageResult));
+            Assert.AreEqual(result.Message, "The User Id passed in the URL and Body, do not match.");
         }
 
         [TestMethod]

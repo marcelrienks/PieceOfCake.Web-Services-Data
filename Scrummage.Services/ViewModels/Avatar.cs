@@ -6,6 +6,7 @@ namespace Scrummage.Services.ViewModels
     {
         #region Properties
 
+        [Required]
         public int Id { get; set; }
 
         [Required]
