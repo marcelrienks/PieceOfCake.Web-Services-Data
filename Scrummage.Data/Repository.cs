@@ -93,66 +93,66 @@ namespace Scrummage.Data
         ///     This Creates a new entry of type TModel.
         /// </summary>
         /// <param name="entity"></param>
-        public void Create(TModel entity)
+        public int Create(TModel entity)
         {
             _context.Set<TModel>().Add(entity);
-            _context.SaveChanges();
+            return _context.SaveChanges();
         }
 
         /// <summary>
         ///     Asynchronously Creates a new entry of type TModel.
         /// </summary>
         /// <param name="entity"></param>
-        public async void CreateAsync(TModel entity)
+        public async Task<int> CreateAsync(TModel entity)
         {
             _context.Set<TModel>().Add(entity);
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
 
         /// <summary>
         ///     This updates the specified entry of type TModel, and all it's relations.
         /// </summary>
         /// <param name="entity"></param>
-        public void Update(TModel entity)
+        public int Update(TModel entity)
         {
             //Todo: determine weather or not updating a model and it's relations should be done, or rather have multiple API calls be made, or use hypermedia
             _context.Entry(entity).State = EntityState.Modified;
             //UpdateEntityGraph(entity);
 
-            _context.SaveChanges();
+            return _context.SaveChanges();
         }
 
         /// <summary>
         ///     Asynchronously updates the specified entry of type TModel, and all it's relations.
         /// </summary>
         /// <param name="entity"></param>
-        public async void UpdateAsync(TModel entity)
+        public async Task<int> UpdateAsync(TModel entity)
         {
             //Todo: determine weather or not updating a model and it's relations should be done, or rather have multiple API calls be made, or use hypermedia
             _context.Entry(entity).State = EntityState.Modified;
             //UpdateEntityGraph(entity);
 
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
 
         /// <summary>
         ///     This deletes a specific entry of type TEntity, by id.
         /// </summary>
         /// <param name="entity"></param>
-        public void Delete(TModel entity)
+        public int Delete(TModel entity)
         {
             _context.Set<TModel>().Remove(entity);
-            _context.SaveChanges();
+            return _context.SaveChanges();
         }
 
         /// <summary>
         ///     Asynchronously deletes a specific entry of type TEntity, by id.
         /// </summary>
         /// <param name="entity"></param>
-        public async void DeleteAsync(TModel entity)
+        public async Task<int> DeleteAsync(TModel entity)
         {
             _context.Set<TModel>().Remove(entity);
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
 
         /// <summary>

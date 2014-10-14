@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Scrummage.Data.Interfaces;
 using Scrummage.Data.Models;
+using System.Threading.Tasks;
 
 //Todo: Investigate using Mock DbSet instead of having a fake Repository
 
@@ -63,7 +64,7 @@ namespace Scrummage.Web.Test.DataAccess
             return (TModel)Convert.ChangeType(result, typeof(TModel));
         }
 
-        public System.Threading.Tasks.Task<TModel> FindAsync(int id)
+        public Task<TModel> FindAsync(int id)
         {
             throw new NotImplementedException();
         }
@@ -83,35 +84,38 @@ namespace Scrummage.Web.Test.DataAccess
             return ModelList.Where(query).OrderBy(orderBy);
         }
 
-        public void Create(TModel entity)
+        public int Create(TModel entity)
         {
             IsCreated = true;
             IsSaved = true;
+            return 1;
         }
 
-        public void CreateAsync(TModel entity)
+        public Task<int> CreateAsync(TModel entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(TModel entity)
+        public int Update(TModel entity)
         {
             IsUpdated = true;
             IsSaved = true;
+            return 1;
         }
 
-        public void UpdateAsync(TModel entity)
+        public Task<int> UpdateAsync(TModel entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(TModel entity)
+        public int Delete(TModel entity)
         {
             IsDeleted = true;
             IsSaved = true;
+            return 1;
         }
 
-        public void DeleteAsync(TModel entity)
+        public Task<int> DeleteAsync(TModel entity)
         {
             throw new NotImplementedException();
         }
@@ -139,14 +143,9 @@ namespace Scrummage.Web.Test.DataAccess
             return false;
         }
 
-        public System.Threading.Tasks.Task<bool> ExistsAsync(int id)
+        public Task<bool> ExistsAsync(int id)
         {
             throw new NotImplementedException();
-        }
-
-        public void Save()
-        {
-            IsSaved = true;
         }
 
         //Async Example

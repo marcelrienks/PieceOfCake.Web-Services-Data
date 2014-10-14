@@ -13,12 +13,12 @@ namespace Scrummage.Data.Interfaces
         IEnumerable<TModel> Where(Func<TModel, bool> query);
         IOrderedEnumerable<TModel> OrderBy<TKey>(Func<TModel, TKey> orderBy);
         IOrderedEnumerable<TModel> WhereOrderBy<TKey>(Func<TModel, bool> query, Func<TModel, TKey> orderBy);
-        void Create(TModel entity);
-        void CreateAsync(TModel entity);
-        void Update(TModel entity);
-        void UpdateAsync(TModel entity);
-        void Delete(TModel entity);
-        void DeleteAsync(TModel entity);
+        int Create(TModel entity);
+        Task<int> CreateAsync(TModel entity);
+        int Update(TModel entity);
+        Task<int> UpdateAsync(TModel entity);
+        int Delete(TModel entity);
+        Task<int> DeleteAsync(TModel entity);
         bool Exists(int id);
         Task<bool> ExistsAsync(int id);
     }
