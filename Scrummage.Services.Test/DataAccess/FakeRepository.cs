@@ -45,11 +45,11 @@ namespace Scrummage.Services.Test.DataAccess
 
             //Based on type of TEntity, convert to specified type and find entry using id (All this logic is required to use the Find() function with id field)
             object result;
-            if (typeof (TModel) == typeof (Role))
+            if (typeof(TModel) == typeof(Role))
             {
                 result = ModelList.Cast<Role>().ToList().Find(role => role.Id == id);
             }
-            else if (typeof (TModel) == typeof (User))
+            else if (typeof(TModel) == typeof(User))
             {
                 result = ModelList.Cast<User>().ToList().Find(user => user.Id == id);
             }
@@ -64,7 +64,12 @@ namespace Scrummage.Services.Test.DataAccess
             }
 
             //Convert back to TEntity and return
-            return (TModel) Convert.ChangeType(result, typeof (TModel));
+            return (TModel)Convert.ChangeType(result, typeof(TModel));
+        }
+
+        public System.Threading.Tasks.Task<TModel> FindAsync(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public IEnumerable<TModel> Where(Func<TModel, bool> query)
@@ -88,10 +93,20 @@ namespace Scrummage.Services.Test.DataAccess
             IsSaved = true;
         }
 
+        public void CreateAsync(TModel entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(TModel entity)
         {
             IsUpdated = true;
             IsSaved = true;
+        }
+
+        public void UpdateAsync(TModel entity)
+        {
+            throw new NotImplementedException();
         }
 
         public void Delete(TModel entity)
@@ -100,28 +115,37 @@ namespace Scrummage.Services.Test.DataAccess
             IsSaved = true;
         }
 
-        //Todo: Fix possible n ull refarence
+        public void DeleteAsync(TModel entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Exists(int id)
         {
-            if (typeof (TModel) == typeof (User))
+            if (typeof(TModel) == typeof(User))
             {
                 var users = ModelList as IEnumerable<User>;
                 return users != null && users.Count(entity => entity.Id == id) > 0;
             }
 
-            if (typeof (TModel) == typeof (Role))
+            if (typeof(TModel) == typeof(Role))
             {
                 var roles = ModelList as IEnumerable<Role>;
                 return roles != null && roles.Count(entity => entity.Id == id) > 0;
             }
 
-            if (typeof (TModel) == typeof (Avatar))
+            if (typeof(TModel) == typeof(Avatar))
             {
                 var avatars = ModelList as IEnumerable<Avatar>;
                 return avatars != null && avatars.Count(entity => entity.Id == id) > 0;
             }
 
             return false;
+        }
+
+        public System.Threading.Tasks.Task<bool> ExistsAsync(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public void Save()

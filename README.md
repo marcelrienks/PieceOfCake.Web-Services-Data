@@ -30,6 +30,7 @@ Used to update the entire graph tree of a context model, including relations
 * Manage Attachments
 
 ### Todo ###
+* Investigate using Async repository methods
 * Investigate using auto code generation to create api's and api tests based on this controller as template
 * determine weather or not updating a model and it's relations should be done, or rather have multiple API calls be made, or use hypermedia
 * Switch Scrummage.Web to use Scrummage.Services instead of going to Scrummage.Data directly
