@@ -1,6 +1,6 @@
 # PieceOfCake [![Build status](https://ci.appveyor.com/api/projects/status/cmaiaeysv5182qiw?svg=true)](https://ci.appveyor.com/project/celemar/pieceofcake)
 **NOTE: Still in Development!**  
-[P]iece[O]f[C]ake is a POC / Template for a three layered project (Data, Service and Web)
+**P**iece **O**f **C**ake is a **POC** / Template for a three layered project (Data, Service and Web)
 
 **Data**  
 Use Entity Frameworks Code First generation, and the Repository / Unit of work Pattern to create a Generic point of entry for all Models.
@@ -14,7 +14,7 @@ Use MVC to expose a graphic interface over all the Service functions available.
 
 This will allow Customers to either use the Service layer through REST, or the Web layer to perform CRUDL functionality.
 
-## TECHNOLOGIES AND PATTERNS: ##  
+## TECHNOLOGIES AND PATTERNS: ##
 This project is a test bed for implementing the Repository and Unit of Work Pattern for an MVC 5 project.
 It uses Code First approach through Entity Framework 6.
   
@@ -61,10 +61,8 @@ string Description (Max=180)
 
 ### Users ###
 Roles (n)  
-Avatar (1)  
 int Id (PK, Identity)  
 string Name (Required, Max=30)  
-string ShortName (Required, Max=3)  
 string Username (Required, Max=30, Unique)  
 string Password (Required, Max=30)  
 string Email (Required)  
