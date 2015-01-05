@@ -1,4 +1,5 @@
-﻿using PieceOfCake.Data.Models;
+﻿using AutoMapper;
+using PieceOfCake.Data.Models;
 using PieceOfCake.Web.ViewModels;
 
 namespace PieceOfCake.Web

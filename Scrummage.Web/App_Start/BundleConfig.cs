@@ -1,4 +1,6 @@
-﻿namespace PieceOfCake.Web
+﻿using System.Web.Optimization;
+
+namespace PieceOfCake.Web
 {
     public class BundleConfig
     {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using PieceOfCake.Data;
 using PieceOfCake.Data.Interfaces;
 using PieceOfCake.Data.Models;

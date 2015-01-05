@@ -1,3 +1,5 @@
+using System.Data.Entity.Migrations;
+
 namespace PieceOfCake.Data.Migrations
 {
     public partial class Init : DbMigration
