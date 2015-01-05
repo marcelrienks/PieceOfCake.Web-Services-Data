@@ -13,7 +13,7 @@ namespace PieceOfCake.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201501051235434_Init"; }
+            get { return "201501051244288_Init"; }
         }
         
         string IMigrationMetadata.Source

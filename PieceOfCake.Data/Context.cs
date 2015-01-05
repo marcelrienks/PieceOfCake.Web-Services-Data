@@ -79,12 +79,6 @@ namespace PieceOfCake.Data
                 .IsRequired()
                 .HasMaxLength(30);
 
-            //ShortName is Required
-            modelBuilder.Entity<User>()
-                .Property(user => user.ShortName)
-                .IsRequired()
-                .HasMaxLength(3);
-
             //UserName is Required
             modelBuilder.Entity<User>()
                 .Property(user => user.Username)

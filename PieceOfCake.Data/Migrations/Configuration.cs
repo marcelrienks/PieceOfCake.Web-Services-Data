@@ -72,7 +72,6 @@ namespace PieceOfCake.Data.Migrations
                 new User
                 {
                     Name = "Marcel Rienks",
-                    ShortName = "mr",
                     Username = "marcelr",
                     Password = "E3mc2rd!",
                     Email = "marcelrienks@gmail.com",

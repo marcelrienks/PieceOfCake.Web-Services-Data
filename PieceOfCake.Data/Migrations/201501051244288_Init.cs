@@ -22,7 +22,6 @@ namespace PieceOfCake.Data.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false, maxLength: 30),
-                        ShortName = c.String(nullable: false, maxLength: 3),
                         Username = c.String(nullable: false, maxLength: 30),
                         Password = c.String(nullable: false),
                         Email = c.String(nullable: false),

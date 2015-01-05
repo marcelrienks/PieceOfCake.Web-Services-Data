@@ -51,9 +51,9 @@
     <Compile Include="Context.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
-    <Compile Include="Migrations\201501051235434_Init.cs" />
-    <Compile Include="Migrations\201501051235434_Init.Designer.cs">
-      <DependentUpon>201501051235434_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201501051244288_Init.cs" />
+    <Compile Include="Migrations\201501051244288_Init.Designer.cs">
+      <DependentUpon>201501051244288_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\User.cs" />
@@ -70,8 +70,8 @@
     <Content Include="Migrations\default_avatar.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201501051235434_Init.resx">
-      <DependentUpon>201501051235434_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201501051244288_Init.resx">
+      <DependentUpon>201501051244288_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
