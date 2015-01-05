@@ -68,7 +68,6 @@ namespace PieceOfCake.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(UserViewModel userViewModel, HttpPostedFileBase file, FormCollection formCollection)
         {
-            //Todo: Fix issue with Avatar not re uploading on post after validation failure
 
             #region Roles
 
@@ -164,7 +163,6 @@ namespace PieceOfCake.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(UserViewModel userViewModel, HttpPostedFileBase file, FormCollection formCollection)
         {
-            //Todo: Fix issue with Avatar not re uploading on post after validation failure
 
             #region Roles
 

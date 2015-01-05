@@ -1,12 +1,20 @@
-# Scrummage [![Build status](https://ci.appveyor.com/api/projects/status/m1jtv84a3blb2yo1/branch/master)](https://ci.appveyor.com/project/celemar/scrummagev2/branch/master)
+# PieceOfCake [![Build status](https://ci.appveyor.com/api/projects/status/cmaiaeysv5182qiw?svg=true)](https://ci.appveyor.com/project/celemar/pieceofcake)
 **NOTE: Still in Development!**  
-This is my Scrum Management Tools suite.  
-This is designed to help manage a development team using the Scrum framework.
-Tools include Administring users, projects and sprints, as well as Product Backlog planning, Sprint Backlog planning, Sprint Execution and review meetings.
+[P]iece[O]f[C]ake is a POC / Template for a three layered project (Data, Service and Web)
 
-## TECHNOLOGIES AND PATTERNS: ##
-Based on ScrummageV1, this version simply updates to the latest tech and libraries.
-  
+**Data**  
+Use Entity Frameworks Code First generation, and the Repository / Unit of work Pattern to create a Generic point of entry for all Models.
+
+**Service**  
+Use WebAPI to expose basic CRUDL functionality of each model in Data, through REST services.
+These services will be auto generated using templates.
+
+**Web**  
+Use MVC to expose a graphic interface over all the Service functions available.
+
+This will allow Customers to either use the Service layer through REST, or the Web layer to perform CRUDL functionality.
+
+## TECHNOLOGIES AND PATTERNS: ##  
 This project is a test bed for implementing the Repository and Unit of Work Pattern for an MVC 5 project.
 It uses Code First approach through Entity Framework 6.
   
@@ -18,23 +26,18 @@ Twitter Bootstrap has been used for presentation.
 Used to update the entire graph tree of a context model, including relations
 
 ## DEVELOPMENT: ##
-* Create Management of Users
-* Create Authentication layer
-* Look and Feel
-* Manage Projects
-* Manage Sprints
-* Manage Statuses
-* Manage Feature
-* Manage Backlog Items
-* Manage Tasks
-* Manage Attachments
+* Data: Update models to be for a generic template
+* Services: Update services to match the new models
+* Services: Update Unit tests
+* Services: Implement auto generation of services per model
+* Web: Update interface to allow all crudl functions for models
+* Web: Update Unit tests
 
 ### Todo ###
 * Investigate using Async repository methods
 * Investigate using auto code generation to create api's and api tests based on this controller as template
 * determine weather or not updating a model and it's relations should be done, or rather have multiple API calls be made, or use hypermedia
-* Switch Scrummage.Web to use Scrummage.Services instead of going to Scrummage.Data directly
-* Fix issue with Avatar not re uploading on post after validation failure
+* Switch PieceOfCake.Web to use PieceOfCake.Services instead of going to PieceOfCake.Data directly
 * Add validation to prevent role from being deleted if it's assigned to a User
 * Investigate using Mock DbSet instead of having a fake Repository
 * verify of username, password on create of User without causing a post back
@@ -65,80 +68,6 @@ string ShortName (Required, Max=3)
 string Username (Required, Max=30, Unique)  
 string Password (Required, Max=30)  
 string Email (Required)  
-
-### Avatar ###
-User (1)  
-int Id (PK)  
-byte[] Image (Required)  
-
-### Project ###
-BacklogItems (n)  
-int ProjectId (PK, Identity)  
-string Name (Required, Max=30)  
-string Description (Max=180)  
-
-### Sprint ###
-BacklogItems (n)  
-int SprintId (PK, Identity)  
-string Name (Required, Max=30)  
-DateTime StartDate (Nullable)  
-DateTime EndDate (Nullable)  
-
-### Status ###
-Features (n)  
-BacklogItems (n)  
-Tasks (n)  
-int StatusId (PK, Identity)  
-string Title (Required, Max=30) {To Do, In Progress, Done}  
-string Description (Max=180)  
-
-### Feature ###
-BacklogItems (n)  
-Status (1)  
-int FeatureId (PK, Identity)  
-string Name (Required, Max=30)  
-string Tag (Max=30)  
-
-### BacklogItem ###
-Project (1)  
-Feature (0.1)  
-Sprint (0.1)  
-Tasks (n)  
-Users (n)  
-CreatedByUser (1)  
-ChangedByUser (0.1)  
-ClosedByUser (1)  
-Status (1)  
-Attachments (n)  
-int BacklogItemId (PK, Identity)  
-enum Type (Required) {Feature, Bug, Change} 	//If this does not work, make a linked table  
-decimal Priority (Required)	//try using decimal like this <BacklogItemId.Priority> //Or test if EF maintains the sequence of arrays  
-DateTime CreatedDate (Required)  
-DateTime ChangedDate  
-DateTime ClosedDate (Required)  
-string Title (Required, Max=30)  
-string Description (Max=180)  
-enum Complexity (Required) {1pt=1, 2pt=2, 3pt=3, 4pt=4, 5pt=5}	//If this does not work, make a linked table  
-string Tag (Max=30)  
-int HoursEstimated  
-int HoursLogged  
-
-### Task ###
-Backlog Item (1)  
-Users (n)  
-Status (1)  
-Attachments (n)  
-int TaskId (PK, Identity)  
-enum Type (Required) {Code, Review, Investigate} 	//If this does not work, make a linked table  
-string Tag (Max=30)  
-int HoursEstimated  
-int HoursLogged  
-
-### Attachment ###
-BacklogItem (1)  
-Task (1)  
-int AttachmentId (PK, Identity)  
-byte[] file (Required)  
 
 ## NOTES: ##
 ### Migration ###

@@ -7,7 +7,6 @@ using PieceOfCake.Data.Models;
 using PieceOfCake.Services.Controllers;
 using PieceOfCake.Services.Representors;
 
-//Todo: Update Post tests for Avatar
 using PieceOfCake.Services.Test.DataAccess;
 using PieceOfCake.Services.Test.Factories;
 
