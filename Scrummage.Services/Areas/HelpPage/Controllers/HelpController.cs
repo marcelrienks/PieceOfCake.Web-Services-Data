@@ -1,10 +1,10 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using Scrummage.Services.Areas.HelpPage.ModelDescriptions;
-using Scrummage.Services.Areas.HelpPage.Models;
+using PieceOfCake.Services.Areas.HelpPage.ModelDescriptions;
+using PieceOfCake.Services.Areas.HelpPage.Models;
 
-namespace Scrummage.Services.Areas.HelpPage.Controllers
+namespace PieceOfCake.Services.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

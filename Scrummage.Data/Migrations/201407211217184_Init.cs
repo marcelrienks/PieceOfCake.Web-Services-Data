@@ -1,6 +1,4 @@
-using System.Data.Entity.Migrations;
-
-namespace Scrummage.Data.Migrations
+namespace PieceOfCake.Data.Migrations
 {
     public partial class Init : DbMigration
     {

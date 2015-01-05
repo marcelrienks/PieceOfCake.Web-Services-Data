@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Scrummage.Services
+namespace PieceOfCake.Services
 {
     public class RouteConfig
     {

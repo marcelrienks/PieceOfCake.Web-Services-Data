@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Scrummage.Web.ViewModels;
+using PieceOfCake.Web.ViewModels;
 
-namespace Scrummage.Web.Test.Factories.ViewModelFactories
+namespace PieceOfCake.Web.Test.Factories.ViewModelFactories
 {
     public class UserViewModelFactory
     {

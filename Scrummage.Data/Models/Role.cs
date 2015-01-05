@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Scrummage.Data.Models
+namespace PieceOfCake.Data.Models
 {
     public class Role
     {

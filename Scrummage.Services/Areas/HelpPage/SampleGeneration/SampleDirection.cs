@@ -1,4 +1,4 @@
-namespace Scrummage.Services.Areas.HelpPage
+namespace PieceOfCake.Services.Areas.HelpPage.SampleGeneration
 {
     /// <summary>
     /// Indicates whether the sample is used for request or response

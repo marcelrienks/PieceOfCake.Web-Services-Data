@@ -1,4 +1,4 @@
-namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
+namespace PieceOfCake.Services.Areas.HelpPage.ModelDescriptions
 {
     public class DictionaryModelDescription : KeyValuePairModelDescription
     {

@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Scrummage.Services.Controllers;
-using Scrummage.Services.Representors;
-using Scrummage.Services.Test.DataAccess;
-using Scrummage.Services.Test.Factories;
-using System.Linq;
-using System.Web.Http.Results;
+using PieceOfCake.Data.Models;
+using PieceOfCake.Services.Controllers;
+using PieceOfCake.Services.Representors;
+using PieceOfCake.Services.Test.DataAccess;
+using PieceOfCake.Services.Test.Factories;
 
-namespace Scrummage.Services.Test.Controllers
+namespace PieceOfCake.Services.Test.Controllers
 {
     [TestClass]
     public class RolesControllerTest
@@ -32,7 +32,7 @@ namespace Scrummage.Services.Test.Controllers
         {
             var testRoles = new RoleFactory().BuildList();
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Data.Models.Role>)_fakeUnitOfWork.RoleRepository).ModelList = AutoMapper.Mapper.Map(testRoles, new List<Data.Models.Role>());
+            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = AutoMapper.Mapper.Map(testRoles, new List<Role>());
 
             var controller = new RolesController(_fakeUnitOfWork);
             var roles = controller.GetRoles().ToList();
@@ -47,7 +47,7 @@ namespace Scrummage.Services.Test.Controllers
         {
             var testRoles = new RoleFactory().WithExtendedList().BuildList();
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Data.Models.Role>)_fakeUnitOfWork.RoleRepository).ModelList = AutoMapper.Mapper.Map(testRoles, new List<Data.Models.Role>());
+            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = AutoMapper.Mapper.Map(testRoles, new List<Role>());
 
             var controller = new RolesController(_fakeUnitOfWork);
             var roles = controller.GetRoles().ToList();
@@ -65,7 +65,7 @@ namespace Scrummage.Services.Test.Controllers
         public void GetRole_ShouldReturn_NotFoundResult()
         {
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Data.Models.Role>)_fakeUnitOfWork.RoleRepository).ModelList = AutoMapper.Mapper.Map(new RoleFactory().BuildList(), new List<Data.Models.Role>());
+            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = AutoMapper.Mapper.Map(new RoleFactory().BuildList(), new List<Role>());
 
             var controller = new RolesController(_fakeUnitOfWork);
             var result = controller.GetRole(9);
@@ -79,7 +79,7 @@ namespace Scrummage.Services.Test.Controllers
         {
             var testRoles = new RoleFactory().BuildList();
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Data.Models.Role>)_fakeUnitOfWork.RoleRepository).ModelList = AutoMapper.Mapper.Map(testRoles, new List<Data.Models.Role>());
+            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = AutoMapper.Mapper.Map(testRoles, new List<Role>());
 
             var controller = new RolesController(_fakeUnitOfWork);
             var result = controller.GetRole(testRoles.First().Id) as OkNegotiatedContentResult<RoleRepresentor>;
@@ -97,7 +97,7 @@ namespace Scrummage.Services.Test.Controllers
         {
             var testRole = new RoleFactory().Build();
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Data.Models.Role>)_fakeUnitOfWork.RoleRepository).Model = AutoMapper.Mapper.Map(testRole, new Data.Models.Role());
+            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).Model = AutoMapper.Mapper.Map(testRole, new Role());
 
             var controller = new RolesController(_fakeUnitOfWork);
             var result = controller.PutRole(9, testRole) as BadRequestErrorMessageResult;
@@ -129,7 +129,7 @@ namespace Scrummage.Services.Test.Controllers
         {
             var testRole = new RoleFactory().Build();
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Data.Models.Role>)_fakeUnitOfWork.RoleRepository).Model = AutoMapper.Mapper.Map(testRole, new Data.Models.Role());
+            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).Model = AutoMapper.Mapper.Map(testRole, new Role());
 
             var controller = new RolesController(_fakeUnitOfWork);
             var result = controller.PutRole(testRole.Id, testRole) as StatusCodeResult;
@@ -170,8 +170,8 @@ namespace Scrummage.Services.Test.Controllers
             Assert.IsNotNull(result);
             Assert.IsTrue(result.RouteValues.ContainsKey("Id"));
             Assert.AreEqual(testRole.Id, result.RouteValues["Id"]);
-            Assert.IsTrue(((FakeRepository<Data.Models.Role>)_fakeUnitOfWork.RoleRepository).IsCreated);
-            Assert.IsTrue(((FakeRepository<Data.Models.Role>)_fakeUnitOfWork.RoleRepository).IsSaved);
+            Assert.IsTrue(((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).IsCreated);
+            Assert.IsTrue(((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).IsSaved);
         }
 
         #endregion
@@ -182,7 +182,7 @@ namespace Scrummage.Services.Test.Controllers
         public void DeleteRole_ShouldReturn_NotFoundResult()
         {
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Data.Models.Role>)_fakeUnitOfWork.RoleRepository).ModelList = null;
+            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = null;
 
             var controller = new RolesController(_fakeUnitOfWork);
             var result = controller.DeleteRole(9);
@@ -197,15 +197,15 @@ namespace Scrummage.Services.Test.Controllers
             var testRoles = new RoleFactory().BuildList();
 
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Data.Models.Role>)_fakeUnitOfWork.RoleRepository).ModelList = AutoMapper.Mapper.Map(testRoles, new List<Data.Models.Role>());
+            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = AutoMapper.Mapper.Map(testRoles, new List<Role>());
 
             var controller = new RolesController(_fakeUnitOfWork);
             var result = controller.DeleteRole(testRoles.First().Id);
             
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(OkNegotiatedContentResult<RoleRepresentor>));
-            Assert.IsTrue(((FakeRepository<Data.Models.Role>)_fakeUnitOfWork.RoleRepository).IsDeleted);
-            Assert.IsTrue(((FakeRepository<Data.Models.Role>)_fakeUnitOfWork.RoleRepository).IsSaved);
+            Assert.IsTrue(((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).IsDeleted);
+            Assert.IsTrue(((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).IsSaved);
         }
 
         #endregion

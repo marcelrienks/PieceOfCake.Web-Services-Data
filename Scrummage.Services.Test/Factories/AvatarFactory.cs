@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using VmAvatar = Scrummage.Services.Representors.AvatarRepresentor;
+using PieceOfCake.Services.Representors;
 
-namespace Scrummage.Services.Test.Factories
+namespace PieceOfCake.Services.Test.Factories
 {
     public class AvatarFactory
     {
-        private VmAvatar _avatar;
-        private List<VmAvatar> _avatars;
+        private AvatarRepresentor _avatar;
+        private List<AvatarRepresentor> _avatars;
 
         /// <summary>
         ///     Create default Avatar and AvatarList objects
@@ -31,13 +31,13 @@ namespace Scrummage.Services.Test.Factories
         /// <param name="avatarId"></param>
         private void CreateDefaultUserAndUserList(int avatarId)
         {
-            _avatar = new VmAvatar
+            _avatar = new AvatarRepresentor
             {
                 Id = avatarId,
                 Image = new byte[0]
             };
 
-            _avatars = new List<VmAvatar>
+            _avatars = new List<AvatarRepresentor>
             {
                 _avatar
             };
@@ -47,7 +47,7 @@ namespace Scrummage.Services.Test.Factories
         ///     Return constructed Avatar
         /// </summary>
         /// <returns>Avatar</returns>
-        public VmAvatar Build()
+        public AvatarRepresentor Build()
         {
             return _avatar;
         }
@@ -56,7 +56,7 @@ namespace Scrummage.Services.Test.Factories
         ///     Return constructed Avatar List
         /// </summary>
         /// <returns>List<Avatar></returns>
-        public List<VmAvatar> BuildList()
+        public List<AvatarRepresentor> BuildList()
         {
             return _avatars;
         }
@@ -67,7 +67,7 @@ namespace Scrummage.Services.Test.Factories
         /// <returns></returns>
         public AvatarFactory WithExtendedList()
         {
-            _avatars.Add(new VmAvatar
+            _avatars.Add(new AvatarRepresentor
             {
                 Id = 1,
                 Image = new byte[0]

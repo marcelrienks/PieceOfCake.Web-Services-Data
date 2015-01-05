@@ -1,26 +1,26 @@
 ﻿using System.Collections.Generic;
-using VmRole = Scrummage.Services.Representors.RoleRepresentor;
+using PieceOfCake.Services.Representors;
 
-namespace Scrummage.Services.Test.Factories
+namespace PieceOfCake.Services.Test.Factories
 {
     public class RoleFactory
     {
-        private readonly VmRole _role;
-        private readonly List<VmRole> _roles;
+        private readonly RoleRepresentor _role;
+        private readonly List<RoleRepresentor> _roles;
 
         /// <summary>
         ///     Create default Role and RoleList objects
         /// </summary>
         public RoleFactory()
         {
-            _role = new VmRole
+            _role = new RoleRepresentor
             {
                 Id = 0,
                 Title = "Title",
                 Description = "Description"
             };
 
-            _roles = new List<VmRole>
+            _roles = new List<RoleRepresentor>
             {
                 _role
             };
@@ -30,7 +30,7 @@ namespace Scrummage.Services.Test.Factories
         ///     Return constructed Role
         /// </summary>
         /// <returns>Role</returns>
-        public VmRole Build()
+        public RoleRepresentor Build()
         {
             return _role;
         }
@@ -39,7 +39,7 @@ namespace Scrummage.Services.Test.Factories
         ///     Return constructed Role List
         /// </summary>
         /// <returns>List<Role></returns>
-        public List<VmRole> BuildList()
+        public List<RoleRepresentor> BuildList()
         {
             return _roles;
         }
@@ -50,7 +50,7 @@ namespace Scrummage.Services.Test.Factories
         /// <returns></returns>
         public RoleFactory WithExtendedList()
         {
-            _roles.Add(new VmRole
+            _roles.Add(new RoleRepresentor
             {
                 Id = 1,
                 Title = "Title1",

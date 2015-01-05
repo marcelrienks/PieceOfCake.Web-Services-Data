@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Scrummage.Data.Interfaces
+namespace PieceOfCake.Data.Interfaces
 {
     public interface IRepository<TModel> : IDisposable where TModel : class
     {

@@ -1,9 +1,8 @@
 ﻿using System.Web;
 using System.Web.Mvc;
-using System.Web.Optimization;
 using System.Web.Routing;
 
-namespace Scrummage.Web
+namespace PieceOfCake.Web
 {
     public class MvcApplication : HttpApplication
     {

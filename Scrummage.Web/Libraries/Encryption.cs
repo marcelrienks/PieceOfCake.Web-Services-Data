@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Scrummage.Web.Libraries
+namespace PieceOfCake.Web.Libraries
 {
     public class Encryption
     {

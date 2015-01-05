@@ -1,14 +1,12 @@
-﻿using Scrummage.Data;
-using Scrummage.Data.Interfaces;
-using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Web.Http;
-using System.Web.Http.Description;
-using Scrummage.Data.Models;
-using Scrummage.Services.Representors;
+using PieceOfCake.Data;
+using PieceOfCake.Data.Interfaces;
+using PieceOfCake.Data.Models;
+using PieceOfCake.Services.Representors;
 
-namespace Scrummage.Services.Controllers
+namespace PieceOfCake.Services.Controllers
 {
     public class AvatarsController : ApiController
     {

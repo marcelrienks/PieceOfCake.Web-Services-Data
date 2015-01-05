@@ -1,7 +1,7 @@
-﻿using Scrummage.Data.Interfaces;
-using Scrummage.Data.Models;
+﻿using PieceOfCake.Data.Interfaces;
+using PieceOfCake.Data.Models;
 
-namespace Scrummage.Web.Test.DataAccess
+namespace PieceOfCake.Web.Test.DataAccess
 {
     public class FakeUnitOfWork : IUnitOfWork
     {

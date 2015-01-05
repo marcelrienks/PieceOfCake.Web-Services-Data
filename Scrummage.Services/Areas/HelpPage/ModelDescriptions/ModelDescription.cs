@@ -1,6 +1,6 @@
 using System;
 
-namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
+namespace PieceOfCake.Services.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Describes a type model.

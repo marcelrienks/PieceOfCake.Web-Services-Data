@@ -1,7 +1,7 @@
 ﻿using System.Web.Http;
 using Newtonsoft.Json;
 
-namespace Scrummage.Services
+namespace PieceOfCake.Services
 {
     public static class WebApiConfig
     {

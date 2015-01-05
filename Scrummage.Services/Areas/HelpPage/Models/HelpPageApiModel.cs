@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
-using Scrummage.Services.Areas.HelpPage.ModelDescriptions;
+using PieceOfCake.Services.Areas.HelpPage.ModelDescriptions;
 
-namespace Scrummage.Services.Areas.HelpPage.Models
+namespace PieceOfCake.Services.Areas.HelpPage.Models
 {
     /// <summary>
     /// The model that represents an API displayed on the help page.

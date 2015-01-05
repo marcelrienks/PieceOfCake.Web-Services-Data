@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Scrummage.Web.Test.Validation
+namespace PieceOfCake.Web.Test.Validation
 {
     /// <summary>
     ///     This allows for the testing of expected errors from ModelState

@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Migrations;
 using System.IO;
-using System.Linq;
-using Scrummage.Data.Models;
+using PieceOfCake.Data.Models;
 
-namespace Scrummage.Data.Migrations
+namespace PieceOfCake.Data.Migrations
 {
     internal sealed class Configuration : DbMigrationsConfiguration<Context>
     {

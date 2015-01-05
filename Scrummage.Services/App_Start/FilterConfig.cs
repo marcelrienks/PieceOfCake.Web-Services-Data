@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Scrummage.Services
+namespace PieceOfCake.Services
 {
     public class FilterConfig
     {

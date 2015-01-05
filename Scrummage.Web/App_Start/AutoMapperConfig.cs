@@ -1,8 +1,7 @@
-﻿using AutoMapper;
-using Scrummage.Data.Models;
-using Scrummage.Web.ViewModels;
+﻿using PieceOfCake.Data.Models;
+using PieceOfCake.Web.ViewModels;
 
-namespace Scrummage.Web
+namespace PieceOfCake.Web
 {
     public class AutoMapperConfig
     {

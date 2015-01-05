@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using AutoMapper;
-using Scrummage.Data;
-using Scrummage.Data.Interfaces;
-using Scrummage.Data.Models;
-using Scrummage.Web.ViewModels;
+using PieceOfCake.Data;
+using PieceOfCake.Data.Interfaces;
+using PieceOfCake.Data.Models;
+using PieceOfCake.Web.ViewModels;
 
-namespace Scrummage.Web.Controllers
+namespace PieceOfCake.Web.Controllers
 {
     public class RoleController : Controller
     {

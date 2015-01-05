@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Scrummage.Data.Models;
+using PieceOfCake.Data.Models;
 
-namespace Scrummage.Web.Test.Factories.ModelFactories
+namespace PieceOfCake.Web.Test.Factories.ModelFactories
 {
     public class RoleFactory
     {

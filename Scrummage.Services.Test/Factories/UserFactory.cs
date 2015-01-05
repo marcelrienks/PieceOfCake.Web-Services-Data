@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Scrummage.Services.Representors;
+using PieceOfCake.Services.Representors;
 
-namespace Scrummage.Services.Test.Factories
+namespace PieceOfCake.Services.Test.Factories
 {
     public class UserFactory
     {

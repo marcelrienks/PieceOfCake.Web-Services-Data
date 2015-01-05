@@ -1,6 +1,4 @@
-﻿using System.Web.Optimization;
-
-namespace Scrummage.Web
+﻿namespace PieceOfCake.Web
 {
     public class BundleConfig
     {

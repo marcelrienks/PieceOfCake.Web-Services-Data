@@ -1,9 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure.Annotations;
-using Scrummage.Data.Models;
+using PieceOfCake.Data.Models;
 
-namespace Scrummage.Data
+namespace PieceOfCake.Data
 {
     public class Context : DbContext
     {

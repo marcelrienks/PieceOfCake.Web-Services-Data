@@ -1,4 +1,4 @@
-﻿namespace Scrummage.Data.Models
+﻿namespace PieceOfCake.Data.Models
 {
     public class Avatar
     {

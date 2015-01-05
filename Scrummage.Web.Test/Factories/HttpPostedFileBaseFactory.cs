@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Web;
 
-namespace Scrummage.Web.Test.Factories
+namespace PieceOfCake.Web.Test.Factories
 {
     public static class HttpPostedFileBaseFactory
     {

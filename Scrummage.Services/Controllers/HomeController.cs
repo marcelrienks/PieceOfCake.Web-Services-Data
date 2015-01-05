@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Scrummage.Services.Controllers
+namespace PieceOfCake.Services.Controllers
 {
     public class HomeController : Controller
     {

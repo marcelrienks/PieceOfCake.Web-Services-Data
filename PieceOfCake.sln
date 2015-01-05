@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrummage.Web", "Scrummage.Web\Scrummage.Web.csproj", "{AFB6CC32-0C3B-48E6-914D-30059791D2B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PieceOfCake.Web", "Scrummage.Web\PieceOfCake.Web.csproj", "{AFB6CC32-0C3B-48E6-914D-30059791D2B9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{350FF787-95D8-46FA-89ED-BAA021B68873}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,13 +17,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{6E
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrummage.Data", "Scrummage.Data\Scrummage.Data.csproj", "{E52DC8AD-F09E-48FD-9473-C04E7D2C471B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PieceOfCake.Data", "Scrummage.Data\PieceOfCake.Data.csproj", "{E52DC8AD-F09E-48FD-9473-C04E7D2C471B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrummage.Services", "Scrummage.Services\Scrummage.Services.csproj", "{598BE999-2442-410B-B3CE-AB79E467F130}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PieceOfCake.Services", "Scrummage.Services\PieceOfCake.Services.csproj", "{598BE999-2442-410B-B3CE-AB79E467F130}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrummage.Web.Test", "Scrummage.Web.Test\Scrummage.Web.Test.csproj", "{62D693D1-2E33-4924-B73B-9CDAFDC3766F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PieceOfCake.Web.Test", "Scrummage.Web.Test\PieceOfCake.Web.Test.csproj", "{62D693D1-2E33-4924-B73B-9CDAFDC3766F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrummage.Services.Test", "Scrummage.Services.Test\Scrummage.Services.Test.csproj", "{7FD34E51-6A67-4A55-83FA-B5630FC4190E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PieceOfCake.Services.Test", "Scrummage.Services.Test\PieceOfCake.Services.Test.csproj", "{7FD34E51-6A67-4A55-83FA-B5630FC4190E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

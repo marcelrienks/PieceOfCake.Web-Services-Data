@@ -1,12 +1,7 @@
-﻿using AutoMapper;
-using DmAvatar = Scrummage.Data.Models.Avatar;
-using DmRole = Scrummage.Data.Models.Role;
-using DmUser = Scrummage.Data.Models.User;
-using VmAvatar = Scrummage.Services.Representors.AvatarRepresentor;
-using VmRole = Scrummage.Services.Representors.RoleRepresentor;
-using VmUser = Scrummage.Services.Representors.UserRepresentor;
+﻿using PieceOfCake.Data.Models;
+using PieceOfCake.Services.Representors;
 
-namespace Scrummage.Services
+namespace PieceOfCake.Services
 {
     public class AutoMapperConfig
     {
@@ -26,13 +21,13 @@ namespace Scrummage.Services
         private static void ConfigureRoleModelMappings()
         {
             //ViewModelRole => DataModelRole
-            Mapper.CreateMap<VmRole, DmRole>()
+            Mapper.CreateMap<RoleRepresentor, Role>()
                 //Maps ViewModelRole.ViewModelUser => DataModelRole.DataModelUsers
                 .ForMember(dmRole => dmRole.Users,
                     options => options.MapFrom(vmRole => vmRole.Users));
 
             //RoleDataModel => ViewModelRole
-            Mapper.CreateMap<DmRole, VmRole>()
+            Mapper.CreateMap<Role, RoleRepresentor>()
                 //Maps DataModelRole.DataModelUsers => ViewModelRole.ViewModelUser
                 .ForMember(vmRole => vmRole.Users,
                     options => options.MapFrom(dmRole => dmRole.Users));
@@ -44,7 +39,7 @@ namespace Scrummage.Services
         private static void ConfigureUserModelMappings()
         {
             //ViewModelUser => UserDataModel
-            Mapper.CreateMap<VmUser, DmUser>()
+            Mapper.CreateMap<UserRepresentor, User>()
                 //Maps ViewModelUser.ViewModelRole => DataModelUser.DataModelRoles
                 .ForMember(dmUser => dmUser.Roles,
                     options => options.MapFrom(vmUser => vmUser.Roles))
@@ -53,7 +48,7 @@ namespace Scrummage.Services
                     options => options.MapFrom(vmUser => vmUser.Avatar));
 
             //UserDataModel => ViewModelUser
-            Mapper.CreateMap<DmUser, VmUser>()
+            Mapper.CreateMap<User, UserRepresentor>()
                 //Maps DataModelUser.DataModelRole => ViewModelUser.ViewModelRole
                 .ForMember(vmUser => vmUser.Roles,
                     options => options.MapFrom(dmUser => dmUser.Roles))
@@ -68,13 +63,13 @@ namespace Scrummage.Services
         private static void ConfigureAvatarModelMappings()
         {
             //ViewModelAvatar => DataModelAvatar
-            Mapper.CreateMap<VmAvatar, DmAvatar>()
+            Mapper.CreateMap<AvatarRepresentor, Avatar>()
                 //Maps ViewModelAvatar.ViewModelUser => DataModelAvatar.DataModelUser
                 .ForMember(dmAvatar => dmAvatar.User,
                     options => options.MapFrom(vmAvater => vmAvater.User));
 
             //DataModelAvatar => ViewModelAvatar
-            Mapper.CreateMap<DmAvatar, VmAvatar>()
+            Mapper.CreateMap<Avatar, AvatarRepresentor>()
                 //Maps DataModelAvatar.DataModelUser => ViewModelAvatar.ViewModelUser
                 .ForMember(vmAvater => vmAvater.User,
                     options => options.MapFrom(dmAvatar => dmAvatar.User));

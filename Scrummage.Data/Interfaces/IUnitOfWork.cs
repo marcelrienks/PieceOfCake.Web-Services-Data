@@ -1,6 +1,6 @@
-﻿using Scrummage.Data.Models;
+﻿using PieceOfCake.Data.Models;
 
-namespace Scrummage.Data.Interfaces
+namespace PieceOfCake.Data.Interfaces
 {
     public interface IUnitOfWork
     {

@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace Scrummage.Services.Areas.HelpPage.ModelDescriptions
+namespace PieceOfCake.Services.Areas.HelpPage.ModelDescriptions
 {
     public interface IModelDocumentationProvider
     {

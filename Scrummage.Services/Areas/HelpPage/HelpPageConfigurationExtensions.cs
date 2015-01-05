@@ -11,10 +11,11 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
-using Scrummage.Services.Areas.HelpPage.ModelDescriptions;
-using Scrummage.Services.Areas.HelpPage.Models;
+using PieceOfCake.Services.Areas.HelpPage.ModelDescriptions;
+using PieceOfCake.Services.Areas.HelpPage.Models;
+using PieceOfCake.Services.Areas.HelpPage.SampleGeneration;
 
-namespace Scrummage.Services.Areas.HelpPage
+namespace PieceOfCake.Services.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Scrummage.Services.Representors
+namespace PieceOfCake.Services.Representors
 {
     public class RoleRepresentor
     {

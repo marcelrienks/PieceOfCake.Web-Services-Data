@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Scrummage.Web.Test
+namespace PieceOfCake.Web.Test
 {
     [TestClass]
     public class TestHarness

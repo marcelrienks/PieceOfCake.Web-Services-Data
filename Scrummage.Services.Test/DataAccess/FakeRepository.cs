@@ -1,13 +1,12 @@
-﻿using System;
+﻿//Todo: Investigate using Mock DbSet instead of having a fake Repository
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Scrummage.Data.Interfaces;
+using PieceOfCake.Data.Interfaces;
+using PieceOfCake.Data.Models;
 
-//Todo: Investigate using Mock DbSet instead of having a fake Repository
-using Scrummage.Data.Models;
-
-namespace Scrummage.Services.Test.DataAccess
+namespace PieceOfCake.Services.Test.DataAccess
 {
     public class FakeRepository<TModel> : IRepository<TModel> where TModel : class
     {

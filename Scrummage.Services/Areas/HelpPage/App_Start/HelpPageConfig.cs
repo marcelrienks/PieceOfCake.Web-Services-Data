@@ -2,21 +2,15 @@
 // package to your project.
 ////#define Handle_PageResultOfT
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Net.Http.Headers;
-using System.Reflection;
-using System.Web;
 using System.Web.Http;
 #if Handle_PageResultOfT
 using System.Web.Http.OData;
 #endif
+using PieceOfCake.Services.Areas.HelpPage.SampleGeneration;
 
-namespace Scrummage.Services.Areas.HelpPage
+namespace PieceOfCake.Services.Areas.HelpPage.App_Start
 {
     /// <summary>
     /// Use this class to customize the Help Page.

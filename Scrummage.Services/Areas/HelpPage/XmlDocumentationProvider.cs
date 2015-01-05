@@ -5,9 +5,9 @@ using System.Reflection;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
 using System.Xml.XPath;
-using Scrummage.Services.Areas.HelpPage.ModelDescriptions;
+using PieceOfCake.Services.Areas.HelpPage.ModelDescriptions;
 
-namespace Scrummage.Services.Areas.HelpPage
+namespace PieceOfCake.Services.Areas.HelpPage
 {
     /// <summary>
     /// A custom <see cref="IDocumentationProvider"/> that reads the API documentation from an XML documentation file.

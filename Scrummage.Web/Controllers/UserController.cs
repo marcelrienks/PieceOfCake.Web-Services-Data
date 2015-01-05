@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using AutoMapper;
-using Scrummage.Data;
-using Scrummage.Data.Interfaces;
-using Scrummage.Data.Models;
-using Scrummage.Web.ViewModels;
+using PieceOfCake.Data;
+using PieceOfCake.Data.Interfaces;
+using PieceOfCake.Data.Models;
 
 //Todo: verify of username, password on create of User without causing a post back
 //Todo: add functionality to User edit for Password and Avatar (including validation)
-namespace Scrummage.Web.Controllers
+using PieceOfCake.Web.ViewModels;
+
+namespace PieceOfCake.Web.Controllers
 {
     public class UserController : Controller
     {

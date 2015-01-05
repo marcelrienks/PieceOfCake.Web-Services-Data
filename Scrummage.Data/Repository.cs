@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using RefactorThis.GraphDiff;
-using Scrummage.Data.Interfaces;
-using Scrummage.Data.Models;
-using System.Data.Entity;
 
 //Todo: investigate creating unit tests for the repository, by creating a fake contaxt/dbset class, which can be dependancy injected in?
+using PieceOfCake.Data.Interfaces;
+using PieceOfCake.Data.Models;
 
-namespace Scrummage.Data
+namespace PieceOfCake.Data
 {
     public class Repository<TModel> : IRepository<TModel> where TModel : class
     {

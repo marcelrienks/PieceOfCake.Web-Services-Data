@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Scrummage.Web.ViewModels
+namespace PieceOfCake.Web.ViewModels
 {
     public class RoleViewModel
     {

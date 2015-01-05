@@ -1,7 +1,8 @@
 using System.Web.Http;
 using System.Web.Mvc;
+using PieceOfCake.Services.Areas.HelpPage.App_Start;
 
-namespace Scrummage.Services.Areas.HelpPage
+namespace PieceOfCake.Services.Areas.HelpPage
 {
     public class HelpPageAreaRegistration : AreaRegistration
     {

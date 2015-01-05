@@ -7,8 +7,8 @@
     <ProjectGuid>{E52DC8AD-F09E-48FD-9473-C04E7D2C471B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Scrummage.Data</RootNamespace>
-    <AssemblyName>Scrummage.Data</AssemblyName>
+    <RootNamespace>PieceOfCake.Data</RootNamespace>
+    <AssemblyName>PieceOfCake.Data</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>

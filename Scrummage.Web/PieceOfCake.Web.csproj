@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Scrummage.Web</RootNamespace>
-    <AssemblyName>Scrummage.Web</AssemblyName>
+    <RootNamespace>PieceOfCake.Web</RootNamespace>
+    <AssemblyName>PieceOfCake.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -194,9 +194,9 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Scrummage.Data\Scrummage.Data.csproj">
+    <ProjectReference Include="..\Scrummage.Data\PieceOfCake.Data.csproj">
       <Project>{e52dc8ad-f09e-48fd-9473-c04e7d2c471b}</Project>
-      <Name>Scrummage.Data</Name>
+      <Name>PieceOfCake.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

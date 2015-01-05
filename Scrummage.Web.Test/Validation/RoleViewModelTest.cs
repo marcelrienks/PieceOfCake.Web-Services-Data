@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Scrummage.Web.Test.Factories.ViewModelFactories;
+using PieceOfCake.Web.Test.Factories.ViewModelFactories;
 
-namespace Scrummage.Web.Test.Validation
+namespace PieceOfCake.Web.Test.Validation
 {
     [TestClass]
     public class RoleViewModelTest

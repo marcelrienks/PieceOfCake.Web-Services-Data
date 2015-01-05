@@ -1,15 +1,15 @@
-﻿using Scrummage.Data;
-using Scrummage.Data.Interfaces;
-using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Web.Http;
-using System.Web.Http.Description;
-using Scrummage.Data.Models;
-using Scrummage.Services.Representors;
+using PieceOfCake.Data;
+using PieceOfCake.Data.Interfaces;
+using PieceOfCake.Data.Models;
+
 //Todo: Investigate using Async repository methods
 //Todo; Investigate using auto code generation to create api's and api tests based on this controller as template
-namespace Scrummage.Services.Controllers
+using PieceOfCake.Services.Representors;
+
+namespace PieceOfCake.Services.Controllers
 {
     public class RolesController : ApiController
     {

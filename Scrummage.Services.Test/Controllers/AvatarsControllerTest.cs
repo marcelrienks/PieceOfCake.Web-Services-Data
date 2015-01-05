@@ -1,15 +1,16 @@
-﻿using System.Net;
-using System.Web.Http.Results;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Scrummage.Services.Controllers;
-using Scrummage.Services.Representors;
-using Scrummage.Services.Test.DataAccess;
-using Scrummage.Services.Test.Factories;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PieceOfCake.Data.Models;
+using PieceOfCake.Services.Controllers;
+using PieceOfCake.Services.Representors;
 
 //Todo: Update Post tests for Avatar
-namespace Scrummage.Services.Test.Controllers
+using PieceOfCake.Services.Test.DataAccess;
+using PieceOfCake.Services.Test.Factories;
+
+namespace PieceOfCake.Services.Test.Controllers
 {
     [TestClass]
     public class AvatarsControllerTest
@@ -33,7 +34,7 @@ namespace Scrummage.Services.Test.Controllers
         {
             var testAvatars = new AvatarFactory().BuildList();
             //'FakeUnitOfWork.AvatarRepository' must be cast to 'FakeRepository<Avatar>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Data.Models.Avatar>)_fakeUnitOfWork.AvatarRepository).ModelList = AutoMapper.Mapper.Map(testAvatars, new List<Data.Models.Avatar>());
+            ((FakeRepository<Avatar>)_fakeUnitOfWork.AvatarRepository).ModelList = AutoMapper.Mapper.Map(testAvatars, new List<Avatar>());
 
             var controller = new AvatarsController(_fakeUnitOfWork);
             var avatars = controller.GetAvatars().ToList();
@@ -48,7 +49,7 @@ namespace Scrummage.Services.Test.Controllers
         {
             var testAvatars = new AvatarFactory().WithExtendedList().BuildList();
             //'FakeUnitOfWork.AvatarRepository' must be cast to 'FakeRepository<Avatar>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Data.Models.Avatar>)_fakeUnitOfWork.AvatarRepository).ModelList = AutoMapper.Mapper.Map(testAvatars, new List<Data.Models.Avatar>());
+            ((FakeRepository<Avatar>)_fakeUnitOfWork.AvatarRepository).ModelList = AutoMapper.Mapper.Map(testAvatars, new List<Avatar>());
 
             var controller = new AvatarsController(_fakeUnitOfWork);
             var avatars = controller.GetAvatars().ToList();
@@ -66,7 +67,7 @@ namespace Scrummage.Services.Test.Controllers
         public void GetAvatar_ShouldReturn_NotFoundResult()
         {
             //'FakeUnitOfWork.AvatarRepository' must be cast to 'FakeRepository<Avatar>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Data.Models.Avatar>)_fakeUnitOfWork.AvatarRepository).ModelList = AutoMapper.Mapper.Map(new AvatarFactory().BuildList(), new List<Data.Models.Avatar>());
+            ((FakeRepository<Avatar>)_fakeUnitOfWork.AvatarRepository).ModelList = AutoMapper.Mapper.Map(new AvatarFactory().BuildList(), new List<Avatar>());
 
             var controller = new AvatarsController(_fakeUnitOfWork);
             var result = controller.GetAvatar(9);
@@ -80,7 +81,7 @@ namespace Scrummage.Services.Test.Controllers
         {
             var testAvatars = new AvatarFactory().BuildList();
             //'FakeUnitOfWork.AvatarRepository' must be cast to 'FakeRepository<Avatar>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Data.Models.Avatar>)_fakeUnitOfWork.AvatarRepository).ModelList = AutoMapper.Mapper.Map(testAvatars, new List<Data.Models.Avatar>());
+            ((FakeRepository<Avatar>)_fakeUnitOfWork.AvatarRepository).ModelList = AutoMapper.Mapper.Map(testAvatars, new List<Avatar>());
 
             var controller = new AvatarsController(_fakeUnitOfWork);
             var result = controller.GetAvatar(testAvatars.First().Id) as OkNegotiatedContentResult<AvatarRepresentor>;
@@ -98,7 +99,7 @@ namespace Scrummage.Services.Test.Controllers
         {
             var testAvatar = new AvatarFactory().Build();
             //'FakeUnitOfWork.AvatarRepository' must be cast to 'FakeRepository<Avatar>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Data.Models.Avatar>)_fakeUnitOfWork.AvatarRepository).Model = AutoMapper.Mapper.Map(testAvatar, new Data.Models.Avatar());
+            ((FakeRepository<Avatar>)_fakeUnitOfWork.AvatarRepository).Model = AutoMapper.Mapper.Map(testAvatar, new Avatar());
 
             var controller = new AvatarsController(_fakeUnitOfWork);
             var result = controller.PutAvatar(9, testAvatar) as BadRequestErrorMessageResult;
@@ -130,7 +131,7 @@ namespace Scrummage.Services.Test.Controllers
         {
             var testAvatar = new AvatarFactory().Build();
             //'FakeUnitOfWork.AvatarRepository' must be cast to 'FakeRepository<Avatar>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Data.Models.Avatar>)_fakeUnitOfWork.AvatarRepository).Model = AutoMapper.Mapper.Map(testAvatar, new Data.Models.Avatar());
+            ((FakeRepository<Avatar>)_fakeUnitOfWork.AvatarRepository).Model = AutoMapper.Mapper.Map(testAvatar, new Avatar());
 
             var controller = new AvatarsController(_fakeUnitOfWork);
             var result = controller.PutAvatar(testAvatar.Id, testAvatar) as StatusCodeResult;
@@ -165,7 +166,7 @@ namespace Scrummage.Services.Test.Controllers
         {
             var testAvatars = new AvatarFactory().BuildList();
             //'FakeUnitOfWork.AvatarRepository' must be cast to 'FakeRepository<Avatar>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Data.Models.Avatar>)_fakeUnitOfWork.AvatarRepository).ModelList = AutoMapper.Mapper.Map(testAvatars, new List<Data.Models.Avatar>());
+            ((FakeRepository<Avatar>)_fakeUnitOfWork.AvatarRepository).ModelList = AutoMapper.Mapper.Map(testAvatars, new List<Avatar>());
 
             var controller = new AvatarsController(_fakeUnitOfWork);
             var result = controller.PostAvatar(testAvatars[0]) as BadRequestErrorMessageResult;
@@ -194,7 +195,7 @@ namespace Scrummage.Services.Test.Controllers
             var id = 0;
             var testUsers = new UserFactory(id).BuildList();
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Data.Models.User>)_fakeUnitOfWork.UserRepository).ModelList = AutoMapper.Mapper.Map(testUsers, new List<Data.Models.User>());
+            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = AutoMapper.Mapper.Map(testUsers, new List<User>());
 
             var testAvatar = new AvatarFactory(id).Build();
 
@@ -204,8 +205,8 @@ namespace Scrummage.Services.Test.Controllers
             Assert.IsNotNull(result);
             Assert.IsTrue(result.RouteValues.ContainsKey("Id"));
             Assert.AreEqual(testAvatar.Id, result.RouteValues["Id"]);
-            Assert.IsTrue(((FakeRepository<Data.Models.Avatar>)_fakeUnitOfWork.AvatarRepository).IsCreated);
-            Assert.IsTrue(((FakeRepository<Data.Models.Avatar>)_fakeUnitOfWork.AvatarRepository).IsSaved);
+            Assert.IsTrue(((FakeRepository<Avatar>)_fakeUnitOfWork.AvatarRepository).IsCreated);
+            Assert.IsTrue(((FakeRepository<Avatar>)_fakeUnitOfWork.AvatarRepository).IsSaved);
         }
 
         #endregion
@@ -216,7 +217,7 @@ namespace Scrummage.Services.Test.Controllers
         public void DeleteAvatar_ShouldReturn_NotFoundResult()
         {
             //'FakeUnitOfWork.AvatarRepository' must be cast to 'FakeRepository<Avatar>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Data.Models.Avatar>)_fakeUnitOfWork.AvatarRepository).ModelList = null;
+            ((FakeRepository<Avatar>)_fakeUnitOfWork.AvatarRepository).ModelList = null;
 
             var controller = new AvatarsController(_fakeUnitOfWork);
             var result = controller.DeleteAvatar(9);
@@ -231,15 +232,15 @@ namespace Scrummage.Services.Test.Controllers
             var testAvatars = new AvatarFactory().BuildList();
 
             //'FakeUnitOfWork.AvatarRepository' must be cast to 'FakeRepository<Avatar>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Data.Models.Avatar>)_fakeUnitOfWork.AvatarRepository).ModelList = AutoMapper.Mapper.Map(testAvatars, new List<Data.Models.Avatar>());
+            ((FakeRepository<Avatar>)_fakeUnitOfWork.AvatarRepository).ModelList = AutoMapper.Mapper.Map(testAvatars, new List<Avatar>());
 
             var controller = new AvatarsController(_fakeUnitOfWork);
             var result = controller.DeleteAvatar(testAvatars.First().Id);
             
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(OkNegotiatedContentResult<AvatarRepresentor>));
-            Assert.IsTrue(((FakeRepository<Data.Models.Avatar>)_fakeUnitOfWork.AvatarRepository).IsDeleted);
-            Assert.IsTrue(((FakeRepository<Data.Models.Avatar>)_fakeUnitOfWork.AvatarRepository).IsSaved);
+            Assert.IsTrue(((FakeRepository<Avatar>)_fakeUnitOfWork.AvatarRepository).IsDeleted);
+            Assert.IsTrue(((FakeRepository<Avatar>)_fakeUnitOfWork.AvatarRepository).IsSaved);
         }
 
         #endregion
