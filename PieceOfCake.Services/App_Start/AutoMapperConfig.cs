@@ -13,7 +13,6 @@ namespace PieceOfCake.Services
         {
             ConfigureRoleModelMappings();
             ConfigureUserModelMappings();
-            ConfigureAvatarModelMappings();
         }
 
         /// <summary>
@@ -43,37 +42,13 @@ namespace PieceOfCake.Services
             Mapper.CreateMap<UserRepresentor, User>()
                 //Maps ViewModelUser.ViewModelRole => DataModelUser.DataModelRoles
                 .ForMember(dmUser => dmUser.Roles,
-                    options => options.MapFrom(vmUser => vmUser.Roles))
-                //Maps ViewModelUser.ViewModelAvatar => DataModelUser.DataModelAvatar
-                .ForMember(dmUser => dmUser.Avatar,
-                    options => options.MapFrom(vmUser => vmUser.Avatar));
+                    options => options.MapFrom(vmUser => vmUser.Roles));
 
             //UserDataModel => ViewModelUser
             Mapper.CreateMap<User, UserRepresentor>()
                 //Maps DataModelUser.DataModelRole => ViewModelUser.ViewModelRole
                 .ForMember(vmUser => vmUser.Roles,
-                    options => options.MapFrom(dmUser => dmUser.Roles))
-                //Maps DataModelUser.DataModelAvatar => ViewModelUser.ViewModelAvatar
-                .ForMember(vmUser => vmUser.Avatar,
-                    options => options.MapFrom(dmUser => dmUser.Avatar));
-        }
-
-        /// <summary>
-        ///     Configures Avatar mappings between Data Model and View Model
-        /// </summary>
-        private static void ConfigureAvatarModelMappings()
-        {
-            //ViewModelAvatar => DataModelAvatar
-            Mapper.CreateMap<AvatarRepresentor, Avatar>()
-                //Maps ViewModelAvatar.ViewModelUser => DataModelAvatar.DataModelUser
-                .ForMember(dmAvatar => dmAvatar.User,
-                    options => options.MapFrom(vmAvater => vmAvater.User));
-
-            //DataModelAvatar => ViewModelAvatar
-            Mapper.CreateMap<Avatar, AvatarRepresentor>()
-                //Maps DataModelAvatar.DataModelUser => ViewModelAvatar.ViewModelUser
-                .ForMember(vmAvater => vmAvater.User,
-                    options => options.MapFrom(dmAvatar => dmAvatar.User));
+                    options => options.MapFrom(dmUser => dmUser.Roles));
         }
     }
 }

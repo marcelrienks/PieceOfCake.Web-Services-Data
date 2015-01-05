@@ -37,7 +37,6 @@ namespace PieceOfCake.Services.Representors
         #region Navigation
 
         public virtual ICollection<RoleRepresentor> Roles { get; set; }
-        public virtual AvatarRepresentor Avatar { get; set; }
 
         #endregion
     }
