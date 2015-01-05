@@ -115,11 +115,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Scrummage.Data\PieceOfCake.Data.csproj">
+    <ProjectReference Include="..\PieceOfCake.Data\PieceOfCake.Data.csproj">
       <Project>{e52dc8ad-f09e-48fd-9473-c04e7d2c471b}</Project>
       <Name>PieceOfCake.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Scrummage.Services\PieceOfCake.Services.csproj">
+    <ProjectReference Include="..\PieceOfCake.Services\PieceOfCake.Services.csproj">
       <Project>{598be999-2442-410b-b3ce-ab79e467f130}</Project>
       <Name>PieceOfCake.Services</Name>
     </ProjectReference>

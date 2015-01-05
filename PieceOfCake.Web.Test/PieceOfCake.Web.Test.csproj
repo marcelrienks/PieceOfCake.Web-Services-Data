@@ -106,11 +106,11 @@
     <Compile Include="TestHarness.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Scrummage.Data\PieceOfCake.Data.csproj">
+    <ProjectReference Include="..\PieceOfCake.Data\PieceOfCake.Data.csproj">
       <Project>{e52dc8ad-f09e-48fd-9473-c04e7d2c471b}</Project>
       <Name>PieceOfCake.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Scrummage.Web\PieceOfCake.Web.csproj">
+    <ProjectReference Include="..\PieceOfCake.Web\PieceOfCake.Web.csproj">
       <Project>{afb6cc32-0c3b-48e6-914d-30059791d2b9}</Project>
       <Name>PieceOfCake.Web</Name>
     </ProjectReference>

@@ -244,7 +244,7 @@
     <Content Include="Scripts\jquery-2.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Scrummage.Data\PieceOfCake.Data.csproj">
+    <ProjectReference Include="..\PieceOfCake.Data\PieceOfCake.Data.csproj">
       <Project>{e52dc8ad-f09e-48fd-9473-c04e7d2c471b}</Project>
       <Name>PieceOfCake.Data</Name>
     </ProjectReference>
