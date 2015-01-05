@@ -61,10 +61,8 @@ string Description (Max=180)
 
 ### Users ###
 Roles (n)  
-Avatar (1)  
 int Id (PK, Identity)  
 string Name (Required, Max=30)  
-string ShortName (Required, Max=3)  
 string Username (Required, Max=30, Unique)  
 string Password (Required, Max=30)  
 string Email (Required)  
