@@ -9,7 +9,6 @@ namespace PieceOfCake.Data
 
         public IRepository<Role> RoleRepository { get; private set; }
         public IRepository<User> UserRepository { get; private set; }
-        public IRepository<Avatar> AvatarRepository { get; private set; }
 
         #endregion
 
@@ -18,7 +17,6 @@ namespace PieceOfCake.Data
             var context = new Context();
             RoleRepository = new Repository<Role>(context);
             UserRepository = new Repository<User>(context);
-            AvatarRepository = new Repository<Avatar>(context);
         }
     }
 }

@@ -8,14 +8,13 @@ namespace PieceOfCake.Data
     public class Context : DbContext
     {
         public Context()
-            : base("ScrummageDB")
+            : base("PieceOfCakeDB")
         {
             //Configuration.ProxyCreationEnabled = false;
         }
 
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Avatar> Avatars { get; set; }
 
         /// <summary>
         ///     On Model Create configure Table properties using Fluent API
@@ -25,7 +24,6 @@ namespace PieceOfCake.Data
         {
             ConfigureRole(modelBuilder);
             ConfigureUser(modelBuilder);
-            ConfigureAvatar(modelBuilder);
         }
 
         /// <summary>
@@ -108,33 +106,6 @@ namespace PieceOfCake.Data
             modelBuilder.Entity<User>()
                 .HasMany(user => user.Roles)
                 .WithMany(role => role.Users);
-
-            //One to One relationship between User and Avatar where both are required, and Member is the principle
-            modelBuilder.Entity<User>()
-                .HasRequired(user => user.Avatar)
-                .WithRequiredPrincipal(avatar => avatar.User)
-                .WillCascadeOnDelete(true);
-        }
-
-        /// <summary>
-        ///     Table spicific configurations for Avatar model
-        /// </summary>
-        /// <param name="modelBuilder"></param>
-        private void ConfigureAvatar(DbModelBuilder modelBuilder)
-        {
-            //Id is Primary Key
-            modelBuilder.Entity<Avatar>()
-                .HasKey(avatar => avatar.Id);
-
-            //Image is Required
-            modelBuilder.Entity<Avatar>()
-                .Property(avatar => avatar.Image)
-                .IsRequired();
-
-            //One to One relationship between User and Avatar where both are required, and Avatar is the dependent
-            modelBuilder.Entity<Avatar>()
-                .HasRequired(avatar => avatar.User)
-                .WithRequiredDependent(user => user.Avatar);
         }
     }
 }

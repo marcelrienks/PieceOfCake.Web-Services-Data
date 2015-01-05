@@ -7,16 +7,15 @@ namespace PieceOfCake.Data.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Avatars",
+                "dbo.Roles",
                 c => new
                     {
-                        Id = c.Int(nullable: false),
-                        Image = c.Binary(nullable: false),
+                        Id = c.Int(nullable: false, identity: true),
+                        Title = c.String(nullable: false, maxLength: 30),
+                        Description = c.String(maxLength: 180),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Users", t => t.Id, cascadeDelete: true)
-                .Index(t => t.Id);
-            
+                .PrimaryKey(t => t.Id);
+
             CreateTable(
                 "dbo.Users",
                 c => new
@@ -30,17 +29,7 @@ namespace PieceOfCake.Data.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Username, unique: true);
-            
-            CreateTable(
-                "dbo.Roles",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Title = c.String(nullable: false, maxLength: 30),
-                        Description = c.String(maxLength: 180),
-                    })
-                .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
                 "dbo.RoleUsers",
                 c => new
@@ -53,22 +42,19 @@ namespace PieceOfCake.Data.Migrations
                 .ForeignKey("dbo.Users", t => t.User_Id, cascadeDelete: true)
                 .Index(t => t.Role_Id)
                 .Index(t => t.User_Id);
-            
+
         }
-        
+
         public override void Down()
         {
-            DropForeignKey("dbo.Avatars", "Id", "dbo.Users");
             DropForeignKey("dbo.RoleUsers", "User_Id", "dbo.Users");
             DropForeignKey("dbo.RoleUsers", "Role_Id", "dbo.Roles");
             DropIndex("dbo.RoleUsers", new[] { "User_Id" });
             DropIndex("dbo.RoleUsers", new[] { "Role_Id" });
             DropIndex("dbo.Users", new[] { "Username" });
-            DropIndex("dbo.Avatars", new[] { "Id" });
             DropTable("dbo.RoleUsers");
-            DropTable("dbo.Roles");
             DropTable("dbo.Users");
-            DropTable("dbo.Avatars");
+            DropTable("dbo.Roles");
         }
     }
 }

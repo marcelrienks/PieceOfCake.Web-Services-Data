@@ -18,7 +18,6 @@ namespace PieceOfCake.Data.Models
         #region Navigation
 
         public virtual ICollection<Role> Roles { get; set; }
-        public virtual Avatar Avatar { get; set; }
 
         #endregion
     }

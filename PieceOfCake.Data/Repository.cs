@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-
-//Todo: investigate creating unit tests for the repository, by creating a fake contaxt/dbset class, which can be dependancy injected in?
 using PieceOfCake.Data.Interfaces;
 using PieceOfCake.Data.Models;
 using RefactorThis.GraphDiff;
+//Todo: investigate creating unit tests for the repository, by creating a fake contaxt/dbset class, which can be dependancy injected in?
 
 namespace PieceOfCake.Data
 {
@@ -172,11 +171,6 @@ namespace PieceOfCake.Data
                 return _context.Set<Role>().Any(entity => entity.Id == id);
             }
 
-            if (typeof(TModel) == typeof(Avatar))
-            {
-                return _context.Set<Avatar>().Any(entity => entity.Id == id);
-            }
-
             return false;
         }
 
@@ -197,11 +191,6 @@ namespace PieceOfCake.Data
                 return await _context.Set<Role>().AnyAsync(entity => entity.Id == id);
             }
 
-            if (typeof(TModel) == typeof(Avatar))
-            {
-                return await _context.Set<Avatar>().AnyAsync(entity => entity.Id == id);
-            }
-
             return false;
         }
 
@@ -210,15 +199,11 @@ namespace PieceOfCake.Data
             if (entity is User)
             {
                 _context.UpdateGraph(entity as User, map => map
-                    .AssociatedCollection<User, Role>(user => user.Roles)
-                    .OwnedEntity<User, Avatar>(user => user.Avatar));
+                    .AssociatedCollection<User, Role>(user => user.Roles));
             }
             else if (entity is Role)
             {
                 _context.UpdateGraph(entity as Role);
-            }
-            else if (entity is Avatar)
-            {
             }
         }
 

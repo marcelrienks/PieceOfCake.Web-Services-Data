@@ -78,13 +78,7 @@ namespace PieceOfCake.Data.Migrations
                     Email = "marcelrienks@gmail.com",
                     Roles =
                         context.Roles.Where(role => role.Title == "Administrator" || role.Title == "Scrum Master")
-                            .ToList(),
-                    Avatar = new Avatar
-                    {
-                        Image =
-                            File.ReadAllBytes(AppDomain.CurrentDomain.BaseDirectory.Replace(@"bin\Debug\",
-                                @"Migrations\default_avatar.jpg"))
-                    }
+                            .ToList()
                 }
             };
 

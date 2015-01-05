@@ -6,6 +6,5 @@ namespace PieceOfCake.Data.Interfaces
     {
         IRepository<Role> RoleRepository { get; }
         IRepository<User> UserRepository { get; }
-        IRepository<Avatar> AvatarRepository { get; }
     }
 }

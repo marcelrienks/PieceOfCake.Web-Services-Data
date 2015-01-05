@@ -51,12 +51,11 @@
     <Compile Include="Context.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
-    <Compile Include="Migrations\201407211217184_Init.cs" />
-    <Compile Include="Migrations\201407211217184_Init.Designer.cs">
-      <DependentUpon>201407211217184_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201501051235434_Init.cs" />
+    <Compile Include="Migrations\201501051235434_Init.Designer.cs">
+      <DependentUpon>201501051235434_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Avatar.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,8 +70,8 @@
     <Content Include="Migrations\default_avatar.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201407211217184_Init.resx">
-      <DependentUpon>201407211217184_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201501051235434_Init.resx">
+      <DependentUpon>201501051235434_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
