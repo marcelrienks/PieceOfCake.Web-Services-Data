@@ -26,7 +26,7 @@ namespace PieceOfCake.Services.Test.Controllers
             AutoMapperConfig.ConfigureMappings();
         }
 
-        #region Get Roles
+        #region Get RoleRepresentors
 
         [TestMethod]
         public void GetRoles_ShouldReturn_SingleElementRoleList()

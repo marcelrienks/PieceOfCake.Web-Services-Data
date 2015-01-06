@@ -37,7 +37,7 @@ namespace PieceOfCake.Services.Test.Factories
                 Name = "Name",
                 Username = "Username",
                 Email = "email@address.com",
-                Roles = new RoleFactory().BuildList()
+                RoleRepresentors = new RoleFactory().BuildList()
             };
 
             _users = new List<UserRepresentor>
@@ -76,7 +76,7 @@ namespace PieceOfCake.Services.Test.Factories
                 Name = "Name2",
                 Username = "Username2",
                 Email = "email2@address.com",
-                Roles = new RoleFactory().BuildList()
+                RoleRepresentors = new RoleFactory().BuildList()
             });
             return this;
         }

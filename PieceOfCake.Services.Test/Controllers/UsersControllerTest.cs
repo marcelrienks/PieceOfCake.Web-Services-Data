@@ -26,7 +26,7 @@ namespace PieceOfCake.Services.Test.Controllers
             AutoMapperConfig.ConfigureMappings();
         }
 
-        #region Get Users
+        #region Get UserRepresentors
 
         [TestMethod]
         public void GetUsers_ShouldReturn_SingleElementRoleList()
@@ -220,9 +220,9 @@ namespace PieceOfCake.Services.Test.Controllers
             Assert.AreEqual(expected.Name, actual.Name);
             Assert.AreEqual(expected.Password, actual.Password);
             Assert.AreEqual(expected.Username, actual.Username);
-            Assert.AreEqual(expected.Roles.Count, actual.Roles.Count);
-            Assert.AreEqual(expected.Roles.First().Id, actual.Roles.First().Id);
-            Assert.AreEqual(expected.Roles.First().Title, actual.Roles.First().Title);
+            Assert.AreEqual(expected.RoleRepresentors.Count, actual.RoleRepresentors.Count);
+            Assert.AreEqual(expected.RoleRepresentors.First().Id, actual.RoleRepresentors.First().Id);
+            Assert.AreEqual(expected.RoleRepresentors.First().Title, actual.RoleRepresentors.First().Title);
         }
 
         #endregion

@@ -4,10 +4,11 @@ using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PieceOfCake.Data.Models;
+using PieceOfCake.Services;
 using PieceOfCake.Web.Controllers;
 using PieceOfCake.Web.Test.DataAccess;
 using PieceOfCake.Web.Test.Factories.ModelFactories;
-using PieceOfCake.Web.ViewModels;
+using PieceOfCake.Web.Representer;
 
 namespace PieceOfCake.Web.Test.Controllers
 {
@@ -39,9 +40,9 @@ namespace PieceOfCake.Web.Test.Controllers
             var result = controller.Index() as ViewResult;
             Assert.IsNotNull(result);
 
-            var roleViewModels = ((IEnumerable<RoleViewModel>) result.Model).ToList();
-            Assert.AreEqual(1, roleViewModels.Count);
-            PerformCommonAsserts(testRoles.First(), roleViewModels.First());
+            var roles = ((IEnumerable<RoleRepresenter>)result.Model).ToList();
+            Assert.AreEqual(1, roles.Count);
+            PerformCommonAsserts(testRoles.First(), roles.First());
         }
 
         [TestMethod]
@@ -55,12 +56,12 @@ namespace PieceOfCake.Web.Test.Controllers
             var result = controller.Index() as ViewResult;
             Assert.IsNotNull(result);
 
-            var roleViewModels = ((IEnumerable<RoleViewModel>) result.Model).ToList();
-            Assert.AreEqual(2, roleViewModels.Count);
+            var roles = ((IEnumerable<RoleRepresenter>)result.Model).ToList();
+            Assert.AreEqual(2, roles.Count);
 
             foreach (var testRole in testRoles)
             {
-                var roleViewModel = roleViewModels.First(rvm => rvm.Id == testRole.Id);
+                var roleViewModel = roles.First(rvm => rvm.Id == testRole.Id);
                 PerformCommonAsserts(testRole, roleViewModel);
             }
         }
@@ -92,8 +93,8 @@ namespace PieceOfCake.Web.Test.Controllers
             var result = controller.Details() as ViewResult;
             Assert.IsNotNull(result);
 
-            var roleViewModel = (RoleViewModel) result.Model;
-            PerformCommonAsserts(testRoles.First(), roleViewModel);
+            var role = (RoleRepresenter)result.Model;
+            PerformCommonAsserts(testRoles.First(), role);
         }
 
         #endregion
@@ -113,25 +114,25 @@ namespace PieceOfCake.Web.Test.Controllers
         public void TestFailedCreatePost()
         {
             var testRole = new RoleFactory().Build();
-            var testRoleViewModel = Mapper.Map(testRole, new RoleViewModel());
+            var testRoleRepresenter = Mapper.Map(testRole, new RoleRepresenter());
 
             var controller = new RoleController(_fakeUnitOfWork);
             controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
-            var result = controller.Create(testRoleViewModel) as ViewResult;
+            var result = controller.Create(testRoleRepresenter) as ViewResult;
             Assert.IsNotNull(result);
 
-            var roleViewModel = (RoleViewModel) result.Model;
-            Assert.AreSame(testRoleViewModel, roleViewModel);
+            var role = (RoleRepresenter)result.Model;
+            Assert.AreSame(testRoleRepresenter, role);
         }
 
         [TestMethod]
         public void TestSuccessfulCreatePost()
         {
             var testRole = new RoleFactory().Build();
-            var testRoleViewModel = Mapper.Map(testRole, new RoleViewModel());
+            var testRoleRepresenter = Mapper.Map(testRole, new RoleRepresenter());
 
             var controller = new RoleController(_fakeUnitOfWork);
-            var result = controller.Create(testRoleViewModel);
+            var result = controller.Create(testRoleRepresenter);
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof (RedirectToRouteResult));
 
@@ -166,33 +167,33 @@ namespace PieceOfCake.Web.Test.Controllers
             var result = controller.Edit() as ViewResult;
             Assert.IsNotNull(result);
 
-            var roleViewModel = (RoleViewModel) result.Model;
-            PerformCommonAsserts(testRoles.First(), roleViewModel);
+            var role = (RoleRepresenter)result.Model;
+            PerformCommonAsserts(testRoles.First(), role);
         }
 
         [TestMethod]
         public void TestFailedEditPost()
         {
             var testRole = new RoleFactory().Build();
-            var testRoleViewModel = Mapper.Map(testRole, new RoleViewModel());
+            var testRoleViewModel = Mapper.Map(testRole, new RoleRepresenter());
 
             var controller = new RoleController(_fakeUnitOfWork);
             controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
             var result = controller.Edit(testRoleViewModel) as ViewResult;
             Assert.IsNotNull(result);
 
-            var roleViewModel = result.Model;
-            Assert.AreSame(testRoleViewModel, roleViewModel);
+            var role = result.Model;
+            Assert.AreSame(testRoleViewModel, role);
         }
 
         [TestMethod]
         public void TestSuccessfulEditPost()
         {
             var testRole = new RoleFactory().Build();
-            var testRoleViewModel = Mapper.Map(testRole, new RoleViewModel());
+            var testRoleRepresenter = Mapper.Map(testRole, new RoleRepresenter());
 
             var controller = new RoleController(_fakeUnitOfWork);
-            var result = controller.Edit(testRoleViewModel);
+            var result = controller.Edit(testRoleRepresenter);
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof (RedirectToRouteResult));
 
@@ -227,8 +228,8 @@ namespace PieceOfCake.Web.Test.Controllers
             var result = controller.Delete() as ViewResult;
             Assert.IsNotNull(result);
 
-            var roleViewModel = (RoleViewModel) result.Model;
-            PerformCommonAsserts(testRoles.First(), roleViewModel);
+            var role = (RoleRepresenter)result.Model;
+            PerformCommonAsserts(testRoles.First(), role);
         }
 
         [TestMethod]
@@ -247,7 +248,7 @@ namespace PieceOfCake.Web.Test.Controllers
 
         #region Common Asserts
 
-        private static void PerformCommonAsserts(Role expected, RoleViewModel actual)
+        private static void PerformCommonAsserts(Role expected, RoleRepresenter actual)
         {
             Assert.AreEqual(expected.Id, actual.Id);
             Assert.AreEqual(expected.Title, actual.Title);

@@ -1,4 +1,4 @@
-﻿@model PieceOfCake.Web.ViewModels.UserViewModel
+﻿@model PieceOfCake.Web.Representer.UserRepresenter
 
 @{
     ViewBag.Title = "Delete";
@@ -17,14 +17,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ShortName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ShortName)
         </dd>
 
         <dt>

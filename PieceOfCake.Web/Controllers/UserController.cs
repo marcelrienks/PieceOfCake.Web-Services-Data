@@ -1,17 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using AutoMapper;
+using PieceOfCake.Data;
+using PieceOfCake.Data.Interfaces;
+using PieceOfCake.Data.Models;
+using PieceOfCake.Web.Representer;
+using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using AutoMapper;
-using PieceOfCake.Data;
-using PieceOfCake.Data.Interfaces;
-using PieceOfCake.Data.Models;
 
 //Todo: verify of username, password on create of User without causing a post back
 //Todo: add functionality to User edit for Password and Avatar (including validation)
-using PieceOfCake.Web.ViewModels;
-
 namespace PieceOfCake.Web.Controllers
 {
     public class UserController : Controller
@@ -37,82 +36,58 @@ namespace PieceOfCake.Web.Controllers
         // GET: /User/
         public ActionResult Index()
         {
-            var users = _unitOfWork.UserRepository.All();
-            var userViewModels = Mapper.Map(users, new List<UserViewModel>());
-            return View(userViewModels);
+            var serviceUsers = _unitOfWork.UserRepository.All();
+            var users = Mapper.Map(serviceUsers, new List<UserRepresenter>());
+            return View(users);
         }
 
         // GET: /User/Details/5
         public ActionResult Details(int id = 0)
         {
-            var user = _unitOfWork.UserRepository.Find(id);
-            if (user == null)
+            var serviceUser = _unitOfWork.UserRepository.Find(id);
+            if (serviceUser == null)
             {
                 return HttpNotFound();
             }
-            var userViewModel = Mapper.Map(user, new UserViewModel());
-            return View(userViewModel);
+            var user = Mapper.Map(serviceUser, new UserRepresenter());
+            return View(user);
         }
 
         // GET: /User/Create
         public ActionResult Create()
         {
             //add roles to viewbag to populate the roles dropdown select
-            var roles = _unitOfWork.RoleRepository.All();
-            ViewBag.RoleViewModels = Mapper.Map(roles, new List<RoleViewModel>());
+            var serviceRoles = _unitOfWork.RoleRepository.All();
+            ViewBag.Roles = Mapper.Map(serviceRoles, new List<UserRepresenter>());
             return View();
         }
 
         // POST: /User/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(UserViewModel userViewModel, HttpPostedFileBase file, FormCollection formCollection)
+        public ActionResult Create(UserRepresenter user, HttpPostedFileBase file, FormCollection formCollection)
         {
 
             #region Roles
 
-            //Create roleViewModels using comma delimited role string selected
+            //Create roleRepresenters using comma delimited role string selected
             if (formCollection["roleSelect"] != null)
             {
                 var rolesTitles = formCollection["roleSelect"].Split(',');
                 var selectRoles = _unitOfWork.RoleRepository.Where(role => rolesTitles.Contains(role.Title));
-                userViewModel.RoleViewModels = Mapper.Map(selectRoles.ToList(), new List<RoleViewModel>());
+                user.RoleRepresenters = Mapper.Map(selectRoles.ToList(), new List<RoleRepresenter>());
             }
-
-            #endregion
-
-            #region Avatar
-
-            //If file was uploaded read bytes, else read bytes from default avatar
-            byte[] bytes;
-            if (file != null && file.ContentLength > 0)
-            {
-                bytes = new byte[file.ContentLength];
-                file.InputStream.Read(bytes, 0, file.ContentLength);
-            }
-            else
-            {
-                bytes =
-                    System.IO.File.ReadAllBytes(
-                        ControllerContext.HttpContext.Server.MapPath(@"~\Images\default_avatar.jpg"));
-            }
-
-            //Create new Avatar model
-            userViewModel.AvatarViewModel = new AvatarViewModel
-            {
-                Image = bytes
-            };
 
             #endregion
 
             //create model
             if (ModelState.IsValid)
             {
-                var user = Mapper.Map(userViewModel, new User());
+                var serviceUser = Mapper.Map(user, new User());
 
                 try
                 {
-                    _unitOfWork.UserRepository.Create(user);
+                    _unitOfWork.UserRepository.Create(serviceUser);
                     return RedirectToAction("Index");
                 }
                 catch (DbUpdateException ex)
@@ -123,7 +98,7 @@ namespace PieceOfCake.Web.Controllers
                     if (ex.InnerException.InnerException.Message.Contains(
                         string.Format(
                             "Cannot insert duplicate key row in object 'dbo.Users' with unique index 'IX_Username'. The duplicate key value is ({0}).",
-                            userViewModel.Username)))
+                            user.Username)))
                     {
                         ModelState["Username"].Errors.Add("Username is already in use.");
                     }
@@ -133,82 +108,59 @@ namespace PieceOfCake.Web.Controllers
             }
 
             //add roles to viewbag to populate the roles dropdown select if model state is invalid
-            var roles = _unitOfWork.RoleRepository.All();
-            ViewBag.RoleViewModels = Mapper.Map(roles, new List<RoleViewModel>());
-            return View(userViewModel);
+            var serviceRoles = _unitOfWork.RoleRepository.All();
+            ViewBag.Roles = Mapper.Map(serviceRoles, new List<RoleRepresenter>());
+            return View(user);
         }
 
         // GET: /User/Edit/5
         public ActionResult Edit(int id = 0)
         {
             //find the User specified
-            var user = _unitOfWork.UserRepository.Find(id);
-            if (user == null)
+            var serviceUser = _unitOfWork.UserRepository.Find(id);
+            if (serviceUser == null)
             {
                 return HttpNotFound();
             }
 
             //map User to UserViewModel and return
-            var userViewModel = Mapper.Map(user, new UserViewModel());
+            var user = Mapper.Map(serviceUser, new UserRepresenter());
 
             //add roles to viewbag to populate the roles dropdown select
-            var roles = _unitOfWork.RoleRepository.All();
-            ViewBag.RoleViewModels = Mapper.Map(roles, new List<RoleViewModel>());
-
-            return View(userViewModel);
+            var serviceRoles = _unitOfWork.RoleRepository.All();
+            ViewBag.Roles = Mapper.Map(serviceRoles, new List<RoleRepresenter>());
+            return View(user);
         }
 
         // POST: /User/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(UserViewModel userViewModel, HttpPostedFileBase file, FormCollection formCollection)
+        public ActionResult Edit(UserRepresenter user, HttpPostedFileBase file, FormCollection formCollection)
         {
 
             #region Roles
 
-            //Create roles using comma delimited role string selected
+            //Create roleRepresenters using comma delimited role string selected
             if (formCollection["roleSelect"] != null)
             {
                 var rolesTitles = formCollection["roleSelect"].Split(',');
                 var selectRoles = _unitOfWork.RoleRepository.Where(role => rolesTitles.Contains(role.Title));
-                userViewModel.RoleViewModels = Mapper.Map(selectRoles.ToList(), new List<RoleViewModel>());
+                user.RoleRepresenters = Mapper.Map(selectRoles.ToList(), new List<RoleRepresenter>());
             }
-
-            #endregion
-
-            #region Avatar
-
-            //If file was uploaded read bytes, else read bytes from current avatar
-            byte[] bytes;
-            if (file != null && file.ContentLength > 0)
-            {
-                bytes = new byte[file.ContentLength];
-                file.InputStream.Read(bytes, 0, file.ContentLength);
-            }
-            else
-            {
-                bytes = _unitOfWork.AvatarRepository.Find(userViewModel.Id).Image;
-            }
-
-            //Create new Avatar model
-            userViewModel.AvatarViewModel = new AvatarViewModel
-            {
-                Image = bytes
-            };
 
             #endregion
 
             //Clear model state and try validate after populating Roles and avatars
             ModelState.Clear();
-            TryValidateModel(userViewModel);
+            TryValidateModel(user);
 
             if (ModelState.IsValid)
             {
-                var user = Mapper.Map(userViewModel, new User());
+                var serviceUsers = Mapper.Map(user, new User());
 
                 try
                 {
-                    _unitOfWork.UserRepository.Update(user);
+                    _unitOfWork.UserRepository.Update(serviceUsers);
                     return RedirectToAction("Index");
                 }
                 catch (DbUpdateException ex)
@@ -219,7 +171,7 @@ namespace PieceOfCake.Web.Controllers
                     if (ex.InnerException.InnerException.Message.Contains(
                         string.Format(
                             "Cannot insert duplicate key row in object 'dbo.Users' with unique index 'IX_Username'. The duplicate key value is ({0}).",
-                            userViewModel.Username)))
+                            user.Username)))
                     {
                         ModelState["Username"].Errors.Add("Username is already in use.");
                     }
@@ -229,21 +181,21 @@ namespace PieceOfCake.Web.Controllers
             }
 
             //add roles to viewbag to populate the roles dropdown select if model state is invalid
-            var roles = _unitOfWork.RoleRepository.All();
-            ViewBag.RoleViewModels = Mapper.Map(roles, new List<RoleViewModel>());
-            return View(userViewModel);
+            var serviceRoles = _unitOfWork.RoleRepository.All();
+            ViewBag.Roles = Mapper.Map(serviceRoles, new List<RoleRepresenter>());
+            return View(user);
         }
 
         // GET: /User/Delete/5
         public ActionResult Delete(int id = 0)
         {
-            var user = _unitOfWork.UserRepository.Find(id);
-            if (user == null)
+            var serviceUsers = _unitOfWork.UserRepository.Find(id);
+            if (serviceUsers == null)
             {
                 return HttpNotFound();
             }
-            var userViewModel = Mapper.Map(user, new UserViewModel());
-            return View(userViewModel);
+            var user = Mapper.Map(serviceUsers, new UserRepresenter());
+            return View(user);
         }
 
         // POST: /User/Delete/5
@@ -251,8 +203,8 @@ namespace PieceOfCake.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var user = _unitOfWork.UserRepository.Find(id);
-            _unitOfWork.UserRepository.Delete(user);
+            var serviceUsers = _unitOfWork.UserRepository.Find(id);
+            _unitOfWork.UserRepository.Delete(serviceUsers);
             return RedirectToAction("Index");
         }
 

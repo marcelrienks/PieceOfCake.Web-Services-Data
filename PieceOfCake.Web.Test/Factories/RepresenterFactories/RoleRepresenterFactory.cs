@@ -1,26 +1,26 @@
 ﻿using System.Collections.Generic;
-using PieceOfCake.Web.ViewModels;
+using PieceOfCake.Web.Representer;
 
-namespace PieceOfCake.Web.Test.Factories.ViewModelFactories
+namespace PieceOfCake.Web.Test.Factories.RepresenterFactories
 {
-    internal class RoleViewModelFactory
+    internal class RoleRepresenterFactory
     {
-        private readonly RoleViewModel _roleViewModel;
-        private readonly List<RoleViewModel> _roleViewModels;
+        private readonly RoleRepresenter _roleViewModel;
+        private readonly List<RoleRepresenter> _roleViewModels;
 
         /// <summary>
         ///     Create default RoleViewModel and RoleViewModel list objects
         /// </summary>
-        public RoleViewModelFactory()
+        public RoleRepresenterFactory()
         {
-            _roleViewModel = new RoleViewModel
+            _roleViewModel = new RoleRepresenter
             {
                 Id = 0,
                 Title = "Title",
                 Description = "Description"
             };
 
-            _roleViewModels = new List<RoleViewModel>
+            _roleViewModels = new List<RoleRepresenter>
             {
                 _roleViewModel
             };
@@ -30,7 +30,7 @@ namespace PieceOfCake.Web.Test.Factories.ViewModelFactories
         ///     Return constructed RoleViewModel
         /// </summary>
         /// <returns>Role</returns>
-        public RoleViewModel Build()
+        public RoleRepresenter Build()
         {
             return _roleViewModel;
         }
@@ -39,7 +39,7 @@ namespace PieceOfCake.Web.Test.Factories.ViewModelFactories
         ///     Return constructed RoleViewModel List
         /// </summary>
         /// <returns>List<Role></returns>
-        public List<RoleViewModel> BuildList()
+        public List<RoleRepresenter> BuildList()
         {
             return _roleViewModels;
         }
@@ -48,7 +48,7 @@ namespace PieceOfCake.Web.Test.Factories.ViewModelFactories
         ///     Creates an Invalid Role view model with null fields
         /// </summary>
         /// <returns></returns>
-        public RoleViewModelFactory WithNullRequiredFields()
+        public RoleRepresenterFactory WithNullRequiredFields()
         {
             _roleViewModel.Title = null;
             return this;
@@ -58,7 +58,7 @@ namespace PieceOfCake.Web.Test.Factories.ViewModelFactories
         ///     Creates an Invalid Role view model
         /// </summary>
         /// <returns></returns>
-        public RoleViewModelFactory WithInvalidFields()
+        public RoleRepresenterFactory WithInvalidFields()
         {
             _roleViewModel.Title = "a";
             _roleViewModel.Description = "a";

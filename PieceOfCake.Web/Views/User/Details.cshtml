@@ -1,4 +1,4 @@
-﻿@model PieceOfCake.Web.ViewModels.UserViewModel
+﻿@model PieceOfCake.Web.Representer.UserRepresenter
 
 @{
     ViewBag.Title = "Details";
@@ -11,27 +11,11 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.AvatarViewModel)
-        </dt>
-
-        <dd>
-            <img src="@String.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.AvatarViewModel.Image))" />
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ShortName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ShortName)
         </dd>
 
         <dt>
@@ -49,13 +33,13 @@
         <dd>
             @Html.DisplayFor(model => model.Email)
         </dd>
-        
+
         <dt>
-            @Html.DisplayNameFor(model => model.RoleViewModels)
+            @Html.DisplayNameFor(model => model.RoleRepresenters)
         </dt>
 
         <dd>
-            @foreach (var role in Model.RoleViewModels)
+            @foreach (var role in Model.RoleRepresenters)
             {
                 <div class="display-field">
                     @Html.DisplayFor(roleItem => role.Title)
@@ -66,6 +50,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new {id = Model.Id}) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

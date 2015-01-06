@@ -33,7 +33,7 @@ namespace PieceOfCake.Services.Controllers
 
         #region Actions
 
-        // GET: api/Roles
+        // GET: api/RoleRepresentors
         public IEnumerable<RoleRepresentor> GetRoles()
         {
             var dbRoles = _unitOfWork.RoleRepository.All();
@@ -41,7 +41,7 @@ namespace PieceOfCake.Services.Controllers
             return roles;
         }
 
-        // GET: api/Roles/5
+        // GET: api/RoleRepresentors/5
         [ResponseType(typeof(RoleRepresentor))]
         public IHttpActionResult GetRole(int id)
         {
@@ -55,7 +55,7 @@ namespace PieceOfCake.Services.Controllers
             return Ok(role);
         }
 
-        // PUT: api/Roles/5
+        // PUT: api/RoleRepresentors/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutRole(int id, RoleRepresentor role)
         {
@@ -87,7 +87,7 @@ namespace PieceOfCake.Services.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Roles
+        // POST: api/RoleRepresentors
         [ResponseType(typeof(RoleRepresentor))]
         public IHttpActionResult PostRole(RoleRepresentor role)
         {
@@ -103,7 +103,7 @@ namespace PieceOfCake.Services.Controllers
             return CreatedAtRoute("DefaultApi", new { id = role.Id }, role);
         }
 
-        // DELETE: api/Roles/5
+        // DELETE: api/RoleRepresentors/5
         [ResponseType(typeof(RoleRepresentor))]
         public IHttpActionResult DeleteRole(int id)
         {

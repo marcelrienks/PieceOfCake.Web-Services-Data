@@ -19,7 +19,7 @@ namespace PieceOfCake.Services.Representors
 
         #region Navigation
 
-        public virtual ICollection<UserRepresentor> Users { get; set; }
+        public virtual ICollection<UserRepresentor> UserRepresentors { get; set; }
 
         #endregion
     }

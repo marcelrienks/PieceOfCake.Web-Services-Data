@@ -23,14 +23,14 @@ namespace PieceOfCake.Services
             //RoleRepresenter => RoleDataModel
             Mapper.CreateMap<RoleRepresentor, Role>()
                 //Maps RoleRepresenter.UserRepresenter => RoleDataModel.UserDataModel
-                .ForMember(dmRole => dmRole.Users,
-                    options => options.MapFrom(vmRole => vmRole.Users));
+                .ForMember(roleDataModel => roleDataModel.Users,
+                    options => options.MapFrom(roleRepresenter => roleRepresenter.UserRepresentors));
 
             //RoleDataModel => RoleRepresenter
             Mapper.CreateMap<Role, RoleRepresentor>()
                 //Maps RoleDataModel.UserDataModel => RoleRepresenter.UserRepresenter
-                .ForMember(vmRole => vmRole.Users,
-                    options => options.MapFrom(dmRole => dmRole.Users));
+                .ForMember(roleRepresenter => roleRepresenter.UserRepresentors,
+                    options => options.MapFrom(roleDataModel => roleDataModel.Users));
         }
 
         /// <summary>
@@ -41,14 +41,14 @@ namespace PieceOfCake.Services
             //UserRepresenter => UserDataModel
             Mapper.CreateMap<UserRepresentor, User>()
                 //Maps UserRepresenter.RoleRepresenter => UserDataModel.RoleDataModel
-                .ForMember(dmUser => dmUser.Roles,
-                    options => options.MapFrom(vmUser => vmUser.Roles));
+                .ForMember(userDataModel => userDataModel.Roles,
+                    options => options.MapFrom(userRepresenter => userRepresenter.RoleRepresentors));
 
             //UserDataModel => UserRepresenter
             Mapper.CreateMap<User, UserRepresentor>()
                 //Maps UserDataModel.RoleDataModel => UserRepresenter.RoleRepresenter
-                .ForMember(vmUser => vmUser.Roles,
-                    options => options.MapFrom(dmUser => dmUser.Roles));
+                .ForMember(userRepresenter => userRepresenter.RoleRepresentors,
+                    options => options.MapFrom(userDataModel => userDataModel.Roles));
         }
     }
 }

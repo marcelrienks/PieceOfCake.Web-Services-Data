@@ -1,82 +1,54 @@
 ﻿using AutoMapper;
 using PieceOfCake.Data.Models;
-using PieceOfCake.Web.ViewModels;
+using PieceOfCake.Web.Representer;
 
-namespace PieceOfCake.Web
+namespace PieceOfCake.Services
 {
     public class AutoMapperConfig
     {
         /// <summary>
-        ///     Configures Mappings between models and view models
+        ///     Configures Mappings between Data Model and Representer
         /// </summary>
         public static void ConfigureMappings()
         {
             ConfigureRoleModelMappings();
             ConfigureUserModelMappings();
-            ConfigureAvatarModelMappings();
         }
 
         /// <summary>
-        ///     Configures mappings between Role and RoleViewModel
+        ///     Configures Role mappings between Data Model and Representer
         /// </summary>
         private static void ConfigureRoleModelMappings()
         {
-            //Role => RoleViewModel
-            Mapper.CreateMap<Role, RoleViewModel>()
-                //Maps Role.User => RoleViewModel.UserViewModels
-                .ForMember(roleViewModel => roleViewModel.UserViewModels,
-                    options => options.MapFrom(role => role.Users));
+            //RoleRepresenter => RoleDataModel
+            Mapper.CreateMap<RoleRepresenter, Role>()
+                //Maps RoleRepresenter.UserRepresenter => RoleDataModel.UserDataModel
+                .ForMember(roleDataModel => roleDataModel.Users,
+                    options => options.MapFrom(roleRepresenter => roleRepresenter.UserRepresenters));
 
-            //RoleViewModel => Role
-            Mapper.CreateMap<RoleViewModel, Role>()
-                //Maps RoleViewModel.UserViewModels => Role.User
-                .ForMember(role => role.Users,
-                    options => options.MapFrom(roleViewModel => roleViewModel.UserViewModels));
+            //RoleDataModel => RoleRepresenter
+            Mapper.CreateMap<Role, RoleRepresenter>()
+                //Maps RoleDataModel.UserDataModel => RoleRepresenter.UserRepresenter
+                .ForMember(roleRepresenter => roleRepresenter.UserRepresenters,
+                    options => options.MapFrom(roleDataModel => roleDataModel.Users));
         }
 
         /// <summary>
-        ///     Configures mappings between User and UserViewModel
+        ///     Configures User mappings between Data Model and Representer
         /// </summary>
         private static void ConfigureUserModelMappings()
         {
-            //User => UserViewModel
-            Mapper.CreateMap<User, UserViewModel>()
-                //Maps User.Role => UserViewModel.RoleViewModel
-                .ForMember(userViewModel => userViewModel.RoleViewModels,
-                    options => options.MapFrom(user => user.Roles))
-                //Maps User.Avatar => UserViewModel.AvatarViewModel
-                .ForMember(userViewModel => userViewModel.AvatarViewModel,
-                    options => options.MapFrom(user => user.Avatar))
-                //Maps User.Password => UserViewModel.ConfirmPassword
-                .ForMember(userViewModel => userViewModel.ConfirmPassword,
-                    options => options.MapFrom(user => user.Password));
+            //UserRepresenter => UserDataModel
+            Mapper.CreateMap<UserRepresenter, User>()
+                //Maps UserRepresenter.RoleRepresenter => UserDataModel.RoleDataModel
+                .ForMember(userDataModel => userDataModel.Roles,
+                    options => options.MapFrom(userRepresenter => userRepresenter.RoleRepresenters));
 
-            //UserViewModel => User
-            Mapper.CreateMap<UserViewModel, User>()
-                //MapsUserViewModel.RoleViewModel => User.Role
-                .ForMember(user => user.Roles,
-                    options => options.MapFrom(userViewModel => userViewModel.RoleViewModels))
-                //Maps UserViewModel.AvatarViewModel => User.Avatar
-                .ForMember(user => user.Avatar,
-                    options => options.MapFrom(userViewModel => userViewModel.AvatarViewModel));
-        }
-
-        /// <summary>
-        ///     Configures mappings between Avatar and AvatarViewModel
-        /// </summary>
-        private static void ConfigureAvatarModelMappings()
-        {
-            //Avatar => AvatarViewModel
-            Mapper.CreateMap<Avatar, AvatarViewModel>()
-                //Maps Avatar.User => AvatarViewModel.UserViewModel
-                .ForMember(avatarViewModel => avatarViewModel.UserViewModel,
-                    options => options.MapFrom(avater => avater.User));
-
-            //AvatarViewModel => Avatar
-            Mapper.CreateMap<AvatarViewModel, Avatar>()
-                //Maps AvatarViewModel.UserViewModel => Avatar.User
-                .ForMember(avater => avater.User,
-                    options => options.MapFrom(avatarViewModel => avatarViewModel.UserViewModel));
+            //UserDataModel => UserRepresenter
+            Mapper.CreateMap<User, UserRepresenter>()
+                //Maps UserDataModel.RoleDataModel => UserRepresenter.RoleRepresenter
+                .ForMember(userRepresenter => userRepresenter.RoleRepresenters,
+                    options => options.MapFrom(userDataModel => userDataModel.Roles));
         }
     }
 }

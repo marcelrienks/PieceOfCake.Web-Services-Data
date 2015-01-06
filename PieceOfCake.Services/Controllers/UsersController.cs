@@ -31,7 +31,7 @@ namespace PieceOfCake.Services.Controllers
 
         #region Actions
 
-        // GET: api/Users
+        // GET: api/UserRepresentors
         public IEnumerable<UserRepresentor> GetUsers()
         {
             var dbUser = _unitOfWork.UserRepository.All();
@@ -39,7 +39,7 @@ namespace PieceOfCake.Services.Controllers
             return user;
         }
 
-        // GET: api/Users/5
+        // GET: api/UserRepresentors/5
         [ResponseType(typeof(UserRepresentor))]
         public IHttpActionResult GetUser(int id)
         {
@@ -53,7 +53,7 @@ namespace PieceOfCake.Services.Controllers
             return Ok(user);
         }
 
-        // PUT: api/Users/5
+        // PUT: api/UserRepresentors/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutUser(int id, UserRepresentor user)
         {
@@ -85,7 +85,7 @@ namespace PieceOfCake.Services.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Users
+        // POST: api/UserRepresentors
         [ResponseType(typeof(UserRepresentor))]
         public IHttpActionResult PostUser(UserRepresentor user)
         {
@@ -101,7 +101,7 @@ namespace PieceOfCake.Services.Controllers
             return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
         }
 
-        // DELETE: api/Users/5
+        // DELETE: api/UserRepresentors/5
         [ResponseType(typeof(UserRepresentor))]
         public IHttpActionResult DeleteUser(int id)
         {

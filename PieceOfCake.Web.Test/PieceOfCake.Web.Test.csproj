@@ -101,10 +101,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Factories\ModelFactories\RoleFactory.cs" />
-    <Compile Include="Factories\ViewModelFactories\UserViewModelFactory.cs" />
-    <Compile Include="Factories\ViewModelFactories\RoleViewModelFactory.cs" />
-    <Compile Include="Validation\UserViewModelTest.cs" />
-    <Compile Include="Validation\RoleViewModelTest.cs" />
+    <Compile Include="Factories\RepresenterFactories\UserRepresenterFactory.cs" />
+    <Compile Include="Factories\RepresenterFactories\RoleRepresenterFactory.cs" />
+    <Compile Include="Validation\UserRepresenterTest.cs" />
+    <Compile Include="Validation\RoleRepresenterTest.cs" />
     <Compile Include="Validation\TestModelStateController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestHarness.cs" />

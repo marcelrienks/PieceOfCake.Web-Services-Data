@@ -133,12 +133,6 @@ namespace PieceOfCake.Web.Test.DataAccess
                 return roles != null && roles.Count(entity => entity.Id == id) > 0;
             }
 
-            if (typeof(TModel) == typeof(Avatar))
-            {
-                var avatars = ModelList as IEnumerable<Avatar>;
-                return avatars != null && avatars.Count(entity => entity.Id == id) > 0;
-            }
-
             return false;
         }
 

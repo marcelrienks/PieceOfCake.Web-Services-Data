@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace PieceOfCake.Web.ViewModels
+namespace PieceOfCake.Web.Representer
 {
-    public class UserViewModel
+    public class UserRepresenter
     {
         //Note:
         //Using View Models in an attempt to keep poco model classes clean and un cluttered.
@@ -16,11 +16,6 @@ namespace PieceOfCake.Web.ViewModels
         [Required]
         [StringLength(30, MinimumLength = 3, ErrorMessage = "The {0} must be between {2} and {1} characters long.")]
         public string Name { get; set; }
-
-        [Required]
-        [StringLength(3, MinimumLength = 2, ErrorMessage = "The {0} must be between {2} and {1} characters long.")]
-        [Display(Name = "Short Name")]
-        public string ShortName { get; set; }
 
         [Required]
         [StringLength(30, MinimumLength = 3, ErrorMessage = "The {0} must be between {2} and {1} characters long.")]
@@ -47,10 +42,7 @@ namespace PieceOfCake.Web.ViewModels
         #region Navigation
 
         [Required]
-        public virtual ICollection<RoleViewModel> RoleViewModels { get; set; }
-
-        [Required]
-        public virtual AvatarViewModel AvatarViewModel { get; set; }
+        public virtual ICollection<RoleRepresenter> RoleRepresenters { get; set; }
 
         #endregion
     }

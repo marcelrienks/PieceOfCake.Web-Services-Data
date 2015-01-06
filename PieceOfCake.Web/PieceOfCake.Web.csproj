@@ -196,9 +196,8 @@
     </Compile>
     <Compile Include="Libraries\Encryption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\AvatarViewModel.cs" />
-    <Compile Include="ViewModels\UserViewModel.cs" />
-    <Compile Include="ViewModels\RoleViewModel.cs" />
+    <Compile Include="Representer\UserRepresenter.cs" />
+    <Compile Include="Representer\RoleRepresenter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

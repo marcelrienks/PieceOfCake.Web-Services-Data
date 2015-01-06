@@ -4,7 +4,7 @@ using AutoMapper;
 using PieceOfCake.Data;
 using PieceOfCake.Data.Interfaces;
 using PieceOfCake.Data.Models;
-using PieceOfCake.Web.ViewModels;
+using PieceOfCake.Web.Representer;
 
 namespace PieceOfCake.Web.Controllers
 {
@@ -31,21 +31,21 @@ namespace PieceOfCake.Web.Controllers
         // GET: /Role/
         public ActionResult Index()
         {
-            var roles = _unitOfWork.RoleRepository.All();
-            var roleViewModels = Mapper.Map(roles, new List<RoleViewModel>());
-            return View(roleViewModels);
+            var serviceRoles = _unitOfWork.RoleRepository.All();
+            var roles = Mapper.Map(serviceRoles, new List<RoleRepresenter>());
+            return View(roles);
         }
 
         // GET: /Role/Details/5
         public ActionResult Details(int id = 0)
         {
-            var role = _unitOfWork.RoleRepository.Find(id);
-            if (role == null)
+            var serviceRoles = _unitOfWork.RoleRepository.Find(id);
+            if (serviceRoles == null)
             {
                 return HttpNotFound();
             }
-            var roleViewModel = Mapper.Map(role, new RoleViewModel());
-            return View(roleViewModel);
+            var role = Mapper.Map(serviceRoles, new RoleRepresenter());
+            return View(role);
         }
 
         // GET: /Role/Create
@@ -57,16 +57,16 @@ namespace PieceOfCake.Web.Controllers
         // POST: /Role/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(RoleViewModel roleViewModel)
+        public ActionResult Create(RoleRepresenter role)
         {
             if (ModelState.IsValid)
             {
-                var role = Mapper.Map(roleViewModel, new Role());
-                _unitOfWork.RoleRepository.Create(role);
+                var serviceRole = Mapper.Map(role, new Role());
+                _unitOfWork.RoleRepository.Create(serviceRole);
                 return RedirectToAction("Index");
             }
 
-            return View(roleViewModel);
+            return View(role);
         }
 
         // GET: /Role/Edit/5
@@ -77,34 +77,34 @@ namespace PieceOfCake.Web.Controllers
             {
                 return HttpNotFound();
             }
-            var roleViewModel = Mapper.Map(role, new RoleViewModel());
+            var roleViewModel = Mapper.Map(role, new RoleRepresenter());
             return View(roleViewModel);
         }
 
         // POST: /Role/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(RoleViewModel roleViewModel)
+        public ActionResult Edit(RoleRepresenter role)
         {
             if (ModelState.IsValid)
             {
-                var role = Mapper.Map(roleViewModel, new Role());
-                _unitOfWork.RoleRepository.Update(role);
+                var serviceRole = Mapper.Map(role, new Role());
+                _unitOfWork.RoleRepository.Update(serviceRole);
                 return RedirectToAction("Index");
             }
-            return View(roleViewModel);
+            return View(role);
         }
 
         // GET: /Role/Delete/5
         public ActionResult Delete(int id = 0)
         {
-            var role = _unitOfWork.RoleRepository.Find(id);
-            if (role == null)
+            var serviceRole = _unitOfWork.RoleRepository.Find(id);
+            if (serviceRole == null)
             {
                 return HttpNotFound();
             }
-            var roleViewModel = Mapper.Map(role, new RoleViewModel());
-            return View(roleViewModel);
+            var role = Mapper.Map(serviceRole, new RoleRepresenter());
+            return View(role);
         }
 
         // POST: /Role/Delete/5
@@ -113,8 +113,8 @@ namespace PieceOfCake.Web.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             //Todo: Add validation to prevent role from being deleted if it's assigned to a User
-            var role = _unitOfWork.RoleRepository.Find(id);
-            _unitOfWork.RoleRepository.Delete(role);
+            var serviceRole = _unitOfWork.RoleRepository.Find(id);
+            _unitOfWork.RoleRepository.Delete(serviceRole);
             return RedirectToAction("Index");
         }
 

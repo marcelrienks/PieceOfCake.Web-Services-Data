@@ -35,15 +35,9 @@ namespace PieceOfCake.Web.Test.Factories.ModelFactories
             {
                 Id = userId,
                 Name = "Name",
-                ShortName = "sn",
                 Username = "Username",
                 Email = "email@address.com",
-                Roles = new RoleFactory().BuildList(),
-                Avatar = new Avatar
-                {
-                    Id = userId,
-                    Image = new byte[0]
-                }
+                Roles = new RoleFactory().BuildList()
             };
 
             _users = new List<User>

@@ -1,6 +1,6 @@
 ﻿@using System.Web.Optimization
-@using PieceOfCake.Web.ViewModels
-@model PieceOfCake.Web.ViewModels.UserViewModel
+@using PieceOfCake.Web.Representer
+@model PieceOfCake.Web.Representer.UserRepresenter
 
 @section AdditionalStyles {
     @Styles.Render("~/Content/select")
@@ -10,12 +10,12 @@
     @Scripts.Render("~/bundles/select")
 
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             //Initialise select picker
             $('.selectpicker').selectpicker();
 
             //Auto select Roles
-            AutoSelectRoles(@Html.Raw(Json.Encode(Model.RoleViewModels.Select(roleViewModels => roleViewModels.Title).ToArray())));
+            AutoSelectRoles(@Html.Raw(Json.Encode(Model.RoleRepresenters.Select(roleViewModels => roleViewModels.Title).ToArray())));
         });
 
         //Auto selects the Roles in the Roles Drop Down
@@ -32,7 +32,7 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm("Edit", "User", FormMethod.Post, new {enctype = "multipart/form-data"}))
+@using (Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -43,7 +43,7 @@
         @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Name, new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Name)
                 @Html.ValidationMessageFor(model => model.Name)
@@ -51,15 +51,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ShortName, new {@class = "control-label col-md-2"})
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ShortName)
-                @Html.ValidationMessageFor(model => model.ShortName)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Username, new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.Username, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Username)
                 @Html.ValidationMessageFor(model => model.Username)
@@ -67,7 +59,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Password, new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.Password, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Password)
                 @Html.ValidationMessageFor(model => model.Password)
@@ -75,7 +67,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ConfirmPassword, new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.ConfirmPassword, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ConfirmPassword)
                 @Html.ValidationMessageFor(model => model.ConfirmPassword)
@@ -83,7 +75,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Email, new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Email)
                 @Html.ValidationMessageFor(model => model.Email)
@@ -91,28 +83,18 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.RoleViewModels, new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.RoleRepresenters, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <select id="roleSelect" name="roleSelect" class="selectpicker" multiple>
                     @if (ViewBag.RoleViewModels != null)
                     {
-                        foreach (var roleViewModel in ViewBag.RoleViewModels as List<RoleViewModel>)
+                        foreach (var roleViewModel in ViewBag.RoleViewModels as List<RoleRepresenter>)
                         {
                             <option>@roleViewModel.Title</option>
                         }
                     }
                 </select>
-                @Html.ValidationMessageFor(model => model.RoleViewModels)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AvatarViewModel, new {@class = "control-label col-md-2"})
-            <div class="col-md-10">
-                <img src="@String.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.AvatarViewModel.Image))" />
-                <br />
-                <br />
-                <input type="file" name="file" id="file" style="width: 100%;" />
+                @Html.ValidationMessageFor(model => model.RoleRepresenters)
             </div>
         </div>
 

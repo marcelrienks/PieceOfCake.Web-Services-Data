@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PieceOfCake.Web.Test.Factories.ViewModelFactories;
+using PieceOfCake.Web.Test.Factories.RepresenterFactories;
 
 namespace PieceOfCake.Web.Test.Validation
 {
     [TestClass]
-    public class UserViewModelTest
+    public class UserRepresenterTest
     {
         #region Properties
 
@@ -12,7 +12,7 @@ namespace PieceOfCake.Web.Test.Validation
         
         #endregion
 
-        public UserViewModelTest()
+        public UserRepresenterTest()
         {
             _testController = new TestModelStateController();
         }
@@ -20,21 +20,17 @@ namespace PieceOfCake.Web.Test.Validation
         [TestMethod]
         public void TestRequiredFields()
         {
-            var user = new UserViewModelFactory().WithNullRequiredFields().Build();
+            var user = new UserRepresenterFactory().WithNullRequiredFields().Build();
             var result = _testController.TestTryValidateModel(user);
 
             var modelState = _testController.ModelState;
 
             Assert.IsFalse(result);
-            Assert.AreEqual(6, modelState.Keys.Count);
+            Assert.AreEqual(5, modelState.Keys.Count);
 
             Assert.IsTrue(modelState.Keys.Contains("Name"));
             Assert.IsTrue(modelState["Name"].Errors.Count == 1);
             Assert.AreEqual("The Name field is required.", modelState["Name"].Errors[0].ErrorMessage);
-
-            Assert.IsTrue(modelState.Keys.Contains("ShortName"));
-            Assert.IsTrue(modelState["ShortName"].Errors.Count == 1);
-            Assert.AreEqual("The Short Name field is required.", modelState["ShortName"].Errors[0].ErrorMessage);
 
             Assert.IsTrue(modelState.Keys.Contains("Username"));
             Assert.IsTrue(modelState["Username"].Errors.Count == 1);
@@ -57,23 +53,18 @@ namespace PieceOfCake.Web.Test.Validation
         [TestMethod]
         public void TestInvalidFields()
         {
-            var user = new UserViewModelFactory().WithInvalidFields().Build();
+            var user = new UserRepresenterFactory().WithInvalidFields().Build();
             var result = _testController.TestTryValidateModel(user);
 
             var modelState = _testController.ModelState;
 
             Assert.IsFalse(result);
-            Assert.AreEqual(5, modelState.Keys.Count);
+            Assert.AreEqual(4, modelState.Keys.Count);
 
             Assert.IsTrue(modelState.Keys.Contains("Name"));
             Assert.IsTrue(modelState["Name"].Errors.Count == 1);
             Assert.AreEqual("The Name must be between 3 and 30 characters long.",
                 modelState["Name"].Errors[0].ErrorMessage);
-
-            Assert.IsTrue(modelState.Keys.Contains("ShortName"));
-            Assert.IsTrue(modelState["ShortName"].Errors.Count == 1);
-            Assert.AreEqual("The Short Name must be between 2 and 3 characters long.",
-                modelState["ShortName"].Errors[0].ErrorMessage);
 
             Assert.IsTrue(modelState.Keys.Contains("Username"));
             Assert.IsTrue(modelState["Username"].Errors.Count == 1);
@@ -92,7 +83,7 @@ namespace PieceOfCake.Web.Test.Validation
         [TestMethod]
         public void TestValidUser()
         {
-            var user = new UserViewModelFactory().Build();
+            var user = new UserRepresenterFactory().Build();
             var result = _testController.TestTryValidateModel(user);
 
             var modelState = _testController.ModelState;

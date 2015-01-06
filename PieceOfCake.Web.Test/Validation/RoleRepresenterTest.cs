@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PieceOfCake.Web.Test.Factories.ViewModelFactories;
+using PieceOfCake.Web.Test.Factories.RepresenterFactories;
 
 namespace PieceOfCake.Web.Test.Validation
 {
     [TestClass]
-    public class RoleViewModelTest
+    public class RoleRepresenterTest
     {
         #region Properties
 
@@ -12,7 +12,7 @@ namespace PieceOfCake.Web.Test.Validation
         
         #endregion
 
-        public RoleViewModelTest()
+        public RoleRepresenterTest()
         {
             _testController = new TestModelStateController();
         }
@@ -20,7 +20,7 @@ namespace PieceOfCake.Web.Test.Validation
         [TestMethod]
         public void TestRequiredFields()
         {
-            var role = new RoleViewModelFactory().WithNullRequiredFields().Build();
+            var role = new RoleRepresenterFactory().WithNullRequiredFields().Build();
             var result = _testController.TestTryValidateModel(role);
 
             var modelState = _testController.ModelState;
@@ -36,7 +36,7 @@ namespace PieceOfCake.Web.Test.Validation
         [TestMethod]
         public void TestInvalidFields()
         {
-            var role = new RoleViewModelFactory().WithInvalidFields().Build();
+            var role = new RoleRepresenterFactory().WithInvalidFields().Build();
             var result = _testController.TestTryValidateModel(role);
 
             var modelState = _testController.ModelState;
@@ -58,7 +58,7 @@ namespace PieceOfCake.Web.Test.Validation
         [TestMethod]
         public void TestValidRole()
         {
-            var role = new RoleViewModelFactory().Build();
+            var role = new RoleRepresenterFactory().Build();
             var result = _testController.TestTryValidateModel(role);
 
             var modelState = _testController.ModelState;

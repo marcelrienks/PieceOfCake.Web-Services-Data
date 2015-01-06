@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace PieceOfCake.Web.ViewModels
+namespace PieceOfCake.Web.Representer
 {
-    public class RoleViewModel
+    public class RoleRepresenter
     {
         //Note:
         //Using View Models in an attempt to keep poco model classes clean and un cluttered.
@@ -24,7 +24,7 @@ namespace PieceOfCake.Web.ViewModels
 
         #region Navigation
 
-        public virtual ICollection<UserViewModel> UserViewModels { get; set; }
+        public virtual ICollection<UserRepresenter> UserRepresenters { get; set; }
 
         #endregion
     }

@@ -5,11 +5,12 @@ using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PieceOfCake.Data.Models;
+using PieceOfCake.Services;
 using PieceOfCake.Web.Controllers;
 using PieceOfCake.Web.Test.DataAccess;
 using PieceOfCake.Web.Test.Factories;
 using PieceOfCake.Web.Test.Factories.ModelFactories;
-using PieceOfCake.Web.ViewModels;
+using PieceOfCake.Web.Representer;
 
 namespace PieceOfCake.Web.Test.Controllers
 {
@@ -41,9 +42,9 @@ namespace PieceOfCake.Web.Test.Controllers
             var result = controller.Index() as ViewResult;
             Assert.IsNotNull(result);
 
-            var userViewModels = ((IEnumerable<UserViewModel>)result.Model).ToList();
-            Assert.AreEqual(1, userViewModels.Count);
-            PerformCommonAsserts(testUsers.First(), userViewModels.First());
+            var users = ((IEnumerable<UserRepresenter>)result.Model).ToList();
+            Assert.AreEqual(1, users.Count);
+            PerformCommonAsserts(testUsers.First(), users.First());
         }
 
         #endregion
@@ -73,8 +74,8 @@ namespace PieceOfCake.Web.Test.Controllers
             var result = controller.Details() as ViewResult;
             Assert.IsNotNull(result);
 
-            var userViewModel = (UserViewModel)result.Model;
-            PerformCommonAsserts(testUsers.First(), userViewModel);
+            var user = (UserRepresenter)result.Model;
+            PerformCommonAsserts(testUsers.First(), user);
         }
 
         #endregion
@@ -104,18 +105,18 @@ namespace PieceOfCake.Web.Test.Controllers
             var customHttpPostedFileBase = HttpPostedFileBaseFactory.CreateCustomHttpPostedFileBase();
 
             var testUser = new UserFactory().Build();
-            var testUserViewModel = Mapper.Map(testUser, new UserViewModel());
+            var testUserRepresenter = Mapper.Map(testUser, new UserRepresenter());
 
             var controller = new UserController(_fakeUnitOfWork);
             controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
-            var result = controller.Create(testUserViewModel, customHttpPostedFileBase, new FormCollection
+            var result = controller.Create(testUserRepresenter, customHttpPostedFileBase, new FormCollection
             {
                 {"roleSelect", new RoleFactory().Build().Title}
             }) as ViewResult;
             Assert.IsNotNull(result);
 
-            var userViewModel = (UserViewModel)result.Model;
-            PerformCommonAsserts(testUser, userViewModel);
+            var user = (UserRepresenter)result.Model;
+            PerformCommonAsserts(testUser, user);
         }
 
         [TestMethod]
@@ -128,7 +129,7 @@ namespace PieceOfCake.Web.Test.Controllers
             var customHttpPostedFileBase = HttpPostedFileBaseFactory.CreateCustomHttpPostedFileBase();
 
             var testUser = new UserFactory().Build();
-            var testUserViewModel = Mapper.Map(testUser, new UserViewModel());
+            var testUserViewModel = Mapper.Map(testUser, new UserRepresenter());
 
             //Convert role titles to comma delimited string
             var roleTitles =
@@ -178,8 +179,8 @@ namespace PieceOfCake.Web.Test.Controllers
             var result = controller.Edit() as ViewResult;
             Assert.IsNotNull(result);
 
-            var userViewModel = (UserViewModel)result.Model;
-            PerformCommonAsserts(testUsers.First(), userViewModel);
+            var user = (UserRepresenter)result.Model;
+            PerformCommonAsserts(testUsers.First(), user);
         }
 
         //[TestMethod]
@@ -239,8 +240,8 @@ namespace PieceOfCake.Web.Test.Controllers
             var result = controller.Delete() as ViewResult;
             Assert.IsNotNull(result);
 
-            var userViewModel = (UserViewModel)result.Model;
-            PerformCommonAsserts(testUsers.First(), userViewModel);
+            var user = (UserRepresenter)result.Model;
+            PerformCommonAsserts(testUsers.First(), user);
         }
 
         [TestMethod]
@@ -259,19 +260,16 @@ namespace PieceOfCake.Web.Test.Controllers
 
         #region Common Asserts
 
-        private static void PerformCommonAsserts(User expected, UserViewModel actual)
+        private static void PerformCommonAsserts(User expected, UserRepresenter actual)
         {
             Assert.AreEqual(expected.Email, actual.Email);
             Assert.AreEqual(expected.Id, actual.Id);
             Assert.AreEqual(expected.Name, actual.Name);
             Assert.AreEqual(expected.Password, actual.Password);
-            Assert.AreEqual(expected.ShortName, actual.ShortName);
             Assert.AreEqual(expected.Username, actual.Username);
-            Assert.AreEqual(expected.Avatar.Id, actual.AvatarViewModel.Id);
-            Assert.AreEqual(expected.Avatar.Image, actual.AvatarViewModel.Image);
-            Assert.AreEqual(expected.Roles.Count, actual.RoleViewModels.Count);
-            Assert.AreEqual(expected.Roles.First().Id, actual.RoleViewModels.First().Id);
-            Assert.AreEqual(expected.Roles.First().Title, actual.RoleViewModels.First().Title);
+            Assert.AreEqual(expected.Roles.Count, actual.RoleRepresenters.Count);
+            Assert.AreEqual(expected.Roles.First().Id, actual.RoleRepresenters.First().Id);
+            Assert.AreEqual(expected.Roles.First().Title, actual.RoleRepresenters.First().Title);
         }
 
         #endregion
