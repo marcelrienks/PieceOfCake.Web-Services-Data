@@ -7,7 +7,7 @@ namespace PieceOfCake.Services
     public class AutoMapperConfig
     {
         /// <summary>
-        ///     Configures Mappings between Data Model and View Model
+        ///     Configures Mappings between Data Model and Representer
         /// </summary>
         public static void ConfigureMappings()
         {
@@ -16,37 +16,37 @@ namespace PieceOfCake.Services
         }
 
         /// <summary>
-        ///     Configures Role mappings between Data Model and View Model
+        ///     Configures Role mappings between Data Model and Representer
         /// </summary>
         private static void ConfigureRoleModelMappings()
         {
-            //ViewModelRole => DataModelRole
+            //RoleRepresenter => RoleDataModel
             Mapper.CreateMap<RoleRepresentor, Role>()
-                //Maps ViewModelRole.ViewModelUser => DataModelRole.DataModelUsers
+                //Maps RoleRepresenter.UserRepresenter => RoleDataModel.UserDataModel
                 .ForMember(dmRole => dmRole.Users,
                     options => options.MapFrom(vmRole => vmRole.Users));
 
-            //RoleDataModel => ViewModelRole
+            //RoleDataModel => RoleRepresenter
             Mapper.CreateMap<Role, RoleRepresentor>()
-                //Maps DataModelRole.DataModelUsers => ViewModelRole.ViewModelUser
+                //Maps RoleDataModel.UserDataModel => RoleRepresenter.UserRepresenter
                 .ForMember(vmRole => vmRole.Users,
                     options => options.MapFrom(dmRole => dmRole.Users));
         }
 
         /// <summary>
-        ///     Configures User mappings between Data Model and View Model
+        ///     Configures User mappings between Data Model and Representer
         /// </summary>
         private static void ConfigureUserModelMappings()
         {
-            //ViewModelUser => UserDataModel
+            //UserRepresenter => UserDataModel
             Mapper.CreateMap<UserRepresentor, User>()
-                //Maps ViewModelUser.ViewModelRole => DataModelUser.DataModelRoles
+                //Maps UserRepresenter.RoleRepresenter => UserDataModel.RoleDataModel
                 .ForMember(dmUser => dmUser.Roles,
                     options => options.MapFrom(vmUser => vmUser.Roles));
 
-            //UserDataModel => ViewModelUser
+            //UserDataModel => UserRepresenter
             Mapper.CreateMap<User, UserRepresentor>()
-                //Maps DataModelUser.DataModelRole => ViewModelUser.ViewModelRole
+                //Maps UserDataModel.RoleDataModel => UserRepresenter.RoleRepresenter
                 .ForMember(vmUser => vmUser.Roles,
                     options => options.MapFrom(dmUser => dmUser.Roles));
         }

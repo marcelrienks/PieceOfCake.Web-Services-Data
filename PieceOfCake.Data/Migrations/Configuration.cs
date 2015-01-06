@@ -34,24 +34,15 @@ namespace PieceOfCake.Data.Migrations
 
             var roles = new List<Role>
             {
-                new Role {Title = "Administrator", Description = "God like access"},
                 new Role
                 {
-                    Title = "Scrum Master",
-                    Description =
-                        "Person responsible for guiding the team in the Scrum methodologies, near God like access"
-                },
-                new Role
-                {
-                    Title = "Product Owner",
-                    Description =
-                        "Person responsible for the products. Access to Products Management, Epic Management and Product Backlog"
+                    Title = "Administrator",
+                    Description = "God like access"
                 },
                 new Role
                 {
                     Title = "Team Member",
-                    Description =
-                        "Person responsible for converting requirements into functional software, Access to Backlog Items and Tasks"
+                    Description = "Person who does all the grunt work"
                 },
             };
 
@@ -76,7 +67,7 @@ namespace PieceOfCake.Data.Migrations
                     Password = "E3mc2rd!",
                     Email = "marcelrienks@gmail.com",
                     Roles =
-                        context.Roles.Where(role => role.Title == "Administrator" || role.Title == "Scrum Master")
+                        context.Roles.Where(role => role.Title == "Administrator" || role.Title == "Team Member")
                             .ToList()
                 }
             };

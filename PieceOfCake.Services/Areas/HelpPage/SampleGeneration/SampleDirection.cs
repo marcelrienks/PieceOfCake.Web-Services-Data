@@ -1,4 +1,4 @@
-namespace PieceOfCake.Services.Areas.HelpPage.SampleGeneration
+namespace PieceOfCake.Services.Areas.HelpPage
 {
     /// <summary>
     /// Indicates whether the sample is used for request or response

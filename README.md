@@ -25,6 +25,9 @@ Twitter Bootstrap has been used for presentation.
 * GraphDiff  
 Used to update the entire graph tree of a context model, including relations
 
+* AutoMapper  
+Used to map two objects together (Convert from one to another)
+
 ## DEVELOPMENT: ##
 * Data: Update models to be for a generic template
 * Services: Update services to match the new models
@@ -46,11 +49,10 @@ Used to update the entire graph tree of a context model, including relations
 
 ## RESOURCES: ##
 ### Roles ###
-This allows administrators to have basic CRUDL functionality of user Roles
+This allows administrators to have basic CRUDL functionality of user Roles.
 
 ### Users ###
-This allows administrators to have basic CRUDL functionality of Users
-Including adding an Avatar to memnbers  
+This allows administrators to have basic CRUDL functionality of Users.
 
 ## DOMAIN ##
 ### Roles ###
@@ -69,23 +71,23 @@ string Email (Required)
 
 ## NOTES: ##
 ### Migration ###
-The migration commands to run from the 'Package Manager Console'  
+The migration commands to run from the 'Package Manager Console'.
 
 **Enable-Migrations**  
-This will enable migrations to be used  
+This will enable migrations to be used. 
 
 **Add-Migration**  
-This will scaffold the next migration based on changes you have made to your model.  
-Or this will create the initial migration if run for the first time.  
+This will scaffold the next migration based on changes you have made to your model.
+Or this will create the initial migration if run for the first time.
 
 **Update-Database**  
-This will apply any pending changes to and or create the database.  
+This will apply any pending changes to and or create the database.
 
 ## ERRORS: ##
 ### cannot attach the file as database  ###
-Ensure the Data Connection is deleted in 'Server Explorer' in VS2012
-Ensure Database is deleted in all versions of localdb from 'SQL Server Object Explorer' in VS2012
-Ensure the database is not attached in SqlExpress
+Ensure the Data Connection is deleted in 'Server Explorer' in VS2012.
+Ensure Database is deleted in all versions of localdb from 'SQL Server Object Explorer' in VS2012.
+Ensure the database is not attached in SqlExpress.
 
 If this does not solve the issue, open the "Developer Command Propmpt for VisualStudio" under your start/programs menu.
 Run the following commands:

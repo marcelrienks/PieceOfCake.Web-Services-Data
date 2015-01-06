@@ -9,7 +9,6 @@ namespace PieceOfCake.Services.Test.DataAccess
 
         public IRepository<Role> RoleRepository { get; private set; }
         public IRepository<User> UserRepository { get; private set; }
-        public IRepository<Avatar> AvatarRepository { get; private set; }
 
         #endregion
 
@@ -17,7 +16,6 @@ namespace PieceOfCake.Services.Test.DataAccess
         {
             RoleRepository = new FakeRepository<Role>();
             UserRepository = new FakeRepository<User>();
-            AvatarRepository = new FakeRepository<Avatar>();
         }
     }
 }

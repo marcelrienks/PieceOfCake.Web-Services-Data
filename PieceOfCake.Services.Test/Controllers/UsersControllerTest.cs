@@ -147,8 +147,8 @@ namespace PieceOfCake.Services.Test.Controllers
         [TestMethod]
         public void PostUser_ShouldReturn_InvalidModel()
         {
-            var key = "key";
-            var errorMessage = "model is invalid";
+            const string key = "key";
+            const string errorMessage = "model is invalid";
             var testUser = new UserFactory().Build();
 
             var controller = new UsersController(_fakeUnitOfWork);
@@ -219,10 +219,7 @@ namespace PieceOfCake.Services.Test.Controllers
             Assert.AreEqual(expected.Id, actual.Id);
             Assert.AreEqual(expected.Name, actual.Name);
             Assert.AreEqual(expected.Password, actual.Password);
-            Assert.AreEqual(expected.ShortName, actual.ShortName);
             Assert.AreEqual(expected.Username, actual.Username);
-            Assert.AreEqual(expected.Avatar.Id, actual.Avatar.Id);
-            Assert.AreEqual(expected.Avatar.Image, actual.Avatar.Image);
             Assert.AreEqual(expected.Roles.Count, actual.Roles.Count);
             Assert.AreEqual(expected.Roles.First().Id, actual.Roles.First().Id);
             Assert.AreEqual(expected.Roles.First().Title, actual.Roles.First().Title);

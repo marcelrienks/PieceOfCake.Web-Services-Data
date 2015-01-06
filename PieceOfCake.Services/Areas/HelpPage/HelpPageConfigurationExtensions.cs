@@ -13,7 +13,6 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Description;
 using PieceOfCake.Services.Areas.HelpPage.ModelDescriptions;
 using PieceOfCake.Services.Areas.HelpPage.Models;
-using PieceOfCake.Services.Areas.HelpPage.SampleGeneration;
 
 namespace PieceOfCake.Services.Areas.HelpPage
 {

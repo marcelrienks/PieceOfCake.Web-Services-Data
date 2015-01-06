@@ -1,6 +1,5 @@
 using System.Web.Http;
 using System.Web.Mvc;
-using PieceOfCake.Services.Areas.HelpPage.App_Start;
 
 namespace PieceOfCake.Services.Areas.HelpPage
 {

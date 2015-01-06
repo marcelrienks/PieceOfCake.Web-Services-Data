@@ -35,15 +35,9 @@ namespace PieceOfCake.Services.Test.Factories
             {
                 Id = userId,
                 Name = "Name",
-                ShortName = "sn",
                 Username = "Username",
                 Email = "email@address.com",
-                Roles = new RoleFactory().BuildList(),
-                Avatar = new AvatarRepresentor
-                {
-                    Id = userId,
-                    Image = new byte[0]
-                }
+                Roles = new RoleFactory().BuildList()
             };
 
             _users = new List<UserRepresentor>
@@ -64,7 +58,7 @@ namespace PieceOfCake.Services.Test.Factories
         /// <summary>
         ///     Return constructed Role List
         /// </summary>
-        /// <returns>List<UserViewModel></returns>
+        /// <returns>List<UserRepresentor></returns>
         public List<UserRepresentor> BuildList()
         {
             return _users;
@@ -80,15 +74,9 @@ namespace PieceOfCake.Services.Test.Factories
             {
                 Id = userId,
                 Name = "Name2",
-                ShortName = "sn2",
                 Username = "Username2",
                 Email = "email2@address.com",
-                Roles = new RoleFactory().BuildList(),
-                Avatar = new AvatarRepresentor
-                {
-                    Id = userId,
-                    Image = new byte[0]
-                }
+                Roles = new RoleFactory().BuildList()
             });
             return this;
         }

@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using AutoMapper;
+using PieceOfCake.Data;
+using PieceOfCake.Data.Interfaces;
+using PieceOfCake.Data.Models;
+using PieceOfCake.Services.Representors;
+using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
-using PieceOfCake.Data;
-using PieceOfCake.Data.Interfaces;
-using PieceOfCake.Data.Models;
 
 //Todo: Investigate using Async repository methods
 //Todo; Investigate using auto code generation to create api's and api tests based on this controller as template
-using PieceOfCake.Services.Representors;
-
 namespace PieceOfCake.Services.Controllers
 {
     public class RolesController : ApiController
@@ -37,7 +37,7 @@ namespace PieceOfCake.Services.Controllers
         public IEnumerable<RoleRepresentor> GetRoles()
         {
             var dbRoles = _unitOfWork.RoleRepository.All();
-            var roles = AutoMapper.Mapper.Map(dbRoles, new List<RoleRepresentor>());
+            var roles = Mapper.Map(dbRoles, new List<RoleRepresentor>());
             return roles;
         }
 
@@ -51,7 +51,7 @@ namespace PieceOfCake.Services.Controllers
                 return NotFound();
             }
 
-            var role = AutoMapper.Mapper.Map(dbRole, new RoleRepresentor());
+            var role = Mapper.Map(dbRole, new RoleRepresentor());
             return Ok(role);
         }
 
@@ -71,7 +71,7 @@ namespace PieceOfCake.Services.Controllers
 
             try
             {
-                var dbRole = AutoMapper.Mapper.Map(role, new Role());
+                var dbRole = Mapper.Map(role, new Role());
                 _unitOfWork.RoleRepository.Update(dbRole);
             }
             catch (DbUpdateConcurrencyException)
@@ -96,9 +96,9 @@ namespace PieceOfCake.Services.Controllers
                 return BadRequest(ModelState);
             }
 
-            var dbRole = AutoMapper.Mapper.Map(role, new Role());
+            var dbRole = Mapper.Map(role, new Role());
             _unitOfWork.RoleRepository.Create(dbRole);
-            AutoMapper.Mapper.Map(dbRole, role);
+            Mapper.Map(dbRole, role);
 
             return CreatedAtRoute("DefaultApi", new { id = role.Id }, role);
         }
@@ -115,7 +115,7 @@ namespace PieceOfCake.Services.Controllers
 
             _unitOfWork.RoleRepository.Delete(dbRole);
 
-            var role = AutoMapper.Mapper.Map(dbRole, new RoleRepresentor());
+            var role = Mapper.Map(dbRole, new RoleRepresentor());
             return Ok(role);
         }
 

@@ -53,10 +53,6 @@ namespace PieceOfCake.Services.Test.DataAccess
             {
                 result = ModelList.Cast<User>().ToList().Find(user => user.Id == id);
             }
-            else if (typeof(TModel) == typeof(Avatar))
-            {
-                result = ModelList.Cast<Avatar>().ToList().Find(user => user.Id == id);
-            }
             else
             {
                 throw new NotImplementedException(
@@ -135,12 +131,6 @@ namespace PieceOfCake.Services.Test.DataAccess
             {
                 var roles = ModelList as IEnumerable<Role>;
                 return roles != null && roles.Count(entity => entity.Id == id) > 0;
-            }
-
-            if (typeof(TModel) == typeof(Avatar))
-            {
-                var avatars = ModelList as IEnumerable<Avatar>;
-                return avatars != null && avatars.Count(entity => entity.Id == id) > 0;
             }
 
             return false;

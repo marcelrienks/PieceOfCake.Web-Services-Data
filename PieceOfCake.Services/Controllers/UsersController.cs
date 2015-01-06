@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
-using System.Net;
-using System.Web.Http;
-using System.Web.Http.Description;
+﻿using AutoMapper;
 using PieceOfCake.Data;
 using PieceOfCake.Data.Interfaces;
 using PieceOfCake.Data.Models;
 using PieceOfCake.Services.Representors;
+using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
+using System.Net;
+using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace PieceOfCake.Services.Controllers
 {
@@ -34,7 +35,7 @@ namespace PieceOfCake.Services.Controllers
         public IEnumerable<UserRepresentor> GetUsers()
         {
             var dbUser = _unitOfWork.UserRepository.All();
-            var user = AutoMapper.Mapper.Map(dbUser, new List<UserRepresentor>());
+            var user = Mapper.Map(dbUser, new List<UserRepresentor>());
             return user;
         }
 
@@ -48,7 +49,7 @@ namespace PieceOfCake.Services.Controllers
                 return NotFound();
             }
 
-            var user = AutoMapper.Mapper.Map(dbUser, new UserRepresentor());
+            var user = Mapper.Map(dbUser, new UserRepresentor());
             return Ok(user);
         }
 
@@ -68,7 +69,7 @@ namespace PieceOfCake.Services.Controllers
 
             try
             {
-                var dbUser = AutoMapper.Mapper.Map(user, new User());
+                var dbUser = Mapper.Map(user, new User());
                 _unitOfWork.UserRepository.Update(dbUser);
             }
             catch (DbUpdateConcurrencyException)
@@ -93,9 +94,9 @@ namespace PieceOfCake.Services.Controllers
                 return BadRequest(ModelState);
             }
 
-            var dbUser = AutoMapper.Mapper.Map(user, new User());
+            var dbUser = Mapper.Map(user, new User());
             _unitOfWork.UserRepository.Create(dbUser);
-            AutoMapper.Mapper.Map(dbUser, user);
+            Mapper.Map(dbUser, user);
 
             return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
         }
@@ -112,7 +113,7 @@ namespace PieceOfCake.Services.Controllers
 
             _unitOfWork.UserRepository.Delete(dbUser);
 
-            var user = AutoMapper.Mapper.Map(dbUser, new UserRepresentor());
+            var user = Mapper.Map(dbUser, new UserRepresentor());
             return Ok(user);
         }
 
