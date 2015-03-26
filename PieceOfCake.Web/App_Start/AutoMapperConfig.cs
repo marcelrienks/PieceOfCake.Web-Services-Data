@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using PieceOfCake.Data.Models;
+using PieceOfCake.Web.Models;
 using PieceOfCake.Web.Representer;
 
 namespace PieceOfCake.Services

@@ -6,6 +6,7 @@ using PieceOfCake.Services.Representors;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -41,9 +42,9 @@ namespace PieceOfCake.Services.Controllers
 
         // GET: api/UserRepresentors/5
         [ResponseType(typeof(UserRepresentor))]
-        public IHttpActionResult GetUser(int id)
+        public async Task<IHttpActionResult> GetUser(int id)
         {
-            var dbUser = _unitOfWork.UserRepository.Find(id);
+            var dbUser = await _unitOfWork.UserRepository.FindAsync(id);
             if (dbUser == null)
             {
                 return NotFound();
@@ -55,7 +56,7 @@ namespace PieceOfCake.Services.Controllers
 
         // PUT: api/UserRepresentors/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutUser(int id, UserRepresentor user)
+        public async Task<IHttpActionResult> PutUser(int id, UserRepresentor user)
         {
             if (id != user.Id)
             {
@@ -70,7 +71,7 @@ namespace PieceOfCake.Services.Controllers
             try
             {
                 var dbUser = Mapper.Map(user, new User());
-                _unitOfWork.UserRepository.Update(dbUser);
+                await _unitOfWork.UserRepository.UpdateAsync(dbUser);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -87,7 +88,7 @@ namespace PieceOfCake.Services.Controllers
 
         // POST: api/UserRepresentors
         [ResponseType(typeof(UserRepresentor))]
-        public IHttpActionResult PostUser(UserRepresentor user)
+        public async Task<IHttpActionResult> PostUser(UserRepresentor user)
         {
             if (!ModelState.IsValid)
             {
@@ -95,7 +96,7 @@ namespace PieceOfCake.Services.Controllers
             }
 
             var dbUser = Mapper.Map(user, new User());
-            _unitOfWork.UserRepository.Create(dbUser);
+            await _unitOfWork.UserRepository.CreateAsync(dbUser);
             Mapper.Map(dbUser, user);
 
             return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
@@ -103,15 +104,15 @@ namespace PieceOfCake.Services.Controllers
 
         // DELETE: api/UserRepresentors/5
         [ResponseType(typeof(UserRepresentor))]
-        public IHttpActionResult DeleteUser(int id)
+        public async Task<IHttpActionResult> DeleteUser(int id)
         {
-            var dbUser = _unitOfWork.UserRepository.Find(id);
+            var dbUser = await _unitOfWork.UserRepository.FindAsync(id);
             if (dbUser == null)
             {
                 return NotFound();
             }
 
-            _unitOfWork.UserRepository.Delete(dbUser);
+            await _unitOfWork.UserRepository.DeleteAsync(dbUser);
 
             var user = Mapper.Map(dbUser, new UserRepresentor());
             return Ok(user);

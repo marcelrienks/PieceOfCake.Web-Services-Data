@@ -29,15 +29,10 @@ Used to update the entire graph tree of a context model, including relations
 Used to map two objects together (Convert from one to another)
 
 ## DEVELOPMENT: ##
-* Data: Update models to be for a generic template
-* Services: Update services to match the new models
-* Services: Update Unit tests
 * Services: Implement auto generation of services per model
-* Web: Update interface to allow all crudl functions for models
-* Web: Update Unit tests
+* Web: Switch from using data directly, to using services
 
 ### Todo ###
-* Investigate using Async repository methods
 * Investigate using auto code generation to create api's and api tests based on this controller as template
 * determine weather or not updating a model and it's relations should be done, or rather have multiple API calls be made, or use hypermedia
 * Switch PieceOfCake.Web to use PieceOfCake.Services instead of going to PieceOfCake.Data directly

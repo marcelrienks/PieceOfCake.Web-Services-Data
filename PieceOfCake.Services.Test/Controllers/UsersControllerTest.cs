@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Web.Http.Results;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PieceOfCake.Data.Models;
 using PieceOfCake.Services.Controllers;
 using PieceOfCake.Services.Representors;
 using PieceOfCake.Services.Test.DataAccess;
 using PieceOfCake.Services.Test.Factories;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Web.Http.Results;
 
 namespace PieceOfCake.Services.Test.Controllers
 {
@@ -64,27 +64,27 @@ namespace PieceOfCake.Services.Test.Controllers
         }
 
         [TestMethod]
-        public void GetUser_ShouldReturn_NotFoundResult()
+        public async void GetUser_ShouldReturn_NotFoundResult()
         {
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
             ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = AutoMapper.Mapper.Map(new UserFactory().BuildList(), new List<User>());
 
             var controller = new UsersController(_fakeUnitOfWork);
-            var result = controller.GetUser(9);
+            var result = await controller.GetUser(9);
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
         }
 
         [TestMethod]
-        public void GetUser_ShouldReturn_SingleRole()
+        public async void GetUser_ShouldReturn_SingleRole()
         {
             var testUsers = new UserFactory().BuildList();
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
             ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = AutoMapper.Mapper.Map(testUsers, new List<User>());
 
             var controller = new UsersController(_fakeUnitOfWork);
-            var result = controller.GetUser(testUsers.First().Id) as OkNegotiatedContentResult<UserRepresentor>;
+            var result = await controller.GetUser(testUsers.First().Id) as OkNegotiatedContentResult<UserRepresentor>;
 
             Assert.IsNotNull(result);
             PerformCommonAsserts(testUsers.First(), result.Content);
@@ -95,14 +95,14 @@ namespace PieceOfCake.Services.Test.Controllers
         #region Put User
 
         [TestMethod]
-        public void PutUser_ShouldReturn_BadRequestResult()
+        public async void PutUser_ShouldReturn_BadRequestResult()
         {
             var testUser = new UserFactory().Build();
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
             ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).Model = AutoMapper.Mapper.Map(testUser, new User());
 
             var controller = new UsersController(_fakeUnitOfWork);
-            var result = controller.PutUser(9, testUser) as BadRequestErrorMessageResult;
+            var result = await controller.PutUser(9, testUser) as BadRequestErrorMessageResult;
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(BadRequestErrorMessageResult));
@@ -110,7 +110,7 @@ namespace PieceOfCake.Services.Test.Controllers
         }
 
         [TestMethod]
-        public void PutUser_ShouldReturn_InvalidModel()
+        public async void PutUser_ShouldReturn_InvalidModel()
         {
             var key = "key";
             var errorMessage = "model is invalid";
@@ -118,8 +118,8 @@ namespace PieceOfCake.Services.Test.Controllers
 
             var controller = new UsersController(_fakeUnitOfWork);
             controller.ModelState.AddModelError(key, errorMessage); //Causes ModelState.IsValid to return false
-            var result = controller.PutUser(testUser.Id, testUser) as InvalidModelStateResult;
-            
+            var result = await controller.PutUser(testUser.Id, testUser) as InvalidModelStateResult;
+
             Assert.IsNotNull(result);
             Assert.IsTrue(result.ModelState.ContainsKey(key));
             Assert.AreEqual(1, result.ModelState[key].Errors.Count());
@@ -127,14 +127,14 @@ namespace PieceOfCake.Services.Test.Controllers
         }
 
         [TestMethod]
-        public void PutUser_ShouldReturn_NoContent()
+        public async void PutUser_ShouldReturn_NoContent()
         {
             var testUser = new UserFactory().Build();
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
             ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).Model = AutoMapper.Mapper.Map(testUser, new User());
 
             var controller = new UsersController(_fakeUnitOfWork);
-            var result = controller.PutUser(testUser.Id, testUser) as StatusCodeResult;
+            var result = await controller.PutUser(testUser.Id, testUser) as StatusCodeResult;
 
             Assert.IsNotNull(result);
             Assert.AreEqual(result.StatusCode, HttpStatusCode.NoContent);
@@ -145,7 +145,7 @@ namespace PieceOfCake.Services.Test.Controllers
         #region Post User
 
         [TestMethod]
-        public void PostUser_ShouldReturn_InvalidModel()
+        public async void PostUser_ShouldReturn_InvalidModel()
         {
             const string key = "key";
             const string errorMessage = "model is invalid";
@@ -153,8 +153,8 @@ namespace PieceOfCake.Services.Test.Controllers
 
             var controller = new UsersController(_fakeUnitOfWork);
             controller.ModelState.AddModelError(key, errorMessage); //Causes ModelState.IsValid to return false
-            var result = controller.PostUser(testUser) as InvalidModelStateResult;
-            
+            var result = await controller.PostUser(testUser) as InvalidModelStateResult;
+
             Assert.IsNotNull(result);
             Assert.IsTrue(result.ModelState.ContainsKey(key));
             Assert.AreEqual(1, result.ModelState[key].Errors.Count());
@@ -162,12 +162,12 @@ namespace PieceOfCake.Services.Test.Controllers
         }
 
         [TestMethod]
-        public void PostUser_ShouldReturn_CreatedAtRouteNegotiatedContentResult()
+        public async void PostUser_ShouldReturn_CreatedAtRouteNegotiatedContentResult()
         {
             var testUser = new UserFactory().Build();
 
             var controller = new UsersController(_fakeUnitOfWork);
-            var result = controller.PostUser(testUser) as CreatedAtRouteNegotiatedContentResult<UserRepresentor>;
+            var result = await controller.PostUser(testUser) as CreatedAtRouteNegotiatedContentResult<UserRepresentor>;
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.RouteValues.ContainsKey("Id"));
@@ -181,27 +181,27 @@ namespace PieceOfCake.Services.Test.Controllers
         #region Delete User
 
         [TestMethod]
-        public void DeleteUser_ShouldReturn_NotFoundResult()
+        public async void DeleteUser_ShouldReturn_NotFoundResult()
         {
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
             ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = null;
 
             var controller = new UsersController(_fakeUnitOfWork);
-            var result = controller.DeleteUser(9);
+            var result = await controller.DeleteUser(9);
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
         }
 
         [TestMethod]
-        public void DeleteUser_ShouldReturn_OkNegotiatedContentResult()
+        public async void DeleteUser_ShouldReturn_OkNegotiatedContentResult()
         {
             var testUsers = new UserFactory().BuildList();
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
             ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = AutoMapper.Mapper.Map(testUsers, new List<User>());
 
             var controller = new UsersController(_fakeUnitOfWork);
-            var result = controller.DeleteUser(testUsers.First().Id);
+            var result = await controller.DeleteUser(testUsers.First().Id);
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(OkNegotiatedContentResult<UserRepresentor>));
