@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 
 namespace PieceOfCake.Web.Interfaces
 {
-    public interface IService<TModel> : IDisposable where TModel : class
+    public interface IService<TModel> : IDisposable where TModel : IModel
     {
-        Task<ICollection<TModel>> AllAsync(string resource);
-        TModel GetAsync(int id);
-        void PutAsync(TModel model);
-        void PostAsync(TModel model);
-        void DeleteAsync(int id);
+        Task<ICollection<TModel>> AllAsync(TModel model);
+        Task<TModel> GetAsync(int id, TModel model);
+        void UpdateAsync(TModel model);
+        void CreateAsync(TModel model);
+        void DeleteAsync(int id, TModel model);
     }
 }

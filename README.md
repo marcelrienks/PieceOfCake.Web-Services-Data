@@ -33,11 +33,14 @@ Used to map two objects together (Convert from one to another)
 * Web: Switch from using data directly, to using services
 
 ### Todo ###
+* Check if i need to test for a OK with content
+* Check if i need to test for a CreatedAtRoute with id
+* Check if i need to test for a status code with no content
+* Need to handle exceptions in the Web.Service layer
 * Investigate using auto code generation to create api's and api tests based on this controller as template
 * determine weather or not updating a model and it's relations should be done, or rather have multiple API calls be made, or use hypermedia
 * Switch PieceOfCake.Web to use PieceOfCake.Services instead of going to PieceOfCake.Data directly
 * Add validation to prevent role from being deleted if it's assigned to a User
-* Investigate using Mock DbSet instead of having a fake Repository
 * verify of username, password on create of User without causing a post back
 * add functionality to User edit for Password and Avatar (including validation)
 * investigate creating unit tests for the repository, by creating a fake contaxt/dbset class, which can be dependancy injected in?

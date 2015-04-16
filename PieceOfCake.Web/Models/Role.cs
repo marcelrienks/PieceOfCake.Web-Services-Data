@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using PieceOfCake.Web.Interfaces;
+using System.Collections.Generic;
 
 namespace PieceOfCake.Web.Models
 {
-    public class Role
+    public class Role : IModel
     {
         #region Properties
 
@@ -22,7 +23,7 @@ namespace PieceOfCake.Web.Models
         /// Returns this models Resource URI name
         /// </summary>
         /// <returns></returns>
-        public static string Resource()
+        public string Resource()
         {
             return "roles";
         }

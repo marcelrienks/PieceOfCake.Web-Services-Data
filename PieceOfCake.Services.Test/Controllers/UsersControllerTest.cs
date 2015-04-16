@@ -7,6 +7,7 @@ using PieceOfCake.Services.Test.Factories;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Http.Results;
 
 namespace PieceOfCake.Services.Test.Controllers
@@ -64,7 +65,7 @@ namespace PieceOfCake.Services.Test.Controllers
         }
 
         [TestMethod]
-        public async void GetUser_ShouldReturn_NotFoundResult()
+        public async Task GetUser_ShouldReturn_NotFoundResult()
         {
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
             ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = AutoMapper.Mapper.Map(new UserFactory().BuildList(), new List<User>());
@@ -77,7 +78,7 @@ namespace PieceOfCake.Services.Test.Controllers
         }
 
         [TestMethod]
-        public async void GetUser_ShouldReturn_SingleRole()
+        public async Task GetUser_ShouldReturn_SingleRole()
         {
             var testUsers = new UserFactory().BuildList();
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
@@ -95,7 +96,7 @@ namespace PieceOfCake.Services.Test.Controllers
         #region Put User
 
         [TestMethod]
-        public async void PutUser_ShouldReturn_BadRequestResult()
+        public async Task PutUser_ShouldReturn_BadRequestResult()
         {
             var testUser = new UserFactory().Build();
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
@@ -110,7 +111,7 @@ namespace PieceOfCake.Services.Test.Controllers
         }
 
         [TestMethod]
-        public async void PutUser_ShouldReturn_InvalidModel()
+        public async Task PutUser_ShouldReturn_InvalidModel()
         {
             var key = "key";
             var errorMessage = "model is invalid";
@@ -127,7 +128,7 @@ namespace PieceOfCake.Services.Test.Controllers
         }
 
         [TestMethod]
-        public async void PutUser_ShouldReturn_NoContent()
+        public async Task PutUser_ShouldReturn_NoContent()
         {
             var testUser = new UserFactory().Build();
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
@@ -145,7 +146,7 @@ namespace PieceOfCake.Services.Test.Controllers
         #region Post User
 
         [TestMethod]
-        public async void PostUser_ShouldReturn_InvalidModel()
+        public async Task PostUser_ShouldReturn_InvalidModel()
         {
             const string key = "key";
             const string errorMessage = "model is invalid";
@@ -162,7 +163,7 @@ namespace PieceOfCake.Services.Test.Controllers
         }
 
         [TestMethod]
-        public async void PostUser_ShouldReturn_CreatedAtRouteNegotiatedContentResult()
+        public async Task PostUser_ShouldReturn_CreatedAtRouteNegotiatedContentResult()
         {
             var testUser = new UserFactory().Build();
 
@@ -181,7 +182,7 @@ namespace PieceOfCake.Services.Test.Controllers
         #region Delete User
 
         [TestMethod]
-        public async void DeleteUser_ShouldReturn_NotFoundResult()
+        public async Task DeleteUser_ShouldReturn_NotFoundResult()
         {
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
             ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = null;
@@ -194,7 +195,7 @@ namespace PieceOfCake.Services.Test.Controllers
         }
 
         [TestMethod]
-        public async void DeleteUser_ShouldReturn_OkNegotiatedContentResult()
+        public async Task DeleteUser_ShouldReturn_OkNegotiatedContentResult()
         {
             var testUsers = new UserFactory().BuildList();
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not

@@ -12,6 +12,17 @@ using System.Web.Http.Description;
 
 namespace PieceOfCake.Services.Controllers
 {
+    /// <summary>
+    /// This is the Controller for the Users model.
+    /// 
+    /// This is an example of an asyncronous Rest API using ASP.Net Web Api
+    /// 
+    /// This Controller also uses Dependancy injection passing in a Unit of work
+    /// which encapsulates a repository pattern.
+    /// 
+    /// This Controller is unit Tested by using Microsoft Fakes framework to stub out connections to teh DB
+    /// 
+    /// </summary>
     public class UsersController : ApiController
     {
         #region Properties

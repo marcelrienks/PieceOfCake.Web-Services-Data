@@ -1,13 +1,13 @@
-﻿using System;
+﻿using PieceOfCake.Data.Interfaces;
+using PieceOfCake.Data.Models;
+using RefactorThis.GraphDiff;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using PieceOfCake.Data.Interfaces;
-using PieceOfCake.Data.Models;
-using RefactorThis.GraphDiff;
-//Todo: investigate creating unit tests for the repository, by creating a fake contaxt/dbset class, which can be dependancy injected in?
 
+//Todo: investigate creating unit tests for the repository, by creating a fake contaxt/dbset class, which can be dependancy injected in?
 namespace PieceOfCake.Data
 {
     public class Repository<TModel> : IRepository<TModel> where TModel : class
@@ -26,6 +26,8 @@ namespace PieceOfCake.Data
 
         #region Methods
 
+        #region Synchronous
+
         /// <summary>
         ///     This Gets all entries of type TModel.
         /// </summary>
@@ -43,16 +45,6 @@ namespace PieceOfCake.Data
         public TModel Find(int id)
         {
             return _context.Set<TModel>().Find(id);
-        }
-
-        /// <summary>
-        ///     Asynchronously finds a specific entry of type TModel, by id.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>Task<TModel/></returns>
-        public async Task<TModel> FindAsync(int id)
-        {
-            return await _context.Set<TModel>().FindAsync(id);
         }
 
         /// <summary>
@@ -99,16 +91,6 @@ namespace PieceOfCake.Data
         }
 
         /// <summary>
-        ///     Asynchronously Creates a new entry of type TModel.
-        /// </summary>
-        /// <param name="entity"></param>
-        public async Task<int> CreateAsync(TModel entity)
-        {
-            _context.Set<TModel>().Add(entity);
-            return await _context.SaveChangesAsync();
-        }
-
-        /// <summary>
         ///     This updates the specified entry of type TModel, and all it's relations.
         /// </summary>
         /// <param name="entity"></param>
@@ -122,19 +104,6 @@ namespace PieceOfCake.Data
         }
 
         /// <summary>
-        ///     Asynchronously updates the specified entry of type TModel, and all it's relations.
-        /// </summary>
-        /// <param name="entity"></param>
-        public async Task<int> UpdateAsync(TModel entity)
-        {
-            //Todo: determine weather or not updating a model and it's relations should be done, or rather have multiple API calls be made, or use hypermedia
-            _context.Entry(entity).State = EntityState.Modified;
-            //UpdateEntityGraph(entity);
-
-            return await _context.SaveChangesAsync();
-        }
-
-        /// <summary>
         ///     This deletes a specific entry of type TEntity, by id.
         /// </summary>
         /// <param name="entity"></param>
@@ -142,16 +111,6 @@ namespace PieceOfCake.Data
         {
             _context.Set<TModel>().Remove(entity);
             return _context.SaveChanges();
-        }
-
-        /// <summary>
-        ///     Asynchronously deletes a specific entry of type TEntity, by id.
-        /// </summary>
-        /// <param name="entity"></param>
-        public async Task<int> DeleteAsync(TModel entity)
-        {
-            _context.Set<TModel>().Remove(entity);
-            return await _context.SaveChangesAsync();
         }
 
         /// <summary>
@@ -174,6 +133,53 @@ namespace PieceOfCake.Data
             return false;
         }
 
+        #endregion
+
+        #region Asynchronous
+
+        /// <summary>
+        ///     Asynchronously finds a specific entry of type TModel, by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Task<TModel/></returns>
+        public async Task<TModel> FindAsync(int id)
+        {
+            return await _context.Set<TModel>().FindAsync(id);
+        }
+
+        /// <summary>
+        ///     Asynchronously Creates a new entry of type TModel.
+        /// </summary>
+        /// <param name="entity"></param>
+        public async Task<int> CreateAsync(TModel entity)
+        {
+            _context.Set<TModel>().Add(entity);
+            return await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        ///     Asynchronously updates the specified entry of type TModel, and all it's relations.
+        /// </summary>
+        /// <param name="entity"></param>
+        public async Task<int> UpdateAsync(TModel entity)
+        {
+            //Todo: determine weather or not updating a model and it's relations should be done, or rather have multiple API calls be made, or use hypermedia
+            _context.Entry(entity).State = EntityState.Modified;
+            //UpdateEntityGraph(entity);
+
+            return await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        ///     Asynchronously deletes a specific entry of type TEntity, by id.
+        /// </summary>
+        /// <param name="entity"></param>
+        public async Task<int> DeleteAsync(TModel entity)
+        {
+            _context.Set<TModel>().Remove(entity);
+            return await _context.SaveChangesAsync();
+        }
+
         /// <summary>
         ///     Asynchronously Checks if entity with specified id exists
         /// </summary>
@@ -193,6 +199,8 @@ namespace PieceOfCake.Data
 
             return false;
         }
+
+        #endregion
 
         private void UpdateEntityGraph(TModel entity)
         {

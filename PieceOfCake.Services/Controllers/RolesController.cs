@@ -6,13 +6,24 @@ using PieceOfCake.Services.Representors;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Net;
-using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 
-//Todo; Investigate using auto code generation to create api's and api tests based on this controller as template
+//Todo: Investigate using auto code generation to create api's and api tests based on this controller as template
 namespace PieceOfCake.Services.Controllers
 {
+    /// <summary>
+    /// This is the Controller for the Roles model.
+    /// 
+    /// This is an example of a syncronous Rest API using ASP.Net Web Api
+    /// 
+    /// This Controller also uses Dependancy injection passing in a Unit of work
+    /// which encapsulates a repository pattern.
+    /// 
+    /// This allows a Fake Unit of Work, Fake Repository, and Fake DB Context
+    /// to be passed in and allow unit testing to be done without hitting the DB.
+    /// 
+    /// </summary>
     public class RolesController : ApiController
     {
         #region Properties
@@ -43,9 +54,9 @@ namespace PieceOfCake.Services.Controllers
 
         // GET: api/RoleRepresentors/5
         [ResponseType(typeof(RoleRepresentor))]
-        public async Task<IHttpActionResult> GetRole(int id)
+        public IHttpActionResult GetRole(int id)
         {
-            var dbRole = await _unitOfWork.RoleRepository.FindAsync(id);
+            var dbRole = _unitOfWork.RoleRepository.Find(id);
             if (dbRole == null)
             {
                 return NotFound();
@@ -57,7 +68,7 @@ namespace PieceOfCake.Services.Controllers
 
         // PUT: api/RoleRepresentors/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutRole(int id, RoleRepresentor role)
+        public IHttpActionResult PutRole(int id, RoleRepresentor role)
         {
             if (id != role.Id)
             {
@@ -72,7 +83,7 @@ namespace PieceOfCake.Services.Controllers
             try
             {
                 var dbRole = Mapper.Map(role, new Role());
-                await _unitOfWork.RoleRepository.UpdateAsync(dbRole);
+                _unitOfWork.RoleRepository.Update(dbRole);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -89,7 +100,7 @@ namespace PieceOfCake.Services.Controllers
 
         // POST: api/RoleRepresentors
         [ResponseType(typeof(RoleRepresentor))]
-        public async Task<IHttpActionResult> PostRole(RoleRepresentor role)
+        public IHttpActionResult PostRole(RoleRepresentor role)
         {
             if (!ModelState.IsValid)
             {
@@ -97,7 +108,7 @@ namespace PieceOfCake.Services.Controllers
             }
 
             var dbRole = Mapper.Map(role, new Role());
-            await _unitOfWork.RoleRepository.CreateAsync(dbRole);
+            _unitOfWork.RoleRepository.Create(dbRole);
             Mapper.Map(dbRole, role);
 
             return CreatedAtRoute("DefaultApi", new { id = role.Id }, role);
@@ -105,15 +116,15 @@ namespace PieceOfCake.Services.Controllers
 
         // DELETE: api/RoleRepresentors/5
         [ResponseType(typeof(RoleRepresentor))]
-        public async Task<IHttpActionResult> DeleteRole(int id)
+        public IHttpActionResult DeleteRole(int id)
         {
-            var dbRole = await _unitOfWork.RoleRepository.FindAsync(id);
+            var dbRole = _unitOfWork.RoleRepository.Find(id);
             if (dbRole == null)
             {
                 return NotFound();
             }
 
-            await _unitOfWork.RoleRepository.DeleteAsync(dbRole);
+            _unitOfWork.RoleRepository.Delete(dbRole);
 
             var role = Mapper.Map(dbRole, new RoleRepresentor());
             return Ok(role);

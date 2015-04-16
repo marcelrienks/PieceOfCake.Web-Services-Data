@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using PieceOfCake.Web.Interfaces;
+using System.Collections.Generic;
 
 namespace PieceOfCake.Web.Models
 {
-    public class User
+    public class User : IModel
     {
         #region Properties
 
@@ -19,5 +20,14 @@ namespace PieceOfCake.Web.Models
         public virtual ICollection<Role> Roles { get; set; }
 
         #endregion
+
+        /// <summary>
+        /// Returns this models Resource URI name
+        /// </summary>
+        /// <returns></returns>
+        public string Resource()
+        {
+            return "users";
+        }
     }
 }

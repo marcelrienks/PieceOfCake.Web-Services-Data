@@ -1,10 +1,9 @@
-﻿//Todo: Investigate using Mock DbSet instead of having a fake Repository
+﻿using PieceOfCake.Data.Interfaces;
+using PieceOfCake.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PieceOfCake.Data.Interfaces;
-using PieceOfCake.Data.Models;
 
 namespace PieceOfCake.Services.Test.DataAccess
 {
@@ -30,6 +29,8 @@ namespace PieceOfCake.Services.Test.DataAccess
         }
 
         #region Members
+
+        #region Synchronous
 
         public IQueryable<TModel> All()
         {
@@ -63,11 +64,6 @@ namespace PieceOfCake.Services.Test.DataAccess
             return (TModel)Convert.ChangeType(result, typeof(TModel));
         }
 
-        public Task<TModel> FindAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<TModel> Where(Func<TModel, bool> query)
         {
             return ModelList;
@@ -90,11 +86,6 @@ namespace PieceOfCake.Services.Test.DataAccess
             return 1;
         }
 
-        public Task<int> CreateAsync(TModel entity)
-        {
-            throw new NotImplementedException();
-        }
-
         public int Update(TModel entity)
         {
             IsUpdated = true;
@@ -102,21 +93,11 @@ namespace PieceOfCake.Services.Test.DataAccess
             return 1;
         }
 
-        public Task<int> UpdateAsync(TModel entity)
-        {
-            throw new NotImplementedException();
-        }
-
         public int Delete(TModel entity)
         {
             IsDeleted = true;
             IsSaved = true;
             return 1;
-        }
-
-        public Task<int> DeleteAsync(TModel entity)
-        {
-            throw new NotImplementedException();
         }
 
         public bool Exists(int id)
@@ -136,10 +117,36 @@ namespace PieceOfCake.Services.Test.DataAccess
             return false;
         }
 
+        #endregion
+
+        #region Asynchronous
+
+        public Task<TModel> FindAsync(int id)
+        {
+            return Task<TModel>.Factory.StartNew(() => Find(id));
+        }
+
+        public Task<int> CreateAsync(TModel entity)
+        {
+            return Task<int>.Factory.StartNew(() => Create(entity));
+        }
+
+        public Task<int> UpdateAsync(TModel entity)
+        {
+            return Task<int>.Factory.StartNew(() => Update(entity));
+        }
+
+        public Task<int> DeleteAsync(TModel entity)
+        {
+            return Task<int>.Factory.StartNew(() => Delete(entity));
+        }
+
         public Task<bool> ExistsAsync(int id)
         {
-            throw new NotImplementedException();
+            return Task<bool>.Factory.StartNew(() => Exists(id));
         }
+
+        #endregion
 
         #endregion
 

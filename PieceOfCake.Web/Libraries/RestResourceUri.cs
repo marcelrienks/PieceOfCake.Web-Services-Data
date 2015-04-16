@@ -10,7 +10,7 @@ namespace PieceOfCake.Web.Libraries
         /// <returns></returns>
         public static string FormatResourceAsUri(string resource)
         {
-            return string.Format("api-/{0}", resource);
+            return string.Format("api/{0}", resource);
         }
 
         public static string FormatResourceAsUri(string resource, int id)

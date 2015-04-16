@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PieceOfCake.Web.Services
 {
-    public class Service<TModel> : IService<TModel> where TModel : class
+    public class Service<TModel> : IService<TModel> where TModel : IModel
     {
         #region Properties
 
@@ -23,43 +23,79 @@ namespace PieceOfCake.Web.Services
 
         #region Methods
 
-        public async Task<ICollection<TModel>> AllAsync(string resource)
+        public async Task<ICollection<TModel>> AllAsync(TModel model)
         {
             try
             {
-                var response = await _client.HttpClient.GetAsync(RestResourceUri.FormatResourceAsUri(resource));
+                var response = await _client.HttpClient.GetAsync(RestResourceUri.FormatResourceAsUri(model.Resource()));
                 response.EnsureSuccessStatusCode();
                 return await response.Content.ReadAsAsync<ICollection<TModel>>();
             }
             catch (Exception ex)
             {
+                //Todo: Need to handle exceptions in the Web.Service layer
                 throw;
             }
         }
 
-        public TModel GetAsync(int id)
+        public async Task<TModel> GetAsync(int id, TModel model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var response = await _client.HttpClient.GetAsync(RestResourceUri.FormatResourceAsUri(model.Resource(), id));
+                response.EnsureSuccessStatusCode();
+                return await response.Content.ReadAsAsync<TModel>();
+            }
+            catch (Exception ex)
+            {
+                //Todo: Need to handle exceptions in the Web.Service layer
+                throw;
+            }
         }
 
-        public void PutAsync(TModel model)
+        public async void UpdateAsync(TModel model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var response = await _client.HttpClient.PutAsJsonAsync(RestResourceUri.FormatResourceAsUri(model.Resource()), model);
+                response.EnsureSuccessStatusCode();
+                //Todo: check if i need to test for a StatusCode with no content
+            }
+            catch (Exception ex)
+            {
+                //Todo: Need to handle exceptions in the Web.Service layer
+                throw;
+            }
         }
 
-        public void PostAsync(TModel model)
+        public async void CreateAsync(TModel model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var response = await _client.HttpClient.PostAsJsonAsync(RestResourceUri.FormatResourceAsUri(model.Resource()), model);
+                response.EnsureSuccessStatusCode();
+                //Todo: check if i need to test for a CreatedAtRoute with id
+            }
+            catch (Exception ex)
+            {
+                //Todo: Need to handle exceptions in the Web.Service layer
+                throw;
+            }
         }
 
-        public void DeleteAsync(int id)
+        public async void DeleteAsync(int id, TModel model)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
+            try
+            {
+                var response = await _client.HttpClient.DeleteAsync(RestResourceUri.FormatResourceAsUri(model.Resource(), id));
+                response.EnsureSuccessStatusCode();
+                //Todo: check if i need to test for a OK with content
+            }
+            catch (Exception ex)
+            {
+                //Todo: Need to handle exceptions in the Web.Service layer
+                throw;
+            }
         }
 
         #endregion
