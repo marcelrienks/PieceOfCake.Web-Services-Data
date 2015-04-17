@@ -27,7 +27,7 @@ namespace PieceOfCake.Services.Test.Controllers
             AutoMapperConfig.ConfigureMappings();
         }
 
-        #region Get UserRepresentors
+        #region Get Users
 
         [TestMethod]
         public void GetUsers_ShouldReturn_SingleElementRoleList()

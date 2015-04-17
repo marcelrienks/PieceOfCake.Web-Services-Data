@@ -7,9 +7,14 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
-//Todo: investigate creating unit tests for the repository, by creating a fake contaxt/dbset class, which can be dependancy injected in?
 namespace PieceOfCake.Data
 {
+    /// <summary>
+    /// This is a Generic Repository using EF to do basic CRUDL functionality.
+    /// 
+    /// This Repository features both Synchronous and Asynchronous functions.
+    /// </summary>
+    /// <typeparam name="TModel"></typeparam>
     public class Repository<TModel> : IRepository<TModel> where TModel : class
     {
         #region Properties

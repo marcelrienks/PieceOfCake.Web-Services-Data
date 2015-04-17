@@ -54,10 +54,14 @@
       <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.7\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="PieceOfCake.Data.Fakes">
+      <HintPath>FakesAssemblies\PieceOfCake.Data.Fakes.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -128,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Fakes Include="Fakes\PieceOfCake.Data.fakes" />
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>

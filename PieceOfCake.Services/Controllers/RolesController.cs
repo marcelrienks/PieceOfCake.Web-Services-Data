@@ -18,10 +18,10 @@ namespace PieceOfCake.Services.Controllers
     /// This is an example of a syncronous Rest API using ASP.Net Web Api
     /// 
     /// This Controller also uses Dependancy injection passing in a Unit of work
-    /// which encapsulates a repository pattern.
-    /// 
-    /// This allows a Fake Unit of Work, Fake Repository, and Fake DB Context
+    /// which encapsulates a repository pattern. This allows a Fake Unit of Work, Fake Repository, and Fake DB Context
     /// to be passed in and allow unit testing to be done without hitting the DB.
+    /// 
+    /// This Controller is also Tested using Microsoft Fakes framework allowing methods to be stubbed preventing connection to the DB
     /// 
     /// </summary>
     public class RolesController : ApiController

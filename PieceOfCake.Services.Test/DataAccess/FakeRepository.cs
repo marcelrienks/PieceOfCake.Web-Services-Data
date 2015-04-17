@@ -34,7 +34,7 @@ namespace PieceOfCake.Services.Test.DataAccess
 
         public IQueryable<TModel> All()
         {
-            return ModelList.AsQueryable();
+            return ModelList != null ? ModelList.AsQueryable() : null;
         }
 
         public TModel Find(int id)

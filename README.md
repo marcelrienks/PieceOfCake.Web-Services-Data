@@ -33,6 +33,7 @@ Used to map two objects together (Convert from one to another)
 * Web: Switch from using data directly, to using services
 
 ### Todo ###
+* Complete MS Fake unit tests for Roles controller
 * Check if i need to test for a OK with content
 * Check if i need to test for a CreatedAtRoute with id
 * Check if i need to test for a status code with no content
@@ -43,7 +44,6 @@ Used to map two objects together (Convert from one to another)
 * Add validation to prevent role from being deleted if it's assigned to a User
 * verify of username, password on create of User without causing a post back
 * add functionality to User edit for Password and Avatar (including validation)
-* investigate creating unit tests for the repository, by creating a fake contaxt/dbset class, which can be dependancy injected in?
 
 ## RESOURCES: ##
 ### Roles ###
