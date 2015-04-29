@@ -12,6 +12,13 @@ using System.Web.Http.Results;
 
 namespace PieceOfCake.Services.Test.Controllers
 {
+    /// <summary>
+    /// This is the Unit test class for the Users Controller.
+    /// 
+    /// It implements all tests using Microsoft Fakes
+    /// Tests have been duplicated to showcase the use of Stubs with dependancy injection and
+    /// Shims to prevent any connections to the DB
+    /// </summary>
     [TestClass]
     public class UsersControllerTest
     {
@@ -30,47 +37,86 @@ namespace PieceOfCake.Services.Test.Controllers
         #region Get Users
 
         [TestMethod]
+        public void GetUsers_ShouldReturn_EmptyList()
+        {
+            var stubedUnitOfWork = new Data.Interfaces.Fakes.StubIUnitOfWork
+            {
+                UserRepositoryGet = () => new Data.Interfaces.Fakes.StubIRepository<User>
+                {
+                    All = () => null
+                }
+            };
+
+            var controller = new UsersController(stubedUnitOfWork);
+            var result = controller.GetUsers();
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(0, result.Count());
+        }
+
+        [TestMethod]
         public void GetUsers_ShouldReturn_SingleElementRoleList()
         {
-            var testUsers = new UserFactory(0).BuildList();
+            var userRepresentors = new UserFactory().BuildList();
+            var testUsers = AutoMapper.Mapper.Map(userRepresentors, new List<User>());
 
-            //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = AutoMapper.Mapper.Map(testUsers, new List<User>());
+            var stubedUnitOfWork = new Data.Interfaces.Fakes.StubIUnitOfWork
+            {
+                UserRepositoryGet = () => new Data.Interfaces.Fakes.StubIRepository<User>
+                {
+                    All = () => testUsers.AsQueryable()
+                }
+            };
 
-            var controller = new UsersController(_fakeUnitOfWork);
-            var users = controller.GetUsers().ToList();
+            var controller = new UsersController(stubedUnitOfWork);
+            var result = controller.GetUsers().ToList();
 
-            Assert.IsNotNull(users);
-            Assert.AreEqual(1, users.Count);
-            PerformCommonAsserts(testUsers.First(), users.First());
+            Assert.IsNotNull(result);
+            Assert.AreEqual(1, result.Count);
+            PerformCommonAsserts(userRepresentors.First(), result.First());
         }
 
         [TestMethod]
         public void GetUsers_ShouldReturn_ExtendedRoleList()
         {
-            var testUsers = new UserFactory(0).WithExtendedList(1).BuildList();
-            //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = AutoMapper.Mapper.Map(testUsers, new List<User>());
+            var userRepresentors = new UserFactory(0).WithExtendedList(1).BuildList();
+            var testUsers = AutoMapper.Mapper.Map(userRepresentors, new List<User>());
 
-            var controller = new UsersController(_fakeUnitOfWork);
-            var roles = controller.GetUsers().ToList();
-
-            Assert.IsNotNull(roles);
-            Assert.AreEqual(2, roles.Count);
-            foreach (var testRole in testUsers)
+            var stubedUnitOfWork = new Data.Interfaces.Fakes.StubIUnitOfWork
             {
-                var role = roles.First(roleType => roleType.Id == testRole.Id);
-                PerformCommonAsserts(testRole, role);
+                UserRepositoryGet = () => new Data.Interfaces.Fakes.StubIRepository<User>
+                {
+                    All = () => testUsers.AsQueryable()
+                }
+            };
+
+            var controller = new UsersController(stubedUnitOfWork);
+            var result = controller.GetUsers().ToList();
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(2, result.Count);
+            foreach (var userRepresentor in userRepresentors)
+            {
+                var role = result.First(roleType => roleType.Id == userRepresentor.Id);
+                PerformCommonAsserts(userRepresentor, role);
             }
         }
 
         [TestMethod]
         public async Task GetUser_ShouldReturn_NotFoundResult()
         {
-            //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = AutoMapper.Mapper.Map(new UserFactory().BuildList(), new List<User>());
+            var taskCompletionSource = new TaskCompletionSource<User>();
+            taskCompletionSource.SetResult(null);
 
-            var controller = new UsersController(_fakeUnitOfWork);
+            var stubedUnitOfWork = new Data.Interfaces.Fakes.StubIUnitOfWork
+            {
+                UserRepositoryGet = () => new Data.Interfaces.Fakes.StubIRepository<User>
+                {
+                    FindAsyncInt32 = id => taskCompletionSource.Task
+                }
+            };
+
+            var controller = new UsersController(stubedUnitOfWork);
             var result = await controller.GetUser(9);
 
             Assert.IsNotNull(result);
@@ -80,19 +126,28 @@ namespace PieceOfCake.Services.Test.Controllers
         [TestMethod]
         public async Task GetUser_ShouldReturn_SingleRole()
         {
-            var testUsers = new UserFactory().BuildList();
-            //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = AutoMapper.Mapper.Map(testUsers, new List<User>());
+            var userRepresentor = new UserFactory().Build();
+            var user = AutoMapper.Mapper.Map(userRepresentor, new User());
+            var taskCompletionSource = new TaskCompletionSource<User>();
+            taskCompletionSource.SetResult(user);
 
-            var controller = new UsersController(_fakeUnitOfWork);
-            var result = await controller.GetUser(testUsers.First().Id) as OkNegotiatedContentResult<UserRepresentor>;
+            var stubedUnitOfWork = new Data.Interfaces.Fakes.StubIUnitOfWork
+            {
+                UserRepositoryGet = () => new Data.Interfaces.Fakes.StubIRepository<User>
+                {
+                    FindAsyncInt32 = id => taskCompletionSource.Task
+                }
+            };
+
+            var controller = new UsersController(stubedUnitOfWork);
+            var result = await controller.GetUser(9) as OkNegotiatedContentResult<UserRepresentor>;
 
             Assert.IsNotNull(result);
-            PerformCommonAsserts(testUsers.First(), result.Content);
+            PerformCommonAsserts(userRepresentor, result.Content);
         }
 
         #endregion
-
+        //Todo: convert below tests to use MS fakes
         #region Put User
 
         [TestMethod]
@@ -227,5 +282,36 @@ namespace PieceOfCake.Services.Test.Controllers
         }
 
         #endregion
+
+
+
+
+
+
+
+
+
+        //[TestMethod]
+        //public void GetRole_fakes_ShouldReturn_SingleRole()
+        //{
+        //    var roleRepresentor = new RoleFactory().Build();
+        //    var testRole = AutoMapper.Mapper.Map(roleRepresentor, new Role());
+
+        //    var stubedUnitOfWork = new Data.Interfaces.Fakes.StubIUnitOfWork
+        //    {
+        //        RoleRepositoryGet = () => new Data.Interfaces.Fakes.StubIRepository<Role>
+        //        {
+        //            FindInt32 = id => testRole
+        //        }
+        //    };
+
+        //    var controller = new RolesController(stubedUnitOfWork);
+        //    var result = controller.GetRole(roleRepresentor.Id) as OkNegotiatedContentResult<RoleRepresentor>; ;
+
+        //    Assert.IsNotNull(result);
+        //    PerformCommonAsserts(roleRepresentor, result.Content);
+        //}
+
+        //#endregion
     }
 }

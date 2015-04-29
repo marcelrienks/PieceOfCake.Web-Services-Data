@@ -14,10 +14,8 @@ namespace PieceOfCake.Services.Test.Controllers
     /// <summary>
     /// This is the Unit test class for the Roles Controller.
     /// 
-    /// It implements all tests using a Fake Unit of Work, Fake Repository, and Fake DB Context
+    /// It implements all tests using a Dummy Unit of Work, Dummy Repository, and Dummy DB Context
     /// and Dependancy injection to prevent any connections to the DB
-    /// 
-    /// And also implements all tests using the Microsoft Fakes Framework to prevent any connections to teh DB
     /// </summary>
     [TestClass]
     public class RolesControllerTest
@@ -34,12 +32,10 @@ namespace PieceOfCake.Services.Test.Controllers
             AutoMapperConfig.ConfigureMappings();
         }
 
-        #region Fake Repository using Dependancy Injection
-
         #region Get Roles
 
         [TestMethod]
-        public void GetRoles_Frepo_ShouldReturn_EmptyList()
+        public void GetRoles_ShouldReturn_EmptyList()
         {
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
             ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = null;
@@ -52,7 +48,7 @@ namespace PieceOfCake.Services.Test.Controllers
         }
 
         [TestMethod]
-        public void GetRoles_Frepo_ShouldReturn_SingleElementRoleList()
+        public void GetRoles_ShouldReturn_SingleElementRoleList()
         {
             var testRoles = new RoleFactory().BuildList();
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
@@ -67,7 +63,7 @@ namespace PieceOfCake.Services.Test.Controllers
         }
 
         [TestMethod]
-        public void GetRoles_Frepo_ShouldReturn_ExtendedRoleList()
+        public void GetRoles_ShouldReturn_ExtendedRoleList()
         {
             var testRoles = new RoleFactory().WithExtendedList().BuildList();
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
@@ -86,7 +82,7 @@ namespace PieceOfCake.Services.Test.Controllers
         }
 
         [TestMethod]
-        public void GetRole_Frepo_ShouldReturn_NotFoundResult()
+        public void GetRole_ShouldReturn_NotFoundResult()
         {
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
             ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = AutoMapper.Mapper.Map(new RoleFactory().BuildList(), new List<Role>());
@@ -99,7 +95,7 @@ namespace PieceOfCake.Services.Test.Controllers
         }
 
         [TestMethod]
-        public void GetRole_Frepo_ShouldReturn_SingleRole()
+        public void GetRole_ShouldReturn_SingleRole()
         {
             var testRoles = new RoleFactory().BuildList();
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
@@ -117,7 +113,7 @@ namespace PieceOfCake.Services.Test.Controllers
         #region Put Role
 
         [TestMethod]
-        public void PutRole_Frepo_ShouldReturn_BadRequestResult()
+        public void PutRole_ShouldReturn_BadRequestResult()
         {
             var testRole = new RoleFactory().Build();
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
@@ -132,7 +128,7 @@ namespace PieceOfCake.Services.Test.Controllers
         }
 
         [TestMethod]
-        public void PutRole_Frepo_ShouldReturn_InvalidModel()
+        public void PutRole_ShouldReturn_InvalidModel()
         {
             const string key = "key";
             const string errorMessage = "model is invalid";
@@ -149,7 +145,7 @@ namespace PieceOfCake.Services.Test.Controllers
         }
 
         [TestMethod]
-        public void PutRole_Frepo_ShouldReturn_NoContent()
+        public void PutRole_ShouldReturn_NoContent()
         {
             var testRole = new RoleFactory().Build();
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
@@ -167,7 +163,7 @@ namespace PieceOfCake.Services.Test.Controllers
         #region Post Role
 
         [TestMethod]
-        public void PostRole_Frepo_ShouldReturn_InvalidModel()
+        public void PostRole_ShouldReturn_InvalidModel()
         {
             const string key = "key";
             const string errorMessage = "model is invalid";
@@ -184,7 +180,7 @@ namespace PieceOfCake.Services.Test.Controllers
         }
 
         [TestMethod]
-        public void PostRole_Frepo_ShouldReturn_CreatedAtRouteNegotiatedContentResult()
+        public void PostRole_ShouldReturn_CreatedAtRouteNegotiatedContentResult()
         {
             var testRole = new RoleFactory().Build();
 
@@ -203,7 +199,7 @@ namespace PieceOfCake.Services.Test.Controllers
         #region Delete Role
 
         [TestMethod]
-        public void DeleteRole_Frepo_ShouldReturn_NotFoundResult()
+        public void DeleteRole_ShouldReturn_NotFoundResult()
         {
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
             ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = null;
@@ -216,7 +212,7 @@ namespace PieceOfCake.Services.Test.Controllers
         }
 
         [TestMethod]
-        public void DeleteRole_Frepo_ShouldReturn_OkNegotiatedContentResult()
+        public void DeleteRole_ShouldReturn_OkNegotiatedContentResult()
         {
             var testRoles = new RoleFactory().BuildList();
 
@@ -231,175 +227,6 @@ namespace PieceOfCake.Services.Test.Controllers
             Assert.IsTrue(((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).IsDeleted);
             Assert.IsTrue(((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).IsSaved);
         }
-
-        #endregion
-
-        #endregion
-
-        #region MS Fakes
-
-        #region Get Roles
-
-        [TestMethod]
-        public void GetRoles_fakes_ShouldReturn_EmptyList()
-        {
-            var stubedUnitOfWork = new Data.Interfaces.Fakes.StubIUnitOfWork
-            {
-                RoleRepositoryGet = () => new Data.Interfaces.Fakes.StubIRepository<Role>
-                {
-                    All = () => null
-                }
-            };
-
-            var controller = new RolesController(stubedUnitOfWork);
-            var result = controller.GetRoles();
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual(0, result.Count());
-        }
-
-        [TestMethod]
-        public void GetRoles_fakes_ShouldReturn_SingleElementRoleList()
-        {
-            var roleRepresentors = new RoleFactory().BuildList();
-            var testRoles = AutoMapper.Mapper.Map(roleRepresentors, new List<Role>());
-
-            var stubedUnitOfWork = new Data.Interfaces.Fakes.StubIUnitOfWork
-            {
-                RoleRepositoryGet = () => new Data.Interfaces.Fakes.StubIRepository<Role>
-                {
-                    All = () => testRoles.AsQueryable()
-                }
-            };
-
-            var controller = new RolesController(stubedUnitOfWork);
-            var result = controller.GetRoles().ToList();
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual(1, result.Count);
-            PerformCommonAsserts(roleRepresentors.First(), result.First());
-        }
-
-        [TestMethod]
-        public void GetRoles_fakes_ShouldReturn_ExtendedRoleList()
-        {
-            var roleRepresentors = new RoleFactory().WithExtendedList().BuildList();
-            var testRoles = AutoMapper.Mapper.Map(roleRepresentors, new List<Role>());
-
-            var stubedUnitOfWork = new Data.Interfaces.Fakes.StubIUnitOfWork
-            {
-                RoleRepositoryGet = () => new Data.Interfaces.Fakes.StubIRepository<Role>
-                {
-                    All = () => testRoles.AsQueryable()
-                }
-            };
-
-            var controller = new RolesController(stubedUnitOfWork);
-            var result = controller.GetRoles().ToList();
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual(2, result.Count);
-            foreach (var roleRepresentor in roleRepresentors)
-            {
-                var role = result.First(roleType => roleType.Id == roleRepresentor.Id);
-                PerformCommonAsserts(roleRepresentor, role);
-            }
-        }
-
-        [TestMethod]
-        public void GetRole_fakes_ShouldReturn_NotFoundResult()
-        {
-            var stubedUnitOfWork = new Data.Interfaces.Fakes.StubIUnitOfWork
-            {
-                RoleRepositoryGet = () => new Data.Interfaces.Fakes.StubIRepository<Role>
-                {
-                    FindInt32 = id => null
-                }
-            };
-
-            var controller = new RolesController(stubedUnitOfWork);
-            var result = controller.GetRole(9);
-
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
-        }
-
-        [TestMethod]
-        public void GetRole_fakes_ShouldReturn_SingleRole()
-        {
-            var roleRepresentor = new RoleFactory().Build();
-            var testRole = AutoMapper.Mapper.Map(roleRepresentor, new Role());
-
-            var stubedUnitOfWork = new Data.Interfaces.Fakes.StubIUnitOfWork
-            {
-                RoleRepositoryGet = () => new Data.Interfaces.Fakes.StubIRepository<Role>
-                {
-                    FindInt32 = id => testRole
-                }
-            };
-
-            var controller = new RolesController(stubedUnitOfWork);
-            var result = controller.GetRole(roleRepresentor.Id) as OkNegotiatedContentResult<RoleRepresentor>; ;
-
-            Assert.IsNotNull(result);
-            PerformCommonAsserts(roleRepresentor, result.Content);
-        }
-
-        #endregion
-        //Todo: Complete MS Fake unit tests for Roles controller
-        #region Put Role
-
-        [TestMethod]
-        public void PutRole_fakes_ShouldReturn_BadRequestResult()
-        {
-
-        }
-
-        [TestMethod]
-        public void PutRole_fakes_ShouldReturn_InvalidModel()
-        {
-
-        }
-
-        [TestMethod]
-        public void PutRole_fakes_ShouldReturn_NoContent()
-        {
-
-        }
-
-        #endregion
-
-        #region Post Role
-
-        [TestMethod]
-        public void PostRole_fakes_ShouldReturn_InvalidModel()
-        {
-
-        }
-
-        [TestMethod]
-        public void PostRole_fakes_ShouldReturn_CreatedAtRouteNegotiatedContentResult()
-        {
-
-        }
-
-        #endregion
-
-        #region Delete Role
-
-        [TestMethod]
-        public void DeleteRole_fakes_ShouldReturn_NotFoundResult()
-        {
-
-        }
-
-        [TestMethod]
-        public void DeleteRole_fakes_ShouldReturn_OkNegotiatedContentResult()
-        {
-
-        }
-
-        #endregion
 
         #endregion
 
