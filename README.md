@@ -40,7 +40,7 @@ Used to map two objects together (Convert from one to another)
 * Need to handle exceptions in the Web.Service layer
 * Investigate using auto code generation to create api's and api tests based on this controller as template
 * determine weather or not updating a model and it's relations should be done, or rather have multiple API calls be made, or use hypermedia
-* Switch PieceOfCake.Web to use PieceOfCake.Services instead of going to PieceOfCake.Data directly
+* Switch Web to use Services instead of going to Data directly
 * Add validation to prevent role from being deleted if it's assigned to a User
 * verify of username, password on create of User without causing a post back
 * add functionality to User edit for Password and Avatar (including validation)

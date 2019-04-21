@@ -1,1 +1,0 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="PieceOfCake.Services.WebApiApplication" Language="C#" %>
