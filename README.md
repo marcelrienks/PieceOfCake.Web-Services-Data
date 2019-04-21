@@ -1,6 +1,5 @@
 # PieceOfCake [![Build status](https://ci.appveyor.com/api/projects/status/cmaiaeysv5182qiw?svg=true)](https://ci.appveyor.com/project/celemar/pieceofcake)
-**NOTE: Still in Development!**  
-**P**iece **O**f **C**ake is a **POC** / Template for a three layered project (Data, Service and Web)
+This is a (P)iece(O)f(C)ake or a POC to test a three layered architecture Web, Service, and Data.
 
 **Data**  
 Use Entity Frameworks Code First generation, and the Repository / Unit of work Pattern to create a Generic point of entry for all Models.
