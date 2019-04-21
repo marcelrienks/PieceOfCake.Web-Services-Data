@@ -1,4 +1,4 @@
-# PieceOfCake [![Build status](https://ci.appveyor.com/api/projects/status/cmaiaeysv5182qiw?svg=true)](https://ci.appveyor.com/project/celemar/pieceofcake)
+# PieceOfCake.Web-Services-Data [![Build status](https://ci.appveyor.com/api/projects/status/wdfe4scq5rv4m21s?svg=true)](https://ci.appveyor.com/project/marcelrienks/pieceofcake-web-services-data)
 This is a (P)iece(O)f(C)ake or a POC to test a three layered architecture Web, Service, and Data.
 
 **Data**  
