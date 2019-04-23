@@ -33,7 +33,7 @@ namespace Web.Controllers
         public async Task<ActionResult> Index()
         {
             var serviceRoles = await _service.AllAsync(new Role());
-            var roles = Mapper.Map(serviceRoles, new List<RoleRepresenter>());
+            var roles = AutoMapper.Mapper.Map(serviceRoles, new List<RoleRepresenter>());
             return View(roles);
         }
 
@@ -45,7 +45,7 @@ namespace Web.Controllers
             {
                 return HttpNotFound();
             }
-            var role = Mapper.Map(serviceRoles, new RoleRepresenter());
+            var role = AutoMapper.Mapper.Map(serviceRoles, new RoleRepresenter());
             return View(role);
         }
 
@@ -62,7 +62,7 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var serviceRole = Mapper.Map(role, new Role());
+                var serviceRole = AutoMapper.Mapper.Map(role, new Role());
                 _service.CreateAsync(serviceRole);
                 return RedirectToAction("Index");
             }
@@ -78,7 +78,7 @@ namespace Web.Controllers
             {
                 return HttpNotFound();
             }
-            var roleViewModel = Mapper.Map(role, new RoleRepresenter());
+            var roleViewModel = AutoMapper.Mapper.Map(role, new RoleRepresenter());
             return View(roleViewModel);
         }
 
@@ -89,7 +89,7 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var serviceRole = Mapper.Map(role, new Role());
+                var serviceRole = AutoMapper.Mapper.Map(role, new Role());
                 _service.UpdateAsync(serviceRole);
                 return RedirectToAction("Index");
             }
@@ -104,7 +104,7 @@ namespace Web.Controllers
             {
                 return HttpNotFound();
             }
-            var role = Mapper.Map(serviceRole, new RoleRepresenter());
+            var role = AutoMapper.Mapper.Map(serviceRole, new RoleRepresenter());
             return View(role);
         }
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Data.Models;
 using Services.Controllers;
-using Services.Representors;
+using Services.Representers;
 using Services.Test.DataAccess;
 using Services.Test.Factories;
 using System.Collections.Generic;
@@ -31,7 +31,6 @@ namespace Services.Test.Controllers
         public UsersControllerTest()
         {
             _fakeUnitOfWork = new FakeUnitOfWork();
-            AutoMapperConfig.ConfigureMappings();
         }
 
         // Note: this block no longer works, as i currently have VS2015 Prof, which does not support Fakes
@@ -170,7 +169,7 @@ namespace Services.Test.Controllers
         {
             var userRepresentors = new UserFactory().BuildList();
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = AutoMapper.Mapper.Map(userRepresentors, new List<User>());
+            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = global::AutoMapper.Mapper.Map(userRepresentors, new List<User>());
 
             var controller = new UsersController(_fakeUnitOfWork);
             var result = controller.GetUsers().ToList();
@@ -185,7 +184,7 @@ namespace Services.Test.Controllers
         {
             var userRepresentors = new UserFactory(0).WithExtendedList(1).BuildList();
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = AutoMapper.Mapper.Map(userRepresentors, new List<User>());
+            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = global::AutoMapper.Mapper.Map(userRepresentors, new List<User>());
 
             var controller = new UsersController(_fakeUnitOfWork);
             var result = controller.GetUsers().ToList();
@@ -203,7 +202,7 @@ namespace Services.Test.Controllers
         public async Task GetUser_ShouldReturn_NotFoundResult()
         {
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = AutoMapper.Mapper.Map(new UserFactory().BuildList(), new List<User>());
+            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = global::AutoMapper.Mapper.Map(new UserFactory().BuildList(), new List<User>());
 
             var controller = new UsersController(_fakeUnitOfWork);
             var result = await controller.GetUser(9);
@@ -217,10 +216,10 @@ namespace Services.Test.Controllers
         {
             var userRepresentors = new UserFactory().BuildList();
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = AutoMapper.Mapper.Map(userRepresentors, new List<User>());
+            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = global::AutoMapper.Mapper.Map(userRepresentors, new List<User>());
 
             var controller = new UsersController(_fakeUnitOfWork);
-            var result = await controller.GetUser(0) as OkNegotiatedContentResult<UserRepresentor>;
+            var result = await controller.GetUser(0) as OkNegotiatedContentResult<UserRepresenter>;
 
             Assert.IsNotNull(result);
             PerformCommonAsserts(userRepresentors.First(), result.Content);
@@ -235,7 +234,7 @@ namespace Services.Test.Controllers
         {
             var testUser = new UserFactory().Build();
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).Model = AutoMapper.Mapper.Map(testUser, new User());
+            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).Model = global::AutoMapper.Mapper.Map(testUser, new User());
 
             var controller = new UsersController(_fakeUnitOfWork);
             var result = await controller.PutUser(9, testUser) as BadRequestErrorMessageResult;
@@ -267,7 +266,7 @@ namespace Services.Test.Controllers
         {
             var testUser = new UserFactory().Build();
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).Model = AutoMapper.Mapper.Map(testUser, new User());
+            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).Model = global::AutoMapper.Mapper.Map(testUser, new User());
 
             var controller = new UsersController(_fakeUnitOfWork);
             var result = await controller.PutUser(testUser.Id, testUser) as StatusCodeResult;
@@ -303,7 +302,7 @@ namespace Services.Test.Controllers
             var testUser = new UserFactory().Build();
 
             var controller = new UsersController(_fakeUnitOfWork);
-            var result = await controller.PostUser(testUser) as CreatedAtRouteNegotiatedContentResult<UserRepresentor>;
+            var result = await controller.PostUser(testUser) as CreatedAtRouteNegotiatedContentResult<UserRepresenter>;
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.RouteValues.ContainsKey("Id"));
@@ -334,13 +333,13 @@ namespace Services.Test.Controllers
         {
             var testUsers = new UserFactory().BuildList();
             //'FakeUnitOfWork.UserRepository' must be cast to 'FakeRepository<User>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = AutoMapper.Mapper.Map(testUsers, new List<User>());
+            ((FakeRepository<User>)_fakeUnitOfWork.UserRepository).ModelList = global::AutoMapper.Mapper.Map(testUsers, new List<User>());
 
             var controller = new UsersController(_fakeUnitOfWork);
             var result = await controller.DeleteUser(testUsers.First().Id);
 
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(OkNegotiatedContentResult<UserRepresentor>));
+            Assert.IsInstanceOfType(result, typeof(OkNegotiatedContentResult<UserRepresenter>));
             Assert.IsTrue(((FakeRepository<User>)_fakeUnitOfWork.UserRepository).IsDeleted);
             Assert.IsTrue(((FakeRepository<User>)_fakeUnitOfWork.UserRepository).IsSaved);
         }
@@ -349,7 +348,7 @@ namespace Services.Test.Controllers
 
         #region Common Asserts
 
-        private static void PerformCommonAsserts(UserRepresentor expected, UserRepresentor actual)
+        private static void PerformCommonAsserts(UserRepresenter expected, UserRepresenter actual)
         {
             Assert.AreEqual(expected.Email, actual.Email);
             Assert.AreEqual(expected.Id, actual.Id);

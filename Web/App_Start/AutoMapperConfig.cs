@@ -2,53 +2,21 @@
 using Web.Models;
 using Web.Representer;
 
-namespace Services
+namespace Web
 {
-    public class AutoMapperConfig
+    public static class AutoMapper
     {
-        /// <summary>
-        ///     Configures Mappings between Data Model and Representer
-        /// </summary>
-        public static void ConfigureMappings()
+        public static IMapper Mapper;
+
+        static AutoMapper()
         {
-            ConfigureRoleModelMappings();
-            ConfigureUserModelMappings();
-        }
-
-        /// <summary>
-        ///     Configures Role mappings between Data Model and Representer
-        /// </summary>
-        private static void ConfigureRoleModelMappings()
-        {
-            //RoleRepresenter => RoleDataModel
-            Mapper.CreateMap<RoleRepresenter, Role>()
-                //Maps RoleRepresenter.UserRepresenter => RoleDataModel.UserDataModel
-                .ForMember(roleDataModel => roleDataModel.Users,
-                    options => options.MapFrom(roleRepresenter => roleRepresenter.UserRepresenters));
-
-            //RoleDataModel => RoleRepresenter
-            Mapper.CreateMap<Role, RoleRepresenter>()
-                //Maps RoleDataModel.UserDataModel => RoleRepresenter.UserRepresenter
-                .ForMember(roleRepresenter => roleRepresenter.UserRepresenters,
-                    options => options.MapFrom(roleDataModel => roleDataModel.Users));
-        }
-
-        /// <summary>
-        ///     Configures User mappings between Data Model and Representer
-        /// </summary>
-        private static void ConfigureUserModelMappings()
-        {
-            //UserRepresenter => UserDataModel
-            Mapper.CreateMap<UserRepresenter, User>()
-                //Maps UserRepresenter.RoleRepresenter => UserDataModel.RoleDataModel
-                .ForMember(userDataModel => userDataModel.Roles,
-                    options => options.MapFrom(userRepresenter => userRepresenter.RoleRepresenters));
-
-            //UserDataModel => UserRepresenter
-            Mapper.CreateMap<User, UserRepresenter>()
-                //Maps UserDataModel.RoleDataModel => UserRepresenter.RoleRepresenter
-                .ForMember(userRepresenter => userRepresenter.RoleRepresenters,
-                    options => options.MapFrom(userDataModel => userDataModel.Roles));
+            Mapper = new Mapper(new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<RoleRepresenter, Role>().ForMember(roleDataModel => roleDataModel.Users, options => options.MapFrom(roleRepresenter => roleRepresenter.UserRepresenters));
+                cfg.CreateMap<Role, RoleRepresenter>().ForMember(roleRepresenter => roleRepresenter.UserRepresenters, options => options.MapFrom(roleDataModel => roleDataModel.Users));
+                cfg.CreateMap<UserRepresenter, User>().ForMember(userDataModel => userDataModel.Roles, options => options.MapFrom(userRepresenter => userRepresenter.RoleRepresenters));
+                cfg.CreateMap<User, UserRepresenter>().ForMember(userRepresenter => userRepresenter.RoleRepresenters, options => options.MapFrom(userDataModel => userDataModel.Roles));
+            }));
         }
     }
 }

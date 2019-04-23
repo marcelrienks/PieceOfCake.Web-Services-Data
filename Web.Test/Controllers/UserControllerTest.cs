@@ -105,7 +105,7 @@ namespace Web.Test.Controllers
             var customHttpPostedFileBase = HttpPostedFileBaseFactory.CreateCustomHttpPostedFileBase();
 
             var testUser = new UserFactory().Build();
-            var testUserRepresenter = Mapper.Map(testUser, new UserRepresenter());
+            var testUserRepresenter = AutoMapper.Mapper.Map(testUser, new UserRepresenter());
 
             var controller = new UserController(_fakeUnitOfWork);
             controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
@@ -129,7 +129,7 @@ namespace Web.Test.Controllers
             var customHttpPostedFileBase = HttpPostedFileBaseFactory.CreateCustomHttpPostedFileBase();
 
             var testUser = new UserFactory().Build();
-            var testUserViewModel = Mapper.Map(testUser, new UserRepresenter());
+            var testUserViewModel = AutoMapper.Mapper.Map(testUser, new UserRepresenter());
 
             //Convert role titles to comma delimited string
             var roleTitles =
@@ -187,7 +187,7 @@ namespace Web.Test.Controllers
         //public void TestFailedEditPost()
         //{
         //    var testUser = new UserFactory().Build();
-        //    var testUserViewModel = Mapper.Map(testUser, new actual());
+        //    var testUserViewModel = AutoMapper.Mapper.Map(testUser, new actual());
 
         //    var controller = new UserController(_fakeUnitOfWork);
         //    controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
@@ -202,7 +202,7 @@ namespace Web.Test.Controllers
         //public void TestSuccessfulEditPost()
         //{
         //    var testUser = new UserFactory().Build();
-        //    var testUserViewModel = Mapper.Map(testUser, new actual());
+        //    var testUserViewModel = AutoMapper.Mapper.Map(testUser, new actual());
 
         //    var controller = new UserController(_fakeUnitOfWork);
         //    var result = controller.Edit(testUserViewModel);

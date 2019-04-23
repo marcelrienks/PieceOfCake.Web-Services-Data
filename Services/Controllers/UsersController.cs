@@ -2,7 +2,7 @@
 using Data;
 using Data.Interfaces;
 using Data.Models;
-using Services.Representors;
+using Services.Representers;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Net;
@@ -45,15 +45,15 @@ namespace Services.Controllers
         #region Actions
 
         // GET: api/UserRepresentors
-        public IEnumerable<UserRepresentor> GetUsers()
+        public IEnumerable<UserRepresenter> GetUsers()
         {
             var dbUser = _unitOfWork.UserRepository.All();
-            var user = Mapper.Map(dbUser, new List<UserRepresentor>());
+            var user = AutoMapper.Mapper.Map(dbUser, new List<UserRepresenter>());
             return user;
         }
 
         // GET: api/UserRepresentors/5
-        [ResponseType(typeof(UserRepresentor))]
+        [ResponseType(typeof(UserRepresenter))]
         public async Task<IHttpActionResult> GetUser(int id)
         {
             var dbUser = await _unitOfWork.UserRepository.FindAsync(id);
@@ -62,13 +62,13 @@ namespace Services.Controllers
                 return NotFound();
             }
 
-            var user = Mapper.Map(dbUser, new UserRepresentor());
+            var user = AutoMapper.Mapper.Map(dbUser, new UserRepresenter());
             return Ok(user);
         }
 
         // PUT: api/UserRepresentors/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutUser(int id, UserRepresentor user)
+        public async Task<IHttpActionResult> PutUser(int id, UserRepresenter user)
         {
             if (id != user.Id)
             {
@@ -82,7 +82,7 @@ namespace Services.Controllers
 
             try
             {
-                var dbUser = Mapper.Map(user, new User());
+                var dbUser = AutoMapper.Mapper.Map(user, new User());
                 await _unitOfWork.UserRepository.UpdateAsync(dbUser);
             }
             catch (DbUpdateConcurrencyException)
@@ -99,23 +99,23 @@ namespace Services.Controllers
         }
 
         // POST: api/UserRepresentors
-        [ResponseType(typeof(UserRepresentor))]
-        public async Task<IHttpActionResult> PostUser(UserRepresentor user)
+        [ResponseType(typeof(UserRepresenter))]
+        public async Task<IHttpActionResult> PostUser(UserRepresenter user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var dbUser = Mapper.Map(user, new User());
+            var dbUser = AutoMapper.Mapper.Map(user, new User());
             await _unitOfWork.UserRepository.CreateAsync(dbUser);
-            Mapper.Map(dbUser, user);
+            AutoMapper.Mapper.Map(dbUser, user);
 
             return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
         }
 
         // DELETE: api/UserRepresentors/5
-        [ResponseType(typeof(UserRepresentor))]
+        [ResponseType(typeof(UserRepresenter))]
         public async Task<IHttpActionResult> DeleteUser(int id)
         {
             var dbUser = await _unitOfWork.UserRepository.FindAsync(id);
@@ -126,7 +126,7 @@ namespace Services.Controllers
 
             await _unitOfWork.UserRepository.DeleteAsync(dbUser);
 
-            var user = Mapper.Map(dbUser, new UserRepresentor());
+            var user = AutoMapper.Mapper.Map(dbUser, new UserRepresenter());
             return Ok(user);
         }
 

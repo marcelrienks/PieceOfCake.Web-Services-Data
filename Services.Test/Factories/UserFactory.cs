@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using Services.Representors;
+using Services.Representers;
 
 namespace Services.Test.Factories
 {
     public class UserFactory
     {
-        private UserRepresentor _user;
-        private List<UserRepresentor> _users;
+        private UserRepresenter _user;
+        private List<UserRepresenter> _users;
 
         /// <summary>
         ///     Create default UserViewModel and UserList objects
@@ -31,7 +31,7 @@ namespace Services.Test.Factories
         /// <param name="userId"></param>
         private void CreateDefaultUserAndUserList(int userId)
         {
-            _user = new UserRepresentor
+            _user = new UserRepresenter
             {
                 Id = userId,
                 Name = "Name",
@@ -40,7 +40,7 @@ namespace Services.Test.Factories
                 RoleRepresentors = new RoleFactory().BuildList()
             };
 
-            _users = new List<UserRepresentor>
+            _users = new List<UserRepresenter>
             {
                 _user
             };
@@ -50,7 +50,7 @@ namespace Services.Test.Factories
         ///     Return constructed Role
         /// </summary>
         /// <returns>Role</returns>
-        public UserRepresentor Build()
+        public UserRepresenter Build()
         {
             return _user;
         }
@@ -59,7 +59,7 @@ namespace Services.Test.Factories
         ///     Return constructed Role List
         /// </summary>
         /// <returns>List<UserRepresentor></returns>
-        public List<UserRepresentor> BuildList()
+        public List<UserRepresenter> BuildList()
         {
             return _users;
         }
@@ -70,7 +70,7 @@ namespace Services.Test.Factories
         /// <returns></returns>
         public UserFactory WithExtendedList(int userId)
         {
-            _users.Add(new UserRepresentor
+            _users.Add(new UserRepresenter
             {
                 Id = userId,
                 Name = "Name2",

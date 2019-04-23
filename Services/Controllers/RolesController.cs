@@ -2,7 +2,7 @@
 using Data;
 using Data.Interfaces;
 using Data.Models;
-using Services.Representors;
+using Services.Representers;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Net;
@@ -45,15 +45,15 @@ namespace Services.Controllers
         #region Actions
 
         // GET: api/RoleRepresentors
-        public IEnumerable<RoleRepresentor> GetRoles()
+        public IEnumerable<RoleRepresenter> GetRoles()
         {
             var dbRoles = _unitOfWork.RoleRepository.All();
-            var roles = Mapper.Map(dbRoles, new List<RoleRepresentor>());
+            var roles = AutoMapper.Mapper.Map(dbRoles, new List<RoleRepresenter>());
             return roles;
         }
 
         // GET: api/RoleRepresentors/5
-        [ResponseType(typeof(RoleRepresentor))]
+        [ResponseType(typeof(RoleRepresenter))]
         public IHttpActionResult GetRole(int id)
         {
             var dbRole = _unitOfWork.RoleRepository.Find(id);
@@ -62,13 +62,13 @@ namespace Services.Controllers
                 return NotFound();
             }
 
-            var role = Mapper.Map(dbRole, new RoleRepresentor());
+            var role = AutoMapper.Mapper.Map(dbRole, new RoleRepresenter());
             return Ok(role);
         }
 
         // PUT: api/RoleRepresentors/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutRole(int id, RoleRepresentor role)
+        public IHttpActionResult PutRole(int id, RoleRepresenter role)
         {
             if (id != role.Id)
             {
@@ -82,7 +82,7 @@ namespace Services.Controllers
 
             try
             {
-                var dbRole = Mapper.Map(role, new Role());
+                var dbRole = AutoMapper.Mapper.Map(role, new Role());
                 _unitOfWork.RoleRepository.Update(dbRole);
             }
             catch (DbUpdateConcurrencyException)
@@ -99,23 +99,23 @@ namespace Services.Controllers
         }
 
         // POST: api/RoleRepresentors
-        [ResponseType(typeof(RoleRepresentor))]
-        public IHttpActionResult PostRole(RoleRepresentor role)
+        [ResponseType(typeof(RoleRepresenter))]
+        public IHttpActionResult PostRole(RoleRepresenter role)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var dbRole = Mapper.Map(role, new Role());
+            var dbRole = AutoMapper.Mapper.Map(role, new Role());
             _unitOfWork.RoleRepository.Create(dbRole);
-            Mapper.Map(dbRole, role);
+            AutoMapper.Mapper.Map(dbRole, role);
 
             return CreatedAtRoute("DefaultApi", new { id = role.Id }, role);
         }
 
         // DELETE: api/RoleRepresentors/5
-        [ResponseType(typeof(RoleRepresentor))]
+        [ResponseType(typeof(RoleRepresenter))]
         public IHttpActionResult DeleteRole(int id)
         {
             var dbRole = _unitOfWork.RoleRepository.Find(id);
@@ -126,7 +126,7 @@ namespace Services.Controllers
 
             _unitOfWork.RoleRepository.Delete(dbRole);
 
-            var role = Mapper.Map(dbRole, new RoleRepresentor());
+            var role = AutoMapper.Mapper.Map(dbRole, new RoleRepresenter());
             return Ok(role);
         }
 

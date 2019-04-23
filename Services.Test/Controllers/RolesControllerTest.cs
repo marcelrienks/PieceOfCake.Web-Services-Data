@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Data.Models;
 using Services.Controllers;
-using Services.Representors;
+using Services.Representers;
 using Services.Test.DataAccess;
 using Services.Test.Factories;
 using System.Collections.Generic;
@@ -29,7 +29,6 @@ namespace Services.Test.Controllers
         public RolesControllerTest()
         {
             _fakeUnitOfWork = new FakeUnitOfWork();
-            AutoMapperConfig.ConfigureMappings();
         }
 
         #region Get Roles
@@ -52,7 +51,7 @@ namespace Services.Test.Controllers
         {
             var testRoles = new RoleFactory().BuildList();
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = AutoMapper.Mapper.Map(testRoles, new List<Role>());
+            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = global::AutoMapper.Mapper.Map(testRoles, new List<Role>());
 
             var controller = new RolesController(_fakeUnitOfWork);
             var result = controller.GetRoles().ToList();
@@ -67,7 +66,7 @@ namespace Services.Test.Controllers
         {
             var testRoles = new RoleFactory().WithExtendedList().BuildList();
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = AutoMapper.Mapper.Map(testRoles, new List<Role>());
+            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = global::AutoMapper.Mapper.Map(testRoles, new List<Role>());
 
             var controller = new RolesController(_fakeUnitOfWork);
             var result = controller.GetRoles().ToList();
@@ -85,7 +84,7 @@ namespace Services.Test.Controllers
         public void GetRole_ShouldReturn_NotFoundResult()
         {
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = AutoMapper.Mapper.Map(new RoleFactory().BuildList(), new List<Role>());
+            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = global::AutoMapper.Mapper.Map(new RoleFactory().BuildList(), new List<Role>());
 
             var controller = new RolesController(_fakeUnitOfWork);
             var result = controller.GetRole(9);
@@ -99,10 +98,10 @@ namespace Services.Test.Controllers
         {
             var testRoles = new RoleFactory().BuildList();
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = AutoMapper.Mapper.Map(testRoles, new List<Role>());
+            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = global::AutoMapper.Mapper.Map(testRoles, new List<Role>());
 
             var controller = new RolesController(_fakeUnitOfWork);
-            var result = controller.GetRole(testRoles.First().Id) as OkNegotiatedContentResult<RoleRepresentor>;
+            var result = controller.GetRole(testRoles.First().Id) as OkNegotiatedContentResult<RoleRepresenter>;
 
             Assert.IsNotNull(result);
             PerformCommonAsserts(testRoles.First(), result.Content);
@@ -117,7 +116,7 @@ namespace Services.Test.Controllers
         {
             var testRole = new RoleFactory().Build();
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).Model = AutoMapper.Mapper.Map(testRole, new Role());
+            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).Model = global::AutoMapper.Mapper.Map(testRole, new Role());
 
             var controller = new RolesController(_fakeUnitOfWork);
             var result = controller.PutRole(9, testRole) as BadRequestErrorMessageResult;
@@ -149,7 +148,7 @@ namespace Services.Test.Controllers
         {
             var testRole = new RoleFactory().Build();
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).Model = AutoMapper.Mapper.Map(testRole, new Role());
+            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).Model = global::AutoMapper.Mapper.Map(testRole, new Role());
 
             var controller = new RolesController(_fakeUnitOfWork);
             var result = controller.PutRole(testRole.Id, testRole) as StatusCodeResult;
@@ -185,7 +184,7 @@ namespace Services.Test.Controllers
             var testRole = new RoleFactory().Build();
 
             var controller = new RolesController(_fakeUnitOfWork);
-            var result = controller.PostRole(testRole) as CreatedAtRouteNegotiatedContentResult<RoleRepresentor>;
+            var result = controller.PostRole(testRole) as CreatedAtRouteNegotiatedContentResult<RoleRepresenter>;
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.RouteValues.ContainsKey("Id"));
@@ -217,13 +216,13 @@ namespace Services.Test.Controllers
             var testRoles = new RoleFactory().BuildList();
 
             //'FakeUnitOfWork.RoleRepository' must be cast to 'FakeRepository<Role>', as 'FakeRepository' exposes some properties that 'IRepository' does not
-            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = AutoMapper.Mapper.Map(testRoles, new List<Role>());
+            ((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).ModelList = global::AutoMapper.Mapper.Map(testRoles, new List<Role>());
 
             var controller = new RolesController(_fakeUnitOfWork);
             var result = controller.DeleteRole(testRoles.First().Id);
 
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(OkNegotiatedContentResult<RoleRepresentor>));
+            Assert.IsInstanceOfType(result, typeof(OkNegotiatedContentResult<RoleRepresenter>));
             Assert.IsTrue(((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).IsDeleted);
             Assert.IsTrue(((FakeRepository<Role>)_fakeUnitOfWork.RoleRepository).IsSaved);
         }
@@ -232,7 +231,7 @@ namespace Services.Test.Controllers
 
         #region Common Asserts
 
-        private static void PerformCommonAsserts(RoleRepresentor expected, RoleRepresentor actual)
+        private static void PerformCommonAsserts(RoleRepresenter expected, RoleRepresenter actual)
         {
             Assert.AreEqual(expected.Id, actual.Id);
             Assert.AreEqual(expected.Title, actual.Title);

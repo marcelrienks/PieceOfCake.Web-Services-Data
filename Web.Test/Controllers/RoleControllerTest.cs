@@ -114,7 +114,7 @@ namespace Web.Test.Controllers
         public void TestFailedCreatePost()
         {
             var testRole = new RoleFactory().Build();
-            var testRoleRepresenter = Mapper.Map(testRole, new RoleRepresenter());
+            var testRoleRepresenter = AutoMapper.Mapper.Map(testRole, new RoleRepresenter());
 
             var controller = new RoleController(_fakeUnitOfWork);
             controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
@@ -129,7 +129,7 @@ namespace Web.Test.Controllers
         public void TestSuccessfulCreatePost()
         {
             var testRole = new RoleFactory().Build();
-            var testRoleRepresenter = Mapper.Map(testRole, new RoleRepresenter());
+            var testRoleRepresenter = AutoMapper.Mapper.Map(testRole, new RoleRepresenter());
 
             var controller = new RoleController(_fakeUnitOfWork);
             var result = controller.Create(testRoleRepresenter);
@@ -175,7 +175,7 @@ namespace Web.Test.Controllers
         public void TestFailedEditPost()
         {
             var testRole = new RoleFactory().Build();
-            var testRoleViewModel = Mapper.Map(testRole, new RoleRepresenter());
+            var testRoleViewModel = AutoMapper.Mapper.Map(testRole, new RoleRepresenter());
 
             var controller = new RoleController(_fakeUnitOfWork);
             controller.ModelState.AddModelError("key", "model is invalid"); //Causes ModelState.IsValid to return false
@@ -190,7 +190,7 @@ namespace Web.Test.Controllers
         public void TestSuccessfulEditPost()
         {
             var testRole = new RoleFactory().Build();
-            var testRoleRepresenter = Mapper.Map(testRole, new RoleRepresenter());
+            var testRoleRepresenter = AutoMapper.Mapper.Map(testRole, new RoleRepresenter());
 
             var controller = new RoleController(_fakeUnitOfWork);
             var result = controller.Edit(testRoleRepresenter);

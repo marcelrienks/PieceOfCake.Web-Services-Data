@@ -37,7 +37,7 @@ namespace Web.Controllers
         //public ActionResult Index()
         //{
         //    var serviceUsers = _unitOfWork.UserRepository.All();
-        //    var users = Mapper.Map(serviceUsers, new List<UserRepresenter>());
+        //    var users = AutoMapper.Mapper.Map(serviceUsers, new List<UserRepresenter>());
         //    return View(users);
         //}
 
@@ -49,7 +49,7 @@ namespace Web.Controllers
         //    {
         //        return HttpNotFound();
         //    }
-        //    var user = Mapper.Map(serviceUser, new UserRepresenter());
+        //    var user = AutoMapper.Mapper.Map(serviceUser, new UserRepresenter());
         //    return View(user);
         //}
 
@@ -58,7 +58,7 @@ namespace Web.Controllers
         //{
         //    //add roles to viewbag to populate the roles dropdown select
         //    var serviceRoles = _unitOfWork.RoleRepository.All();
-        //    ViewBag.Roles = Mapper.Map(serviceRoles, new List<UserRepresenter>());
+        //    ViewBag.Roles = AutoMapper.Mapper.Map(serviceRoles, new List<UserRepresenter>());
         //    return View();
         //}
 
@@ -75,7 +75,7 @@ namespace Web.Controllers
         //    {
         //        var rolesTitles = formCollection["roleSelect"].Split(',');
         //        var selectRoles = _unitOfWork.RoleRepository.Where(role => rolesTitles.Contains(role.Title));
-        //        user.RoleRepresenters = Mapper.Map(selectRoles.ToList(), new List<RoleRepresenter>());
+        //        user.RoleRepresenters = AutoMapper.Mapper.Map(selectRoles.ToList(), new List<RoleRepresenter>());
         //    }
 
         //    #endregion
@@ -83,7 +83,7 @@ namespace Web.Controllers
         //    //create model
         //    if (ModelState.IsValid)
         //    {
-        //        var serviceUser = Mapper.Map(user, new User());
+        //        var serviceUser = AutoMapper.Mapper.Map(user, new User());
 
         //        try
         //        {
@@ -109,7 +109,7 @@ namespace Web.Controllers
 
         //    //add roles to viewbag to populate the roles dropdown select if model state is invalid
         //    var serviceRoles = _unitOfWork.RoleRepository.All();
-        //    ViewBag.Roles = Mapper.Map(serviceRoles, new List<RoleRepresenter>());
+        //    ViewBag.Roles = AutoMapper.Mapper.Map(serviceRoles, new List<RoleRepresenter>());
         //    return View(user);
         //}
 
@@ -124,11 +124,11 @@ namespace Web.Controllers
         //    }
 
         //    //map User to UserViewModel and return
-        //    var user = Mapper.Map(serviceUser, new UserRepresenter());
+        //    var user = AutoMapper.Mapper.Map(serviceUser, new UserRepresenter());
 
         //    //add roles to viewbag to populate the roles dropdown select
         //    var serviceRoles = _unitOfWork.RoleRepository.All();
-        //    ViewBag.Roles = Mapper.Map(serviceRoles, new List<RoleRepresenter>());
+        //    ViewBag.Roles = AutoMapper.Mapper.Map(serviceRoles, new List<RoleRepresenter>());
         //    return View(user);
         //}
 
@@ -145,7 +145,7 @@ namespace Web.Controllers
         //    {
         //        var rolesTitles = formCollection["roleSelect"].Split(',');
         //        var selectRoles = _unitOfWork.RoleRepository.Where(role => rolesTitles.Contains(role.Title));
-        //        user.RoleRepresenters = Mapper.Map(selectRoles.ToList(), new List<RoleRepresenter>());
+        //        user.RoleRepresenters = AutoMapper.Mapper.Map(selectRoles.ToList(), new List<RoleRepresenter>());
         //    }
 
         //    #endregion
@@ -156,7 +156,7 @@ namespace Web.Controllers
 
         //    if (ModelState.IsValid)
         //    {
-        //        var serviceUsers = Mapper.Map(user, new User());
+        //        var serviceUsers = AutoMapper.Mapper.Map(user, new User());
 
         //        try
         //        {
@@ -182,7 +182,7 @@ namespace Web.Controllers
 
         //    //add roles to viewbag to populate the roles dropdown select if model state is invalid
         //    var serviceRoles = _unitOfWork.RoleRepository.All();
-        //    ViewBag.Roles = Mapper.Map(serviceRoles, new List<RoleRepresenter>());
+        //    ViewBag.Roles = AutoMapper.Mapper.Map(serviceRoles, new List<RoleRepresenter>());
         //    return View(user);
         //}
 
@@ -194,7 +194,7 @@ namespace Web.Controllers
         //    {
         //        return HttpNotFound();
         //    }
-        //    var user = Mapper.Map(serviceUsers, new UserRepresenter());
+        //    var user = AutoMapper.Mapper.Map(serviceUsers, new UserRepresenter());
         //    return View(user);
         //}
 

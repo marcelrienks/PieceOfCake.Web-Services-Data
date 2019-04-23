@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Services;
 
 namespace Web
 {
@@ -13,7 +12,6 @@ namespace Web
             AreaRegistration.RegisterAllAreas();
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            AutoMapperConfig.ConfigureMappings();
         }
     }
 }
