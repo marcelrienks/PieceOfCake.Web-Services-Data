@@ -21,7 +21,7 @@ steps:
 
 - task: VSBuild@1
   inputs:
-    solution: '$(solution)'
+    solution: 'PieceOfCake.Web-Services-Data.sln'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
