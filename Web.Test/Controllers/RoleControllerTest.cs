@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Data.Models;
-using Services;
 using Web.Controllers;
 using Web.Test.DataAccess;
 using Web.Test.Factories.ModelFactories;
@@ -24,7 +22,6 @@ namespace Web.Test.Controllers
         public RoleControllerTest()
         {
             _fakeUnitOfWork = new FakeUnitOfWork();
-            AutoMapperConfig.ConfigureMappings();
         }
 
         #region Index tests

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Web.Interfaces;
+﻿using Web.Interfaces;
 using Web.Models;
 using Web.Representer;
 using Web.Services;
