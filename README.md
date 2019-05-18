@@ -1,4 +1,5 @@
-# PieceOfCake.Web-Services-Data [![Build status](https://ci.appveyor.com/api/projects/status/wdfe4scq5rv4m21s?svg=true)](https://ci.appveyor.com/project/marcelrienks/pieceofcake-web-services-data)
+# PieceOfCake.Web-Services-Data
+[![Build Status](https://dev.azure.com/marcelrienks/PieceOfCake.Web-Services-Data/_apis/build/status/marcelrienks.PieceOfCake.Web-Services-Data?branchName=master)](https://dev.azure.com/marcelrienks/PieceOfCake.Web-Services-Data/_build/latest?definitionId=7&branchName=master)  
 This is a (P)iece(O)f(C)ake or a POC to test a three layered architecture Web, Service, and Data.
 
 **Data**  
